@@ -2,7 +2,7 @@
 declare namespace R {
   export interface Response<T> {
     err?: string
-    data: any
+    data: T
   }
 
   export interface Post {
@@ -34,8 +34,8 @@ declare namespace R {
     Region: string
     Episodes: number
     IsEnd: number
-    PublishDate?: any
-    UpdatedDate?: any
+    PublishDate: Date
+    UpdatedDate: Date
   }
 
   export interface User {
