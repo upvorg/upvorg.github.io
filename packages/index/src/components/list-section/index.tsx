@@ -3,7 +3,7 @@ import './index.scss'
 
 interface ListSectionProps {
   title: string
-  videos: R.Post[]|null
+  videos: R.Post[] | null
   asideTitle?: string
   aside?: React.ReactNode
   moreUrl?: string
@@ -21,7 +21,7 @@ export default function ListSection({
       <div className="upv-card-list">
         <div className="list-header">
           <h2>{title}</h2>
-          {moreUrl &&videos&& videos.length > 0 && (
+          {moreUrl && videos && videos.length > 0 && (
             <a href={moreUrl} target="_blank">
               更多
               <svg

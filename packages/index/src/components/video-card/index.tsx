@@ -11,9 +11,9 @@ const ImageType = {
   svg: 'image/svg+xml'
 }
 
-export default function VideoCard({ info }: any) {
-  const { url, type } = getCoverFormMd(info.content)
-  const target = info.type === 'video' ? `/bangumi/play/${info.id}` : `/post/${info.id}`
+export default function VideoCard({ info }: { info: R.Post }) {
+  const { url, type } = getCoverFormMd(info.Content)
+  const target = info.Type === 'video' ? `/bangumi/play/${info.ID}` : `/post/${info.ID}`
 
   return (
     <div className="upv-video-card">
@@ -29,16 +29,16 @@ export default function VideoCard({ info }: any) {
                 <source
                   srcSet={url}
                   type={ImageType[type! as keyof typeof ImageType]}
-                  title={info.title}
+                  title={info.Title}
                 />
-                <img src="https://s2.loli.net/2022/04/15/m8MDhjliOSHtXnR.jpg" alt={info.title} />
+                <img src="https://s2.loli.net/2022/04/15/m8MDhjliOSHtXnR.jpg" alt={info.Title} />
               </picture>
             </div>
           </div>
         </a>
         <div className="upv-video-card__content">
-          <div className="upv-video-card__content__title">{info.title}</div>
-          <div className="upv-video-card__content__subtitle">{info.creator_nickname}</div>
+          <div className="upv-video-card__content__title">{info.Title}</div>
+          <div className="upv-video-card__content__subtitle">{info.Creator.Nickname}</div>
         </div>
       </div>
     </div>

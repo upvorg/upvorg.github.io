@@ -25,13 +25,13 @@ axios.interceptors.request.use((config) => {
 })
 
 const App = () => {
-  const [user, setUser] = useState<Record<string, any> | null>(null)
+  const [user, setUser] = useState<R.User | null>(null)
 
   useEffect(() => {
     axios.interceptors.response.use(
       (data) => data,
       (res) => {
-        res.msg && toast.error(res.msg)
+        res.err && toast.error(res.err)
         if (res.status === 401) {
           setUser(null)
           Cookie.del(COOKIE_ACCESS_TOKEN_KEY, '/', HOST)
@@ -49,7 +49,7 @@ const App = () => {
       setUser(JSON.parse(userInfo))
     } else {
       !!cookie &&
-        axios.get('/me').then((_) => {
+        axios.get('/user').then((_) => {
           if (_.data) {
             setUser(_.data)
             localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(_.data))

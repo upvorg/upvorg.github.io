@@ -5,17 +5,22 @@ import { axios } from '@web/shared'
 
 export default function IndexPage() {
   const st = ['推荐', '文章', '最新', '原创']
-  const tag = ['tag=推荐', 'type=post', 'sort=bgm', 'sort=原创']
-  const [state, setState] = useState<R.Post[][]|null[]>([null, null, null])
+  const tag = [
+    '/posts/recommends',
+    '/posts?type=post',
+    '/posts?type=video',
+    '/posts?type=video&genre=原创'
+  ]
+  const [state, setState] = useState<R.Post[][] | null[]>([null, null, null])
   const [rankList, setRankList] = useState<[] | null>(null)
 
   useEffect(() => {
     Promise.allSettled([
-      axios.get('/posts?status=3&tag=推荐&page=1&pageSize=8&type=video'),
-      axios.get('/posts?status=3&page=1&pageSize=6&type=post'),
-      axios.get('/posts?status=3&sort=bgm&page=1&pageSize=12&type=video'),
-      axios.get('/posts?status=3&sort=原创&page=1&pageSize=12&type=video'),
-      axios.get(`/rank`)
+      axios.get('/posts/recommends'),
+      axios.get('/posts?type=post&page=1&pageSize=6'),
+      axios.get('/posts?type=video&page=1&pageSize=12'),
+      axios.get('/posts?type=video&genre=原创&page=1&pageSize=12'),
+      axios.get(`/post/ranking`)
     ]).then((_resp) => {
       const resp = _resp.map(
         (item) => (item as PromiseFulfilledResult<R.Response<any>>)?.value?.data ?? []
@@ -45,7 +50,7 @@ export default function IndexPage() {
             key={index}
             title={st[index]}
             videos={item}
-            moreUrl={`/post/tag?${tag[index]}`}
+            moreUrl={`/post/tag?t=${st[index]}&q=${tag[index]}`}
           />
         )
       })}

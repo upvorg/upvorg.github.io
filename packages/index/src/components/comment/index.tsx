@@ -15,7 +15,7 @@ interface CommentProps {
 }
 
 const Comment = ({ id, onFocus, onBlur, onLoad }: CommentProps) => {
-  const [comments, setComments] = useState<any[] | null>(null)
+  const [comments, setComments] = useState<R.Comment[] | null>(null)
   const [comment, setComment] = useState<string>('')
   const user = useUserStore()
 
@@ -32,15 +32,17 @@ const Comment = ({ id, onFocus, onBlur, onLoad }: CommentProps) => {
       return
     }
 
-    axios.post(`/post/comment/${id}`, { data: { content: comment } }).then((_) => {
+    axios.post(`/post/${id}/comments`, { data: { content: comment } }).then((_) => {
       const newComment = {
-        id: Date.now(),
-        uid: user!.id,
-        create_time: getTimeDistance(Date()),
-        content: comment,
-        creator_avatar: user!.avatar,
-        creator_nickname: user!.nickname
-      }
+        ID: Date.now(),
+        Uid: user!.id,
+        CreatedAt: getTimeDistance(Date()) as unknown as Date,
+        Content: comment,
+        Creator: {
+          Avatar: user!.avatar,
+          Nickname: user!.nickname
+        } as any
+      } as R.Comment
       setComment('')
       setComments([newComment, ...comments!])
     })
@@ -85,20 +87,22 @@ const Comment = ({ id, onFocus, onBlur, onLoad }: CommentProps) => {
         {comments ? (
           comments.length > 0 ? (
             <ul>
-              {comments.map((item: any) => (
+              {comments.map((item) => (
                 <li
-                  key={item.id}
-                  className={classNames('comment-item', { '--o': user?.id == item.uid })}
+                  key={item.ID}
+                  className={classNames('comment-item', { '--o': user?.id == item.Uid })}
                 >
                   <div className="comment-item__head">
-                    <img className="comment-item__avatar" src={item.creator_avatar} alt="" />
+                    <img className="comment-item__avatar" src={item.Creator?.Avatar} alt="" />
                     <div>
-                      <span className="comment-item__name">{item.creator_nickname}</span>
-                      <p className="comment-item__time">{item.create_time}</p>
+                      <span className="comment-item__name">{item.Creator?.Nickname}</span>
+                      <p className="comment-item__time">
+                        {getTimeDistance(item.Creator.CreatedAt)}
+                      </p>
                     </div>
                   </div>
                   <div className="comment-item__content">
-                    <p>{item.content}</p>
+                    <p>{item.Content}</p>
                   </div>
                 </li>
               ))}

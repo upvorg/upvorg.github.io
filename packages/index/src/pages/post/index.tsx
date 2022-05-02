@@ -11,8 +11,7 @@ import { Postkeleton } from '../..//skeleton/CommentSkeleton'
 import './index.scss'
 
 const PostPage: React.FC = ({ id }: any) => {
-  const [state, setState] = useState<any>({})
-  const [pv, setPv] = useState<number>(0)
+  const [state, setState] = useState<R.Post>({} as R.Post)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const [commentCount, setCommentCount] = useState<number>(0)
@@ -22,8 +21,8 @@ const PostPage: React.FC = ({ id }: any) => {
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
   useEffect(() => {
-    Promise.all([axios.get(`/post/${id}`), axios.get(`/pv/${id}`)]).then(([a, p]) => {
-      if (a.data?.type != 'post' && !__DEV__) {
+    axios.get<R.Response<R.Post>>(`/post/${id}`).then((a) => {
+      if (a.data?.Type != 'post' && !__DEV__) {
         toast.error('文章不见了', {
           duration: 90000,
           position: 'top-center'
@@ -31,14 +30,10 @@ const PostPage: React.FC = ({ id }: any) => {
         return
       }
       a.data && setState(a.data)
-      a.data.liked && setIsLiked(true)
-      p.data && setPv(p.data.pv)
-      const { title, creator_nickname } = a.data
-      document.title = `${title || '少女祈祷中···'} ${
-        creator_nickname ? ` - ${creator_nickname}` : ''
-      }`
-      cover.current = getCoverFormMd(a.data.content, { strict: true })
+      a.data.IsLiked == 2 && setIsLiked(true)
+      cover.current = getCoverFormMd(a.data.Content, { strict: true })
     })
+    axios.get(`/post/${id}/pv`)
   }, [])
 
   useEffect(() => {
@@ -62,7 +57,7 @@ const PostPage: React.FC = ({ id }: any) => {
 
   const shareHandler = () => {
     if (
-      copyTextToClipboard(`${state.title} - ${state.creator_nickname} \r\n${window.location.href}`)
+      copyTextToClipboard(`${state.Title} - ${state.Creator.Nickname} \r\n${window.location.href}`)
     ) {
       toast.success('copied!')
     } else {
@@ -73,11 +68,10 @@ const PostPage: React.FC = ({ id }: any) => {
   const likeHandler = useCallback(() => {
     const c = isLiked ? -1 : 1
     setIsLiked((isLiked) => !isLiked)
-    setState((state: any) => ({ ...state, liked_count: state.liked_count + c }))
-    axios
-      .post(isLiked ? `/post/unlike/${id}` : `/post/like/${id}`)
+    setState((state) => ({ ...state, LikesCount: state.LikesCount + c }))
+    ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
       .then((_) => {
-        if (_.code != 200) {
+        if (_.err) {
           setIsLiked((isLiked) => !isLiked)
           setState((state: any) => ({ ...state, liked_count: state.liked_count - c }))
         } else {
@@ -96,14 +90,13 @@ const PostPage: React.FC = ({ id }: any) => {
       })
   }, [state, isLiked])
 
-  const { title, creator_nickname } = state
+  const { Title, Creator, CreatedAt, Hits } = state
+  const { Nickname, Avatar } = Creator || {}
 
   return (
     <>
       <Helmet>
-        <title>{`${title || '少女祈祷中···'} ${
-          creator_nickname ? ` - ${creator_nickname}` : ''
-        }`}</title>
+        <title>{`${Title || '少女祈祷中···'} ${Nickname ? ` - ${Nickname}` : ''}`}</title>
       </Helmet>
       {hasCover && (
         <div
@@ -184,9 +177,7 @@ const PostPage: React.FC = ({ id }: any) => {
                 ></path>
               </svg>
             </div>
-            <div className="side-action__text">
-              {state.liked_count ? `获赞 ${state.liked_count}` : '点赞'}
-            </div>
+            <div className="side-action__text">{isLiked ? `获赞 ${state.LikesCount}` : '点赞'}</div>
           </div>
           <div className="post-side-action share" role="button" onClick={shareHandler}>
             <div className="side-action-icon">
@@ -210,18 +201,15 @@ const PostPage: React.FC = ({ id }: any) => {
             <div className="side-action__text">分享</div>
           </div>
         </div>
-        {state.id ? (
+        {state.ID ? (
           <>
-            <h2 className="video-info__title post-title">{state.title}</h2>
+            <h2 className="video-info__title post-title">{Title}</h2>
             <div className="video-info ">
               <div className="video-author">
-                <img
-                  src={state.creator_avatar || 'https://upv.life/ic_launcher_round.png'}
-                  alt={state.creator_nickname}
-                />
+                <img src={Avatar || 'https://upv.life/ic_launcher_round.png'} alt={Nickname} />
               </div>
               <div>
-                <h3 className="video-info__title">{state.creator_nickname || '少女祈祷中···'}</h3>
+                <h3 className="video-info__title">{Nickname || '少女祈祷中···'}</h3>
                 <div className="video-meta">
                   <svg
                     viewBox="0 0 1024 1024"
@@ -238,7 +226,7 @@ const PostPage: React.FC = ({ id }: any) => {
                       p-id="6828"
                     ></path>
                   </svg>
-                  <span>{state.create_time ? getTimeDistance(state.create_time) : '-'}</span>
+                  <span>{CreatedAt ? getTimeDistance(CreatedAt) : '-'}</span>
                   <svg
                     width="20"
                     height="20"
@@ -253,7 +241,7 @@ const PostPage: React.FC = ({ id }: any) => {
                       fill="var(--text3)"
                     ></path>
                   </svg>
-                  <span>{pv || '-'}</span>
+                  <span>{Hits || '-'}</span>
                   <svg
                     width="20"
                     height="20"
@@ -276,7 +264,7 @@ const PostPage: React.FC = ({ id }: any) => {
         ) : (
           <Postkeleton />
         )}
-        <Markdown type="render" value={removeImagesFormMd(state.content)} />
+        <Markdown type="render" value={removeImagesFormMd(state.Content)} />
         <Comment
           id={id}
           onFocus={() => setIsFocus(true)}

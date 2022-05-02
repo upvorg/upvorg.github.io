@@ -22,14 +22,14 @@ class Interceptor<S = any, F = any> {
   }
 }
 
-export default class Http<T = any> {
+export default class Http<R = any> {
   private baseUrl: string
   private headers: HeadersInit
   private config: Options['config']
 
   public interceptors: {
-    request: Interceptor<HeadersInit, T>
-    response: Interceptor<T, T>
+    request: Interceptor<HeadersInit, R>
+    response: Interceptor<R, R>
   }
 
   constructor(options: Options) {
@@ -38,30 +38,31 @@ export default class Http<T = any> {
     this.config = options.config ?? {}
 
     this.interceptors = {
-      request: new Interceptor<HeadersInit, T>(),
-      response: new Interceptor<T, T>()
+      request: new Interceptor<HeadersInit, R>(),
+      response: new Interceptor<R, R>()
     }
   }
 
-  static create<T = any>(
+  static create<R = any>(
     url?: string,
     options?: { header?: HeadersInit; config?: Options['config'] }
   ) {
-    return new Http<T>({
+    return new Http<R>({
       baseUrl: url,
       headers: options?.header,
       config: options?.config
     })
   }
 
-  get<T>(url: string, { headers, data }: ReqConfig = {}) {
+  get<T = any>(url: string, { headers, data }: ReqConfig = {}) {
     return this._send<T>(url, 'GET', headers, data)
   }
 
-  post<T>(url: string, { headers, data }: ReqConfig = {}) {
+  post<T = any>(url: string, { headers, data }: ReqConfig = {}) {
     return this._send<T>(url, 'POST', headers, data)
   }
 
+  //TODO: Return Promise<R<T>>
   private _send<T>(
     url: string,
     method: string,

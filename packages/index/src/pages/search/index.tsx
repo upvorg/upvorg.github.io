@@ -13,7 +13,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (k) {
-      axios.get(`/search/posts?key=${k}`).then((res) => {
+      axios.get(`/posts?keyword=${k}`).then((res) => {
         setPosts(res.data)
       })
     }

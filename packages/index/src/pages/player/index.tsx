@@ -8,8 +8,8 @@ import { Helmet } from 'react-helmet'
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
-  const [state, setState] = useState<any>({})
-  const [video, setVideo] = useState<any[]>([
+  const [state, setState] = useState<R.Post>({} as R.Post)
+  const [video, setVideo] = useState<R.Video[]>([
     // {
     //   content:
     //     'https://svp.cdn.qq.com/0b53muajsaaakmafje2sk5rjazodtfsqbgia.f0.mp4?dis_k=5321f1f6c51f0bfccd8feffa4fa72184&dis_t=1649593655'
@@ -23,17 +23,12 @@ export default function PlayerPage({ id }: any) {
     //   content: 'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_sd.mp4'
     // }
   ])
-  const [pv, setPv] = useState<number>(0)
   const urlSearchParams = new URLSearchParams(window.location.search)
   const queryParams = Object.fromEntries(urlSearchParams.entries())
   const [currentIndex, setCurrentIndex] = useState(() => +queryParams.v - 1 || 0)
-  const [commentCount, setCommentCount] = useState<number>(0)
 
   useEffect(() => {
-    Promise.all([
-      axios.get(`/post/${id}`),
-      axios.get(`/videos?pid=${id}&page=1&pageSize=222`)
-    ]).then(([a, b]) => {
+    Promise.all([axios.get(`/post/${id}`), axios.get(`/post/${id}/videos`)]).then(([a, b]) => {
       if (!a.data) {
         toast.error('视频不见了', {
           duration: 90000,
@@ -45,31 +40,31 @@ export default function PlayerPage({ id }: any) {
       b.data.sort((a: { oid: number }, b: { oid: number }) => a.oid - b.oid)
       b.data && setVideo(b.data)
     })
-    axios.get(`/pv/${id}`).then((_) => setPv(_.data.pv))
+    axios.get(`/post/${id}/pv`)
   }, [])
 
-  const { title, creator_nickname, tag, sort } = state
+  const { Title, Creator, Tags, Meta, Hits, CommentCount } = state
 
   return (
     <>
       <Helmet>
-        <title>{`${title || '少女祈祷中···'} ${
-          creator_nickname ? ` - ${creator_nickname}` : ''
+        <title>{`${Title || '少女祈祷中···'} ${
+          Creator?.Nickname ? ` - ${Creator.Nickname}` : ''
         }`}</title>
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <GriffithPlayer src={video[currentIndex]?.content} />
+          <GriffithPlayer src={video[currentIndex]?.VideoUrl} />
         </div>
         <div className="player-header__r">
           <div className="video-author">
             <img
-              src={state.creator_avatar || 'https://upv.life/ic_launcher_round.png'}
-              alt={state.creator_nickname}
+              src={state.Creator?.Avatar || 'https://upv.life/ic_launcher_round.png'}
+              alt={state.Creator?.Nickname}
             />
             <div className="video-author__info">
-              <div className="video-author__info__name">{state.creator_nickname}</div>
-              <div className="video-author__info__bio">{state.creator_bio}</div>
+              <div className="video-author__info__name">{state.Creator?.Nickname}</div>
+              <div className="video-author__info__bio">{state.Creator?.Bio}</div>
             </div>
           </div>
           <div className="eplist_module">
@@ -87,9 +82,9 @@ export default function PlayerPage({ id }: any) {
                       <li
                         className={'list-item ' + (i === currentIndex ? 'cursor' : '')}
                         onClick={() => setCurrentIndex(i)}
-                        title={item.title}
+                        title={item.Title}
                       >
-                        <span> {item.oid}</span>
+                        <span> {item.Episode}</span>
                       </li>
                     </a>
                   ))}
@@ -101,10 +96,10 @@ export default function PlayerPage({ id }: any) {
           </div>
         </div>
       </div>
-      {state.id ? (
+      {state.ID ? (
         <div className="video-info">
           <div>
-            <h3 className="video-info__title">{state.title || '少女祈祷中···'}</h3>
+            <h3 className="video-info__title">{state.Title || '少女祈祷中···'}</h3>
             <div className="video-meta">
               {/* <span>{state.creator_nickname || '-'}</span> */}
               <svg
@@ -121,7 +116,7 @@ export default function PlayerPage({ id }: any) {
                   fill="var(--text3)"
                 ></path>
               </svg>
-              <span>{pv || '-'}</span>
+              <span>{Hits || '-'}</span>
               <svg
                 width="20"
                 height="20"
@@ -136,7 +131,7 @@ export default function PlayerPage({ id }: any) {
                   fill="var(--text3)"
                 ></path>
               </svg>
-              <span>{commentCount || '-'}</span>
+              <span>{CommentCount || '-'}</span>
               <svg
                 viewBox="0 0 1024 1024"
                 version="1.1"
@@ -152,11 +147,13 @@ export default function PlayerPage({ id }: any) {
                   p-id="6828"
                 ></path>
               </svg>
-              <span>{state.create_time ? getTimeDistance(state.create_time) : '-'}</span>
+              <span>{state.CreatedAt ? getTimeDistance(state.CreatedAt) : '-'}</span>
             </div>
-            {tag &&
-              tag
-                .trim()
+            <a className="video-info__tag" href={`/post/tag?sort=${Meta?.Genre}`} target="_blank">
+              {Meta?.Genre}
+            </a>
+            {Tags &&
+              Tags.trim()
                 .split(' ')
                 .map((tag: any, i: number) => (
                   <a
@@ -169,16 +166,13 @@ export default function PlayerPage({ id }: any) {
                     {tag}
                   </a>
                 ))}
-            <a className="video-info__tag" href={`/post/tag?sort=${sort}`} target="_blank">
-              {sort}
-            </a>
           </div>
         </div>
       ) : (
         <VideoMetaSkeleton className="video-info__skeleton" height={'200px'} />
       )}
 
-      <Comment id={id} onLoad={(c) => setCommentCount(c.length)} />
+      <Comment id={id} />
     </>
   )
 }
