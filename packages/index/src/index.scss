@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+@import '../node_modules/@web/shared/theme.scss';
+
+// @import url('https://fonts.googleapis.com/css?family=Nanum Pen Script');
+
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/components/navbar.sass';
+@import '../node_modules/bulma/sass/elements/button.sass';
+@import '../node_modules/bulma/sass/elements/other.sass';
+@import '../node_modules/bulma/sass/layout/footer.sass';
+@import '../node_modules/bulma/sass/elements/container.sass';
+@import '../node_modules/bulma/sass/form/_all.sass';
+@import '../node_modules/bulma/sass/elements/image.sass';
+@import '../node_modules/bulma/sass/components/dropdown.sass';
+
+// @import '../node_modules/bulma/sass/elements/title.sass';
+// @import '../node_modules/bulma/sass/form/_all.sass';
+// @import '../node_modules/bulma/sass/layout/hero.sass';
+// @import '../node_modules/bulma/sass/layout/section.sass';
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+main {
+  min-height: 90vh;
+}
+
+.font-family-logo {
+  font-family: 'Nanum Pen Script';
+}
+
+.empty {
+  color: var(--caption-color);
+}
+
+.footer {
+  padding: 2rem 1.5rem 4rem;
+}
+
+.bd-footer-support {
+  background-color: #fafafa;
+  text-align: center;
+
+  .bd-footer-title {
+    color: #7a7a7a;
+    font-size: 1.25rem;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    transition-duration: 86ms;
+    transition-property: color;
+    font-size: 1.5rem;
+    strong {
+      color: currentColor;
+      font-weight: 600;
+    }
+    span {
+      vertical-align: middle;
+      color: #7a7a7a;
+      font-size: 1.7rem;
+      font-weight: 400;
+    }
+  }
+}

@@ -1,0 +1,120 @@
+@keyframes headerSlideDown {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+.upv-header {
+  min-height: 64px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 2560px;
+  width: 100%;
+
+  &__bar {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 64px;
+
+    &:not(.fixed-header) {
+      nav.navbar {
+        background-color: transparent;
+
+        .navbar-menu:not(.is-active) .navbar-start {
+          a.navbar-item {
+            color: #fff;
+          }
+        }
+
+        .navbar-brand {
+          .navbar-item {
+            color: #fff;
+          }
+        }
+      }
+      .navbar-burger {
+        color: #fff;
+      }
+    }
+  }
+
+  .fixed-header {
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+    animation: headerSlideDown 0.3s linear forwards;
+    z-index: 99;
+
+    a.navbar-item {
+      color: #4a4a4a;
+    }
+  }
+
+  &__banner {
+    // https://ae01.alicdn.com/kf/U251ceb70165240ef865c7bed275579feN.jpg.
+    background: url(https://s2.loli.net/2022/01/22/bJMefymnBDdcgo7.jpg) no-repeat center;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 0 auto;
+    min-width: 1000px;
+    // min-height: 155px;
+    min-height: 222px;
+    height: 9.375vw;
+    max-height: 240px;
+    background-color: #e3e5e7;
+    background-position: center 0;
+    background-size: cover;
+
+    @media (max-width: 991px) {
+      & {
+        min-height: 96px;
+        min-width: 100%;
+      }
+    }
+
+    .taper-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+      pointer-events: none;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  main {
+    padding: 0 8px;
+    min-width: 100%;
+  }
+  .upv-header__bar {
+    height: auto;
+  }
+  .logo {
+    font-size: 1.2em;
+  }
+  .navbar {
+    padding: 0.4em;
+  }
+
+  .navbar-burger {
+    height: 2.6rem !important;
+    width: 2.6rem !important;
+  }
+  .navbar-brand,
+  .navbar,
+  .navbar-burger {
+    min-height: 2.6rem !important;
+  }
+}

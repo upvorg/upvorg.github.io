@@ -1,0 +1,66 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/node": "^17.0.30",
+    "typescript": "^4.6.4"
+  },
+  "scripts": {
+    "dev:admin": "pnpm --filter @web/admin run dev",
+    "build:admin": "pnpm --filter @web/admin run build",
+    "dev:index": "pnpm --filter @web/index run dev",
+    "build:index": "pnpm --filter @web/index run build",
+    "dev": "pnpm run dev:index & pnpm run dev:admin",
+    "build": "pnpm run build:index & pnpm run build:admin"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.5",
+    "browserslist": "^4.20.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "esbuild-loader": "^2.18.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "postcss": "^8.4.13",
+    "postcss-loader": "^6.2.1",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "stylus": "^0.56.0",
+    "stylus-loader": "^6.2.0",
+    "terser-webpack-plugin": "^5.3.1",
+    "webpack": "^5.72.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/upvorg/web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/upvorg/web/issues"
+  },
+  "homepage": "https://github.com/upvorg/web#readme",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

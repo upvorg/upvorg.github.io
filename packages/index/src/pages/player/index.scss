@@ -1,0 +1,233 @@
+.dplayer-menu.dplayer-menu-show {
+  display: none !important;
+}
+
+$pr: 340px;
+
+.player-header {
+  position: relative;
+  margin: 1.5em auto 0.5em;
+  max-width: 1660px;
+  min-width: 988px;
+  padding-right: $pr;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+
+  &__player {
+    width: 100%;
+  }
+
+  &__r {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+
+    .eplist_module {
+      height: 100%;
+      position: relative;
+      background-color: #f4f4f4;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+
+      .list-title {
+        height: 42px;
+        padding: 0 16px;
+
+        h4 {
+          height: 42px;
+          line-height: 42px;
+          font-size: 16px;
+          color: #212121;
+          font-weight: 400;
+          max-width: 220px;
+          overflow: hidden;
+          -o-text-overflow: ellipsis;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          float: left;
+        }
+        .ep-list-progress {
+          float: right;
+          display: block;
+          float: right;
+          height: 42px;
+          line-height: 42px;
+          font-size: 12px;
+          color: #999;
+        }
+      }
+      .list-wrapper {
+        height: 100%;
+        padding: 16px;
+
+        ul {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: 10px;
+        }
+
+        .list-item {
+          width: 64px;
+          height: 36px;
+          line-height: 36px;
+          background-color: #fff;
+          border: 1px solid #e5e9ef;
+          padding: 0;
+          text-align: center;
+          -webkit-transition: none;
+          -o-transition: none;
+          transition: none;
+          overflow: visible;
+          opacity: 1;
+          color: #222;
+
+          &.cursor {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            color: #fff;
+          }
+
+          &:not(.cursor) {
+            &:hover {
+              border-color: var(--primary-color);
+              color: var(--primary-color);
+            }
+          }
+
+          > span {
+            overflow: hidden;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 36px;
+            line-height: 36px;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.video-info {
+  padding-right: $pr;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.5em;
+
+  > div:nth-child(1) {
+    flex: 1;
+  }
+
+  &__title {
+    // margin-top: 20px;
+    margin-bottom: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text1);
+    line-height: 24px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .video-meta {
+    font-size: 13px;
+    color: #9499a0;
+    color: var(--text3);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 24px;
+    line-height: 18px;
+    > img {
+      border-radius: 50%;
+    }
+    > svg,
+    > img {
+      margin-right: 4px;
+      width: 20px;
+      height: 20px;
+    }
+    > span {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 12px;
+    }
+  }
+
+  &__tag {
+    margin-right: 4px;
+    font-size: 12px;
+    color: #fff;
+    background: var(--bg3);
+    color: var(--text2);
+    border-radius: 2px;
+    padding: 4px 6px;
+  }
+}
+
+.video-author {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+
+  > img {
+    margin-right: 0.5em;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f4f4f4;
+  }
+
+  &__info__name {
+    color: var(--text1);
+    font-weight: 500;
+    margin-right: 0.5em;
+  }
+  &__info__bio {
+    font-size: 14px;
+    color: var(--text3);
+  }
+}
+.video-info__skeleton {
+  margin-bottom: -120px;
+}
+
+.video-comment {
+  padding-right: $pr;
+}
+
+@media screen and (max-width: 991px) {
+  .player-header {
+    min-width: 100%;
+    flex-direction: column;
+    padding-right: 0px;
+    margin-top: 0;
+
+    &__player.empty {
+      height: 200px !important;
+      line-height: 200px !important;
+    }
+
+    .upv-player {
+      min-height: auto;
+    }
+
+    &__r {
+      margin-top: 10px;
+      position: relative;
+      width: 100%;
+    }
+  }
+  .video-comment,
+  .video-info {
+    padding-right: 0;
+  }
+}

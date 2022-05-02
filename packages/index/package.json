@@ -1,0 +1,43 @@
+{
+  "name": "@web/index",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.tsx",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
+    "build": "cross-env NODE_ENV=production webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/dplayer": "^1.25.2",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.16",
+    "@web/shared": "workspace:^1.0.0",
+    "bulma": "^0.9.3",
+    "classnames": "^2.3.1",
+    "copy-text-to-clipboard": "^3.0.1",
+    "griffith": "^1.26.0",
+    "griffith-message": "^1.25.0",
+    "lottie-react": "^2.2.1",
+    "react": "^18.1.0",
+    "react-content-loader": "^6.2.0",
+    "react-dom": "^18.1.0",
+    "react-helmet": "^6.1.0",
+    "react-hot-toast": "^2.2.0",
+    "react-markdown-editor-lite": "^1.3.2",
+    "rehype-attr": "^2.0.8",
+    "rehype-raw": "^6.1.1",
+    "rehype-sanitize": "^5.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "unified": "^10.1.2",
+    "web-vitals": "^2.1.4",
+    "wouter": "^2.8.0-alpha.2"
+  },
+  "devDependencies": {
+    "@types/react-helmet": "^6.1.5"
+  }
+}

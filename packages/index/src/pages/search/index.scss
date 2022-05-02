@@ -1,0 +1,45 @@
+.upv-header .fixed-header {
+  animation: none;
+}
+.search-header {
+  padding-top: 2em;
+
+  .search-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    margin: 0 auto;
+    position: relative;
+    width: 681px;
+  }
+
+  .search-logo {
+    background: url(../../../../../public/ic_launcher_round.png) center no-repeat;
+    width: 42px;
+    height: 42px;
+    background-size: cover;
+  }
+
+  .search-action {
+    margin-right: 0.6em;
+
+    #search-input {
+      width: 424px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .search-header {
+    padding-top: 0.5em;
+
+    .search-action {
+      flex: 1;
+    }
+    .search-wrap,
+    #search-input {
+      width: 100% !important;
+    }
+  }
+}

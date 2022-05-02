@@ -1,0 +1,142 @@
+.video-comment {
+  margin: 1em auto;
+
+  &__title > h4 {
+    display: block !important;
+    margin-right: 6px;
+    line-height: 34px;
+    color: var(--text1);
+    pointer-events: none;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 0.3em;
+  }
+
+  .video-comment-edit {
+    display: flex;
+    margin: 0em 0 1.5em;
+    align-items: flex-end;
+    padding-left: 50px;
+    position: relative;
+
+    &:hover {
+      .video-comment-edit__input:not(:disabled) {
+        height: 100px;
+      }
+    }
+
+    &__avatar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #f4f4f4;
+    }
+
+    &__input {
+      margin-right: 0.5em;
+      display: inline-block;
+      box-sizing: border-box;
+      background-color: var(--bg3);
+      border: 1px solid var(--bg3);
+      overflow: auto;
+      border-radius: 6px;
+      color: var(--text1);
+      width: 100%;
+      height: 42px;
+      transition: 0.2s;
+      padding: 10px 10px;
+      outline: none;
+      vertical-align: middle;
+      resize: none;
+      font-size: 1em;
+
+      &:hover {
+        box-shadow: 0 0 0 0.125em rgb(102 104 171 / 25%);
+      }
+
+      &:not(:empty) {
+        height: 100px;
+        border-color: var(--primary-color);
+      }
+
+      &:focus {
+        border-color: var(--primary-color);
+        height: 100px;
+        box-shadow: 0 0 0 0.125em rgb(102 104 171 / 25%);
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .empty {
+    text-align: center;
+  }
+
+  .comment-item {
+    padding: 1em 0 0.6em;
+    position: relative;
+
+    &.--o::after {
+      content: '#';
+      display: block;
+      position: absolute;
+      right: 0.2em;
+      top: 0;
+      font-size: 4em;
+      color: var(--primary-color);
+      opacity: 0.2;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      height: 1px;
+      background-color: #e5e9ef;
+    }
+  }
+
+  .comment-item__head {
+    display: flex;
+    align-items: center;
+
+    .comment-item {
+      &__avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #f4f4f4;
+        display: flex;
+        margin-right: 0.5em;
+      }
+
+      &__name {
+        color: var(--text2);
+        cursor: pointer;
+      }
+      &__time {
+        font-size: 0.8em;
+        color: var(--text3);
+      }
+    }
+  }
+  .comment-item__content {
+    font-size: 0.9em;
+    line-height: 1.8em;
+    text-shadow: none;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    margin: 4px auto 0px 46px;
+    color: var(--text1);
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="description" content="free animes no ads" />
+    <meta name="keywords" content="upv,animes,ugc" />
+
+    <meta name="theme-color" content="#6668ab" />
+    <link rel="shortcut icon" type="image/png" href="/ic_launcher_round.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta property="og:title" content="Upv Web" />
+    <meta property="og:url" content="https://upv.life/" />
+    <meta property="og:image:width" content="236" />
+    <meta property="og:image:height" content="236" />
+    <meta property="og:image" content="https://upv.life/ic_launcher_round.png" />
+    <meta property="og:site_name" content="Upv Web" />
+    <meta
+      property="description"
+      content="Welcome to the Web application of upv. See https://github.com/upvorg for more info."
+    />
+
+    <%= htmlWebpackPlugin.options.head %>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/setup-sw.js"></script>
+  </body>
+</html>
