@@ -62,6 +62,14 @@ export default class Http<R = any> {
     return this._send<T>(url, 'POST', headers, data)
   }
 
+  put<T = any>(url: string, { headers, data }: ReqConfig = {}) {
+    return this._send<T>(url, 'PUT', headers, data)
+  }
+
+  delete<T = any>(url: string, { headers, data }: ReqConfig = {}) {
+    return this._send<T>(url, 'DELETE', headers, data)
+  }
+
   //TODO: Return Promise<R<T>>
   private _send<T>(
     url: string,
