@@ -11,10 +11,9 @@ interface CommentProps {
   uid?: string
   onFocus?: FocusEventHandler<HTMLTextAreaElement>
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
-  onLoad?: (c: any[]) => void
 }
 
-const Comment = ({ id, onFocus, onBlur, onLoad }: CommentProps) => {
+const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
   const [comments, setComments] = useState<R.Comment[] | null>(null)
   const [comment, setComment] = useState<string>('')
   const user = useUserStore()
@@ -22,7 +21,6 @@ const Comment = ({ id, onFocus, onBlur, onLoad }: CommentProps) => {
   useEffect(() => {
     axios.get(`/post/${id}/comments`).then((c) => {
       setComments(c?.data || [])
-      onLoad?.(c?.data || [])
     })
   }, [])
 

@@ -14,7 +14,6 @@ const PostPage: React.FC = ({ id }: any) => {
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [isFocus, setIsFocus] = useState<boolean>(false)
-  const [commentCount, setCommentCount] = useState<number>(0)
 
   const cover = useRef<ReturnType<typeof getCoverFormMd>>()
   const hasCover = cover.current && !cover.current._df
@@ -90,7 +89,7 @@ const PostPage: React.FC = ({ id }: any) => {
       })
   }, [state, isLiked])
 
-  const { Title, Creator, CreatedAt, Hits } = state
+  const { Title, Creator, CreatedAt, Hits, CommentCount } = state
   const { Nickname, Avatar } = Creator || {}
 
   return (
@@ -256,7 +255,7 @@ const PostPage: React.FC = ({ id }: any) => {
                       fill="var(--text3)"
                     ></path>
                   </svg>
-                  <span>{commentCount || '-'}</span>
+                  <span>{CommentCount || '-'}</span>
                 </div>
               </div>
             </div>
@@ -265,12 +264,7 @@ const PostPage: React.FC = ({ id }: any) => {
           <Postkeleton />
         )}
         <Markdown type="render" value={removeImagesFormMd(state.Content)} />
-        <Comment
-          id={id}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onLoad={(c) => setCommentCount(c.length)}
-        />
+        <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
       </div>
     </>
   )
