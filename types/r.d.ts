@@ -80,8 +80,8 @@ declare namespace R {
     children: Comment[]
   }
 
-  export interface FeedBack {
-    Id: number
+  export interface Feedback {
+    ID: number
     Ip: string
     Name: string
     DisplayName: string

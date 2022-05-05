@@ -1,0 +1,13 @@
+.upv-tag {
+  margin-right: 4px;
+  font-size: 13px;
+  color: #fff;
+  background: var(--bg3);
+  color: var(--text2);
+  border-radius: 2px;
+  padding: 4px 6px;
+
+  + .upv-tag {
+    margin-right: 0.5em;
+  }
+}

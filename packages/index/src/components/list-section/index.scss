@@ -1,3 +1,5 @@
+$min-height: 300px;
+
 .upv-grid {
   margin: 28px auto;
   display: grid;
@@ -33,6 +35,7 @@
   &.col-2 {
     grid-template-columns: 4fr 2fr;
     grid-auto-rows: minmax(min-content, max-content);
+    grid-gap: 0px 20px;
 
     .upv-card-list {
       .list-body {
@@ -43,10 +46,11 @@
 
   aside {
     overflow: hidden;
+    min-height: $min-height;
   }
 
   .upv-card-list {
-    min-height: 350px;
+    min-height: $min-height;
     width: 100%;
     margin: 0 auto;
 
@@ -59,13 +63,22 @@
       height: 28px;
       margin-bottom: 12px;
 
-      > h2 {
-        margin-right: 10px;
-        font-size: 24px;
-        color: #18191c;
+      > div {
+        display: flex;
+        align-items: center;
+        img {
+          width: 30px;
+          height: 30px;
+          margin-right: 6px;
+        }
+        h2 {
+          margin-right: 10px;
+          font-size: 24px;
+          color: #18191c;
+        }
       }
 
-      > a {
+      &__more {
         display: flex;
         justify-content: center;
         align-items: center;

@@ -1,56 +1,65 @@
 import { useEffect, useState } from 'react'
-import ListSection from '../../components/list-section'
-import RankList from '../../components/rank-list'
+import { Helmet } from 'react-helmet'
 import { axios } from '@web/shared'
+import RankList from '../../components/rank-list'
+import ListSection from '../../components/list-section'
+
+const indexConfig = [
+  {
+    title: '推荐',
+    query: 'type=recommends&title=推荐',
+    icon: require('../../assets/recommend.svg')
+  },
+  {
+    title: '文章',
+    query: 'type=post&title=文章',
+    icon: require('../../assets/post.svg')
+  },
+  {
+    title: '最新',
+    query: 'type=video&title=最新'
+  },
+  {
+    title: '原创',
+    query: 'type=video&genre=原创&title=原创'
+  }
+]
 
 export default function IndexPage() {
-  const st = ['推荐', '文章', '最新', '原创']
-  const tag = [
-    '/posts/recommends',
-    '/posts?type=post',
-    '/posts?type=video',
-    '/posts?type=video&genre=原创'
-  ]
   const [state, setState] = useState<R.Post[][] | null[]>([null, null, null])
-  const [rankList, setRankList] = useState<[] | null>(null)
+  const [rankList, setRankList] = useState<R.Post[] | null>(null)
 
   useEffect(() => {
     Promise.allSettled([
-      axios.get('/posts/recommends'),
-      axios.get('/posts?type=post&page=1&pageSize=6'),
-      axios.get('/posts?type=video&page=1&pageSize=12'),
-      axios.get('/posts?type=video&genre=原创&page=1&pageSize=12'),
-      axios.get(`/post/ranking`)
+      axios.get('/posts/recommends?page_size=12'),
+      axios.get('/posts?type=post&page_size=6'),
+      axios.get('/posts?type=video&page_size=12'),
+      axios.get('/posts?type=video&genre=原创&page_size=12'),
+      axios.get(`/post/ranking?&page_size=10`)
     ]).then((_resp) => {
       const resp = _resp.map(
-        (item) => (item as PromiseFulfilledResult<R.Response<any>>)?.value?.data ?? []
+        (item) => (item as PromiseFulfilledResult<R.Response<R.Post[]>>)?.value?.data ?? []
       )
-      setRankList(resp.pop())
+      setRankList(resp.pop()!)
       setState(resp)
     })
   }, [])
 
   return (
     <>
+      <Helmet>
+        <title>UPV - free animes no ads</title>
+      </Helmet>
       {state.map((item, index) => {
-        if (index == 0) {
-          return (
-            <ListSection
-              moreUrl={`/post/tag?${tag[index]}`}
-              key={index}
-              title={st[index]}
-              videos={item}
-              aside={<RankList list={rankList} />}
-              asideTitle="排行榜"
-            />
-          )
-        }
         return (
           <ListSection
             key={index}
-            title={st[index]}
             videos={item}
-            moreUrl={`/post/tag?t=${st[index]}&q=${tag[index]}`}
+            icon={indexConfig[index].icon}
+            title={indexConfig[index].title}
+            moreUrl={`/post/tag?${indexConfig[index].query}`}
+            aside={index == 0 && <RankList list={rankList} />}
+            asideTitle={(index == 0 && '排行榜') as any}
           />
         )
       })}

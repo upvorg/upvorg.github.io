@@ -5,6 +5,7 @@ import Comment from '../../components/comment'
 import GriffithPlayer from '../../components/player'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Helmet } from 'react-helmet'
+import { Tag } from '../../components/tag/Tag'
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
@@ -48,9 +49,7 @@ export default function PlayerPage({ id }: any) {
   return (
     <>
       <Helmet>
-        <title>{`${Title || '少女祈祷中···'} ${
-          Creator?.Nickname ? ` - ${Creator.Nickname}` : ''
-        }`}</title>
+        <title>{`${Title || '-'} ${Creator?.Nickname ? ` - ${Creator.Nickname}` : ''}`}</title>
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
@@ -99,7 +98,7 @@ export default function PlayerPage({ id }: any) {
       {state.ID ? (
         <div className="video-info">
           <div>
-            <h3 className="video-info__title">{state.Title || '少女祈祷中···'}</h3>
+            <h3 className="video-info__title">{state.Title || '-'}</h3>
             <div className="video-meta">
               {/* <span>{state.creator_nickname || '-'}</span> */}
               <svg
@@ -149,22 +148,15 @@ export default function PlayerPage({ id }: any) {
               </svg>
               <span>{state.CreatedAt ? getTimeDistance(state.CreatedAt) : '-'}</span>
             </div>
-            <a className="video-info__tag" href={`/post/tag?sort=${Meta?.Genre}`} target="_blank">
-              {Meta?.Genre}
-            </a>
+            <Tag
+              title={Meta?.Genre}
+              href={`/post/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
+            />
             {Tags &&
               Tags.trim()
                 .split(' ')
                 .map((tag: any, i: number) => (
-                  <a
-                    className="video-info__tag"
-                    key={i}
-                    style={{ marginRight: '.5em' }}
-                    href={`/post/tag?tag=${tag}`}
-                    target="_blank"
-                  >
-                    {tag}
-                  </a>
+                  <Tag key={i} title={tag} href={`/post/tag?type=video&tag=${tag}&title=${tag}`} />
                 ))}
           </div>
         </div>

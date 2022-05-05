@@ -14,6 +14,12 @@
 @import '../node_modules/bulma/sass/form/_all.sass';
 @import '../node_modules/bulma/sass/elements/image.sass';
 @import '../node_modules/bulma/sass/components/dropdown.sass';
+@import '../node_modules/bulma/sass/components/card.sass';
+
+// fix safari
+.button.is-primary[disabled] {
+  border: none;
+}
 
 // @import '../node_modules/bulma/sass/elements/title.sass';
 // @import '../node_modules/bulma/sass/form/_all.sass';
@@ -41,7 +47,13 @@ main {
 }
 
 .footer {
-  padding: 2rem 1.5rem 4rem;
+  padding: 2rem 1.5rem 2rem;
+  text-align: center;
+
+  .links > a {
+    font-size: 0.8em;
+    color: #4a4a4a;
+  }
 }
 
 .bd-footer-support {
@@ -52,7 +64,7 @@ main {
     color: #7a7a7a;
     font-size: 1.25rem;
     line-height: 1.25;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
     transition-duration: 86ms;
     transition-property: color;
     font-size: 1.5rem;

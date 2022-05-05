@@ -1,4 +1,4 @@
-import { getCoverFormMd } from '@web/shared'
+import { getCoverFormMd, GetSimplifyDate } from '@web/shared'
 
 import './index.scss'
 
@@ -13,7 +13,7 @@ const ImageType = {
 
 export default function VideoCard({ info }: { info: R.Post }) {
   const { url, type } = getCoverFormMd(info.Content)
-  const target = info.Type === 'video' ? `/bangumi/play/${info.ID}` : `/post/${info.ID}`
+  const target = info.Type === 'video' ? `/v/${info.ID}` : `/post/${info.ID}`
 
   return (
     <div className="upv-video-card">
@@ -38,7 +38,11 @@ export default function VideoCard({ info }: { info: R.Post }) {
         </a>
         <div className="upv-video-card__content">
           <div className="upv-video-card__content__title">{info.Title}</div>
-          <div className="upv-video-card__content__subtitle">{info.Creator.Nickname}</div>
+          <div className="upv-video-card__content__subtitle">
+            <span>{info.Creator?.Nickname || '-'}</span>
+            {' · '}
+            <span>{GetSimplifyDate(info.CreatedAt)}</span>
+          </div>
         </div>
       </div>
     </div>

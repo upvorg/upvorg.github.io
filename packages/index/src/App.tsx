@@ -66,12 +66,10 @@ const App = () => {
             <IndexRoute path="/" component={lazy(() => import('./pages/index'))} />
             <DefaultRoute path="/post/tag" component={lazy(() => import('./pages/tag'))} />
             <DefaultRoute path="/post/:id" component={lazy(() => import('./pages/post'))} />
-            <DefaultRoute
-              path="/bangumi/play/:id"
-              component={lazy(() => import('./pages/player'))}
-            />
+            <DefaultRoute path="/v/:id" component={lazy(() => import('./pages/player'))} />
             <DefaultRoute path="/search" component={lazy(() => import('./pages/search'))} />
             <DefaultRoute path="/about" component={lazy(() => import('./pages/about'))} />
+            <DefaultRoute path="/feedback" component={lazy(() => import('./pages/feedback'))} />
             <DefaultRoute path="/:rest*" component={lazy(() => import('./pages/404'))} />
           </Switch>
         </UserContext.Provider>
@@ -82,13 +80,30 @@ const App = () => {
               <strong>Support</strong> <span className="font-family-logo">UPV</span>
             </h4>
           </div>
-          <div className="content" style={{ textAlign: 'center' }}>
-            <p>
-              <strong className="font-family-logo">UPV</strong>
+          <div className="content">
+            <p className="links">
+              <a className="link" href="/feedback" target="_blank">
+                留言
+              </a>{' '}
+              |{' '}
+              <a className="link" href="/feedback" target="_blank">
+                反馈
+              </a>{' '}
+              |{' '}
+              <a className="link" href="/about" target="_blank">
+                关于
+              </a>
+              {/* <strong className="font-family-logo">UPV</strong>
               {'  '}The <a href="https://github.com/upvorg">source code</a> is licensed{' '}
               <a href="https://opensource.org/licenses/GPL-3.0">GPL-3.0</a>. The website content is
               licensed{' '}
-              <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+              <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>. */}
+            </p>
+            <p>
+              Copyright © 2022{' '}
+              <a href="" className="font-family-logo">
+                UPV
+              </a>
             </p>
           </div>
         </footer>

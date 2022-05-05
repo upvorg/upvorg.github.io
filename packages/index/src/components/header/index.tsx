@@ -2,7 +2,6 @@ import { HOST } from '@web/shared'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import { useUserStore } from '../../store/user'
-
 import './index.scss'
 
 const admin = '//admin.' + HOST
@@ -57,19 +56,19 @@ export default function Header() {
 
       <div id="upv-nav" className="navbar-menu">
         <div className="navbar-start">
-          <Link className="navbar-item" href="/">
+          <a className="navbar-item" href="/" target="_blank">
             首页
-          </Link>
-          <Link className="navbar-item" href="/anime/index/">
+          </a>
+          <a className="navbar-item" href="/anime/index/" target="_blank">
             新番时间表
-          </Link>
-          <a className="navbar-item" href="//app.upv.life">
+          </a>
+          <a className="navbar-item" href="//app.upv.life" target="_blank">
             APP 下载
           </a>
-          <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=5lfSD1B">
+          <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=5lfSD1B" target="_blank">
             加入我们
           </a>
-          <a className="navbar-item" href="/about">
+          <a className="navbar-item" href="/about" target="_blank">
             关于我们
           </a>
         </div>
@@ -128,7 +127,7 @@ export default function Header() {
             <div className="navbar-item has-dropdown is-hoverable">
               <div className="navbar-link">
                 <figure className="image is-32x32 ">
-                  <img className="is-rounded" src={user.avatar} />
+                  <img className="is-rounded" src={user.Avatar} />
                 </figure>
               </div>
 

@@ -6,13 +6,15 @@ import copyTextToClipboard from 'copy-text-to-clipboard'
 import { axios, getCoverFormMd, getTimeDistance, removeImagesFormMd } from '@web/shared'
 import Comment from '../../components/comment'
 import Markdown from '../../components/markdown'
-import { Postkeleton } from '../..//skeleton/CommentSkeleton'
+import { Postkeleton } from '../../skeleton/CommentSkeleton'
+import { Tag } from '../../components/tag/Tag'
 
 import './index.scss'
 
 const PostPage: React.FC = ({ id }: any) => {
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isCollected, setIsCollected] = useState<boolean>(false)
   const [isFocus, setIsFocus] = useState<boolean>(false)
 
   const cover = useRef<ReturnType<typeof getCoverFormMd>>()
@@ -30,6 +32,7 @@ const PostPage: React.FC = ({ id }: any) => {
       }
       a.data && setState(a.data)
       a.data.IsLiked == 2 && setIsLiked(true)
+      a.data.IsCollected == 2 && setIsCollected(true)
       cover.current = getCoverFormMd(a.data.Content, { strict: true })
     })
     axios.get(`/post/${id}/pv`)
@@ -72,7 +75,7 @@ const PostPage: React.FC = ({ id }: any) => {
       .then((_) => {
         if (_.err) {
           setIsLiked((isLiked) => !isLiked)
-          setState((state: any) => ({ ...state, liked_count: state.liked_count - c }))
+          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
         } else {
           if (isLiked) {
             toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
@@ -84,18 +87,45 @@ const PostPage: React.FC = ({ id }: any) => {
       .catch(() => {
         setTimeout(() => {
           setIsLiked((isLiked) => !isLiked)
-          setState((state: any) => ({ ...state, liked_count: state.liked_count - 1 }))
+          setState((state) => ({ ...state, LikesCount: state.LikesCount - 1 }))
         }, 300)
       })
   }, [state, isLiked])
 
-  const { Title, Creator, CreatedAt, Hits, CommentCount } = state
+  const collectHandler = useCallback(() => {
+    const c = isCollected ? -1 : 1
+    console.log(c)
+
+    setIsCollected((isCollected) => !isCollected)
+    setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
+    ;(isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
+      .then((_) => {
+        if (_.err) {
+          setIsCollected((isCollected) => !isCollected)
+          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
+        } else {
+          if (isCollected) {
+          } else {
+            toast.success('nice!')
+          }
+        }
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setIsCollected((isCollected) => !isCollected)
+          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
+        }, 300)
+      })
+  }, [state, isCollected])
+
+  const { Title, Creator, CreatedAt, Hits, CommentCount, Tags, Meta, LikesCount, CollectionCount } =
+    state
   const { Nickname, Avatar } = Creator || {}
 
   return (
     <>
       <Helmet>
-        <title>{`${Title || '少女祈祷中···'} ${Nickname ? ` - ${Nickname}` : ''}`}</title>
+        <title>{`${Title || '-'} ${Nickname ? ` - ${Nickname}` : ''}`}</title>
       </Helmet>
       {hasCover && (
         <div
@@ -176,7 +206,25 @@ const PostPage: React.FC = ({ id }: any) => {
                 ></path>
               </svg>
             </div>
-            <div className="side-action__text">{isLiked ? `获赞 ${state.LikesCount}` : '点赞'}</div>
+            <div className="side-action__text">
+              {isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}
+            </div>
+          </div>
+          <div
+            className={classNames('post-side-action', { '--l': isCollected })}
+            role="button"
+            onClick={collectHandler}
+          >
+            <div
+              className="side-action-icon"
+              style={{
+                fontWeight: 'bold',
+                color: isCollected ? '#fff' : '#6668ab'
+              }}
+            >
+              藏
+            </div>
+            <div className="side-action__text">{`收藏 ${CollectionCount || ''}`}</div>
           </div>
           <div className="post-side-action share" role="button" onClick={shareHandler}>
             <div className="side-action-icon">
@@ -208,7 +256,7 @@ const PostPage: React.FC = ({ id }: any) => {
                 <img src={Avatar || 'https://upv.life/ic_launcher_round.png'} alt={Nickname} />
               </div>
               <div>
-                <h3 className="video-info__title">{Nickname || '少女祈祷中···'}</h3>
+                <h3 className="video-info__title">{Nickname || '-'}</h3>
                 <div className="video-meta">
                   <svg
                     viewBox="0 0 1024 1024"
@@ -264,6 +312,16 @@ const PostPage: React.FC = ({ id }: any) => {
           <Postkeleton />
         )}
         <Markdown type="render" value={removeImagesFormMd(state.Content)} />
+        <Tag
+          title={Meta?.Genre}
+          href={`/post/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
+        />
+        {Tags &&
+          Tags.trim()
+            .split(' ')
+            .map((tag: any, i: number) => (
+              <Tag key={i} title={tag} href={`/post/tag?type=video&tag=${tag}&title=${tag}`} />
+            ))}
         <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
       </div>
     </>

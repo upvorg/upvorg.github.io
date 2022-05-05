@@ -7,10 +7,12 @@ interface ListSectionProps {
   asideTitle?: string
   aside?: React.ReactNode
   moreUrl?: string
+  icon?: string
 }
 
 export default function ListSection({
   title,
+  icon,
   videos,
   asideTitle,
   aside,
@@ -20,9 +22,12 @@ export default function ListSection({
     <div className={`upv-grid ${!!asideTitle ? 'col-2' : ''}`}>
       <div className="upv-card-list">
         <div className="list-header">
-          <h2>{title}</h2>
+          <div>
+            {icon && <img src={icon} alt={title} />}
+            <h2>{title}</h2>
+          </div>
           {moreUrl && videos && videos.length > 0 && (
-            <a href={moreUrl} target="_blank">
+            <a className="list-header__more" href={moreUrl} target="_blank">
               更多
               <svg
                 width="10"

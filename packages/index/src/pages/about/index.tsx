@@ -4,8 +4,7 @@ import Markdown from '../../components/markdown'
 const content = `
 ## 关于
 
-源码地址： [https://github.com/upvorg](https://github.com/upvorg) is licensed GPL-3.0 by upvorg .
-
+这个人很懒什么都没有写
 `
 
 const AboutPage: React.FC = () => {

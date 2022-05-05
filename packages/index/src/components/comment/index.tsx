@@ -33,13 +33,13 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
     axios.post(`/post/${id}/comments`, { data: { content: comment } }).then((_) => {
       const newComment = {
         ID: Date.now(),
-        Uid: user!.id,
+        Uid: user!.ID,
         CreatedAt: getTimeDistance(Date()) as unknown as Date,
         Content: comment,
         Creator: {
-          Avatar: user!.avatar,
-          Nickname: user!.nickname
-        } as any
+          Avatar: user!.Avatar,
+          Nickname: user!.Nickname
+        }
       } as R.Comment
       setComment('')
       setComments([newComment, ...comments!])
@@ -60,12 +60,12 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
       <div className="video-comment-edit">
         <img
           className="video-comment-edit__avatar"
-          src={user?.avatar || 'https://upv.life/ic_launcher_round.png'}
+          src={user?.Avatar || 'https://upv.life/ic_launcher_round.png'}
           alt=""
         />
         <textarea
           className="video-comment-edit__input"
-          placeholder={user ? '...' : 'Login to comment'}
+          placeholder="留下评论..."
           disabled={!user}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -88,15 +88,13 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
               {comments.map((item) => (
                 <li
                   key={item.ID}
-                  className={classNames('comment-item', { '--o': user?.id == item.Uid })}
+                  className={classNames('comment-item', { '--o': user?.ID == item.Uid })}
                 >
                   <div className="comment-item__head">
                     <img className="comment-item__avatar" src={item.Creator?.Avatar} alt="" />
                     <div>
                       <span className="comment-item__name">{item.Creator?.Nickname}</span>
-                      <p className="comment-item__time">
-                        {getTimeDistance(item.Creator.CreatedAt)}
-                      </p>
+                      <p className="comment-item__time">{getTimeDistance(item.CreatedAt)}</p>
                     </div>
                   </div>
                   <div className="comment-item__content">
