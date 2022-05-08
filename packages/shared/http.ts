@@ -77,11 +77,16 @@ export default class Http<R = any> {
     headers: HeadersInit = {},
     data: any = {}
   ): Promise<T> {
-    const config = this.interceptors.request.resolve?.({
-      'Content-type': 'application/json; charset=UTF-8',
+    const config: HeadersInit = this.interceptors.request.resolve?.({
+      ...(!(data instanceof FormData) &&
+        //@ts-ignore
+        !this.headers['Content-type'] && {
+          'Content-type': 'application/json; charset=UTF-8'
+        }),
       ...this.headers,
       ...headers
     })
+
     if (__DEV__) console.log(`${method} ${url} data: `, method.toUpperCase(), data)
     let rawResponse: Response
     return fetch(`${this.baseUrl}${url}`, {
@@ -89,7 +94,7 @@ export default class Http<R = any> {
       headers: config,
       ...this.config,
       ...(!['GET', 'HEAD'].includes(method.toUpperCase()) && {
-        body: JSON.stringify(data)
+        body: data instanceof FormData ? data : JSON.stringify(data)
       })
     })
       .then(

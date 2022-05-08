@@ -65,6 +65,6 @@ export default Markdown
 interface Props {
   type: 'editor' | 'render'
   value?: string
-  customClassName?: ''
+  customClassName?: string
   onChange?: (text: string) => void
 }

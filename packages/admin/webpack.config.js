@@ -9,29 +9,18 @@ const isEnvProduction = process.env.NODE_ENV === 'production'
 module.exports = merge(baseConfig, {
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, '../../dist/html')
+    path: path.resolve(__dirname, '../../dist/admin')
   },
   devServer: {
-    port: 3001
+    port: 8888
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
-      title: 'UPV - free animes no ads',
+      title: '创作中心 - UPV',
       head:
         '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum Pen Script" />' +
-        isEnvProduction
-          ? `<script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?5e4eee252da8cfbd070f418edd852e33";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-      </script>
-      `
-          : ''
+        '<script src="https://kit.fontawesome.com/7788e81788.js" crossorigin="anonymous"></script>'
     })
   ],
   optimization: {

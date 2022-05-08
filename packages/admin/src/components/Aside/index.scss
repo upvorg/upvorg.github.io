@@ -1,0 +1,66 @@
+.menu {
+  .up {
+    margin: 10px 1em;
+
+    .dropdown,
+    .dropdown-trigger {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      padding: 1em 1.2em;
+    }
+
+    .dropdown.is-active .dropdown-menu,
+    .dropdown.is-hoverable:hover .dropdown-menu {
+      left: 100%;
+      top: 0;
+      padding-top: 0;
+    }
+
+    .dropdown-content {
+      padding: 0;
+      .dropdown-item {
+        padding: 1em;
+        font-size: 16px;
+
+        i {
+          color: var(--p);
+          transition: all 0.2s;
+        }
+
+        span {
+          display: inline-block;
+          transition: all 0.2s;
+        }
+
+        &:hover {
+          i {
+            transform: scale(1.2);
+          }
+          span {
+            transform: translatex(4px);
+          }
+        }
+      }
+    }
+  }
+
+  .menu-list {
+    > li > a {
+      padding: 0.8em 1em;
+
+      &.active {
+        color: var(--p);
+
+        i {
+          color: var(--p);
+        }
+      }
+    }
+    i {
+      color: var(--text3);
+    }
+  }
+}

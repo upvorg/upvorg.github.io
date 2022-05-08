@@ -34,8 +34,8 @@ declare namespace R {
     Region: string
     Episodes: number
     IsEnd: number
-    PublishDate: Date
-    UpdatedDate: Date
+    PublishDate: Date | null
+    UpdatedDate: Date | null
   }
 
   export interface User {
