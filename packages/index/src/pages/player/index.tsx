@@ -150,13 +150,13 @@ export default function PlayerPage({ id }: any) {
             </div>
             <Tag
               title={Meta?.Genre}
-              href={`/post/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
+              href={`/pv/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
             />
             {Tags &&
               Tags.trim()
                 .split(' ')
                 .map((tag: any, i: number) => (
-                  <Tag key={i} title={tag} href={`/post/tag?type=video&tag=${tag}&title=${tag}`} />
+                  <Tag key={i} title={tag} href={`/pv/tag?type=video&tag=${tag}&title=${tag}`} />
                 ))}
           </div>
         </div>

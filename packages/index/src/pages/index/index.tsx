@@ -57,7 +57,7 @@ export default function IndexPage() {
             videos={item}
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
-            moreUrl={`/post/tag?${indexConfig[index].query}`}
+            moreUrl={`/pv/tag?${indexConfig[index].query}`}
             aside={index == 0 && <RankList list={rankList} />}
             asideTitle={(index == 0 && '排行榜') as any}
           />

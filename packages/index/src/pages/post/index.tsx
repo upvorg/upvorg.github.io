@@ -256,7 +256,7 @@ const PostPage: React.FC = ({ id }: any) => {
                 <img src={Avatar || 'https://upv.life/ic_launcher_round.png'} alt={Nickname} />
               </div>
               <div>
-                <h3 className="video-info__title">{Nickname || '-'}</h3>
+                <span className="video-info__title">{Nickname || '-'}</span>
                 <div className="video-meta">
                   <svg
                     viewBox="0 0 1024 1024"
@@ -314,13 +314,13 @@ const PostPage: React.FC = ({ id }: any) => {
         <Markdown type="render" value={removeImagesFormMd(state.Content)} />
         <Tag
           title={Meta?.Genre}
-          href={`/post/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
+          href={`/pv/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
         />
         {Tags &&
           Tags.trim()
             .split(' ')
             .map((tag: any, i: number) => (
-              <Tag key={i} title={tag} href={`/post/tag?type=video&tag=${tag}&title=${tag}`} />
+              <Tag key={i} title={tag} href={`/pv/tag?type=video&tag=${tag}&title=${tag}`} />
             ))}
         <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
       </div>

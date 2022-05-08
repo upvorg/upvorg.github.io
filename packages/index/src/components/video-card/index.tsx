@@ -13,7 +13,7 @@ const ImageType = {
 
 export default function VideoCard({ info }: { info: R.Post }) {
   const { url, type } = getCoverFormMd(info.Content)
-  const target = info.Type === 'video' ? `/v/${info.ID}` : `/post/${info.ID}`
+  const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
 
   return (
     <div className="upv-video-card">

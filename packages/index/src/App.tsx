@@ -13,14 +13,13 @@ import {
   PRIMARY_COLOR
 } from '@web/shared'
 import { UserContext } from './store/user'
-
 import './index.scss'
 
 axios.interceptors.request.use((config) => {
   const ck = Cookie.get(COOKIE_ACCESS_TOKEN_KEY)
   return {
     ...config,
-    Authorization: ck || ''
+    Authorization: ck ? `Bearer ${ck}` : ''
   }
 })
 
@@ -42,7 +41,6 @@ const App = () => {
       }
     )
     const cookie = Cookie.get(COOKIE_ACCESS_TOKEN_KEY)
-    !!cookie && localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY, cookie)
     const userInfo = localStorage.getItem(LOCAL_STORAGE_USER_INFO_KEY)
 
     if (userInfo && !!cookie) {
@@ -64,9 +62,10 @@ const App = () => {
         <UserContext.Provider value={user}>
           <Switch>
             <IndexRoute path="/" component={lazy(() => import('./pages/index'))} />
-            <DefaultRoute path="/post/tag" component={lazy(() => import('./pages/tag'))} />
-            <DefaultRoute path="/post/:id" component={lazy(() => import('./pages/post'))} />
+            <IndexRoute path="/login" component={lazy(() => import('./pages/login'))} />
+            <DefaultRoute path="/p/:id" component={lazy(() => import('./pages/post'))} />
             <DefaultRoute path="/v/:id" component={lazy(() => import('./pages/player'))} />
+            <DefaultRoute path="/pv/tag" component={lazy(() => import('./pages/tag'))} />
             <DefaultRoute path="/search" component={lazy(() => import('./pages/search'))} />
             <DefaultRoute path="/about" component={lazy(() => import('./pages/about'))} />
             <DefaultRoute path="/feedback" component={lazy(() => import('./pages/feedback'))} />

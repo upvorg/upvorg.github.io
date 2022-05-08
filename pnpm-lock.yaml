@@ -4,10 +4,10 @@ importers:
 
   .:
     specifiers:
-      '@types/node': ^17.0.30
-      '@types/react': ^18.0.8
+      '@types/node': ^17.0.31
+      '@types/react': ^18.0.9
       '@types/react-dom': ^18.0.3
-      autoprefixer: ^10.4.5
+      autoprefixer: ^10.4.7
       browserslist: ^4.20.3
       bulma: ^0.9.3
       classnames: ^2.3.1
@@ -42,12 +42,11 @@ importers:
       terser-webpack-plugin: ^5.3.1
       typescript: ^4.6.4
       unified: ^10.1.2
-      use-http: ^1.0.26
       web-vitals: ^2.1.4
       webpack: ^5.72.0
       webpack-bundle-analyzer: ^4.5.0
       webpack-cli: ^4.9.2
-      webpack-dev-server: ^4.8.1
+      webpack-dev-server: ^4.9.0
       webpack-merge: ^5.8.0
       wouter: ^2.8.0-alpha.2
     dependencies:
@@ -71,7 +70,6 @@ importers:
       remark-rehype: 10.1.0
       typescript: 4.6.4
       unified: 10.1.2
-      use-http: 1.0.26_ef5jwxihqo6n7gxfmzogljlgcm
       web-vitals: 2.1.4
       wouter: 2.8.0-alpha.2_react@18.1.0
     devDependencies:
@@ -4018,39 +4016,6 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /urs/0.0.8_ef5jwxihqo6n7gxfmzogljlgcm:
-    resolution: {integrity: sha512-LaSSPpr91XrVA3vW2zPupw4K6DSQEDKdL4yQZX1mO2fpljIMpB5zctrjRvxLurelWSgKsHsCmfHNCImscryirQ==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0
-      react-dom: ^16.13.1 || ^17.0.0
-    dependencies:
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
-    dev: false
-
-  /use-http/1.0.26_ef5jwxihqo6n7gxfmzogljlgcm:
-    resolution: {integrity: sha512-yB0dXX2S0Doyiti/kHqMsvlShL3tlI8YkoEARao1OVFKrGvyXejmWvrYkEI+oVTPvUqGzOsHbNROY0qKDC88Pg==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0
-      react-dom: ^16.13.1 || ^17.0.0
-    dependencies:
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
-      urs: 0.0.8_ef5jwxihqo6n7gxfmzogljlgcm
-      use-ssr: 1.0.24_ef5jwxihqo6n7gxfmzogljlgcm
-      utility-types: 3.10.0
-    dev: false
-
-  /use-ssr/1.0.24_ef5jwxihqo6n7gxfmzogljlgcm:
-    resolution: {integrity: sha512-0MFps7ezL57/3o0yl4CvrHLlp9z20n1rQZV/lSRz7if+TUoM6POU1XdOvEjIgjgKeIhTEye1U0khrIYWCTWw4g==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0
-      react-dom: ^16.13.1 || ^17.0.0
-    dependencies:
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
-    dev: false
-
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
     dev: true
@@ -4058,11 +4023,6 @@ packages:
   /utila/0.4.0:
     resolution: {integrity: sha1-ihagXURWV6Oupe7MWxKk+lN5dyw=}
     dev: true
-
-  /utility-types/3.10.0:
-    resolution: {integrity: sha512-O11mqxmi7wMKCo6HKFt5AhO4BwY3VV68YU07tgxfz8zJTIxr4BpsezN49Ffwy9j3ZpwwJp4fkRwjRzq3uWE6Rg==}
-    engines: {node: '>= 4'}
-    dev: false
 
   /utils-merge/1.0.1:
     resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}

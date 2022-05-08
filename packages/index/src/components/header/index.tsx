@@ -56,9 +56,9 @@ export default function Header() {
 
       <div id="upv-nav" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item" href="/" target="_blank">
-            首页
-          </a>
+          <Link href="/">
+            <a className="navbar-item">首页</a>
+          </Link>
           <a className="navbar-item" href="/anime/index/" target="_blank">
             新番时间表
           </a>
@@ -140,13 +140,10 @@ export default function Header() {
           ) : (
             <div className="navbar-item">
               <div className="buttons">
-                <a
-                  className="button is-primary"
-                  href={__ADMIN_HOST__ + `/login?r=${location.href}`}
-                >
+                <a href="/login" className="button is-primary">
                   <strong>Sign up</strong>
                 </a>
-                <a className="button is-light" href={__ADMIN_HOST__ + `/login?r=${location.href}`}>
+                <a href="/login" className="button is-light">
                   Log in
                 </a>
               </div>

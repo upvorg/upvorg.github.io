@@ -1,27 +1,11 @@
 import { axios } from '@web/shared'
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import './index.scss'
 
 const GENRE = ['番剧', '动画电影', '电影', '电视剧', '原创', '其他']
 const REGIONS = ['中国', '日本', '韩国', '美国', '其他']
-const TAGS = [
-  '动作',
-  '冒险',
-  '科幻',
-  '爱情',
-  '搞笑',
-  '恐怖',
-  '动画',
-  '纪录片',
-  '短片',
-  '纪实',
-  '其他'
-]
-
-const t =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTI1ODA4MjgsImp0aSI6IjEiLCJpYXQiOjE2NTE5NzYwMjgsImlzcyI6IlVQViIsIm5hbWUiOiJyb290IiwidWlkIjoxLCJsZXZlbCI6MX0.IQ89WSh40LYWCBzXsXgKrS9bwGnQWq-wqJisEaCVBr4'
 
 export default function VideoUploader() {
   const [post, setPost] = useState<R.Post>({
@@ -38,6 +22,7 @@ export default function VideoUploader() {
       UpdatedDate: null
     } as R.Meta
   } as R.Post)
+  const [serverTags, setServerTags] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
   const [coverFile, setCoverFile] = useState<File>()
   const [coverUploader, setCoverUploader] = useState<{
@@ -50,6 +35,12 @@ export default function VideoUploader() {
     status: 'pending'
   })
 
+  useEffect(() => {
+    axios.get('/tags').then((res) => {
+      setServerTags(res.data)
+    })
+  }, [])
+
   const handlePost = () => {
     if (tags.length < 1) {
       toast.error('请至少选择一个标签')
@@ -59,7 +50,7 @@ export default function VideoUploader() {
       tags.unshift('原创')
     }
     post.Tags = tags.join(' ')
-    axios.post('/post', { headers: { Authorization: `Bearer ${t}` }, data: post }).then((res) => {
+    axios.post('/post', { data: post }).then((res) => {
       if (!res.err) {
         toast.success('发布成功')
         window.history.pushState(null, '', '/upload-manager')
@@ -88,12 +79,7 @@ export default function VideoUploader() {
     formData.append('file', file)
 
     axios
-      .post('/upload/image', {
-        headers: {
-          Authorization: `Bearer ${t}`
-        },
-        data: formData
-      })
+      .post('/upload/image', { data: formData })
       .then((res) => {
         console.log(res)
         setCoverUploader({ loading: false, url: res.data.url, status: 'success' })
@@ -341,31 +327,40 @@ export default function VideoUploader() {
               <div className="field">
                 <div className="control">
                   <div className="tags">
-                    {TAGS.map((item, index) => {
-                      return (
-                        <a
-                          className={classNames('tag', {
-                            'is-primary': tags.includes(item)
-                          })}
-                          key={index}
-                          onClick={() => {
-                            setTags((t) => {
-                              const exists = tags.includes(item)
-                              if (exists) {
-                                return t.filter((t) => t !== item)
-                              } else {
-                                if (t.length < 4) {
-                                  return [...t, item]
+                    {!!serverTags ? (
+                      serverTags?.split(' ').map((item, index) => {
+                        return (
+                          <a
+                            className={classNames('tag', {
+                              'is-primary': tags.includes(item)
+                            })}
+                            key={index}
+                            onClick={() => {
+                              setTags((t) => {
+                                const exists = tags.includes(item)
+                                if (exists) {
+                                  return t.filter((t) => t !== item)
+                                } else {
+                                  if (t.length < 4) {
+                                    return [...t, item]
+                                  }
+                                  return t
                                 }
-                                return t
-                              }
-                            })
-                          }}
-                        >
-                          {item}
-                        </a>
-                      )
-                    })}
+                              })
+                            }}
+                          >
+                            {item}
+                          </a>
+                        )
+                      })
+                    ) : (
+                      <a className={classNames('tag')}>
+                        <span className="icon">
+                          <i className="fas fa-spinner fa-spin"></i>
+                        </span>
+                        &nbsp; 暂无标签
+                      </a>
+                    )}
                   </div>
                 </div>
                 <p className="help">最多可添加4个</p>

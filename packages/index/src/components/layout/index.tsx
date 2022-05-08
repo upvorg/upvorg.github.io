@@ -1,23 +1,27 @@
-import { useEffect } from 'react'
+import { useEffect, PropsWithChildren } from 'react'
 import { Route, RouteProps } from 'wouter'
 import Header from '../header'
 import './index.scss'
 
-const IndexLayout: React.FC<any> = (props) => {
+const $root = document.getElementById('root')!
+
+const IndexLayout: React.FC<PropsWithChildren<any>> = (props) => {
   useEffect(() => {
     const header = document.querySelector('.upv-header__bar')!
 
     const scrollHandler = (_: Event) => {
-      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+      const scrollTop = $root.scrollTop
+
       if (scrollTop >= 222) {
         header.classList.add('fixed-header')
       } else {
         header.classList.remove('fixed-header')
       }
     }
-    document.addEventListener('scroll', scrollHandler)
+
+    $root.addEventListener('scroll', scrollHandler)
     return () => {
-      document.removeEventListener('scroll', scrollHandler)
+      $root.removeEventListener('scroll', scrollHandler)
     }
   }, [])
 
@@ -36,7 +40,7 @@ const IndexLayout: React.FC<any> = (props) => {
   )
 }
 
-const DefaultLayout: React.FC = (props) => {
+const DefaultLayout: React.FC<PropsWithChildren<any>> = (props) => {
   return (
     <>
       <div className="upv-header">
@@ -49,9 +53,14 @@ const DefaultLayout: React.FC = (props) => {
   )
 }
 
-type LayoutRouteProps = RouteProps & { layout: React.FC; component?: React.FC<any> }
+type LayoutRouteProps = RouteProps & { layout: React.FC<any>; component?: React.FC<any> }
 
-const LayoutRoute = ({ component: Component, layout: Layout, children, ...rest }: LayoutRouteProps) => {
+const LayoutRoute = ({
+  component: Component,
+  layout: Layout,
+  children,
+  ...rest
+}: LayoutRouteProps) => {
   return (
     <Route
       {...rest}
@@ -80,4 +89,4 @@ const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => (
   <LayoutRoute {...rest} layout={DefaultLayout} />
 )
 
-export { IndexRoute, DefaultRoute }
+export { IndexLayout, DefaultLayout, IndexRoute, DefaultRoute }

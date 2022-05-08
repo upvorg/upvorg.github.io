@@ -5,9 +5,6 @@ import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import '../video/index.scss'
 
-const t =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTI1ODA4MjgsImp0aSI6IjEiLCJpYXQiOjE2NTE5NzYwMjgsImlzcyI6IlVQViIsIm5hbWUiOiJyb290IiwidWlkIjoxLCJsZXZlbCI6MX0.IQ89WSh40LYWCBzXsXgKrS9bwGnQWq-wqJisEaCVBr4'
-
 export default function PostUploader() {
   const [post, setPost] = useState<R.Post>({
     Cover: '',
@@ -29,12 +26,9 @@ export default function PostUploader() {
   })
 
   useEffect(() => {
-    // http.get('/api/tags').then(({ data }) => {
-    //   console.log(data)
-    // })
-    // axios.get('/tags').then((res) => {
-    //   setServerTags(res.data)
-    // })
+    axios.get('/tags').then((res) => {
+      setServerTags(res.data)
+    })
   }, [])
 
   const handlePost = () => {
@@ -43,7 +37,7 @@ export default function PostUploader() {
       return
     }
     post.Tags = tags.join(' ')
-    axios.post('/post', { headers: { Authorization: `Bearer ${t}` }, data: post }).then((res) => {
+    axios.post('/post', { data: post }).then((res) => {
       if (!res.err) {
         toast.success('发布成功')
         window.history.pushState(null, '', '/upload-manager')
@@ -72,12 +66,7 @@ export default function PostUploader() {
     formData.append('file', file)
 
     axios
-      .post('/upload/image', {
-        headers: {
-          Authorization: `Bearer ${t}`
-        },
-        data: formData
-      })
+      .post('/upload/image', { data: formData })
       .then((res) => {
         console.log(res)
         setCoverUploader({ loading: false, url: res.data.url, status: 'success' })

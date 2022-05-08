@@ -4,17 +4,19 @@
 
 // @import url('https://fonts.googleapis.com/css?family=Nanum Pen Script');
 
-@import '../node_modules/bulma/sass/base/_all.sass';
-@import '../node_modules/bulma/sass/utilities/_all.sass';
-@import '../node_modules/bulma/sass/components/navbar.sass';
-@import '../node_modules/bulma/sass/elements/button.sass';
-@import '../node_modules/bulma/sass/elements/other.sass';
-@import '../node_modules/bulma/sass/layout/footer.sass';
-@import '../node_modules/bulma/sass/elements/container.sass';
-@import '../node_modules/bulma/sass/form/_all.sass';
-@import '../node_modules/bulma/sass/elements/image.sass';
-@import '../node_modules/bulma/sass/components/dropdown.sass';
-@import '../node_modules/bulma/sass/components/card.sass';
+@import '../../../node_modules/bulma/sass/base/_all.sass';
+@import '../../../node_modules/bulma/sass/utilities/_all.sass';
+@import '../../../node_modules/bulma/sass/components/navbar.sass';
+@import '../../../node_modules/bulma/sass/elements/button.sass';
+@import '../../../node_modules/bulma/sass/elements/other.sass';
+@import '../../../node_modules/bulma/sass/layout/footer.sass';
+@import '../../../node_modules/bulma/sass/elements/container.sass';
+@import '../../../node_modules/bulma/sass/form/_all.sass';
+@import '../../../node_modules/bulma/sass/elements/image.sass';
+@import '../../../node_modules/bulma/sass/components/dropdown.sass';
+@import '../../../node_modules/bulma/sass/components/card.sass';
+@import '../../../node_modules/bulma/sass/components/tabs.sass';
+@import '../../../node_modules/bulma/sass/elements/icon.sass';
 
 // fix safari
 .button.is-primary[disabled] {

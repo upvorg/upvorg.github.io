@@ -30,11 +30,11 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
       return
     }
 
-    axios.post(`/post/${id}/comments`, { data: { content: comment } }).then((_) => {
+    axios.post(`/post/${id}/comment`, { data: { content: comment } }).then((_) => {
       const newComment = {
         ID: Date.now(),
         Uid: user!.ID,
-        CreatedAt: getTimeDistance(Date()) as unknown as Date,
+        CreatedAt: new Date(),
         Content: comment,
         Creator: {
           Avatar: user!.Avatar,

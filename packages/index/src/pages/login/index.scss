@@ -1,0 +1,87 @@
+.login {
+  width: 680px;
+  margin: -40px auto 0;
+
+  .tabs {
+    padding: 1em;
+    margin-bottom: 0;
+
+    li.is-active a {
+      border-bottom-width: 2px;
+    }
+  }
+
+  .card-body {
+    padding: 1em 20px 20px 1em;
+    display: flex;
+
+    .l,
+    .r {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .l {
+      flex: 4;
+      width: 100%;
+      border-right: 1px solid #e5e5e5;
+      padding-right: 2em;
+      margin-left: 1em;
+    }
+
+    .r {
+      flex: 3;
+      width: 100%;
+      padding-left: 1em;
+      text-align: center;
+
+      .field {
+        .button {
+          width: 60%;
+          border-radius: 2em;
+          justify-content: left;
+          padding-left: 2em;
+
+          .icon {
+            margin-right: 10px;
+            font-size: 14px;
+          }
+
+          .icon.github {
+            fill: #000;
+          }
+          .icon.qq > svg {
+            fill: #06beff;
+          }
+        }
+      }
+
+      .agreement {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .login {
+    margin: -20px auto 0;
+    .card-body {
+      flex-direction: column;
+
+      .l {
+        border-right: 0;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 2em;
+        margin: 0;
+        padding-right: 0;
+      }
+
+      .r {
+        margin-top: 1em;
+        margin-left: 0;
+      }
+    }
+  }
+}

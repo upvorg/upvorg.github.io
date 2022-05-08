@@ -8,7 +8,7 @@ export default function RankList({ list }: { list: R.Post[] | null }) {
           <ul className="rank-video-list__list">
             {list.map((item, i) => (
               <a
-                href={item.Type == 'video' ? `/v/${item.ID}` : `/post/${item.ID}`}
+                href={item.Type == 'video' ? `/v/${item.ID}` : `/p/${item.ID}`}
                 key={i}
                 target="_blank"
               >

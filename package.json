@@ -33,8 +33,7 @@
     "remark-rehype": "^10.1.0",
     "unified": "^10.1.2",
     "web-vitals": "^2.1.4",
-    "wouter": "^2.8.0-alpha.2",
-    "use-http": "^1.0.26"
+    "wouter": "^2.8.0-alpha.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.5",
