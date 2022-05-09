@@ -6,16 +6,17 @@ import { useQueryState } from '../../hooks/useQueryState'
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<R.Post[]>([])
-  const [{ title, type, tag, genre, page }, setQuery] = useQueryState({
+  const [{ title, type, tag, genre, page, is_original }, setQuery] = useQueryState({
     page: 1,
     k: '',
     title: '',
     type: '',
     tag: '',
-    genre: ''
+    genre: '',
+    is_original: 0
   })
 
-  let query = `/posts?type=${type}&tag=${tag}&genre=${genre}&page=${page}&page_size=12`
+  let query = `/posts?type=${type}&tag=${tag}&genre=${genre}&is_original=${is_original}&page=${page}&page_size=12`
   if (type == 'recommends') {
     query = '/posts/recommends'
   } else if (type == 'lastest') {

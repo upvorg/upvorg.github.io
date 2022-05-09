@@ -1,10 +1,9 @@
-import { HOST } from '@web/shared'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import { useUserStore } from '../../store/user'
 import './index.scss'
 
-const admin = '//admin.' + HOST
+const admin = __ADMIN_HOST__
 
 export default function Header() {
   const searchValue = useRef('')
@@ -62,6 +61,10 @@ export default function Header() {
           <a className="navbar-item" href="/anime/index/" target="_blank">
             新番时间表
           </a>
+          <a className="navbar-item" href={admin} target="_blank">
+            创作者中心
+          </a>
+
           <a className="navbar-item" href="//app.upv.life" target="_blank">
             APP 下载
           </a>

@@ -6,7 +6,14 @@ const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CopyPlugin = require('copy-webpack-plugin')
-const { isEnvProduction, LOCAL_API_HOST, API_HOST, STORAGE_HOST, ADMIN_HOST } = require('./config')
+const {
+  isEnvProduction,
+  LOCAL_API_HOST,
+  API_HOST,
+  STORAGE_HOST,
+  ADMIN_HOST,
+  HOST
+} = require('./config')
 
 module.exports = {
   mode: isEnvProduction ? 'production' : 'development',
@@ -154,6 +161,7 @@ module.exports = {
     new ProgressPlugin(),
     new webpack.DefinePlugin({
       __DEV__: JSON.stringify(!isEnvProduction),
+      __HOST__: JSON.stringify(HOST),
       __API_HOST__: JSON.stringify(API_HOST),
       __STORAGE_HOST__: JSON.stringify(STORAGE_HOST),
       __ADMIN_HOST__: JSON.stringify(ADMIN_HOST)

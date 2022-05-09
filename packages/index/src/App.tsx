@@ -15,14 +15,6 @@ import {
 import { UserContext } from './store/user'
 import './index.scss'
 
-axios.interceptors.request.use((config) => {
-  const ck = Cookie.get(COOKIE_ACCESS_TOKEN_KEY)
-  return {
-    ...config,
-    Authorization: ck ? `Bearer ${ck}` : ''
-  }
-})
-
 const App = () => {
   const [user, setUser] = useState<R.User | null>(null)
 

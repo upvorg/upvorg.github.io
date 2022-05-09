@@ -21,7 +21,7 @@ const indexConfig = [
   },
   {
     title: '原创',
-    query: 'type=video&genre=原创&title=原创'
+    query: 'type=video&is_original=2&title=原创'
   }
 ]
 

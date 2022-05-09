@@ -13,14 +13,6 @@ import { Route, Router, Switch, useRoute } from 'wouter'
 import { Layout } from './components/layout'
 import { UserContext } from '@web/index/src/store/user'
 
-axios.interceptors.request.use((config) => {
-  const ck = Cookie.get(COOKIE_ACCESS_TOKEN_KEY)
-  return {
-    ...config,
-    Authorization: ck ? `Bearer ${ck}` : ''
-  }
-})
-
 axios.interceptors.response.use(
   (data) => data,
   (response) => {
