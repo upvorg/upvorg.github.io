@@ -3,92 +3,82 @@ import Markdown from '@web/index/src/components/markdown'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import '../video/index.scss'
+import qs from 'query-string'
+import { useUploader } from '../use-uploader'
+import './index.scss'
 
 export default function PostUploader() {
   const [post, setPost] = useState<R.Post>({
     Cover: '',
     Title: '',
     Content: '',
-    Type: 'post'
+    Type: 'post',
+    IsOriginal: 1
   } as R.Post)
   const [serverTags, setServerTags] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
-  const [coverFile, setCoverFile] = useState<File>()
-  const [coverUploader, setCoverUploader] = useState<{
-    loading: boolean
-    url: string
-    status: 'pending' | 'success' | 'error'
-  }>({
-    loading: false,
-    url: '',
-    status: 'pending'
-  })
+  const { id } = qs.parse(window.location.search)
 
   useEffect(() => {
     axios.get('/tags').then((res) => {
       setServerTags(res.data)
     })
+    if (id) {
+      axios.get(`/post/${id}`).then((res) => {
+        if (!res.err) {
+          setPost(() => ({ ...res.data }))
+          res.data.Tags && setTags(res.data.Tags.split(' '))
+        }
+        console.log(post, res.data)
+      })
+    }
   }, [])
 
-  const handlePost = () => {
-    if (tags.length < 1) {
-      toast.error('请至少选择一个标签')
-      return
-    }
+  const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     post.Tags = tags.join(' ')
-    axios.post('/post', { data: post }).then((res) => {
-      if (!res.err) {
-        toast.success('发布成功')
-        window.history.pushState(null, '', '/upload-manager')
+    ;(id ? axios.put(`/post/${id}`, { data: post }) : axios.post('/post', { data: post })).then(
+      (res) => {
+        if (!res.err) {
+          toast.success('发布成功')
+          setTimeout(() => {
+            window.history.pushState(null, '', '/upload-manager')
+          }, 1500)
+        }
       }
-    })
+    )
   }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
-    console.log(name)
+    const { name, value, type } = e.target
+    const parsedValue = type === 'number' || type === 'checkbox' ? +value : value
+
     if (name.includes('Meta.')) {
-      setPost({ ...post, Meta: { ...post.Meta, [name.split('.')[1]]: value } })
+      setPost({ ...post, Meta: { ...post.Meta, [name.split('.')[1]]: parsedValue } })
     } else {
-      setPost({ ...post, [name]: value })
+      setPost({ ...post, [name]: parsedValue })
     }
   }
 
-  const handleCoverUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-    setCoverFile(file)
-    setCoverUploader({ loading: true, url: '', status: 'pending' })
-    const formData = new FormData()
-    formData.append('file', file)
+  const [uploader, up] = useUploader({
+    type: 'image',
+    onError(_) {
+      document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
+    }
+  })
 
-    axios
-      .post('/upload/image', { data: formData })
-      .then((res) => {
-        console.log(res)
-        setCoverUploader({ loading: false, url: res.data.url, status: 'success' })
-      })
-      .catch(() => {
-        setCoverFile(undefined)
-        setCoverUploader({ loading: false, url: '', status: 'error' })
-        document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
-      })
-  }
+  console.log(post)
 
   return (
     <div className="card">
       <header className="card-header">
-        <p className="card-header-title">发布视频</p>
+        <p className="card-header-title">发布文章</p>
       </header>
 
       <div className="card-content">
-        <form
-          className="form"
-          onSubmit={(e) => (e.stopPropagation(), e.preventDefault(), handlePost)}
-        >
+        <form className="form" onSubmit={handlePost}>
           <div className="field is-horizontal">
             <div className="field-label is-normal">
               <label className="label">
@@ -101,8 +91,8 @@ export default function PostUploader() {
                 <p className="control">
                   <div
                     className={classNames('file', {
-                      'is-primary': coverUploader.status == 'success',
-                      'is-danger': coverUploader.status == 'error'
+                      'is-primary': uploader.status == 'success',
+                      'is-danger': uploader.status == 'error'
                     })}
                   >
                     <label className="file-label">
@@ -110,7 +100,7 @@ export default function PostUploader() {
                         className="file-input cover-file-input"
                         accept="image/*"
                         type="file"
-                        onChange={handleCoverUpload}
+                        onChange={(e) => up(e.target!.files![0])}
                       />
                       <span className="file-cta" style={{ paddingRight: 0, borderRight: 0 }}>
                         <span className="file-icon">
@@ -119,15 +109,15 @@ export default function PostUploader() {
                         <span className="file-label">
                           <div
                             className={classNames('button', {
-                              'is-loading': coverUploader.loading,
-                              'is-primary': coverUploader.status == 'success',
-                              'is-danger': coverUploader.status == 'error'
+                              'is-loading': uploader.loading,
+                              'is-primary': uploader.status == 'success',
+                              'is-danger': uploader.status == 'error'
                             })}
                           >
-                            {coverUploader.status == 'pending'
+                            {uploader.status == 'pending'
                               ? 'Choose a file…'
-                              : coverUploader.status == 'success'
-                              ? coverFile!.name
+                              : uploader.status == 'success'
+                              ? uploader.file!.name
                               : 'Upload failed'}
                           </div>
                         </span>
@@ -137,12 +127,14 @@ export default function PostUploader() {
                 </p>
                 &nbsp;&nbsp;&nbsp;
                 <input
-                  disabled={!!coverFile}
+                  disabled={!!uploader.file}
                   className="input"
                   type="url"
                   required
                   name="Cover"
                   onChange={handleChange}
+                  placeholder="请输入封面图片链接"
+                  value={post.Cover}
                 />
               </div>
             </div>
@@ -162,6 +154,7 @@ export default function PostUploader() {
                     type="text"
                     required
                     name="Title"
+                    value={post.Title}
                     onChange={handleChange}
                   />
                   <span className="input-max-tip icon is-small is-right">0/60 </span>

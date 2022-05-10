@@ -37,3 +37,17 @@ label.radio > input {
     color: hsl(0deg, 0%, 86%);
   }
 }
+
+.rc-md-editor {
+  min-height: 400px;
+}
+
+.rc-md-editor .rc-md-navigation {
+  padding: 8px;
+}
+
+.rc-md-editor .rc-md-navigation .button-wrap .button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}

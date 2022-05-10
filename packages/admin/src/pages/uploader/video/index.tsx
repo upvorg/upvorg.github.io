@@ -2,9 +2,11 @@ import { axios } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import qs from 'query-string'
+import { useUploader } from '../use-uploader'
 import './index.scss'
 
-const GENRE = ['番剧', '动画电影', '电影', '电视剧', '原创', '其他']
+const GENRE = ['番剧', '动画电影', '电影', '电视剧', '其他']
 const REGIONS = ['中国', '日本', '韩国', '美国', '其他']
 
 export default function VideoUploader() {
@@ -13,85 +15,108 @@ export default function VideoUploader() {
     Title: '',
     Content: '',
     Type: 'video',
+    IsOriginal: 1,
     Meta: {
       Genre: '其他',
       Region: '其他',
       Episodes: 0,
       IsEnd: 0,
-      PublishDate: null,
-      UpdatedDate: null
+      PublishDate: '',
+      UpdatedDate: ''
     } as R.Meta
   } as R.Post)
   const [serverTags, setServerTags] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
-  const [coverFile, setCoverFile] = useState<File>()
-  const [coverUploader, setCoverUploader] = useState<{
-    loading: boolean
-    url: string
-    status: 'pending' | 'success' | 'error'
-  }>({
-    loading: false,
-    url: '',
-    status: 'pending'
-  })
+  const { id } = qs.parse(window.location.search)
 
   useEffect(() => {
     axios.get('/tags').then((res) => {
       setServerTags(res.data)
     })
+    if (id) {
+      axios.get(`/post/${id}`).then((res) => {
+        if (!res.err) {
+          setPost(() => ({ ...res.data }))
+          res.data.Tags && setTags(res.data.Tags.split(' '))
+        }
+        console.log(post, res.data)
+      })
+    }
   }, [])
 
-  const handlePost = () => {
+  const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(e)
+
+    e.preventDefault()
     if (tags.length < 1) {
       toast.error('请至少选择一个标签')
       return
     }
-    if (post.Meta.Genre == '原创') {
-      tags.unshift('原创')
-    }
+
     post.Tags = tags.join(' ')
-    axios.post('/post', { data: post }).then((res) => {
-      if (!res.err) {
-        toast.success('发布成功')
-        window.history.pushState(null, '', '/upload-manager')
+    post.Meta.UpdatedDate = new Date(post.Meta.UpdatedDate).toISOString()
+    post.Meta.PublishDate = new Date(post.Meta.PublishDate).toISOString()
+    ;(id ? axios.put(`/post/${id}`, { data: post }) : axios.post('/post', { data: post })).then(
+      (res) => {
+        if (!res.err) {
+          toast.success('发布成功')
+
+          setTimeout(() => {
+            //@ts-ignore
+            if (e.nativeEvent.submitter.name == 'next') {
+              window.history.pushState(null, '', `/video/${res.id}/upload`)
+            } else {
+              window.history.pushState(null, '', '/upload-manager')
+            }
+          }, 1500)
+        }
       }
-    })
+    )
   }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
-    console.log(name)
+    const { name, value, type } = e.target
+    const parsedValue = type === 'number' || type === 'checkbox' ? +value : value
+    console.log(name, value)
+
     if (name.includes('Meta.')) {
-      setPost({ ...post, Meta: { ...post.Meta, [name.split('.')[1]]: value } })
+      setPost({
+        ...post,
+        Meta: {
+          ...post.Meta,
+          [name.split('.')[1]]: parsedValue
+        } as R.Meta
+      })
     } else {
-      setPost({ ...post, [name]: value })
+      setPost({ ...post, [name]: parsedValue })
     }
   }
 
-  const handleCoverUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-    setCoverFile(file)
-    setCoverUploader({ loading: true, url: '', status: 'pending' })
-    const formData = new FormData()
-    formData.append('file', file)
+  const [coverUploader, coverUp] = useUploader({
+    type: 'image',
+    onError(_) {
+      document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
+    }
+  })
 
-    axios
-      .post('/upload/image', { data: formData })
-      .then((res) => {
-        console.log(res)
-        setCoverUploader({ loading: false, url: res.data.url, status: 'success' })
-      })
-      .catch(() => {
-        setCoverFile(undefined)
-        setCoverUploader({ loading: false, url: '', status: 'error' })
-        document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
-      })
-  }
-
-  const isUgc = post.Meta.Genre === '原创'
+  const isOriginal = post.IsOriginal == 2
+  const isEnd = post.Meta.IsEnd == 2
+  const publishDate = new Date(post.Meta.PublishDate)
+  const updatedDate = new Date(post.Meta.UpdatedDate)
+  const publishDateStr =
+    publishDate.getFullYear() +
+    '-' +
+    (publishDate.getMonth() + 1).toString().padStart(2, '0') +
+    '-' +
+    publishDate.getDate()
+  const updatedDateStr =
+    updatedDate.getFullYear() +
+    '-' +
+    (updatedDate.getMonth() + 1).toString().padStart(2, '0') +
+    '-' +
+    updatedDate.getDate()
 
   return (
     <div className="card">
@@ -100,7 +125,7 @@ export default function VideoUploader() {
       </header>
 
       <div className="card-content">
-        <form className="form" onSubmit={(e) => (e.stopPropagation(), e.preventDefault())}>
+        <form className="form" onSubmit={handlePost}>
           <div className="field is-horizontal">
             <div className="field-label is-normal">
               <label className="label">
@@ -122,7 +147,7 @@ export default function VideoUploader() {
                         className="file-input cover-file-input"
                         accept="image/*"
                         type="file"
-                        onChange={handleCoverUpload}
+                        onChange={(e) => coverUp(e.target!.files![0])}
                       />
                       <span className="file-cta" style={{ paddingRight: 0, borderRight: 0 }}>
                         <span className="file-icon">
@@ -139,7 +164,7 @@ export default function VideoUploader() {
                             {coverUploader.status == 'pending'
                               ? 'Choose a file…'
                               : coverUploader.status == 'success'
-                              ? coverFile!.name
+                              ? coverUploader.file!.name
                               : 'Upload failed'}
                           </div>
                         </span>
@@ -151,11 +176,12 @@ export default function VideoUploader() {
                 <input
                   type="url"
                   required
-                  disabled={!!coverFile}
+                  disabled={!!coverUploader.file}
                   className="input"
                   name="Cover"
                   onChange={handleChange}
                   placeholder="请输入封面图片链接"
+                  value={post.Cover}
                 />
               </div>
             </div>
@@ -176,8 +202,34 @@ export default function VideoUploader() {
                     required
                     name="Title"
                     onChange={handleChange}
+                    placeholder="请输入标题"
+                    value={post.Title}
                   />
                   <span className="input-max-tip icon is-small is-right">0/60 </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="field is-horizontal" style={{ alignItems: 'center' }}>
+            <div className="field-label">
+              <label className="label">
+                原创<span>*</span>
+              </label>
+            </div>
+            <div className="field-body">
+              <div className="field">
+                <p className="control has-icons-right">
+                  <input
+                    id="is-original"
+                    type="checkbox"
+                    name="IsOriginal"
+                    className="switch"
+                    value={isOriginal ? 1 : 2}
+                    onChange={handleChange}
+                    checked={isOriginal}
+                  />
+                  <label htmlFor="is-original" className="label"></label>
                 </p>
               </div>
             </div>
@@ -201,6 +253,7 @@ export default function VideoUploader() {
                           value={item}
                           name="Meta.Genre"
                           onChange={handleChange}
+                          checked={post.Meta.Genre === item}
                         />
                         {item}
                       </label>
@@ -211,7 +264,7 @@ export default function VideoUploader() {
             </div>
           </div>
 
-          {!isUgc && (
+          {!isOriginal && (
             <div className="field is-horizontal">
               <div className="field-label is-normal">
                 <label className="label">
@@ -222,7 +275,12 @@ export default function VideoUploader() {
                 <div className="field is-narrow">
                   <div className="control">
                     <div className="select is-fullwidth">
-                      <select required name="Meta.Region" onChange={handleChange}>
+                      <select
+                        required
+                        name="Meta.Region"
+                        onChange={handleChange}
+                        value={post.Meta.Region}
+                      >
                         {REGIONS.map((item, index) => {
                           return <option key={index}>{item}</option>
                         })}
@@ -234,8 +292,8 @@ export default function VideoUploader() {
             </div>
           )}
 
-          {!isUgc && (
-            <div className="field is-horizontal">
+          {!isOriginal && (
+            <div className="field is-horizontal" style={{ alignItems: 'center' }}>
               <div className="field-label">
                 <label className="label">
                   是否完结<span>*</span>
@@ -244,19 +302,23 @@ export default function VideoUploader() {
               <div className="field-body">
                 <div className="field is-narrow">
                   <div className="control">
-                    <label className="radio">
-                      <input type="radio" required name="Meta.IsEnd" onChange={handleChange} />是
-                    </label>
-                    <label className="radio">
-                      <input type="radio" required name="Meta.IsEnd" onChange={handleChange} />否
-                    </label>
+                    <input
+                      id="IsEnd"
+                      type="checkbox"
+                      name="Meta.IsEnd"
+                      className="switch"
+                      value={isEnd ? 1 : 2}
+                      onChange={handleChange}
+                      checked={isEnd}
+                    />
+                    <label htmlFor="IsEnd" className="label"></label>
                   </div>
                 </div>
               </div>
             </div>
           )}
 
-          {!isUgc && (
+          {!isOriginal && (
             <div className="field is-horizontal">
               <div className="field-label">
                 <label className="label">预计集数</label>
@@ -269,6 +331,8 @@ export default function VideoUploader() {
                       type="number"
                       name="Meta.Episodes"
                       onChange={handleChange}
+                      style={{ width: '10ch' }}
+                      value={post.Meta.Episodes}
                     />
                   </div>
                 </div>
@@ -276,7 +340,7 @@ export default function VideoUploader() {
             </div>
           )}
 
-          {!isUgc && (
+          {!isOriginal && (
             <div className="field is-horizontal">
               <div className="field-label is-normal">
                 <label className="label">发布时间</label>
@@ -289,6 +353,7 @@ export default function VideoUploader() {
                       type="date"
                       name="Meta.PublishDate"
                       onChange={handleChange}
+                      value={publishDateStr}
                     />
                   </div>
                 </div>
@@ -296,7 +361,7 @@ export default function VideoUploader() {
             </div>
           )}
 
-          {!isUgc && (
+          {!isOriginal && (
             <div className="field is-horizontal">
               <div className="field-label is-normal">
                 <label className="label">更新时间</label>
@@ -309,6 +374,7 @@ export default function VideoUploader() {
                       type="date"
                       name="Meta.UpdatedDate"
                       onChange={handleChange}
+                      value={updatedDateStr}
                     />
                   </div>
                   <p className="help">每周几更新：只判断所选日期为周几</p>
@@ -375,7 +441,12 @@ export default function VideoUploader() {
             <div className="field-body">
               <div className="field">
                 <div className="control">
-                  <textarea className="textarea" name="Content" onChange={handleChange}></textarea>
+                  <textarea
+                    className="textarea"
+                    name="Content"
+                    onChange={handleChange}
+                    value={post.Content}
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -387,10 +458,10 @@ export default function VideoUploader() {
               <div className="field">
                 <div className="control">
                   <div className="buttons">
-                    <button className="button is-primary" type="submit" onClick={handlePost}>
-                      添加视频
+                    <button className="button is-primary" type="submit" name="next">
+                      下一步
                     </button>
-                    <button className="button" type="submit" onClick={handlePost}>
+                    <button className="button" type="submit" name="add">
                       立即投稿
                     </button>
                   </div>

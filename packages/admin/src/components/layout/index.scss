@@ -21,14 +21,13 @@
 }
 
 .body {
-  padding: 60px 0px;
+  padding: 90px 20px 20px;
   background: #f6f7f8;
   margin-left: 180px;
   min-height: 100%;
 
   .content {
-    margin: 32px auto;
-    background-color: var(--Lg6);
+    margin: 0 auto;
   }
 }
 
@@ -50,10 +49,7 @@
   }
   .body {
     margin-left: 0;
-    .content {
-      margin: 0;
-      padding: 10px;
-    }
+    padding: 65px 10px 10px;
   }
   .aside-toggle:checked {
     & ~ .aside {

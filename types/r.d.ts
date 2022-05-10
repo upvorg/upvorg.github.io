@@ -15,8 +15,9 @@ declare namespace R {
     Type: string
     IsPined: number
     IsRecommend: number
-    CreatedAt: Date
-    UpdatedAt: Date
+    IsOriginal: number
+    CreatedAt: string
+    UpdatedAt: string
     Meta: Meta
     Creator: User
     Hits: number
@@ -34,8 +35,8 @@ declare namespace R {
     Region: string
     Episodes: number
     IsEnd: number
-    PublishDate: Date | null
-    UpdatedDate: Date | null
+    PublishDate: string
+    UpdatedDate: string
   }
 
   export interface User {
@@ -47,8 +48,8 @@ declare namespace R {
     Avatar: string
     Bio: string
     Email: string
-    CreatedAt: Date
-    UpdatedAt: Date
+    CreatedAt: string
+    UpdatedAt: string
   }
 
   export interface Video {
@@ -62,8 +63,8 @@ declare namespace R {
     Synopsis: string
     Uid: number
     Pid: number
-    CreatedAt?: Date
-    UpdatedAt?: Date
+    CreatedAt: string
+    UpdatedAt: string
   }
 
   export interface Comment {
@@ -75,7 +76,7 @@ declare namespace R {
     Vid: number
     Content: string
     Color: string
-    CreatedAt: Date
+    CreatedAt: string
     Creator: User
     children: Comment[]
   }
@@ -87,6 +88,6 @@ declare namespace R {
     DisplayName: string
     Email: string
     Message: string
-    CreatedAt: Date
+    CreatedAt: string
   }
 }

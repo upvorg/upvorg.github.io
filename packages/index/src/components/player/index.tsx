@@ -9,9 +9,7 @@ interface UPlayerProps {
 export default function UPlayer({ src, playerIsPlaying = false }: UPlayerProps) {
   const [error, setError] = useState<any>(null)
 
-  useEffect(() => {
-    setError(null)
-  }, [src])
+  useEffect(() => setError(null), [src])
 
   return (
     <div
@@ -50,7 +48,10 @@ export default function UPlayer({ src, playerIsPlaying = false }: UPlayerProps) 
           >
             <MessageContext.Consumer>
               {({ dispatchAction }) => (
-                <ActionRegister dispatchAction={dispatchAction} playerIsPlaying={playerIsPlaying} />
+                <ActionRegister
+                  dispatchAction={dispatchAction}
+                  playerIsPlaying={!!!error && playerIsPlaying}
+                />
               )}
             </MessageContext.Consumer>
           </Player>

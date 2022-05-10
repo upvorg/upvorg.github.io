@@ -40,11 +40,15 @@ export function GetSimplifyDate(_date: string | Date) {
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
 }
 
-export function formatDate(_date: string | Date) {
+export function formatDate(_date: string | Date, withTIme = false) {
   const date = typeof _date == 'string' ? new Date(_date) : new Date(_date)
 
   if (new Date().getFullYear() === date.getFullYear()) {
-    return `${date.getMonth() + 1}月${date.getDate()}日`
+    return `${date.getMonth() + 1}月${date.getDate()}日 ${
+      withTIme ? ` ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}` : ''
+    }`
   }
-  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${
+    withTIme ? ` ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}` : ''
+  }`
 }

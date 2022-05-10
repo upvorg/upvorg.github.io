@@ -35,8 +35,8 @@ export const App: React.FC = () => {
     if (!(i || u)) {
       axios.get('/user').then((_) => {
         if (!_.err) {
-          setUser(_.data)
-          localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(_.data))
+          setUser(_.data.user)
+          localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(_.data.user))
         }
       })
     }
@@ -53,6 +53,10 @@ export const App: React.FC = () => {
                 <Route
                   path="/video/upload"
                   component={lazy(() => import('./pages/uploader/video'))}
+                />
+                <Route
+                  path="/video/:id/upload"
+                  component={lazy(() => import('./pages/uploader/real-video'))}
                 />
                 <Route
                   path="/post/upload"

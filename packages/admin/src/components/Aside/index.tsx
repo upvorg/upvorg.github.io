@@ -64,12 +64,12 @@ export const Aside = () => {
                   </a>
                 </Link>
 
-                <Link href="/video/upload">
+                {/* <Link href="/video/upload">
                   <a className="dropdown-item">
                     <i className="fa-solid fa-icons" />
                     <span> &nbsp;&nbsp;动态投稿</span>
                   </a>
-                </Link>
+                </Link> */}
               </div>
             </label>
           </div>

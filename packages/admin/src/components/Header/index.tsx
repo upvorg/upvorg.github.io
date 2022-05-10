@@ -1,8 +1,11 @@
 import { HOST } from '@web/shared'
 import { Link } from 'wouter'
+import { useUserStore } from '@web/index/src/store/user'
 import './index.scss'
 
 export const Header: React.FC = () => {
+  const user = useUserStore()
+
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -48,7 +51,7 @@ export const Header: React.FC = () => {
           <div className="navbar-item has-dropdown is-hoverable">
             <div className="navbar-link">
               <figure className="image is-32x32 ">
-                <img className="is-rounded" src={'user.Avatar'} />
+                <img className="is-rounded" src={user?.Avatar} />
               </figure>
             </div>
 
