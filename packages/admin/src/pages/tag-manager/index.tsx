@@ -58,7 +58,7 @@ export default function tagManager() {
         </div>
         <div className="tag-body">
           <div className="field is-grouped is-grouped-multiline">
-            {tags.map((tag, index) => (
+            {tags?.map((tag, index) => (
               <div className="control" key={index}>
                 <div className="tags has-addons">
                   <a className="tag is-primary">{tag.Name}</a>

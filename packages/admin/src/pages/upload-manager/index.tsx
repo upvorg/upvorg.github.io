@@ -46,8 +46,8 @@ export default function UploadManager() {
     })
   }
 
-  function handleCheckPost(id: number) {
-    axios.post(`/post/${id}/review?status=${4}`).then((res) => {
+  function handleCheckPost(id: number, query: string) {
+    axios.post(`/post/${id}/review?${query}`).then((res) => {
       if (!res.err) {
         if (status == '') {
           setPosts(posts.map((p) => (p.ID === id ? { ...p, Status: 4 } : p)))
@@ -141,11 +141,23 @@ export default function UploadManager() {
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 3 && (
                     <button
                       className="button is-light is-hidden-mobile"
-                      onClick={() => handleCheckPost(v.ID)}
+                      onClick={() => handleCheckPost(v.ID, 'status=4')}
                       data-tooltip="审核通过"
                     >
                       <span className="icon">
                         <i className="fa-solid fa-circle-check"></i>
+                      </span>
+                    </button>
+                  )}
+
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend != 2 && (
+                    <button
+                      className="button is-light is-hidden-mobile"
+                      onClick={() => handleCheckPost(v.ID, 'is_recommend=2')}
+                      data-tooltip="上推荐"
+                    >
+                      <span className="icon">
+                        <i className="fa-solid fa-thumbs-up"></i>
                       </span>
                     </button>
                   )}

@@ -1,6 +1,6 @@
 const isEnvProduction = process.env.NODE_ENV === 'production'
 
-const _HOST = 'upv.life'
+const _HOST = 'xn--7ov117aclgs4c.life'
 
 const HOST = isEnvProduction ? `https://${_HOST}` : 'http://localhost:3001'
 const LOCAL_SERVER_HOST = 'http://localhost:8080'

@@ -119,10 +119,10 @@ export default function RealVideoUploader({ params }: any) {
         resetVideo()
         if (!r.err) {
           setVideos(videos.map((v) => (v.ID === video.ID ? video : v)))
-          setIsEdit(false)
           resetVideo()
-          setSubmitLoading(false)
+          setIsEdit(false)
         }
+        setSubmitLoading(false)
       })
     } else {
       axios.post(`/post/${id}/video`, { data: video }).then((r) => {

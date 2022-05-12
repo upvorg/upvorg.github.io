@@ -1,0 +1,33 @@
+name: SSH Server Deploy
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: 16.x
+
+      - name: build
+        run: |
+          npm i pnpm -g
+          pnpm i
+          pnpm run build
+
+      - name: SSH Server Deploy
+        uses: kostya-ten/ssh-server-deploy@v4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: 22
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          scp_source: ./dist/*
+          scp_target: /var/www/yszm/
+          after_script: |
+            whoami
