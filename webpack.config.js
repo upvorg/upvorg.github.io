@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { ProgressPlugin } = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -126,7 +127,8 @@ module.exports = {
             ascii_only: true
           }
         }
-      })
+      }),
+      new CssMinimizerPlugin()
     ],
     runtimeChunk: 'single',
     splitChunks: {

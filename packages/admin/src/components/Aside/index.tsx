@@ -1,37 +1,53 @@
 import { Link, useLocation } from 'wouter'
 import cls from 'classnames'
 import './index.scss'
-
-const menu = [
-  {
-    title: '首页',
-    icon: 'fa-solid fa-infinity',
-    link: '/'
-  },
-  {
-    title: ' 稿件',
-    icon: 'fa-solid fa-icons',
-    link: '/upload-manager'
-  },
-  {
-    title: ' 标签',
-    icon: 'fa-solid fa-hashtag',
-    link: '/tag/manager'
-  },
-  {
-    title: '评论',
-    icon: 'fa-regular fa-comments',
-    link: '/comment/manager'
-  },
-  {
-    title: '用户',
-    icon: 'fa-solid fa-user-gear',
-    link: '/user/manager'
-  }
-]
+import { useUserStore } from '@web/index/src/store/user'
+import { useEffect, useState } from 'react'
 
 export const Aside = () => {
   const [location] = useLocation()
+  const user = useUserStore()
+  const [menu, setMenu] = useState([
+    {
+      title: '首页',
+      icon: 'fa-solid fa-infinity',
+      link: '/'
+    },
+    {
+      title: ' 稿件',
+      icon: 'fa-solid fa-icons',
+      link: '/upload-manager'
+    },
+    {
+      title: ' 标签',
+      icon: 'fa-solid fa-hashtag',
+      link: '/tag/manager'
+    },
+    {
+      title: ' 个人',
+      icon: 'fa-solid fa-user',
+      link: (user: R.User | null) => '/user/profile?name=' + user?.Name
+    }
+  ])
+
+  useEffect(() => {
+    if (user?.Level || 4 <= 2) {
+      setMenu((menu) =>
+        menu.concat(
+          {
+            title: '评论',
+            icon: 'fa-solid fa-comments',
+            link: '/comment/manager'
+          },
+          {
+            title: '用户',
+            icon: 'fa-solid fa-user-gear',
+            link: '/user/manager'
+          }
+        )
+      )
+    }
+  }, [user])
 
   return (
     <div className="menu">
@@ -78,10 +94,12 @@ export const Aside = () => {
 
       <ul className="menu-list">
         {menu.map((item, index) => {
+          const link = typeof item.link == 'function' ? item.link(user) : item.link
+          const active = link.split('?')[0] === location
           return (
             <li key={index}>
-              <Link href={item.link}>
-                <a className={cls({ active: item.link === location })}>
+              <Link href={link}>
+                <a className={cls({ active: active })}>
                   <i className={item.icon} />
                   <span>&nbsp;&nbsp;&nbsp;{item.title}</span>
                 </a>

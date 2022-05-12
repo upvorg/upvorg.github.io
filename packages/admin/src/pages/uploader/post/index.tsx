@@ -1,7 +1,7 @@
 import { axios } from '@web/shared'
 import Markdown from '@web/index/src/components/markdown'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
@@ -15,9 +15,10 @@ export default function PostUploader() {
     Type: 'post',
     IsOriginal: 1
   } as R.Post)
-  const [serverTags, setServerTags] = useState<string>('')
+  const [serverTags, setServerTags] = useState<R.Tag[]>([])
   const [tags, setTags] = useState<string[]>([])
   const { id } = qs.parse(window.location.search)
+  const hasChanged = useRef(false)
 
   useEffect(() => {
     axios.get('/tags').then((res) => {
@@ -26,23 +27,26 @@ export default function PostUploader() {
     if (id) {
       axios.get(`/post/${id}`).then((res) => {
         if (!res.err) {
-          setPost(() => ({ ...res.data }))
+          setPost(res.data)
           res.data.Tags && setTags(res.data.Tags.split(' '))
         }
-        console.log(post, res.data)
       })
     }
   }, [])
 
   const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!hasChanged.current && id) {
+      window.history.pushState(null, '', '/upload-manager?t=1')
+      return
+    }
     post.Tags = tags.join(' ')
     ;(id ? axios.put(`/post/${id}`, { data: post }) : axios.post('/post', { data: post })).then(
       (res) => {
         if (!res.err) {
           toast.success('发布成功')
           setTimeout(() => {
-            window.history.pushState(null, '', '/upload-manager')
+            window.history.pushState(null, '', '/upload-manager?t=1')
           }, 1500)
         }
       }
@@ -54,12 +58,9 @@ export default function PostUploader() {
   ) => {
     const { name, value, type } = e.target
     const parsedValue = type === 'number' || type === 'checkbox' ? +value : value
+    hasChanged.current = true
 
-    if (name.includes('Meta.')) {
-      setPost({ ...post, Meta: { ...post.Meta, [name.split('.')[1]]: parsedValue } })
-    } else {
-      setPost({ ...post, [name]: parsedValue })
-    }
+    setPost({ ...post, [name]: parsedValue })
   }
 
   const [uploader, up] = useUploader({
@@ -69,10 +70,8 @@ export default function PostUploader() {
     }
   })
 
-  console.log(post)
-
   return (
-    <div className="card">
+    <div className="box PostUploader">
       <header className="card-header">
         <p className="card-header-title">发布文章</p>
       </header>
@@ -173,29 +172,29 @@ export default function PostUploader() {
               <div className="field">
                 <div className="control">
                   <div className="tags">
-                    {!!serverTags ? (
-                      serverTags?.split(' ').map((item, index) => {
+                    {serverTags.length > 0 ? (
+                      serverTags.map((item, index) => {
                         return (
                           <a
                             className={classNames('tag', {
-                              'is-primary': tags.includes(item)
+                              'is-primary': tags.includes(item.Name)
                             })}
                             key={index}
                             onClick={() => {
                               setTags((t) => {
-                                const exists = tags.includes(item)
+                                const exists = tags.includes(item.Name)
                                 if (exists) {
-                                  return t.filter((t) => t !== item)
+                                  return t.filter((t) => t !== item.Name)
                                 } else {
                                   if (t.length < 4) {
-                                    return [...t, item]
+                                    return [...t, item.Name]
                                   }
                                   return t
                                 }
                               })
                             }}
                           >
-                            {item}
+                            {item.Name}
                           </a>
                         )
                       })

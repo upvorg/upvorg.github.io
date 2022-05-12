@@ -13,6 +13,20 @@ export const COOKIE_ACCESS_TOKEN_KEY = 'access_token'
 
 export const PRIMARY_COLOR = '#6668ab'
 
+export const USER_LEVEL_MAP = {
+  4: '普通用户',
+  3: '创作者',
+  2: '管理员',
+  1: '超级管理员'
+}
+
+export enum USER_LEVEL {
+  NORMAL = 4,
+  CREATOR = 3,
+  ADMIN = 2,
+  ROOT = 1
+}
+
 const axios = http.create<R.Response<any>>(API_HOST, {
   config: {
     credentials: 'include'

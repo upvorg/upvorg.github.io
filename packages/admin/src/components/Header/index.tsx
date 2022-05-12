@@ -1,4 +1,4 @@
-import { HOST } from '@web/shared'
+import { Auth, HOST } from '@web/shared'
 import { Link } from 'wouter'
 import { useUserStore } from '@web/index/src/store/user'
 import './index.scss'
@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
           </svg>
         </label>
         <Link href="/">
-          <a className="navbar-item">
+          <a className="navbar-item ml-1">
             <h1 className="logo">UPV</h1>
             <span>创作中心</span>
           </a>
@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
         </div>
 
         <div className="navbar-end">
-          <div className="navbar-item has-dropdown is-hoverable">
+          <div className="navbar-item has-dropdown is-hoverable mr-3">
             <div className="navbar-link">
               <figure className="image is-32x32 ">
                 <img className="is-rounded" src={user?.Avatar} />
@@ -56,7 +56,15 @@ export const Header: React.FC = () => {
             </div>
 
             <div className="navbar-dropdown is-boxed is-right">
-              <a className="navbar-item">退出</a>
+              <a
+                className="navbar-item"
+                onClick={() => {
+                  Auth.logout()
+                  location.href = '/'
+                }}
+              >
+                退出
+              </a>
             </div>
           </div>
         </div>

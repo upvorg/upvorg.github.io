@@ -1,3 +1,8 @@
+interface HeadersInit {
+  'Content-Type'?: string
+  [key: string]: any
+}
+
 type Options = {
   headers?: HeadersInit
   baseUrl?: string
@@ -77,15 +82,14 @@ export default class Http<R = any> {
     headers: HeadersInit = {},
     data: any = {}
   ): Promise<T> {
-    const config: HeadersInit = this.interceptors.request.resolve?.({
-      ...(!(data instanceof FormData) &&
-        //@ts-ignore
-        !this.headers['Content-type'] && {
-          'Content-type': 'application/json; charset=UTF-8'
-        }),
+    const config: any = this.interceptors.request.resolve?.({
       ...this.headers,
       ...headers
     })
+
+    if (!(data instanceof FormData) && this.headers['Content-type']) {
+      config['Content-type'] = 'application/json; charset=UTF-8'
+    }
 
     if (__DEV__) console.log(`${method} ${url} data: `, method.toUpperCase(), data)
     let rawResponse: Response

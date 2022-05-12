@@ -8,8 +8,6 @@ export function useQueryState<T = Record<string, any>>(defaultValue?: Partial<T>
   return [
     _query,
     useCallback((query: Partial<T>) => {
-      console.log(query)
-
       window.history.pushState(
         null,
         '',

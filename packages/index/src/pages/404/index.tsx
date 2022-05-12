@@ -1,17 +1,10 @@
-import Lottie, { LottieComponentProps } from 'lottie-react'
-import animationData from '../../lotties/not-found.json'
-
 const NotFound = () => {
-  const defaultOptions: LottieComponentProps = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  }
-
-  return <Lottie {...defaultOptions} />
+  return (
+    <div>
+      <h1>404</h1>
+      <p>Page not found</p>
+    </div>
+  )
 }
 
 export default NotFound

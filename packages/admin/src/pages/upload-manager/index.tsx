@@ -1,16 +1,19 @@
 import { useUserStore } from '@web/index/src/store/user'
-import { axios, formatDate, HOST } from '@web/shared'
+import { axios, formatDate, HOST, USER_LEVEL } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { Link } from 'wouter'
+import qs from 'query-string'
 import './index.scss'
 
 export default function UploadManager() {
   const user = useUserStore()
   const [page, setPage] = useState(1)
-  const [tabIndex, setTabIndex] = useState(0)
+  const { t } = qs.parse(window.location.search)
+  const [tabIndex, setTabIndex] = useState(t ? +t : 0)
   const [posts, setPosts] = useState<R.Post[]>([])
   const [status, setStatus] = useState('')
+  const [k, setK] = useState('')
   const pageSize = 10
 
   useEffect(() => {
@@ -23,18 +26,35 @@ export default function UploadManager() {
     if (!user) return
     const t = ['video', 'post'][tabIndex]
     axios
-      .get(`/posts?type=${t}&uid=${user?.ID}&page=${page}&page_size=${pageSize}&status=${status}`)
+      .get(
+        `/posts?type=${t}&uid=${
+          user.Level <= USER_LEVEL.ADMIN ? '' : user?.ID
+        }&page=${page}&page_size=${pageSize}&status=${status}&keyword=${k}`
+      )
       .then((res) => {
         if (!res.err) {
           setPosts(res.data)
         }
       })
-  }, [user, page, tabIndex, status])
+  }, [user, page, tabIndex, status, k])
 
   function handleDelPost(id: number) {
     axios.delete(`/post/${id}`).then((res) => {
       if (!res.err) {
         setPosts(posts.filter((p) => p.ID !== id))
+      }
+    })
+  }
+
+  function handleCheckPost(id: number) {
+    axios.post(`/post/${id}/review?status=${4}`).then((res) => {
+      if (!res.err) {
+        if (status == '') {
+          setPosts(posts.map((p) => (p.ID === id ? { ...p, Status: 4 } : p)))
+        }
+        if (status == '3') {
+          setPosts(posts.filter((p) => p.ID !== id))
+        }
       }
     })
   }
@@ -54,6 +74,13 @@ export default function UploadManager() {
               </li>
             ))}
           </ul>
+          <input
+            type="text"
+            className="input is-small"
+            placeholder="搜索"
+            value={k}
+            onChange={(e) => setK(e.target.value)}
+          />
         </div>
 
         <div className="tags">
@@ -83,7 +110,9 @@ export default function UploadManager() {
               </div>
 
               <div className="list-item-content">
-                <div className="list-item-title">{v.Title}</div>
+                <Link href={tabIndex == 0 ? `/video/upload?id=${v.ID}` : `/post/upload?id=${v.ID}`}>
+                  <div className="list-item-title is-clickable">{v.Title}</div>
+                </Link>
                 <div className="list-item-description">{formatDate(v.CreatedAt, true)}</div>
                 <div className="list-item-description">
                   <span className="icon-text">
@@ -109,6 +138,18 @@ export default function UploadManager() {
 
               <div className="list-item-controls">
                 <div className="buttons">
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 3 && (
+                    <button
+                      className="button is-light is-hidden-mobile"
+                      onClick={() => handleCheckPost(v.ID)}
+                      data-tooltip="审核通过"
+                    >
+                      <span className="icon">
+                        <i className="fa-solid fa-circle-check"></i>
+                      </span>
+                    </button>
+                  )}
+
                   <button className="button is-light is-hidden-mobile">
                     <a href={`${HOST}/${tabIndex == 0 ? 'v' : 'p'}/${v.ID}`} target="_blank">
                       <span className="icon">
@@ -126,6 +167,7 @@ export default function UploadManager() {
                       </span>
                     </button>
                   </Link>
+
                   <button
                     className="button is-light is-hidden-mobile"
                     onClick={() => handleDelPost(v.ID)}
@@ -157,7 +199,11 @@ export default function UploadManager() {
           </a>
           <ul className="pagination-list">
             <li>
-              <a className="pagination-link is-current" aria-label="Page 46" aria-current="page">
+              <a
+                className="pagination-link is-current"
+                aria-label={`Page ${page}`}
+                aria-current="page"
+              >
                 {page}
               </a>
             </li>

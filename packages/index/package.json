@@ -13,7 +13,6 @@
   "dependencies": {
     "@web/shared": "workspace:^1.0.0",
     "copy-text-to-clipboard": "^3.0.1",
-    "lottie-react": "^2.2.1",
     "react-content-loader": "^6.2.0",
     "react-helmet": "^6.1.0"
   },

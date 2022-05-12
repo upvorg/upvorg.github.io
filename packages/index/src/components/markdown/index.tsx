@@ -3,6 +3,7 @@ import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 import rehypeAttr from 'rehype-attr'
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
@@ -12,8 +13,28 @@ import 'react-markdown-editor-lite/lib/index.css'
 
 import './index.scss'
 
+const CONFIG_MAP = {
+  render: {
+    view: {
+      menu: false,
+      md: false,
+      html: true
+    },
+    classname: 'markdown_render'
+  },
+  editor: {
+    view: {
+      menu: true,
+      md: true,
+      html: false
+    },
+    classname: 'markdown_editor'
+  }
+}
+
 const processor = unified()
   .use(remarkParse)
+  .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
   .use(rehypeAttr, { properties: 'attr' })
@@ -27,19 +48,10 @@ const processor = unified()
   .use(rehypeStringify)
 
 const Markdown: React.FC<Props> = (props) => {
-  const { value = '', type, onChange, customClassName = '' } = props
+  const { value = '', type, onChange, customClassName = '', placeholder = '' } = props
+  const { view, classname: defaultClassName } = CONFIG_MAP[type]
 
-  let view = { menu: false, md: false, html: true }
-  let classname = 'markdown'
-
-  if (type === 'render') {
-    classname += ` markdown_render`
-  }
-
-  if (type === 'editor') {
-    view = { menu: true, md: true, html: false }
-    classname += ` markdown_editor`
-  }
+  let classname = `markdown ${defaultClassName}`
 
   if (customClassName) {
     classname += ` ${customClassName}`
@@ -52,10 +64,11 @@ const Markdown: React.FC<Props> = (props) => {
       view={view}
       value={value}
       renderHTML={async (text) => {
-        const content: any = await processor.process(text)
-        return content.value
+        const content = await processor.process(text)
+        return content.toString()
       }}
       onChange={(data) => onChange?.(data.text)}
+      placeholder={placeholder}
     />
   )
 }
@@ -64,7 +77,8 @@ export default Markdown
 
 interface Props {
   type: 'editor' | 'render'
-  value?: string
   customClassName?: string
+  placeholder?: string
+  value?: string
   onChange?: (text: string) => void
 }

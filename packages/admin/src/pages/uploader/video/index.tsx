@@ -1,6 +1,6 @@
 import { axios } from '@web/shared'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
@@ -25,9 +25,10 @@ export default function VideoUploader() {
       UpdatedDate: ''
     } as R.Meta
   } as R.Post)
-  const [serverTags, setServerTags] = useState<string>('')
+  const [serverTags, setServerTags] = useState<R.Tag[]>([])
   const [tags, setTags] = useState<string[]>([])
   const { id } = qs.parse(window.location.search)
+  const hasChanged = useRef(false)
 
   useEffect(() => {
     axios.get('/tags').then((res) => {
@@ -39,23 +40,41 @@ export default function VideoUploader() {
           setPost(() => ({ ...res.data }))
           res.data.Tags && setTags(res.data.Tags.split(' '))
         }
-        console.log(post, res.data)
       })
     }
   }, [])
 
   const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(e)
-
     e.preventDefault()
+
+    if (!hasChanged.current && id) {
+      //@ts-ignore
+      if (e.nativeEvent.submitter.name == 'next') {
+        window.history.pushState(null, '', `/video/${id}/upload`)
+      } else {
+        window.history.pushState(null, '', '/upload-manager')
+      }
+      return
+    }
+
     if (tags.length < 1) {
       toast.error('请至少选择一个标签')
       return
     }
 
     post.Tags = tags.join(' ')
-    post.Meta.UpdatedDate = new Date(post.Meta.UpdatedDate).toISOString()
-    post.Meta.PublishDate = new Date(post.Meta.PublishDate).toISOString()
+
+    if (+post.IsOriginal == 2) {
+      delete post.Meta
+    } else {
+      post!.Meta!.UpdatedDate = post.Meta?.UpdatedDate
+        ? new Date(post.Meta!.UpdatedDate).toISOString()
+        : null
+      post.Meta!.PublishDate = post.Meta?.PublishDate
+        ? new Date(post.Meta!.PublishDate).toISOString()
+        : null
+    }
+
     ;(id ? axios.put(`/post/${id}`, { data: post }) : axios.post('/post', { data: post })).then(
       (res) => {
         if (!res.err) {
@@ -64,7 +83,7 @@ export default function VideoUploader() {
           setTimeout(() => {
             //@ts-ignore
             if (e.nativeEvent.submitter.name == 'next') {
-              window.history.pushState(null, '', `/video/${res.id}/upload`)
+              window.history.pushState(null, '', `/video/${res.data.ID}/upload`)
             } else {
               window.history.pushState(null, '', '/upload-manager')
             }
@@ -79,7 +98,8 @@ export default function VideoUploader() {
   ) => {
     const { name, value, type } = e.target
     const parsedValue = type === 'number' || type === 'checkbox' ? +value : value
-    console.log(name, value)
+
+    hasChanged.current = true
 
     if (name.includes('Meta.')) {
       setPost({
@@ -102,9 +122,9 @@ export default function VideoUploader() {
   })
 
   const isOriginal = post.IsOriginal == 2
-  const isEnd = post.Meta.IsEnd == 2
-  const publishDate = new Date(post.Meta.PublishDate)
-  const updatedDate = new Date(post.Meta.UpdatedDate)
+  const isEnd = post.Meta?.IsEnd == 2
+  const publishDate = new Date(post.Meta?.PublishDate || Date.now())
+  const updatedDate = new Date(post.Meta?.UpdatedDate || Date.now())
   const publishDateStr =
     publishDate.getFullYear() +
     '-' +
@@ -119,7 +139,7 @@ export default function VideoUploader() {
     updatedDate.getDate()
 
   return (
-    <div className="card">
+    <div className="box VideoUploader">
       <header className="card-header">
         <p className="card-header-title">发布视频</p>
       </header>
@@ -228,6 +248,7 @@ export default function VideoUploader() {
                     value={isOriginal ? 1 : 2}
                     onChange={handleChange}
                     checked={isOriginal}
+                    disabled={!!id}
                   />
                   <label htmlFor="is-original" className="label"></label>
                 </p>
@@ -235,34 +256,36 @@ export default function VideoUploader() {
             </div>
           </div>
 
-          <div className="field is-horizontal">
-            <div className="field-label">
-              <label className="label">
-                类型<span>*</span>
-              </label>
-            </div>
-            <div className="field-body">
-              <div className="field is-narrow">
-                <div className="control">
-                  {GENRE.map((item, index) => {
-                    return (
-                      <label className="radio" key={index}>
-                        <input
-                          type="radio"
-                          required
-                          value={item}
-                          name="Meta.Genre"
-                          onChange={handleChange}
-                          checked={post.Meta.Genre === item}
-                        />
-                        {item}
-                      </label>
-                    )
-                  })}
+          {!isOriginal && (
+            <div className="field is-horizontal">
+              <div className="field-label">
+                <label className="label">
+                  类型<span>*</span>
+                </label>
+              </div>
+              <div className="field-body">
+                <div className="field is-narrow">
+                  <div className="control">
+                    {GENRE.map((item, index) => {
+                      return (
+                        <label className="radio" key={index}>
+                          <input
+                            type="radio"
+                            required
+                            value={item}
+                            name="Meta.Genre"
+                            onChange={handleChange}
+                            checked={post.Meta?.Genre === item}
+                          />
+                          {item}
+                        </label>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           {!isOriginal && (
             <div className="field is-horizontal">
@@ -279,7 +302,7 @@ export default function VideoUploader() {
                         required
                         name="Meta.Region"
                         onChange={handleChange}
-                        value={post.Meta.Region}
+                        value={post.Meta?.Region}
                       >
                         {REGIONS.map((item, index) => {
                           return <option key={index}>{item}</option>
@@ -332,7 +355,8 @@ export default function VideoUploader() {
                       name="Meta.Episodes"
                       onChange={handleChange}
                       style={{ width: '10ch' }}
-                      value={post.Meta.Episodes}
+                      value={post.Meta?.Episodes}
+                      min={1}
                     />
                   </div>
                 </div>
@@ -353,7 +377,7 @@ export default function VideoUploader() {
                       type="date"
                       name="Meta.PublishDate"
                       onChange={handleChange}
-                      value={publishDateStr}
+                      value={post.Meta?.PublishDate ? publishDateStr : ''}
                     />
                   </div>
                 </div>
@@ -374,7 +398,7 @@ export default function VideoUploader() {
                       type="date"
                       name="Meta.UpdatedDate"
                       onChange={handleChange}
-                      value={updatedDateStr}
+                      value={post.Meta?.UpdatedDate ? updatedDateStr : ''}
                     />
                   </div>
                   <p className="help">每周几更新：只判断所选日期为周几</p>
@@ -393,29 +417,29 @@ export default function VideoUploader() {
               <div className="field">
                 <div className="control">
                   <div className="tags">
-                    {!!serverTags ? (
-                      serverTags?.split(' ').map((item, index) => {
+                    {serverTags.length > 0 ? (
+                      serverTags.map((item, index) => {
                         return (
                           <a
                             className={classNames('tag', {
-                              'is-primary': tags.includes(item)
+                              'is-primary': tags.includes(item.Name)
                             })}
                             key={index}
                             onClick={() => {
                               setTags((t) => {
-                                const exists = tags.includes(item)
+                                const exists = tags.includes(item.Name)
                                 if (exists) {
-                                  return t.filter((t) => t !== item)
+                                  return t.filter((t) => t !== item.Name)
                                 } else {
                                   if (t.length < 4) {
-                                    return [...t, item]
+                                    return [...t, item.Name]
                                   }
                                   return t
                                 }
                               })
                             }}
                           >
-                            {item}
+                            {item.Name}
                           </a>
                         )
                       })

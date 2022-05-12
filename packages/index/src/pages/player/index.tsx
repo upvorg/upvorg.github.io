@@ -44,7 +44,7 @@ export default function PlayerPage({ id }: any) {
     axios.get(`/post/${id}/pv`)
   }, [])
 
-  const { Title, Creator, Tags, Meta, Hits, CommentCount } = state
+  const { Title, Creator, Tags, IsOriginal, Hits, CommentCount } = state
 
   return (
     <>
@@ -148,10 +148,9 @@ export default function PlayerPage({ id }: any) {
               </svg>
               <span>{state.CreatedAt ? getTimeDistance(state.CreatedAt) : '-'}</span>
             </div>
-            <Tag
-              title={Meta?.Genre}
-              href={`/pv/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
-            />
+            {IsOriginal == 2 && (
+              <Tag title={'原创'} href={`/pv/tag?type=video&is_original=2&title=原创`} />
+            )}
             {Tags &&
               Tags.trim()
                 .split(' ')

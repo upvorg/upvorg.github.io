@@ -9,7 +9,7 @@
 
     button {
       width: 100%;
-      padding: 1em 1.2em;
+      padding: 1em 1.5em;
     }
 
     .dropdown.is-active .dropdown-menu,
@@ -49,7 +49,7 @@
 
   .menu-list {
     > li > a {
-      padding: 0.8em 1em;
+      padding: 0.8em 1.5em;
 
       &.active {
         color: var(--p);

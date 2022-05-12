@@ -1,0 +1,69 @@
+.home {
+  // .block .title {
+  //   padding-bottom: 0.4em;
+  //   border-bottom: 1px solid #eee;
+  // }
+
+  .stats {
+    .stat-wrap {
+      flex: 1;
+      flex-wrap: wrap;
+
+      & + .stat-wrap {
+        padding-left: 1.2em;
+      }
+    }
+    .stat {
+      background-color: #f2f2f8;
+      padding: 1em;
+      border-radius: 6px;
+      color: #61666d;
+
+      .icon-text {
+        opacity: 0.8;
+        margin-bottom: 0.5em;
+        .text {
+          font-size: 14px;
+        }
+      }
+      .title {
+        color: var(--p);
+        margin-bottom: 0.5em;
+      }
+
+      .sub {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+
+        > span {
+          margin-left: 0.2em;
+          font-size: 16px;
+          color: var(--p);
+        }
+      }
+    }
+  }
+
+  #activity {
+    .list-item {
+      border-bottom-color: #eee;
+      padding: 0.75em 0;
+    }
+    .list-item-title .action {
+      color: #7a7a7a;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    a {
+      color: #8080aa;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stat-wrap {
+      width: 50%;
+      flex: inherit !important;
+    }
+  }
+}

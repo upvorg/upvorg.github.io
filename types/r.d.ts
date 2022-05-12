@@ -18,7 +18,7 @@ declare namespace R {
     IsOriginal: number
     CreatedAt: string
     UpdatedAt: string
-    Meta: Meta
+    Meta?: Meta
     Creator: User
     Hits: number
     LikesCount: number
@@ -35,8 +35,8 @@ declare namespace R {
     Region: string
     Episodes: number
     IsEnd: number
-    PublishDate: string
-    UpdatedDate: string
+    PublishDate: string | null
+    UpdatedDate: string | null
   }
 
   export interface User {
@@ -78,7 +78,15 @@ declare namespace R {
     Color: string
     CreatedAt: string
     Creator: User
+    Post?: Post
     children: Comment[]
+  }
+
+  export interface Tag {
+    ID: number
+    Name: string
+    Synopsis: string
+    CreatedAt: Date
   }
 
   export interface Feedback {

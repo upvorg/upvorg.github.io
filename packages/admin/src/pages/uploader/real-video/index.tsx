@@ -78,7 +78,6 @@ export default function RealVideoUploader({ params }: any) {
   const handleEdit = (video: R.Video) => {
     setVideo(() => ({ ...video }))
     setIsEdit(true)
-    console.log(video)
   }
 
   //TODO: select image from video player

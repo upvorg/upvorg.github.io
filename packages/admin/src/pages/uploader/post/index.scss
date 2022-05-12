@@ -1,53 +1,55 @@
-.card-header {
-  box-shadow: none;
-  border-bottom: 1px solid #e6e6e6;
-}
+.PostUploader {
+  .card-header {
+    box-shadow: none;
+    border-bottom: 1px solid #e6e6e6;
+  }
 
-.card-content {
-  width: 80%;
-}
+  .card-content {
+    width: 80%;
+  }
 
-.field:not(:last-child) {
-  margin-bottom: 1.5rem;
-}
+  .field:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
 
-.field-label {
-  label.label {
-    font-weight: 400;
-    font-size: 14px;
+  .field-label {
+    label.label {
+      font-weight: 400;
+      font-size: 14px;
 
-    > span {
-      margin-left: 2px;
-      color: var(--Re6);
-      font-size: 16px;
+      > span {
+        margin-left: 2px;
+        color: var(--Re6);
+        font-size: 16px;
+      }
     }
   }
-}
 
-label.radio > input {
-  margin-right: 0.2rem;
-}
-
-.control.has-icons-right .input {
-  ~ .input-max-tip {
-    right: 0.5em;
+  label.radio > input {
+    margin-right: 0.2rem;
   }
 
-  &:focus ~ .input-max-tip {
-    color: hsl(0deg, 0%, 86%);
+  .control.has-icons-right .input {
+    ~ .input-max-tip {
+      right: 0.5em;
+    }
+
+    &:focus ~ .input-max-tip {
+      color: hsl(0deg, 0%, 86%);
+    }
   }
-}
 
-.rc-md-editor {
-  min-height: 400px;
-}
+  .rc-md-editor {
+    min-height: 400px;
+  }
 
-.rc-md-editor .rc-md-navigation {
-  padding: 8px;
-}
+  .rc-md-editor .rc-md-navigation {
+    padding: 8px;
+  }
 
-.rc-md-editor .rc-md-navigation .button-wrap .button {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+  .rc-md-editor .rc-md-navigation .button-wrap .button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
 }

@@ -94,7 +94,6 @@ const PostPage: React.FC = ({ id }: any) => {
 
   const collectHandler = useCallback(() => {
     const c = isCollected ? -1 : 1
-    console.log(c)
 
     setIsCollected((isCollected) => !isCollected)
     setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
@@ -118,8 +117,17 @@ const PostPage: React.FC = ({ id }: any) => {
       })
   }, [state, isCollected])
 
-  const { Title, Creator, CreatedAt, Hits, CommentCount, Tags, Meta, LikesCount, CollectionCount } =
-    state
+  const {
+    Title,
+    Creator,
+    CreatedAt,
+    Hits,
+    CommentCount,
+    Tags,
+    IsOriginal,
+    LikesCount,
+    CollectionCount
+  } = state
   const { Nickname, Avatar } = Creator || {}
 
   return (
@@ -312,10 +320,9 @@ const PostPage: React.FC = ({ id }: any) => {
           <Postkeleton />
         )}
         <Markdown type="render" value={removeImagesFormMd(state.Content)} />
-        <Tag
-          title={Meta?.Genre}
-          href={`/pv/tag?type=video&genre=${Meta?.Genre}&title=${Meta?.Genre}`}
-        />
+        {IsOriginal == 2 && (
+          <Tag title={'原创'} href={`/pv/tag?type=video&is_original=2&title=原创`} />
+        )}
         {Tags &&
           Tags.trim()
             .split(' ')

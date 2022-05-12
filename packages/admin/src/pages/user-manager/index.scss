@@ -1,4 +1,4 @@
-.UploadManager {
+.UserManager {
   .tabs {
     border-bottom: hsl(0deg, 0%, 86%) 1px solid;
     ul {
@@ -6,33 +6,6 @@
     }
     > input {
       width: 30ch;
-    }
-  }
-
-  .list {
-    background-color: #fff;
-
-    .list-item-image {
-      .image {
-        width: 96px;
-      }
-    }
-
-    .list-item-content {
-      height: 100%;
-
-      > * {
-        margin-bottom: 1em;
-      }
-      .icon-text {
-        span.text {
-          margin-right: 1em;
-        }
-      }
-    }
-
-    .list-item-description {
-      font-size: 14px;
     }
   }
 
@@ -52,5 +25,8 @@
     *:nth-child(3) {
       order: 3;
     }
+  }
+  .list-item-description {
+    font-size: 14px;
   }
 }

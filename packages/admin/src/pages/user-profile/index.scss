@@ -1,0 +1,43 @@
+.user-profile {
+  width: 720px;
+  margin: 0 auto;
+
+  @media (max-width: 720px) {
+    width: 100%;
+  }
+
+  .avatar {
+    border-radius: 50%;
+  }
+
+  .field .control {
+    margin-bottom: 1em;
+  }
+
+  .field.avatar {
+    align-items: center;
+    margin-bottom: 0;
+
+    > .field {
+      flex: 1;
+    }
+
+    > * {
+      margin-right: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .input[name='Nickname'],
+  .input[name='Name'] {
+    width: 16ch;
+  }
+
+  .input[name='Email'] {
+    width: 32ch;
+  }
+
+  .input[name='Bio'] {
+    width: 32ch;
+  }
+}
