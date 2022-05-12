@@ -1,11 +1,13 @@
 const isEnvProduction = process.env.NODE_ENV === 'production'
 
-const HOST = isEnvProduction ? 'https://upv.life' : 'http://localhost:3001'
+const _HOST = 'upv.life'
+
+const HOST = isEnvProduction ? `https://${_HOST}` : 'http://localhost:3001'
 const LOCAL_SERVER_HOST = 'http://localhost:8080'
 const LOCAL_API_HOST = LOCAL_SERVER_HOST + '/api' // local server
-const API_HOST = isEnvProduction ? 'https://api.upv.life/api' : `/api` // /api is the proxy path
-const ADMIN_HOST = isEnvProduction ? 'https://admin.upv.life' : `http://localhost:8888`
-const STORAGE_HOST = isEnvProduction ? 'https://storge.upv.life' : `${LOCAL_SERVER_HOST}`
+const API_HOST = isEnvProduction ? `https://api.${_HOST}/api` : `/api` // /api is the proxy path
+const ADMIN_HOST = isEnvProduction ? `https://admin.${_HOST}` : `http://localhost:8888`
+const STORAGE_HOST = isEnvProduction ? `https://storge.${_HOST}` : `${LOCAL_SERVER_HOST}`
 
 module.exports = {
   isEnvProduction,
