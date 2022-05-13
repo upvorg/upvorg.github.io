@@ -1,4 +1,4 @@
-import { PRIMARY_COLOR, Auth, LOCAL_STORAGE_USER_INFO_KEY, axios } from '@web/shared'
+import { PRIMARY_COLOR, Auth, LOCAL_STORAGE_USER_INFO_KEY, axios, HOST } from '@web/shared'
 import React, { Suspense, lazy, useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Route, Router, Switch, useRoute } from 'wouter'
@@ -10,7 +10,7 @@ axios.interceptors.response.use(
   (response) => {
     response.err && toast.error(response.err)
     if (response.status === 401) {
-      Auth.logout()
+      Auth.logout(`${HOST}/login?from=${location.href}`)
     }
     return response
   }

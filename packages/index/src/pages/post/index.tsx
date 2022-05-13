@@ -3,11 +3,11 @@ import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
 import copyTextToClipboard from 'copy-text-to-clipboard'
-import { axios, getCoverFormMd, getTimeDistance, removeImagesFormMd } from '@web/shared'
+import { axios, getTimeDistance, removeImagesFormMd } from '@web/shared'
 import Comment from '../../components/comment'
 import Markdown from '../../components/markdown'
 import { Postkeleton } from '../../skeleton/CommentSkeleton'
-import { Tag } from '../../components/tag/Tag'
+import { Tags } from '../../components/tag/Tag'
 
 import './index.scss'
 
@@ -17,8 +17,7 @@ const PostPage: React.FC = ({ id }: any) => {
   const [isCollected, setIsCollected] = useState<boolean>(false)
   const [isFocus, setIsFocus] = useState<boolean>(false)
 
-  const cover = useRef<ReturnType<typeof getCoverFormMd>>()
-  const hasCover = cover.current && !cover.current._df
+  const cover = useRef<string>()
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const PostPage: React.FC = ({ id }: any) => {
       a.data && setState(a.data)
       a.data.IsLiked == 2 && setIsLiked(true)
       a.data.IsCollected == 2 && setIsCollected(true)
-      cover.current = getCoverFormMd(a.data.Content, { strict: true })
+      cover.current = a.data.Cover
     })
     axios.get(`/post/${id}/pv`)
   }, [])
@@ -123,12 +122,13 @@ const PostPage: React.FC = ({ id }: any) => {
     CreatedAt,
     Hits,
     CommentCount,
-    Tags,
+    Tags: tags,
     IsOriginal,
     LikesCount,
     CollectionCount
   } = state
   const { Nickname, Avatar } = Creator || {}
+  const hasCover = !!cover.current
 
   return (
     <>
@@ -139,7 +139,7 @@ const PostPage: React.FC = ({ id }: any) => {
         <div
           className="post-container__cover"
           style={{
-            background: `url(${cover.current!.url}) no-repeat top/cover #f4f5f7`
+            background: `url(${cover.current}) no-repeat top/cover #f4f5f7`
           }}
         />
       )}
@@ -320,15 +320,24 @@ const PostPage: React.FC = ({ id }: any) => {
           <Postkeleton />
         )}
         <Markdown type="render" value={removeImagesFormMd(state.Content)} />
-        {IsOriginal == 2 && (
-          <Tag title={'原创'} href={`/pv/tag?type=video&is_original=2&title=原创`} />
-        )}
-        {Tags &&
-          Tags.trim()
-            .split(' ')
-            .map((tag: any, i: number) => (
-              <Tag key={i} title={tag} href={`/pv/tag?type=video&tag=${tag}&title=${tag}`} />
-            ))}
+        <Tags
+          tags={
+            !!tags
+              ? tags
+                  .trim()
+                  .split(' ')
+                  .map((tag) => ({
+                    title: tag,
+                    href: `/pv/tag?type=video&title=${tag}`
+                  }))
+                  .concat(
+                    IsOriginal == 2
+                      ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
+                      : []
+                  )
+              : []
+          }
+        />
         <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
       </div>
     </>

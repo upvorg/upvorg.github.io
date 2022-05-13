@@ -1,3 +1,4 @@
+import { Auth } from '@web/shared'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import { useUserStore } from '../../store/user'
@@ -61,10 +62,6 @@ export default function Header() {
           <a className="navbar-item" href="/anime/index/" target="_blank">
             新番时间表
           </a>
-          <a className="navbar-item" href={admin} target="_blank">
-            创作者中心
-          </a>
-
           <a className="navbar-item" href="//app.upv.life" target="_blank">
             APP 下载
           </a>
@@ -126,26 +123,46 @@ export default function Header() {
         )}
 
         <div className="navbar-end">
+          <div className="navbar-item upload">
+            <a href={admin} target="_blank">
+              <button
+                className="button is-primary"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu4"
+              >
+                <i className="fa-solid fa-arrow-up-from-bracket" />
+                &nbsp;&nbsp;
+                <strong>投稿</strong>
+              </button>
+            </a>
+          </div>
           {user ? (
             <div className="navbar-item has-dropdown is-hoverable">
-              <div className="navbar-link">
-                <figure className="image is-32x32 ">
+              <div className="navbar-link is-arrowless">
+                <figure className="image avatar">
                   <img className="is-rounded" src={user.Avatar} />
                 </figure>
               </div>
-
-              <div className="navbar-dropdown is-boxed is-right">
-                <a className="navbar-item" href={admin}>
+              <div className="navbar-dropdown is-right">
+                <a
+                  className="navbar-item"
+                  href={admin + `/user/profile?name=${user.Name}`}
+                  target="_blank"
+                >
                   我的资料
+                </a>
+                <hr className="navbar-divider" />
+                <a className="navbar-item" onClick={() => Auth.logout()}>
+                  退出登录
                 </a>
               </div>
             </div>
           ) : (
             <div className="navbar-item">
               <div className="buttons">
-                <a href="/login" className="button is-primary">
+                {/* <a href="/login" className="button is-primary">
                   <strong>Sign up</strong>
-                </a>
+                </a> */}
                 <a href="/login" className="button is-light">
                   Log in
                 </a>

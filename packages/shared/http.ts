@@ -91,7 +91,7 @@ export default class Http<R = any> {
       config['Content-type'] = 'application/json; charset=UTF-8'
     }
 
-    if (__DEV__) console.log(`${method} ${url} data: `, method.toUpperCase(), data)
+    if (__DEV__) console.log(`-> REQUEST: ${method} ${url} data: `, method.toUpperCase(), data)
     let rawResponse: Response
     return fetch(`${this.baseUrl}${url}`, {
       method,
@@ -123,7 +123,7 @@ export default class Http<R = any> {
             ...response
           })
         }
-        if (__DEV__) console.log(`${method} ${url} response: `, response)
+        if (__DEV__) console.log(`<- RESPONSE: ${method} ${url} response: `, response)
         return this.interceptors.response.resolve?.(response) ?? response
       })
   }

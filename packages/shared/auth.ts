@@ -7,11 +7,11 @@ import {
 import { Cookie } from './cookie'
 
 export namespace Auth {
-  export function logout() {
+  export function logout(href?: string) {
     Cookie.del(COOKIE_ACCESS_TOKEN_KEY, '/', HOST)
     localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
     localStorage.removeItem(LOCAL_STORAGE_USER_INFO_KEY)
-    location.href = `${HOST}/login?from=${location.href}`
+    location.href = href || location.href
   }
 
   export function getAccessToken() {

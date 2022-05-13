@@ -1,10 +1,11 @@
-import { axios } from '@web/shared'
+import { axios, USER_LEVEL } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
 import './index.scss'
+import { useUserStore } from '@web/index/src/store/user'
 
 const GENRE = ['番剧', '动画电影', '电影', '电视剧', '其他']
 const REGIONS = ['中国', '日本', '韩国', '美国', '其他']
@@ -29,6 +30,17 @@ export default function VideoUploader() {
   const [tags, setTags] = useState<string[]>([])
   const { id } = qs.parse(window.location.search)
   const hasChanged = useRef(false)
+  const user = useUserStore()
+
+  useEffect(() => {
+    if (user && user.Level > USER_LEVEL.CREATOR) {
+      toast.error('Forbidden.')
+      setTimeout(() => {
+        window.location.href = '/post/upload'
+      }, 1500)
+      return
+    }
+  }, [])
 
   useEffect(() => {
     axios.get('/tags').then((res) => {

@@ -12,7 +12,6 @@ const ImageType = {
 }
 
 export default function VideoCard({ info }: { info: R.Post }) {
-  const { url, type } = getCoverFormMd(info.Content)
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
 
   return (
@@ -21,16 +20,8 @@ export default function VideoCard({ info }: { info: R.Post }) {
         <a href={target} target="_blank">
           <div className="upv-video-card__image">
             <div className="upv-video-card__image--wrap">
-              <picture
-                onError={(e: any) => {
-                  e.target.src = 'https://s2.loli.net/2022/04/15/m8MDhjliOSHtXnR.jpg'
-                }}
-              >
-                <source
-                  srcSet={url}
-                  type={ImageType[type! as keyof typeof ImageType]}
-                  title={info.Title}
-                />
+              <picture>
+                <source srcSet={info.Cover} title={info.Title} />
                 <img src="https://s2.loli.net/2022/04/15/m8MDhjliOSHtXnR.jpg" alt={info.Title} />
               </picture>
             </div>

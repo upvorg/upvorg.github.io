@@ -2,12 +2,28 @@ import { Auth, HOST } from '@web/shared'
 import { Link } from 'wouter'
 import { useUserStore } from '@web/index/src/store/user'
 import './index.scss'
+import { useEffect } from 'react'
 
 export const Header: React.FC = () => {
   const user = useUserStore()
 
+  useEffect(() => {
+    const $navbarBurger: HTMLElement = document.querySelector('.navbar-burger')!
+    const handler: EventListener = () => {
+      const $target = document.getElementById($navbarBurger.dataset.target!)
+      $navbarBurger.classList.toggle('is-active')
+      $target!.classList.toggle('is-active')
+    }
+
+    $navbarBurger.addEventListener('click', handler, false)
+
+    return () => {
+      $navbarBurger.removeEventListener('click', handler, false)
+    }
+  }, [])
+
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-transparent" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <label htmlFor="aside-menu">
           <svg xmlns="http://www.w3.org/2000/svg" fill="1" viewBox="0 0 24 24">
@@ -41,26 +57,25 @@ export const Header: React.FC = () => {
 
       <div id="navbarBasic" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item home" href={`//${HOST}`} target="_blank">
+          <a className="navbar-item home" href={`${HOST}`} target="_blank">
             <i className="fa-regular fa-chess-king"></i>
             <span style={{ marginTop: '2px' }}>&nbsp;主站</span>
           </a>
         </div>
 
         <div className="navbar-end">
-          <div className="navbar-item has-dropdown is-hoverable mr-3">
-            <div className="navbar-link">
-              <figure className="image is-32x32 ">
+          <div className="navbar-item has-dropdown is-hoverable mr-4">
+            <div className="navbar-link is-arrowless">
+              <figure className="image is-32x32">
                 <img className="is-rounded" src={user?.Avatar} />
               </figure>
             </div>
 
-            <div className="navbar-dropdown is-boxed is-right">
+            <div className="navbar-dropdown is-right">
               <a
                 className="navbar-item"
                 onClick={() => {
-                  Auth.logout()
-                  location.href = '/'
+                  Auth.logout('/')
                 }}
               >
                 退出

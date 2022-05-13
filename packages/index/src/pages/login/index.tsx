@@ -51,9 +51,9 @@ export default function Login() {
           <li className={classNames({ 'is-active': isLogin })} onClick={() => setIsLogin(true)}>
             <a>登录</a>
           </li>
-          <li className={classNames({ 'is-active': !isLogin })} onClick={() => setIsLogin(false)}>
+          {/* <li className={classNames({ 'is-active': !isLogin })} onClick={() => setIsLogin(false)}>
             <a>注册</a>
-          </li>
+          </li> */}
         </ul>
       </div>
       <form onSubmit={handleSubmit}>
@@ -120,8 +120,9 @@ export default function Login() {
                   onChange={handleOnChange}
                   required
                 />
-                <p style={{ textAlign: 'right', marginTop: '.5em' }}>
-                  <a href="">forget password?</a>
+                <p style={{ textAlign: 'right', marginTop: '.5em', fontSize: '12px' }}>
+                  <span style={{ float: 'left', color: 'gray' }}>未注册将自动注册</span>
+                  <a href="#">forget password?</a>
                 </p>
               </p>
             </div>

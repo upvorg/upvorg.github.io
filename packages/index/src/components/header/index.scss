@@ -115,3 +115,15 @@
     }
   }
 }
+
+.navbar-end {
+  .navbar-item.has-dropdown .navbar-link.is-arrowless {
+    padding: 0;
+    margin: 0 0.75rem;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+  }
+}

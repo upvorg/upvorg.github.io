@@ -15,6 +15,10 @@
     padding-top: 1em;
     border-top: 1px solid #eee;
 
+    > a {
+      flex-grow: 0 !important;
+    }
+
     *:nth-child(1) {
       order: 1;
     }

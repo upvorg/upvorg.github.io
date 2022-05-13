@@ -1,16 +1,22 @@
-import { HTMLAttributeAnchorTarget } from 'react'
-import './index.scss'
-
-type Props = {
+type Tag = {
   title: string
   href: string
-  target?: HTMLAttributeAnchorTarget
 }
 
-export const Tag: React.FC<Props> = ({ title, href }) => {
-  return !!title ? (
-    <a className="upv-tag" href={href} target="_blank">
-      {title}
-    </a>
+export const Tags: React.FC<{ tags: Tag[] }> = ({ tags }) => {
+  return tags.length ? (
+    <div className="tags are-medium">
+      {tags.map(({ href, title }, i) => (
+        <a
+          key={i}
+          className="tag is-primary is-light"
+          href={href}
+          target="_blank"
+          style={{ fontSize: '0.9rem' }}
+        >
+          {title}
+        </a>
+      ))}
+    </div>
   ) : null
 }

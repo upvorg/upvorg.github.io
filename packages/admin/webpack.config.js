@@ -17,11 +17,7 @@ module.exports = merge(baseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
-      title: '创作中心 - UPV',
-      head:
-        '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum Pen Script" />' +
-        // '<script src="https://kit.fontawesome.com/7788e81788.js" crossorigin="anonymous"></script>'
-        '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />'
+      title: '创作中心 - UPV'
     })
   ],
   optimization: {

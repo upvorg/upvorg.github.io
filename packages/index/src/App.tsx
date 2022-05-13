@@ -4,11 +4,11 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { DefaultRoute, IndexRoute } from './components/layout'
 import toast, { Toaster } from 'react-hot-toast'
 import {
+  Auth,
   axios,
   Cookie,
   COOKIE_ACCESS_TOKEN_KEY,
   HOST,
-  LOCAL_STORAGE_ACCESS_TOKEN_KEY,
   LOCAL_STORAGE_USER_INFO_KEY,
   PRIMARY_COLOR
 } from '@web/shared'
@@ -25,9 +25,7 @@ const App = () => {
         res.err && toast.error(res.err)
         if (res.status === 401) {
           setUser(null)
-          Cookie.del(COOKIE_ACCESS_TOKEN_KEY, '/', HOST)
-          localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
-          localStorage.removeItem(LOCAL_STORAGE_USER_INFO_KEY)
+          Auth.logout(`${HOST}/login?from=${location.href}`)
         }
         return res
       }

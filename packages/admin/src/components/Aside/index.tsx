@@ -63,7 +63,7 @@ export const Aside = () => {
               &nbsp;&nbsp;投稿
             </button>
           </div>
-          <div className="dropdown-menu" id="dropdown-menu4" role="menu">
+          <div className="dropdown-menu" role="menu">
             <label htmlFor="aside-menu">
               <div className="dropdown-content">
                 <Link href="/video/upload">
