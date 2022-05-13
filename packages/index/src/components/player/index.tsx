@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from 'react'
-import Player, { MessageContext } from 'griffith'
+import Player, { MessageContext, PlaySourceMap } from 'griffith'
 import { ACTIONS, EVENTS } from 'griffith-message'
 
 interface UPlayerProps {
@@ -18,7 +18,14 @@ export default React.memo(
       setError(null)
     }, [src])
 
-    const sources = { hd: { play_url: src } }
+    // https://s2.monidai.com/ppvod/E86CABD04478859BA65F6761D9AF58C9.m3u8
+    // https://s2.monidai.com/ppvod/A372FB309F981A8CD0C94DF717410203.m3u8
+    // https://s2.monidai.com/ppvod/FCD7885D5BE89FDA071A063380B93C25.m3u8
+    // https://s2.monidai.com/ppvod/700A4258AEF616893FF08919E86A13C5.m3u8
+    const sources: PlaySourceMap = { hd: { play_url: src, format: 'm3u8' } }
+    if (src.endsWith('.m3u8')) {
+      sources.hd!.format = 'm3u8'
+    }
 
     return (
       <div
