@@ -23,7 +23,7 @@ export default React.memo(
     // https://s2.monidai.com/ppvod/FCD7885D5BE89FDA071A063380B93C25.m3u8
     // https://s2.monidai.com/ppvod/700A4258AEF616893FF08919E86A13C5.m3u8
     const sources: PlaySourceMap = { hd: { play_url: src, format: 'm3u8' } }
-    if (src.endsWith('.m3u8')) {
+    if (src?.endsWith('.m3u8')) {
       sources.hd!.format = 'm3u8'
     }
 
