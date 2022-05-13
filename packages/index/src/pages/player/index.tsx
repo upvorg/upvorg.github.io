@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { axios, getTimeDistance } from '@web/shared'
 import toast from 'react-hot-toast'
+import classNames from 'classnames'
+import { Helmet } from 'react-helmet'
 import Comment from '../../components/comment'
 import GriffithPlayer from '../../components/player'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
-import { Helmet } from 'react-helmet'
 import { Tags } from '../../components/tag/Tag'
-import classNames from 'classnames'
+import Markdown from '../../components/markdown'
 import './index.scss'
-import Markdown from '/src/components/markdown'
 
 export default function PlayerPage({ id }: any) {
   const [state, setState] = useState<R.Post>({} as R.Post)
@@ -121,7 +121,7 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <GriffithPlayer src={video[currentIndex]?.VideoUrl} />
+          <GriffithPlayer src={video[currentIndex]?.VideoUrl} auto={false} />
         </div>
         <div className="player-header__r">
           <div className="eplist_module">
