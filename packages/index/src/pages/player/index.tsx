@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { axios, getTimeDistance } from '@web/shared'
+import { axios, getTimeDistance, Markdown, GriffithPlayer } from '@web/shared'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
 import Comment from '../../components/comment'
-import GriffithPlayer from '../../components/player'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
-import Markdown from '../../components/markdown'
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
@@ -252,18 +250,12 @@ export default function PlayerPage({ id }: any) {
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">{Title}</p>
-            <button className="delete" aria-label="close"></button>
+            <button className="delete" aria-label="close" onClick={() => setModal(false)}></button>
           </header>
           <section className="modal-card-body">
             <Markdown type="render" value={Content || '#### 暂无详情'} />
           </section>
         </div>
-        {/* <div className="modal-content"></div> */}
-        <button
-          className="modal-close is-large"
-          aria-label="close"
-          onClick={() => setModal(false)}
-        ></button>
       </div>
     </div>
   )

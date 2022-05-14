@@ -1,14 +1,7 @@
-import {
-  axios,
-  Cookie,
-  COOKIE_ACCESS_TOKEN_KEY,
-  LOCAL_STORAGE_ACCESS_TOKEN_KEY,
-  LOCAL_STORAGE_USER_INFO_KEY
-} from '@web/shared'
+import { axios, Auth, useUserStore } from '@web/shared'
 import classNames from 'classnames'
 import { useState } from 'react'
 import queryString from 'query-string'
-import { useUserStore } from '../../store/user'
 import './index.scss'
 
 export default function Login() {
@@ -34,11 +27,7 @@ export default function Login() {
       : axios.post('/register', { data: { Name: form.Name, Pwd: form.Pwd } })
     ).then((res) => {
       if (!res.err) {
-        localStorage.setItem(
-          LOCAL_STORAGE_ACCESS_TOKEN_KEY,
-          Cookie.get(COOKIE_ACCESS_TOKEN_KEY) || ''
-        )
-        localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(res.data.user))
+        Auth.login(res.data.user)
         window.location.href = (from as string) || '/'
       }
     })

@@ -40,16 +40,29 @@
   }
 
   .rc-md-editor {
-    min-height: 400px;
-  }
+    border-radius: 6px;
 
-  .rc-md-editor .rc-md-navigation {
-    padding: 8px;
+    .rc-md-navigation {
+      padding: 8px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    textarea {
+      min-height: 16em !important;
+    }
   }
 
   .rc-md-editor .rc-md-navigation .button-wrap .button {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .card-content {
+      width: 100%;
+      padding: 1em 0 0;
+    }
   }
 }

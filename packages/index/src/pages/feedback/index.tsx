@@ -1,9 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { axios, formatDate } from '@web/shared'
-
+import { axios, formatDate, useUserStore } from '@web/shared'
 import './index.scss'
-import { useUserStore } from '/src/store/user'
 
 const FeedbackPage: React.FC = () => {
   const [feedbacks, setFeedbacks] = useState<R.Feedback[]>([])

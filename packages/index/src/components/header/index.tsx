@@ -1,7 +1,6 @@
-import { Auth } from '@web/shared'
+import { Auth, useUserStore } from '@web/shared'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
-import { useUserStore } from '../../store/user'
 import './index.scss'
 
 const admin = __ADMIN_HOST__

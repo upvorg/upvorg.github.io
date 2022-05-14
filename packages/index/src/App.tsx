@@ -1,4 +1,3 @@
-import '@web/shared/f12'
 import { Router, Switch } from 'wouter'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { DefaultRoute, IndexRoute } from './components/layout'
@@ -10,9 +9,9 @@ import {
   COOKIE_ACCESS_TOKEN_KEY,
   HOST,
   LOCAL_STORAGE_USER_INFO_KEY,
-  PRIMARY_COLOR
+  PRIMARY_COLOR,
+  UserContext
 } from '@web/shared'
-import { UserContext } from './store/user'
 import './index.scss'
 
 const App = () => {

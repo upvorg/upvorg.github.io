@@ -3,9 +3,8 @@ import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
 import copyTextToClipboard from 'copy-text-to-clipboard'
-import { axios, getTimeDistance, removeImagesFormMd } from '@web/shared'
+import { axios, getTimeDistance, Markdown } from '@web/shared'
 import Comment from '../../components/comment'
-import Markdown from '../../components/markdown'
 import { Postkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 
@@ -319,7 +318,7 @@ const PostPage: React.FC = ({ id }: any) => {
         ) : (
           <Postkeleton />
         )}
-        <Markdown type="render" value={removeImagesFormMd(state.Content)} />
+        <Markdown type="render" value={state.Content} />
         <Tags
           tags={
             !!tags

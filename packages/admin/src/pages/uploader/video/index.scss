@@ -38,4 +38,15 @@
       color: hsl(0deg, 0%, 86%);
     }
   }
+
+  .textarea {
+    min-height: 16em;
+  }
+
+  @media (max-width: 768px) {
+    .card-content {
+      width: 100%;
+      padding: 1em 0 0;
+    }
+  }
 }

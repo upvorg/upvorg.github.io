@@ -47,7 +47,7 @@ const processor = unified()
   })
   .use(rehypeStringify)
 
-const Markdown: React.FC<Props> = (props) => {
+export const Markdown: React.FC<Props> = (props) => {
   const { value = '', type, onChange, customClassName = '', placeholder = '' } = props
   const { view, classname: defaultClassName } = CONFIG_MAP[type]
 
@@ -72,8 +72,6 @@ const Markdown: React.FC<Props> = (props) => {
     />
   )
 }
-
-export default Markdown
 
 interface Props {
   type: 'editor' | 'render'

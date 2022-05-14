@@ -1,11 +1,10 @@
-import { axios, USER_LEVEL } from '@web/shared'
+import { axios, USER_LEVEL, useUserStore } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
 import './index.scss'
-import { useUserStore } from '@web/index/src/store/user'
 
 const GENRE = ['番剧', '动画电影', '电影', '电视剧', '其他']
 const REGIONS = ['中国', '日本', '韩国', '美国', '其他']
@@ -166,7 +165,7 @@ export default function VideoUploader() {
               </label>
             </div>
             <div className="field-body">
-              <div className="field" style={{ display: 'flex', alignItems: 'end' }}>
+              <div className="field">
                 <p className="control">
                   <div
                     className={classNames('file', {

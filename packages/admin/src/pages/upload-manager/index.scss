@@ -57,4 +57,25 @@
       order: 3;
     }
   }
+
+  @media (max-width: 768px) {
+    .list {
+      .list-item {
+        padding: 0;
+
+        .image {
+          width: 75px;
+        }
+
+        .list-item-content > * {
+          margin-bottom: 0.5em;
+        }
+
+        .list-item-controls > .buttons {
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import '@web/shared/f12'
+import '@web/shared/src/utils/f12'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 

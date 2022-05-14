@@ -1,5 +1,4 @@
-import { axios } from '@web/shared'
-import Markdown from '@web/index/src/components/markdown'
+import { axios, Markdown } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -86,7 +85,7 @@ export default function PostUploader() {
               </label>
             </div>
             <div className="field-body">
-              <div className="field" style={{ display: 'flex', alignItems: 'end' }}>
+              <div className="field">
                 <p className="control">
                   <div
                     className={classNames('file', {

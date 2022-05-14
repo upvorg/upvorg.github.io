@@ -1,5 +1,5 @@
 import React from 'react'
-import Markdown from '../../components/markdown'
+import { Markdown } from '@web/shared'
 
 const content = `
 ## 关于

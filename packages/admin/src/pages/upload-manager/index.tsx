@@ -1,4 +1,4 @@
-import { useUserStore } from '@web/index/src/store/user'
+import { useUserStore } from '@web/shared'
 import { axios, formatDate, HOST, USER_LEVEL } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
@@ -60,7 +60,7 @@ export default function UploadManager() {
   }
 
   return (
-    <div className=" UploadManager">
+    <div className="UploadManager">
       <div className="box">
         <div className="tabs">
           <ul>
@@ -140,7 +140,7 @@ export default function UploadManager() {
                 <div className="buttons">
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 3 && (
                     <button
-                      className="button is-light is-hidden-mobile"
+                      className="button is-light"
                       onClick={() => handleCheckPost(v.ID, 'status=4')}
                       data-tooltip="审核通过"
                     >
@@ -152,7 +152,7 @@ export default function UploadManager() {
 
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend != 2 && (
                     <button
-                      className="button is-light is-hidden-mobile"
+                      className="button is-light"
                       onClick={() => handleCheckPost(v.ID, 'is_recommend=2')}
                       data-tooltip="上推荐"
                     >
@@ -162,7 +162,7 @@ export default function UploadManager() {
                     </button>
                   )}
 
-                  <button className="button is-light is-hidden-mobile">
+                  <button className="button is-light">
                     <a href={`${HOST}/${tabIndex == 0 ? 'v' : 'p'}/${v.ID}`} target="_blank">
                       <span className="icon">
                         <i className="fas fa-play"></i>
@@ -170,20 +170,7 @@ export default function UploadManager() {
                     </a>
                   </button>
 
-                  <Link
-                    href={tabIndex == 0 ? `/video/upload?id=${v.ID}` : `/post/upload?id=${v.ID}`}
-                  >
-                    <button className="button is-light is-hidden-mobile">
-                      <span className="icon">
-                        <i className="fa-solid fa-square-pen"></i>
-                      </span>
-                    </button>
-                  </Link>
-
-                  <button
-                    className="button is-light is-hidden-mobile"
-                    onClick={() => handleDelPost(v.ID)}
-                  >
+                  <button className="button is-light" onClick={() => handleDelPost(v.ID)}>
                     <span className="icon">
                       <i className="fa-solid fa-circle-xmark"></i>
                     </span>

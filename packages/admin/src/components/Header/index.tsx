@@ -1,8 +1,8 @@
 import { Auth, HOST } from '@web/shared'
 import { Link } from 'wouter'
-import { useUserStore } from '@web/index/src/store/user'
-import './index.scss'
+import { useUserStore } from '@web/shared'
 import { useEffect } from 'react'
+import './index.scss'
 
 export const Header: React.FC = () => {
   const user = useUserStore()

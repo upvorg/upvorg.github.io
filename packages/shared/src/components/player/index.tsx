@@ -8,8 +8,8 @@ interface UPlayerProps {
   auto?: boolean
 }
 
-export default React.memo(
-  function UPlayer({ src, playerIsPlaying = true, auto = true }: UPlayerProps) {
+export const GriffithPlayer = React.memo(
+  ({ src, playerIsPlaying = true, auto = true }: UPlayerProps) => {
     const [error, setError] = useState<any>(null)
     const [canPlay, setCanplay] = useState<boolean>(false)
 

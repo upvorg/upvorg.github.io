@@ -1,5 +1,4 @@
-import { useUserStore } from '@web/index/src/store/user'
-import { axios, USER_LEVEL, USER_LEVEL_MAP } from '@web/shared'
+import { axios, USER_LEVEL, USER_LEVEL_MAP, useUserStore } from '@web/shared'
 import classNames from 'classnames'
 import qs from 'query-string'
 import React, { useCallback, useEffect, useState } from 'react'

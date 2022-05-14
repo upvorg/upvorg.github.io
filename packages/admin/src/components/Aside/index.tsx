@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'wouter'
 import cls from 'classnames'
-import './index.scss'
-import { useUserStore } from '@web/index/src/store/user'
+import { useUserStore } from '@web/shared'
 import { useEffect, useState } from 'react'
+import './index.scss'
 
 export const Aside = () => {
   const [location] = useLocation()

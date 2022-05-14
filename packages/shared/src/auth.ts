@@ -4,7 +4,7 @@ import {
   LOCAL_STORAGE_ACCESS_TOKEN_KEY,
   LOCAL_STORAGE_USER_INFO_KEY
 } from './constants'
-import { Cookie } from './cookie'
+import { Cookie } from './utils/cookie'
 
 export namespace Auth {
   export function logout(href?: string) {

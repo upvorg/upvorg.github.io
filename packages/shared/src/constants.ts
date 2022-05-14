@@ -1,4 +1,4 @@
-import { Cookie } from './cookie'
+import { Cookie } from './utils/cookie'
 import http from './http'
 
 // webpack proxy

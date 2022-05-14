@@ -7,13 +7,13 @@ $pr: 340px;
     padding: 100px 0 40px;
 
     .modal-background {
-      opacity: 0.6;
+      opacity: 0.3;
     }
     .modal-card-head {
       padding: 0.8em;
     }
     .modal-card-body {
-      min-height: 400px;
+      min-height: 600px;
       padding: 0;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
@@ -277,5 +277,19 @@ $pr: 340px;
   .video-actions {
     padding-right: 0;
     margin-right: 0;
+  }
+
+  .modal {
+    padding: 90px 15px 30px !important;
+    // width: 100%;
+    // height: 100%;
+    // padding: 57px 0 0 0 !important;
+    // .modal-card {
+    //   height: 100%;
+    //   .modal-card-body,
+    //   .modal-card-head {
+    //     border-radius: 0;
+    //   }
+    // }
   }
 }

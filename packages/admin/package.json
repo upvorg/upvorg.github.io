@@ -11,7 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@web/index": "workspace:^1.0.0",
     "@web/shared": "workspace:^1.0.0"
   }
 }
