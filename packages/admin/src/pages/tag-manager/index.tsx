@@ -1,5 +1,5 @@
-import { axios } from '@web/shared'
 import React, { useEffect, useState } from 'react'
+import { axios } from '@web/shared/constants'
 import './index.scss'
 
 export default function tagManager() {

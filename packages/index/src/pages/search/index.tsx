@@ -1,4 +1,4 @@
-import { axios } from '@web/shared'
+import { axios } from '@web/shared/constants'
 import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'

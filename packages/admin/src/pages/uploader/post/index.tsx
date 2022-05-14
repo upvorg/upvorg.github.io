@@ -1,10 +1,11 @@
-import { axios, Markdown } from '@web/shared'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
 import './index.scss'
+import { axios } from '@web/shared/constants'
+import { Markdown } from '@web/shared/components/markdown'
 
 export default function PostUploader() {
   const [post, setPost] = useState<R.Post>({

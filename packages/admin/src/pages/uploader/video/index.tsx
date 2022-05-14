@@ -1,8 +1,9 @@
-import { axios, USER_LEVEL, useUserStore } from '@web/shared'
+import { axios, USER_LEVEL } from '@web/shared/constants'
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
+import { useUserStore } from '@web/shared/UserContext'
 import { useUploader } from '../use-uploader'
 import './index.scss'
 

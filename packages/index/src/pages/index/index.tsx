@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { axios } from '@web/shared'
+import { axios } from '@web/shared/constants'
 import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
 

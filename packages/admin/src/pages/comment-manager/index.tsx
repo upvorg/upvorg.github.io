@@ -1,6 +1,7 @@
-import { axios, formatDate, HOST } from '@web/shared'
-import classNames from 'classnames'
 import { useState, useEffect } from 'react'
+import classNames from 'classnames'
+import { axios, HOST } from '@web/shared/constants'
+import { formatDate } from '@web/shared/utils/date'
 import './index.scss'
 
 export default function CommentManager() {

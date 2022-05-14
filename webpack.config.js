@@ -132,11 +132,41 @@ module.exports = {
     ],
     runtimeChunk: 'single',
     splitChunks: {
+      chunks: 'all',
       cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
+        pnpm: {
+          test: /[\\/]node_modules[\\/].pnpm[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+          name(module) {
+            console.log(`Processing pnpm module: ${module.context}`)
+            const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
+            return packageName && packageName[1] ? `pnpm.${packageName[1].split('@')[0]}` : false
+          }
+        },
+        hls: {
+          name: 'hls',
+          chunks: 'async',
+          priority: 20,
+          test: (module) => {
+            return /hls.+/.test(module.context)
+          }
+        },
+        griffith: {
+          name: 'video-player',
+          chunks: 'async',
+          priority: 20,
+          test: (module) => {
+            return /griffith.+/.test(module.context)
+          }
+        },
+        markdown: {
+          name: 'markdown-editor',
+          chunks: 'async',
+          priority: 20,
+          test: (module) => {
+            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+/.test(module.context)
+          }
         }
       }
     }

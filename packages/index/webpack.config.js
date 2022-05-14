@@ -33,18 +33,5 @@ module.exports = merge(baseConfig, {
       title: 'UPV - free animes no ads',
       head
     })
-  ],
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        griffith: {
-          test: (module) => {
-            return /griffith.+|hls.+/.test(module.context)
-          },
-          name: 'griffith',
-          priority: 1
-        }
-      }
-    }
-  }
+  ]
 })

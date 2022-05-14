@@ -1,5 +1,6 @@
-import { axios, formatDate, HOST } from '@web/shared'
 import { useEffect, useState } from 'react'
+import { axios, HOST } from '@web/shared/constants'
+import { formatDate } from '@web/shared/utils/date'
 import './index.scss'
 
 type UserStat = {

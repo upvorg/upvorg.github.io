@@ -1,14 +1,9 @@
-import {
-  PRIMARY_COLOR,
-  Auth,
-  LOCAL_STORAGE_USER_INFO_KEY,
-  axios,
-  HOST,
-  UserContext
-} from '@web/shared'
 import React, { Suspense, lazy, useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Route, Router, Switch, useRoute } from 'wouter'
+import { axios, HOST, LOCAL_STORAGE_USER_INFO_KEY, PRIMARY_COLOR } from '@web/shared/constants'
+import { UserContext } from '@web/shared/UserContext'
+import { Auth } from '@web/shared/auth'
 import { Layout } from './components/layout'
 
 axios.interceptors.response.use(

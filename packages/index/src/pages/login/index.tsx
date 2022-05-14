@@ -1,4 +1,6 @@
-import { axios, Auth, useUserStore } from '@web/shared'
+import { useUserStore } from '@web/shared/UserContext'
+import { axios } from '@web/shared/constants'
+import { Auth } from '@web/shared/auth'
 import classNames from 'classnames'
 import { useState } from 'react'
 import queryString from 'query-string'

@@ -1,4 +1,4 @@
-import { axios } from '@web/shared'
+import { axios } from '@web/shared/constants'
 import { useCallback, useState } from 'react'
 
 export const useUploader = (options: {

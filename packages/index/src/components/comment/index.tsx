@@ -1,7 +1,9 @@
 import { FocusEventHandler, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
-import { axios, getTimeDistance, useUserStore } from '@web/shared'
+import { getTimeDistance } from '@web/shared/utils/date'
+import { useUserStore } from '@web/shared/UserContext'
+import { axios } from '@web/shared/constants'
 import { CommentSkeleton } from '../../skeleton/CommentSkeleton'
 import './index.scss'
 

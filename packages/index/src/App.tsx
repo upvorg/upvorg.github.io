@@ -3,15 +3,16 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { DefaultRoute, IndexRoute } from './components/layout'
 import toast, { Toaster } from 'react-hot-toast'
 import {
-  Auth,
   axios,
-  Cookie,
   COOKIE_ACCESS_TOKEN_KEY,
   HOST,
   LOCAL_STORAGE_USER_INFO_KEY,
-  PRIMARY_COLOR,
-  UserContext
-} from '@web/shared'
+  PRIMARY_COLOR
+} from '@web/shared/constants'
+import { UserContext } from '@web/shared/UserContext'
+import { Cookie } from '@web/shared/utils/cookie'
+import { Auth } from '@web/shared/auth'
+
 import './index.scss'
 
 const App = () => {

@@ -1,4 +1,5 @@
-import { axios, STORGE_HOST, GriffithPlayer } from '@web/shared'
+import { GriffithPlayer } from '@web/shared/components/player'
+import { axios, STORGE_HOST } from '@web/shared/constants'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { Link } from 'wouter'

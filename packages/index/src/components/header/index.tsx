@@ -1,4 +1,6 @@
-import { Auth, useUserStore } from '@web/shared'
+import { Auth } from '@web/shared/auth'
+import { useUserStore } from '@web/shared/UserContext'
+
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import './index.scss'

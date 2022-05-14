@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'wouter'
 import cls from 'classnames'
-import { useUserStore } from '@web/shared'
+import { useUserStore } from '@web/shared/UserContext'
 import { useEffect, useState } from 'react'
 import './index.scss'
 

@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { axios, formatDate, useUserStore } from '@web/shared'
+import { formatDate } from '@web/shared/utils/date'
+import { useUserStore } from '@web/shared/UserContext'
+import { axios } from '@web/shared/constants'
 import './index.scss'
 
 const FeedbackPage: React.FC = () => {

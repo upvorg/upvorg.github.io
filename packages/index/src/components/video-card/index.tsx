@@ -1,15 +1,5 @@
-import { getCoverFormMd, GetSimplifyDate } from '@web/shared'
-
+import { GetSimplifyDate } from '@web/shared/utils/date'
 import './index.scss'
-
-const ImageType = {
-  webp: 'image/webp',
-  jpg: 'image/jpeg',
-  png: 'image/png',
-  gif: 'image/gif',
-  jpeg: 'image/jpeg',
-  svg: 'image/svg+xml'
-}
 
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
