@@ -226,9 +226,8 @@ export default function PostUploader() {
                     type="editor"
                     value={post.Content}
                     onChange={(e) => {
-                      setPost((p) => {
-                        return { ...p, Content: e }
-                      })
+                      hasChanged.current = true
+                      setPost((p) => ({ ...p, Content: e }))
                     }}
                   />
                 </div>
@@ -243,7 +242,7 @@ export default function PostUploader() {
                 <div className="control">
                   <div className="buttons">
                     <button className="button is-primary" type="submit">
-                      立即投稿
+                      {id ? '修改' : '立即投稿'}
                     </button>
                   </div>
                 </div>

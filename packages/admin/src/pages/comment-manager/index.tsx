@@ -61,7 +61,7 @@ export default function CommentManager() {
             className={classNames('pagination-previous', {
               'is-disabled': page <= 1
             })}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => page > 1 && setPage((p) => p - 1)}
           >
             Previous
           </a>
@@ -78,7 +78,7 @@ export default function CommentManager() {
           </ul>
           <a
             className={classNames('pagination-next', { 'is-disabled': comments.length < pageSize })}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => comments.length >= pageSize && setPage((p) => p + 1)}
           >
             Next page
           </a>

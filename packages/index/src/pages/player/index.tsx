@@ -13,20 +13,7 @@ import './index.scss'
 
 export default function PlayerPage({ id }: any) {
   const [state, setState] = useState<R.Post>({} as R.Post)
-  const [video, setVideo] = useState<R.Video[]>([
-    // {
-    //   content:
-    //     'https://svp.cdn.qq.com/0b53muajsaaakmafje2sk5rjazodtfsqbgia.f0.mp4?dis_k=5321f1f6c51f0bfccd8feffa4fa72184&dis_t=1649593655'
-    // }
-    // {
-    //   id: 1,
-    //   content: 'https://s2.monidai.com/ppvod/DADA21B4B4C28DFE8F6E69F90D490E59.m3u8'
-    // },
-    // {
-    //   id: 2,
-    //   content: 'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_sd.mp4'
-    // }
-  ])
+  const [video, setVideo] = useState<R.Video[]>([])
   const urlSearchParams = new URLSearchParams(window.location.search)
   const queryParams = Object.fromEntries(urlSearchParams.entries())
   const [modal, setModal] = useState(false)
@@ -35,33 +22,38 @@ export default function PlayerPage({ id }: any) {
   const [currentIndex, setCurrentIndex] = useState(() => +queryParams.v - 1 || 0)
 
   useEffect(() => {
-    Promise.all([axios.get(`/post/${id}`), axios.get(`/post/${id}/videos`)]).then(([a, b]) => {
-      if (!a.data) {
+    axios.get(`/post/${id}`).then((_) => {
+      if (!_.data || _.data.Type !== 'video') {
         toast.error('视频不见了', {
-          duration: 90000,
-          position: 'top-center'
+          duration: 90000
         })
         return
       }
-      a.data && setState(a.data)
-      a.data.IsLiked == 2 && setIsLiked(true)
-      a.data.IsCollected == 2 && setIsCollected(true)
-      ;(b.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
-      b.data && setVideo(b.data)
+      if (!_.err) {
+        _.data && setState(_.data)
+        _.data.IsLiked == 2 && setIsLiked(true)
+        _.data.IsCollected == 2 && setIsCollected(true)
+
+        axios.get(`/post/${id}/videos`).then((res) => {
+          ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
+          res.data && setVideo(res.data)
+        })
+      }
+      axios.get(`/post/${id}/pv`)
     })
-    axios.get(`/post/${id}/pv`)
   }, [])
 
   const likeHandler = useCallback(() => {
     const c = isLiked ? -1 : 1
+    const LikesCount = state.LikesCount || 0
 
     setIsLiked((isLiked) => !isLiked)
-    setState((state) => ({ ...state, LikesCount: (state.LikesCount || 0) + c }))
+    setState((state) => ({ ...state, LikesCount: LikesCount + c }))
     ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
       .then((_) => {
         if (_.err) {
           setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: (state.LikesCount || 0) - c }))
+          setState((state) => ({ ...state, LikesCount: LikesCount - c }))
         } else {
           if (isLiked) {
             toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
@@ -73,7 +65,7 @@ export default function PlayerPage({ id }: any) {
       .catch(() => {
         setTimeout(() => {
           setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - 1 }))
+          setState((state) => ({ ...state, LikesCount: LikesCount - c }))
         }, 300)
       })
   }, [state, isLiked])
@@ -122,7 +114,7 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <GriffithPlayer src={video[currentIndex]?.VideoUrl} auto={false} />
+          <GriffithPlayer src={video[currentIndex]?.VideoUrl} />
         </div>
         <div className="player-header__r">
           <div className="eplist_module">

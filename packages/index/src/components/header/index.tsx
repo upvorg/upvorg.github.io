@@ -60,7 +60,7 @@ export default function Header() {
           <Link href="/">
             <a className="navbar-item">首页</a>
           </Link>
-          <a className="navbar-item" href="/anime/index/" target="_blank">
+          <a className="navbar-item" href="/anime/index" target="_blank">
             新番时间表
           </a>
           <a className="navbar-item" href="//app.upv.life" target="_blank">

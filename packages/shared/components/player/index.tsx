@@ -2,14 +2,14 @@ import React, { useState, useEffect, Component } from 'react'
 import Player, { MessageContext, PlaySourceMap } from 'griffith'
 import { ACTIONS, EVENTS } from 'griffith-message'
 
-interface UPlayerProps {
+interface GriffithPlayerProps {
   src: string
   playerIsPlaying?: boolean
   auto?: boolean
 }
 
 export const GriffithPlayer = React.memo(
-  ({ src, playerIsPlaying = true, auto = true }: UPlayerProps) => {
+  ({ src, playerIsPlaying = true, auto = true }: GriffithPlayerProps) => {
     const [error, setError] = useState<any>(null)
     const [canPlay, setCanplay] = useState<boolean>(false)
 
@@ -20,6 +20,9 @@ export const GriffithPlayer = React.memo(
       setError(null)
     }, [src])
 
+    //'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_sd.mp4'
+    //'https://svp.cdn.qq.com/0b53muajsaaakmafje2sk5rjazodtfsqbgia.f0.mp4?dis_k=5321f1f6c51f0bfccd8feffa4fa72184&dis_t=1649593655'
+    //'https://s2.monidai.com/ppvod/DADA21B4B4C28DFE8F6E69F90D490E59.m3u8'
     // https://s2.monidai.com/ppvod/E86CABD04478859BA65F6761D9AF58C9.m3u8
     // https://s2.monidai.com/ppvod/A372FB309F981A8CD0C94DF717410203.m3u8
     // https://s2.monidai.com/ppvod/FCD7885D5BE89FDA071A063380B93C25.m3u8
@@ -27,6 +30,7 @@ export const GriffithPlayer = React.memo(
     const sources: PlaySourceMap = { hd: { play_url: src } }
     if (src?.endsWith('.m3u8')) {
       sources.hd!.format = 'm3u8'
+      auto = false
     }
 
     const showPlayer = auto ? src : src && canPlay
@@ -40,6 +44,7 @@ export const GriffithPlayer = React.memo(
             id="upv-player"
             error={error}
             sources={sources}
+            defaultQuality="hd"
             onEvent={(event: EVENTS) => {
               if (event === EVENTS.PLAY_FAILED || event === EVENTS.ERROR) {
                 setError({ message: 'PLAY FAILED' })

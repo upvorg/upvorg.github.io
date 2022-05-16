@@ -59,6 +59,7 @@ const App = () => {
             <DefaultRoute path="/search" component={lazy(() => import('./pages/search'))} />
             <DefaultRoute path="/about" component={lazy(() => import('./pages/about'))} />
             <DefaultRoute path="/feedback" component={lazy(() => import('./pages/feedback'))} />
+            <DefaultRoute path="/anime/index" component={lazy(() => import('./pages/v-index'))} />
             <DefaultRoute path="/:rest*" component={lazy(() => import('./pages/404'))} />
           </Switch>
         </UserContext.Provider>

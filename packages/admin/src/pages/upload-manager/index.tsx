@@ -151,11 +151,36 @@ export default function UploadManager() {
                     </button>
                   )}
 
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 4 && (
+                    <button
+                      className="button is-light"
+                      onClick={() => handleCheckPost(v.ID, 'status=3')}
+                      data-tooltip="待审核"
+                    >
+                      <span className="icon">
+                        <i className="fa-brands fa-yandex-international"></i>
+                      </span>
+                    </button>
+                  )}
+
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend != 2 && (
                     <button
                       className="button is-light"
                       onClick={() => handleCheckPost(v.ID, 'is_recommend=2')}
                       data-tooltip="上推荐"
+                    >
+                      <span className="icon">
+                        <i className="fa-solid fa-thumbs-up"></i>
+                      </span>
+                    </button>
+                  )}
+
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend == 2 && (
+                    <button
+                      className="button is-light"
+                      onClick={() => handleCheckPost(v.ID, 'is_recommend=1')}
+                      data-tooltip="下推荐"
+                      style={{ transform: 'rotate(180deg)' }}
                     >
                       <span className="icon">
                         <i className="fa-solid fa-thumbs-up"></i>
@@ -171,6 +196,7 @@ export default function UploadManager() {
                     </a>
                   </button>
 
+                  {/* TODO: confirm */}
                   <button className="button is-light" onClick={() => handleDelPost(v.ID)}>
                     <span className="icon">
                       <i className="fa-solid fa-circle-xmark"></i>
@@ -193,7 +219,7 @@ export default function UploadManager() {
             className={classNames('pagination-previous', {
               'is-disabled': page <= 1
             })}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => page > 1 && setPage((p) => p - 1)}
           >
             Previous
           </a>
@@ -210,7 +236,7 @@ export default function UploadManager() {
           </ul>
           <a
             className={classNames('pagination-next', { 'is-disabled': posts.length < pageSize })}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => posts.length >= pageSize && setPage((p) => p + 1)}
           >
             Next page
           </a>

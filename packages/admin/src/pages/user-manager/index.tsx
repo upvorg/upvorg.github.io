@@ -1,4 +1,4 @@
-import { axios } from '@web/shared/constants'
+import { axios, USER_LEVEL_MAP } from '@web/shared/constants'
 import { formatDate } from '@web/shared/utils/date'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
@@ -104,7 +104,7 @@ export default function UserManager() {
             className={classNames('pagination-previous', {
               'is-disabled': page <= 1
             })}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => page > 1 && setPage((p) => p - 1)}
           >
             Previous
           </a>
@@ -121,7 +121,7 @@ export default function UserManager() {
           </ul>
           <a
             className={classNames('pagination-next', { 'is-disabled': users.length < pageSize })}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => users.length >= pageSize && setPage((p) => p + 1)}
           >
             Next page
           </a>

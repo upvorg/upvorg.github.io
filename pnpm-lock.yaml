@@ -19,7 +19,7 @@ importers:
       cross-env: ^7.0.3
       css-loader: ^6.7.1
       css-minimizer-webpack-plugin: ^3.4.1
-      esbuild-loader: ^2.18.0
+      esbuild-loader: ^2.19.0
       file-loader: ^6.2.0
       html-webpack-plugin: ^5.5.0
       mini-css-extract-plugin: ^2.6.0
@@ -65,7 +65,7 @@ importers:
       cross-env: 7.0.3
       css-loader: 6.7.1_webpack@5.72.1
       css-minimizer-webpack-plugin: 3.4.1_webpack@5.72.1
-      esbuild-loader: 2.18.0_webpack@5.72.1
+      esbuild-loader: 2.19.0_webpack@5.72.1
       file-loader: 6.2.0_webpack@5.72.1
       html-webpack-plugin: 5.5.0_webpack@5.72.1
       mini-css-extract-plugin: 2.6.0_webpack@5.72.1
@@ -106,6 +106,7 @@ importers:
 
   packages/shared:
     specifiers:
+      github-markdown-css: ^5.1.0
       griffith: ^1.26.0
       griffith-message: ^1.25.0
       react-markdown-editor-lite: ^1.3.2
@@ -118,6 +119,7 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
+      github-markdown-css: 5.1.0
       griffith: 1.26.0
       griffith-message: 1.25.0
       react-markdown-editor-lite: 1.3.2
@@ -705,7 +707,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.20.3
-      caniuse-lite: 1.0.30001340
+      caniuse-lite: 1.0.30001341
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -754,6 +756,8 @@ packages:
       raw-body: 2.5.1
       type-is: 1.6.18
       unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /bonjour-service/1.0.12:
@@ -788,7 +792,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001340
+      caniuse-lite: 1.0.30001341
       electron-to-chromium: 1.4.137
       escalade: 3.1.1
       node-releases: 2.0.4
@@ -848,13 +852,13 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.20.3
-      caniuse-lite: 1.0.30001340
+      caniuse-lite: 1.0.30001341
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: true
 
-  /caniuse-lite/1.0.30001340:
-    resolution: {integrity: sha512-jUNz+a9blQTQVu4uFcn17uAD8IDizPzQkIKh3LCJfg9BkyIqExYYdyc/ZSlWUSKb8iYiXxKsxbv4zYSvkqjrxw==}
+  /caniuse-lite/1.0.30001341:
+    resolution: {integrity: sha512-2SodVrFFtvGENGCv0ChVJIDQ0KPaS1cg7/qtfMaICgeMolDdo/Z2OD32F0Aq9yl6F4YFwGPBS5AaPqNYiW4PoA==}
     dev: true
 
   /ccount/2.0.1:
@@ -1005,6 +1009,8 @@ packages:
       on-headers: 1.0.2
       safe-buffer: 5.1.2
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /concat-map/0.0.1:
@@ -1258,6 +1264,11 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
     dev: true
@@ -1571,8 +1582,8 @@ packages:
     dev: true
     optional: true
 
-  /esbuild-loader/2.18.0_webpack@5.72.1:
-    resolution: {integrity: sha512-AKqxM3bI+gvGPV8o6NAhR+cBxVO8+dh+O0OXBHIXXwuSGumckbPWHzZ17subjBGI2YEGyJ1STH7Haj8aCrwL/w==}
+  /esbuild-loader/2.19.0_webpack@5.72.1:
+    resolution: {integrity: sha512-urGNVE6Tl2rqx92ElKi/LiExXjGvcH6HfDBFzJ9Ppwqh4n6Jmx8x7RKAyMzSM78b6CAaJLhDncG5sPrL0ROh5Q==}
     peerDependencies:
       webpack: ^4.40.0 || ^5.0.0
     dependencies:
@@ -1778,6 +1789,8 @@ packages:
       type-is: 1.6.18
       utils-merge: 1.0.1
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /extend/3.0.2:
@@ -1854,6 +1867,8 @@ packages:
       parseurl: 1.3.3
       statuses: 2.0.1
       unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /find-up/4.1.0:
@@ -1921,6 +1936,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /github-markdown-css/5.1.0:
+    resolution: {integrity: sha512-QLtORwHHtUHhPMHu7i4GKfP6Vx5CWZn+NKQXe+cBhslY1HEt0CTEkP4d/vSROKV0iIJSpl4UtlQ16AD8C6lMug==}
+    dev: false
+
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -1939,8 +1958,8 @@ packages:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
     dev: true
 
-  /glob/7.2.2:
-    resolution: {integrity: sha512-NzDgHDiJwKYByLrL5lONmQFpK/2G78SMMfo+E9CuGlX4IkvfKDsiQSNPwAYxEy+e6p7ZQ3uslSLlwlJcqezBmQ==}
+  /glob/7.2.3:
+    resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -1967,7 +1986,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       array-union: 1.0.2
-      glob: 7.2.2
+      glob: 7.2.3
       object-assign: 4.1.1
       pify: 2.3.0
       pinkie-promise: 2.0.1
@@ -4023,14 +4042,14 @@ packages:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
     hasBin: true
     dependencies:
-      glob: 7.2.2
+      glob: 7.2.3
     dev: true
 
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.2.2
+      glob: 7.2.3
     dev: true
 
   /run-parallel/1.2.0:
@@ -4158,6 +4177,8 @@ packages:
       on-finished: 2.4.1
       range-parser: 1.2.1
       statuses: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /serialize-javascript/6.0.0:
@@ -4177,6 +4198,8 @@ packages:
       http-errors: 1.6.3
       mime-types: 2.1.35
       parseurl: 1.3.3
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /serve-static/1.15.0:
@@ -4187,6 +4210,8 @@ packages:
       escape-html: 1.0.3
       parseurl: 1.3.3
       send: 0.18.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /setprototypeof/1.1.0:
@@ -4426,7 +4451,7 @@ packages:
     dependencies:
       css: 3.0.0
       debug: 4.3.4
-      glob: 7.2.2
+      glob: 7.2.3
       safer-buffer: 2.1.2
       sax: 1.2.4
       source-map: 0.7.3

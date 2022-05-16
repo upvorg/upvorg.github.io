@@ -63,6 +63,7 @@ export const Markdown: React.FC<Props> = (props) => {
       readOnly={type === 'render'}
       view={view}
       value={value}
+      htmlClass="markdown-body"
       renderHTML={async (text) => {
         const content = await processor.process(text)
         return content.toString()

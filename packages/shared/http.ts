@@ -111,19 +111,19 @@ export default class Http<R = any> {
           }
         },
         (reson: any) => {
-          console.log('request error' + reson)
-          throw this.interceptors.request.reject?.(reson)
+          console.error('<--- request error' + reson)
+          return this.interceptors.request.reject?.(reson)
         }
       )
       .then((response) => {
         if (!rawResponse.ok) {
-          throw this.interceptors.response.reject?.({
+          return this.interceptors.response.reject?.({
             status: rawResponse.status,
             statusText: rawResponse.statusText,
             ...response
           })
         }
-        if (__DEV__) console.log(`<- RESPONSE: ${method} ${url} response: `, response)
+        if (__DEV__) console.error(`<--- RESPONSE: ${method} ${url} response: `, response)
         return this.interceptors.response.resolve?.(response) ?? response
       })
   }

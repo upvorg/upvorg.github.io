@@ -23,7 +23,7 @@ const PostPage: React.FC = ({ id }: any) => {
 
   useEffect(() => {
     axios.get<R.Response<R.Post>>(`/post/${id}`).then((a) => {
-      if (a.data?.Type != 'post' && !__DEV__) {
+      if (!a.data || a.data.Type !== 'post') {
         toast.error('文章不见了', {
           duration: 90000,
           position: 'top-center'
@@ -34,8 +34,8 @@ const PostPage: React.FC = ({ id }: any) => {
       a.data.IsLiked == 2 && setIsLiked(true)
       a.data.IsCollected == 2 && setIsCollected(true)
       cover.current = a.data.Cover
+      axios.get(`/post/${id}/pv`)
     })
-    axios.get(`/post/${id}/pv`)
   }, [])
 
   useEffect(() => {
@@ -69,13 +69,15 @@ const PostPage: React.FC = ({ id }: any) => {
 
   const likeHandler = useCallback(() => {
     const c = isLiked ? -1 : 1
+    const LikesCount = state.LikesCount || 0
+
     setIsLiked((isLiked) => !isLiked)
-    setState((state) => ({ ...state, LikesCount: state.LikesCount + c }))
+    setState((state) => ({ ...state, LikesCount: LikesCount + c }))
     ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
       .then((_) => {
         if (_.err) {
           setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
+          setState((state) => ({ ...state, LikesCount: LikesCount - c }))
         } else {
           if (isLiked) {
             toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
@@ -87,7 +89,7 @@ const PostPage: React.FC = ({ id }: any) => {
       .catch(() => {
         setTimeout(() => {
           setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - 1 }))
+          setState((state) => ({ ...state, LikesCount: LikesCount - 1 }))
         }, 300)
       })
   }, [state, isLiked])

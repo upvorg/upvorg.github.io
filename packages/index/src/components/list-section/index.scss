@@ -8,7 +8,7 @@ $min-height: 350px;
   max-width: 1280px;
   grid-template-rows: auto;
 
-  @media (max-width: 991px) {
+  @media (max-width: 768px) {
     & {
       margin: 14px auto;
       padding: 0 10px;
@@ -16,7 +16,7 @@ $min-height: 350px;
       grid-gap: 20px 12px;
 
       &.col-2 {
-        grid-gap: 40px 0px;
+        grid-gap: 40px 0px !important;
         grid-template-columns: 1fr !important;
 
         .upv-card-list {
