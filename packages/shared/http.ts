@@ -123,7 +123,7 @@ export default class Http<R = any> {
             ...response
           })
         }
-        if (__DEV__) console.error(`<--- RESPONSE: ${method} ${url} response: `, response)
+        if (__DEV__) console.log(`<--- RESPONSE: ${method} ${url} response: `, response)
         return this.interceptors.response.resolve?.(response) ?? response
       })
   }

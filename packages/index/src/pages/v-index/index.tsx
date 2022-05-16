@@ -1,6 +1,6 @@
-import { axios } from '@web/shared'
-import classNames from 'classnames'
 import { useEffect, useState } from 'react'
+import classNames from 'classnames'
+import { axios } from '@web/shared/constants'
 import VideoCard from '../../components/video-card'
 import './index.scss'
 

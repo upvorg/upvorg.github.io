@@ -7,7 +7,9 @@ export * from './http'
 export * from './auth'
 export * from './sm.ms'
 
-export * from './hooks/usePromise'
+export * from './hooks/use-promise'
+export * from './hooks/use-intersection'
+
 export * from './UserContext'
 
 export * from './constants'

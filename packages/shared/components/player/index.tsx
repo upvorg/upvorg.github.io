@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from 'react'
 import Player, { MessageContext, PlaySourceMap } from 'griffith'
 import { ACTIONS, EVENTS } from 'griffith-message'
+import AspectRatio from '../AspectRatio'
 
 interface GriffithPlayerProps {
   src: string
@@ -37,7 +38,7 @@ export const GriffithPlayer = React.memo(
     const showControl = !auto && src
 
     return (
-      <Player16By9Wrapper>
+      <AspectRatio ratio={16 / 9}>
         {showPlayer ? (
           <Player
             autoplay
@@ -76,7 +77,7 @@ export const GriffithPlayer = React.memo(
         ) : (
           <span className="empty">暂无视频</span>
         )}
-      </Player16By9Wrapper>
+      </AspectRatio>
     )
   },
   (prevProps, nextProps) =>
@@ -100,34 +101,4 @@ class ActionRegister extends Component<{
     }
   }
   render = () => null
-}
-
-// 需要自行设置宽
-const Player16By9Wrapper = ({ children }: any) => {
-  return (
-    <div
-      className="upv-player"
-      style={{
-        width: '100%',
-        paddingTop: `${(9 / 16) * 100}%`,
-        backgroundColor: '#f4f4f4',
-        position: 'relative'
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  )
 }
