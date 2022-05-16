@@ -1,29 +1,30 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { GetSimplifyDate } from '@web/shared/utils/date'
 import AspectRatio from '@web/shared/components/AspectRatio'
 import './index.scss'
 
+const _IntersectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target as HTMLImageElement
+        _IntersectionObserver.unobserve(img)
+        const { src: placeholder } = img
+        img.src = img.dataset.src!
+        img.onerror = () => {
+          img.src = placeholder
+        }
+      }
+    })
+  },
+  { threshold: [0.15] }
+)
+
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
-  const observer = useRef<IntersectionObserver | null>()
 
   const ref = useCallback((element: HTMLImageElement) => {
-    observer.current = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement
-          observer.current?.unobserve(img)
-          const { src, dataset } = img
-          img.src = dataset.src!
-          img.onerror = () => {
-            img.src = src
-          }
-        }
-      },
-      { threshold: [0.15] }
-    )
-
-    observer.current!.observe(element)
+    _IntersectionObserver.observe(element)
   }, [])
 
   return (
