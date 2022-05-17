@@ -368,7 +368,7 @@ export default function VideoUploader() {
                       onChange={handleChange}
                       style={{ width: '10ch' }}
                       value={post.Meta?.Episodes}
-                      min={1}
+                      min={0}
                     />
                   </div>
                 </div>

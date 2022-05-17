@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
-import './index.scss'
 import { axios } from '@web/shared/constants'
 import { Markdown } from '@web/shared/components/markdown'
+import './index.scss'
 
 export default function PostUploader() {
   const [post, setPost] = useState<R.Post>({
@@ -80,10 +80,7 @@ export default function PostUploader() {
         <form className="form" onSubmit={handlePost}>
           <div className="field is-horizontal">
             <div className="field-label is-normal">
-              <label className="label">
-                封面
-                <span>*</span>
-              </label>
+              <label className="label">封面</label>
             </div>
             <div className="field-body">
               <div className="field">
@@ -129,7 +126,6 @@ export default function PostUploader() {
                   disabled={!!uploader.file}
                   className="input"
                   type="url"
-                  required
                   name="Cover"
                   onChange={handleChange}
                   placeholder="请输入封面图片链接"

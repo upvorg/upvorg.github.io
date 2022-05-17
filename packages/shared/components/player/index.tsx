@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from 'react'
+import React, { useState, useEffect, Component, useRef } from 'react'
 import Player, { MessageContext, PlaySourceMap } from 'griffith'
 import { ACTIONS, EVENTS } from 'griffith-message'
 import AspectRatio from '../AspectRatio'
@@ -13,13 +13,19 @@ export const GriffithPlayer = React.memo(
   ({ src, playerIsPlaying = true, auto = true }: GriffithPlayerProps) => {
     const [error, setError] = useState<any>(null)
     const [canPlay, setCanplay] = useState<boolean>(false)
+    const dispatchPlayRef = useRef<HTMLButtonElement | null>(null)
 
     useEffect(() => {
-      if (src) {
-        document.querySelector('video')?.setAttribute('controlslist', 'nodownload')
-      }
       setError(null)
+      canPlay && src?.endsWith('.m3u8') && setCanplay((c) => !c)
+      src && document.querySelector('video')?.setAttribute('controlslist', 'nodownload')
     }, [src])
+
+    useEffect(() => {
+      setTimeout(() => {
+        src?.endsWith('.m3u8') && dispatchPlayRef.current?.click()
+      }, 0)
+    }, [() => dispatchPlayRef.current, src])
 
     //'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_sd.mp4'
     //'https://svp.cdn.qq.com/0b53muajsaaakmafje2sk5rjazodtfsqbgia.f0.mp4?dis_k=5321f1f6c51f0bfccd8feffa4fa72184&dis_t=1649593655'
@@ -35,7 +41,7 @@ export const GriffithPlayer = React.memo(
     }
 
     const showPlayer = auto ? src : src && canPlay
-    const showControl = !auto && src
+    const showControl = !auto && !!src
 
     return (
       <AspectRatio ratio={16 / 9}>
@@ -66,9 +72,9 @@ export const GriffithPlayer = React.memo(
           <button
             className="button is-large is-primary is-light"
             aria-haspopup="true"
-            aria-controls="dropdown-menu3"
             style={{ fontSize: '2em' }}
             onClick={() => setCanplay(true)}
+            ref={dispatchPlayRef}
           >
             <span className="icon">
               <i className="fa-solid fa-circle-play"></i>
