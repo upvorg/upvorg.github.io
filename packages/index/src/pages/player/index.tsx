@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
 import { Markdown } from '@web/shared/components/markdown'
-import { GriffithPlayer } from '@web/shared/components/player'
+import { GriffithPlayer, EVENTS } from '@web/shared/components/player'
 import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
+import { throttle } from '@web/shared/utils/schedulers'
 import useLastPlayed from '../../hooks/use-last-played'
 import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
@@ -16,7 +17,10 @@ export default function PlayerPage({ id }: any) {
   const [modal, setModal] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [isCollected, setIsCollected] = useState(false)
-  const [currentIndex, setCurrentIndex] = useLastPlayed(id)
+  const [
+    { lastEpisode: currentIndex, setLastEpisode: setCurrentIndex },
+    { lastDuration, setLastDuration }
+  ] = useLastPlayed(id)
 
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [video, setVideo] = useState<R.Video[]>([])
@@ -37,8 +41,6 @@ export default function PlayerPage({ id }: any) {
         axios.get(`/post/${id}/videos`).then((res) => {
           ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
           res.data && setVideo(res.data)
-          console.log(res.data, currentIndex)
-
           if (res.data.length <= currentIndex) {
             setCurrentIndex(0)
           }
@@ -100,6 +102,16 @@ export default function PlayerPage({ id }: any) {
       })
   }, [state, isCollected])
 
+  const onEvent = useMemo(
+    () =>
+      throttle((e: EVENTS, payload: any) => {
+        if (e === EVENTS.TIMEUPDATE) {
+          setLastDuration(payload.currentTime)
+        }
+      }, 1000),
+    []
+  )
+
   const {
     Title,
     Creator,
@@ -119,7 +131,11 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <GriffithPlayer src={video[currentIndex]?.VideoUrl} />
+          <GriffithPlayer
+            src={video[currentIndex]?.VideoUrl}
+            onEvent={onEvent}
+            duration={lastDuration}
+          />
         </div>
         <div className="player-header__r">
           <div className="eplist_module">

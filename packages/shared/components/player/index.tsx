@@ -3,14 +3,18 @@ import Player, { MessageContext, PlaySourceMap } from 'griffith'
 import { ACTIONS, EVENTS } from 'griffith-message'
 import AspectRatio from '../AspectRatio'
 
-interface GriffithPlayerProps {
+export { EVENTS }
+
+export interface GriffithPlayerProps {
   src: string
   playerIsPlaying?: boolean
+  duration?: number
   auto?: boolean
+  onEvent?: (event: EVENTS, payload?: any) => void
 }
 
 export const GriffithPlayer = React.memo(
-  ({ src, playerIsPlaying = true, auto = true }: GriffithPlayerProps) => {
+  ({ src, playerIsPlaying = true, duration = 0, auto = true, onEvent }: GriffithPlayerProps) => {
     const [error, setError] = useState<any>(null)
     const [canPlay, setCanplay] = useState<boolean>(false)
     const dispatchPlayRef = useRef<HTMLButtonElement | null>(null)
@@ -52,7 +56,8 @@ export const GriffithPlayer = React.memo(
             error={error}
             sources={sources}
             defaultQuality="hd"
-            onEvent={(event: EVENTS) => {
+            onEvent={(event: EVENTS, data?: any) => {
+              onEvent?.(event, data)
               if (event === EVENTS.PLAY_FAILED || event === EVENTS.ERROR) {
                 setError({ message: 'PLAY FAILED' })
               }
@@ -62,6 +67,7 @@ export const GriffithPlayer = React.memo(
               {({ dispatchAction }) => (
                 <ActionRegister
                   src={src}
+                  duration={duration}
                   dispatchAction={dispatchAction}
                   playerIsPlaying={!!!error && playerIsPlaying}
                 />
@@ -89,28 +95,35 @@ export const GriffithPlayer = React.memo(
     )
   },
   (prevProps, nextProps) =>
-    prevProps.src === nextProps.src && prevProps.playerIsPlaying === nextProps.playerIsPlaying
+    prevProps.src === nextProps.src &&
+    prevProps.playerIsPlaying === nextProps.playerIsPlaying &&
+    prevProps.onEvent === nextProps.onEvent &&
+    prevProps.duration === nextProps.duration
 )
 
 class ActionRegister extends Component<{
   dispatchAction: (action: ACTIONS, payload?: any) => void
   playerIsPlaying: boolean
   src: string
+  duration: number
 }> {
   componentDidUpdate() {
-    const { dispatchAction, playerIsPlaying } = this.props
-    if (playerIsPlaying) {
-      dispatchAction(ACTIONS.PLAY)
-    } else {
-      dispatchAction(ACTIONS.PAUSE)
-    }
+    this.init()
   }
+
   componentDidMount() {
+    this.init()
+  }
+
+  init() {
+    const { dispatchAction, duration, playerIsPlaying } = this.props
     setTimeout(() => {
-      this.props.dispatchAction(ACTIONS.TIME_UPDATE, {
-        currentTime: 0 //TODO: history
+      dispatchAction(ACTIONS.TIME_UPDATE, {
+        currentTime: duration
       })
+      dispatchAction(playerIsPlaying ? ACTIONS.PLAY : ACTIONS.PAUSE)
     }, 0)
   }
+
   render = () => null
 }

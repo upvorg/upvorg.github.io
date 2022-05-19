@@ -2638,12 +2638,12 @@ packages:
       unist-util-visit: 3.1.0
     dev: false
 
-  /mdast-util-find-and-replace/2.1.0:
-    resolution: {integrity: sha512-1w1jbqAd13oU78QPBf5223+xB+37ecNtQ1JElq2feWols5oEYAl+SgNDnOZipe7NfLemoEt362yUS15/wip4mw==}
+  /mdast-util-find-and-replace/2.2.0:
+    resolution: {integrity: sha512-bz8hUWkMX7UcasORORcyBEsTKJ+dBiFwRPrm43hHC9NMRylIMLbfO5rwfeCN+UtY4AAi7s8WqXftb9eX6ZsqCg==}
     dependencies:
       escape-string-regexp: 5.0.0
       unist-util-is: 5.1.1
-      unist-util-visit-parents: 4.1.1
+      unist-util-visit-parents: 5.1.0
     dev: false
 
   /mdast-util-from-markdown/1.2.0:
@@ -2670,7 +2670,7 @@ packages:
     dependencies:
       '@types/mdast': 3.0.10
       ccount: 2.0.1
-      mdast-util-find-and-replace: 2.1.0
+      mdast-util-find-and-replace: 2.2.0
       micromark-util-character: 1.1.0
     dev: false
 

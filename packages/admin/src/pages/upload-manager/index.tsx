@@ -2,10 +2,12 @@ import qs from 'query-string'
 import { Link } from 'wouter'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import { axios, HOST, USER_LEVEL } from '@web/shared/constants'
+import { axios, HOST, POST_STATUS, POST_STATUS_MAP, USER_LEVEL } from '@web/shared/constants'
 import { formatDate } from '@web/shared/utils/date'
 import { useUserStore } from '@web/shared/UserContext'
 import './index.scss'
+
+const DEFAULT_TAB = POST_STATUS.PUBLISHED
 
 export default function UploadManager() {
   const user = useUserStore()
@@ -13,15 +15,9 @@ export default function UploadManager() {
   const { t } = qs.parse(window.location.search)
   const [tabIndex, setTabIndex] = useState(t ? +t : 0)
   const [posts, setPosts] = useState<R.Post[]>([])
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState<string | number>(DEFAULT_TAB)
   const [k, setK] = useState('')
   const pageSize = 10
-
-  useEffect(() => {
-    setPosts([])
-    setPage(1)
-    setStatus('')
-  }, [tabIndex])
 
   useEffect(() => {
     if (!user) return
@@ -39,23 +35,26 @@ export default function UploadManager() {
       })
   }, [user, page, tabIndex, status, k])
 
-  function handleDelPost(id: number) {
-    axios.delete(`/post/${id}`).then((res) => {
-      if (!res.err) {
-        setPosts(posts.filter((p) => p.ID !== id))
-      }
-    })
-  }
+  useEffect(() => {
+    setPosts([])
+    setPage(1)
+    setStatus(DEFAULT_TAB)
+  }, [tabIndex])
 
-  function handleCheckPost(id: number, query: string) {
-    axios.post(`/post/${id}/review?${query}`).then((res) => {
-      if (!res.err) {
-        if (status == '') {
-          setPosts(posts.map((p) => (p.ID === id ? { ...p, Status: 4 } : p)))
-        }
-        if (status == '3') {
+  function handleDelPost(id: number) {
+    if (window.confirm('Do you really want to delete?')) {
+      axios.delete(`/post/${id}`).then((res) => {
+        if (!res.err) {
           setPosts(posts.filter((p) => p.ID !== id))
         }
+      })
+    }
+  }
+
+  function handleCheckPost(id: number, query: string, rest?: Partial<R.Post>) {
+    axios.post(`/post/${id}/review?${query}`).then((res) => {
+      if (!res.err) {
+        setPosts(posts.map((p) => (p.ID === id ? { ...p, ...rest } : p)))
       }
     })
   }
@@ -85,20 +84,17 @@ export default function UploadManager() {
         </div>
 
         <div className="tags">
-          {[
-            { v: '', t: '全部' },
-            { v: '4', t: '已发布' },
-            { v: '3', t: '待审核' },
-            { v: '2', t: '已下架' }
-          ].map((s, i) => (
-            <a
-              key={i}
-              className={classNames('tag', { 'is-primary': status == s.v })}
-              onClick={() => setStatus(s.v)}
-            >
-              {s.t}
-            </a>
-          ))}
+          {Object.entries(POST_STATUS_MAP)
+            .sort((a, b) => +(+b[0] - +a[0]))
+            .map(([v, t], i) => (
+              <a
+                key={i}
+                className={classNames('tag', { 'is-primary': status == v })}
+                onClick={() => setStatus(v)}
+              >
+                {t}
+              </a>
+            ))}
         </div>
 
         <div className="list has-overflow-ellipsis has-visible-pointer-controls has-hoverable-list-items">
@@ -114,7 +110,12 @@ export default function UploadManager() {
                 <Link href={tabIndex == 0 ? `/video/upload?id=${v.ID}` : `/post/upload?id=${v.ID}`}>
                   <div className="list-item-title is-clickable">{v.Title}</div>
                 </Link>
-                <div className="list-item-description">{formatDate(v.CreatedAt, true)}</div>
+                <div className="list-item-description">
+                  <span className="tag mr-2 is-primary is-light">
+                    {POST_STATUS_MAP[v.Status as keyof typeof POST_STATUS_MAP]}
+                  </span>
+                  <span>{formatDate(v.CreatedAt, true)}</span>
+                </div>
                 <div className="list-item-description">
                   <span className="icon-text">
                     <span className="icon">
@@ -142,7 +143,7 @@ export default function UploadManager() {
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 3 && (
                     <button
                       className="button is-light"
-                      onClick={() => handleCheckPost(v.ID, 'status=4')}
+                      onClick={() => handleCheckPost(v.ID, 'status=4', { Status: 4 })}
                       data-tooltip="审核通过"
                     >
                       <span className="icon">
@@ -154,19 +155,31 @@ export default function UploadManager() {
                   {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 4 && (
                     <button
                       className="button is-light"
-                      onClick={() => handleCheckPost(v.ID, 'status=3')}
-                      data-tooltip="待审核"
+                      onClick={() => handleCheckPost(v.ID, 'status=2', { Status: 2 })}
+                      data-tooltip="下架"
                     >
                       <span className="icon">
-                        <i className="fa-brands fa-yandex-international"></i>
+                        <i className="fa-solid fa-x-ray"></i>
                       </span>
                     </button>
                   )}
 
-                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend != 2 && (
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.Status == 2 && (
                     <button
                       className="button is-light"
-                      onClick={() => handleCheckPost(v.ID, 'is_recommend=2')}
+                      onClick={() => handleCheckPost(v.ID, 'status=4', { Status: 4 })}
+                      data-tooltip="上架"
+                    >
+                      <span className="icon">
+                        <i className="fa-brands fa-autoprefixer"></i>
+                      </span>
+                    </button>
+                  )}
+
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend != 2 && v.Status == 4 && (
+                    <button
+                      className="button is-light"
+                      onClick={() => handleCheckPost(v.ID, 'is_recommend=2', { IsRecommend: 2 })}
                       data-tooltip="上推荐"
                     >
                       <span className="icon">
@@ -175,28 +188,28 @@ export default function UploadManager() {
                     </button>
                   )}
 
-                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend == 2 && (
+                  {user && user?.Level <= USER_LEVEL.ADMIN && v.IsRecommend == 2 && v.Status == 4 && (
                     <button
                       className="button is-light"
-                      onClick={() => handleCheckPost(v.ID, 'is_recommend=1')}
-                      data-tooltip="下推荐"
-                      style={{ transform: 'rotate(180deg)' }}
+                      onClick={() => handleCheckPost(v.ID, 'is_recommend=1', { IsRecommend: 1 })}
+                      data-tooltip="不再推荐"
                     >
                       <span className="icon">
-                        <i className="fa-solid fa-thumbs-up"></i>
+                        <i className="fa-solid fa-thumbs-down"></i>
                       </span>
                     </button>
                   )}
 
-                  <button className="button is-light">
-                    <a href={`${HOST}/${tabIndex == 0 ? 'v' : 'p'}/${v.ID}`} target="_blank">
-                      <span className="icon">
-                        <i className="fas fa-play"></i>
-                      </span>
-                    </a>
-                  </button>
+                  {v.Status == 4 && (
+                    <button className="button is-light">
+                      <a href={`${HOST}/${tabIndex == 0 ? 'v' : 'p'}/${v.ID}`} target="_blank">
+                        <span className="icon">
+                          <i className="fas fa-play"></i>
+                        </span>
+                      </a>
+                    </button>
+                  )}
 
-                  {/* TODO: confirm */}
                   <button className="button is-light" onClick={() => handleDelPost(v.ID)}>
                     <span className="icon">
                       <i className="fa-solid fa-circle-xmark"></i>
@@ -204,10 +217,10 @@ export default function UploadManager() {
                   </button>
 
                   {/* <button className="button is-light">
-                <span className="icon">
-                  <i className="fas fa-ellipsis-v"></i>
-                </span>
-              </button> */}
+                    <span className="icon">
+                      <i className="fas fa-ellipsis-v"></i>
+                    </span>
+                  </button> */}
                 </div>
               </div>
             </div>

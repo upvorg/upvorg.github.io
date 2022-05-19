@@ -84,7 +84,7 @@ export default function PostUploader() {
             </div>
             <div className="field-body">
               <div className="field">
-                <p className="control">
+                <div className="control">
                   <div
                     className={classNames('file', {
                       'is-primary': uploader.status == 'success',
@@ -120,7 +120,7 @@ export default function PostUploader() {
                       </span>
                     </label>
                   </div>
-                </p>
+                </div>
                 &nbsp;&nbsp;&nbsp;
                 <input
                   disabled={!!uploader.file}

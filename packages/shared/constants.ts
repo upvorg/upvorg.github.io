@@ -20,6 +20,22 @@ export const USER_LEVEL_MAP = {
   1: '超级管理员'
 }
 
+export const enum POST_STATUS {
+  DRAFT = 5,
+  PUBLISHED = 4,
+  PENDING = 3,
+  REJECT = 2,
+  DELETED = 1,
+  ALL = ''
+}
+
+export const POST_STATUS_MAP = {
+  [POST_STATUS.PUBLISHED]: '已发布',
+  [POST_STATUS.PENDING]: '待审核',
+  [POST_STATUS.REJECT]: '已下架',
+  [POST_STATUS.ALL]: '全部'
+}
+
 export enum USER_LEVEL {
   NORMAL = 4,
   CREATOR = 3,

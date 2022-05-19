@@ -34,7 +34,7 @@ export default function VideoUploader() {
 
   useEffect(() => {
     if (user && user.Level > USER_LEVEL.CREATOR) {
-      toast.error('Forbidden.')
+      toast.error('no permission to upload video')
       setTimeout(() => {
         window.location.href = '/post/upload'
       }, 1500)
@@ -167,7 +167,7 @@ export default function VideoUploader() {
             </div>
             <div className="field-body">
               <div className="field">
-                <p className="control">
+                <div className="control">
                   <div
                     className={classNames('file', {
                       'is-primary': coverUploader.status == 'success',
@@ -203,7 +203,7 @@ export default function VideoUploader() {
                       </span>
                     </label>
                   </div>
-                </p>
+                </div>
                 &nbsp;&nbsp;&nbsp;
                 <input
                   type="url"
