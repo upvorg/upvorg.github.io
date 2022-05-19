@@ -81,7 +81,9 @@ export const GriffithPlayer = React.memo(
             </span>
           </button>
         ) : (
-          <span className="empty">暂无视频</span>
+          <span style={{ color: 'var(--caption-color)', backgroundColor: '#f4f4f4' }}>
+            {src == undefined ? 'Loading ···' : '暂无视频'}
+          </span>
         )}
       </AspectRatio>
     )
@@ -91,20 +93,24 @@ export const GriffithPlayer = React.memo(
 )
 
 class ActionRegister extends Component<{
-  dispatchAction: (action: ACTIONS) => void
+  dispatchAction: (action: ACTIONS, payload?: any) => void
   playerIsPlaying: boolean
   src: string
 }> {
-  componentDidUpdate(prevProps: any) {
-    const { dispatchAction, playerIsPlaying, src } = this.props
-
-    if (prevProps.src !== src) {
-    }
+  componentDidUpdate() {
+    const { dispatchAction, playerIsPlaying } = this.props
     if (playerIsPlaying) {
       dispatchAction(ACTIONS.PLAY)
     } else {
       dispatchAction(ACTIONS.PAUSE)
     }
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.dispatchAction(ACTIONS.TIME_UPDATE, {
+        currentTime: 0 //TODO: history
+      })
+    }, 0)
   }
   render = () => null
 }

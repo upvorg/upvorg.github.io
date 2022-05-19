@@ -142,13 +142,13 @@ export default function VideoUploader() {
     '-' +
     (publishDate.getMonth() + 1).toString().padStart(2, '0') +
     '-' +
-    publishDate.getDate()
+    publishDate.getDate().toString().padStart(2, '0')
   const updatedDateStr =
     updatedDate.getFullYear() +
     '-' +
     (updatedDate.getMonth() + 1).toString().padStart(2, '0') +
     '-' +
-    updatedDate.getDate()
+    updatedDate.getDate().toString().padStart(2, '0')
 
   return (
     <div className="box VideoUploader">

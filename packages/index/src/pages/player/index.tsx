@@ -6,20 +6,20 @@ import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
+import useLastPlayed from '../../hooks/use-last-played'
 import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
+  const [modal, setModal] = useState(false)
+  const [isLiked, setIsLiked] = useState(false)
+  const [isCollected, setIsCollected] = useState(false)
+  const [currentIndex, setCurrentIndex] = useLastPlayed(id)
+
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [video, setVideo] = useState<R.Video[]>([])
-  const urlSearchParams = new URLSearchParams(window.location.search)
-  const queryParams = Object.fromEntries(urlSearchParams.entries())
-  const [modal, setModal] = useState(false)
-  const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [isCollected, setIsCollected] = useState<boolean>(false)
-  const [currentIndex, setCurrentIndex] = useState(() => +queryParams.v - 1 || 0)
 
   useEffect(() => {
     axios.get(`/post/${id}`).then((_) => {
@@ -37,6 +37,11 @@ export default function PlayerPage({ id }: any) {
         axios.get(`/post/${id}/videos`).then((res) => {
           ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
           res.data && setVideo(res.data)
+          console.log(res.data, currentIndex)
+
+          if (res.data.length <= currentIndex) {
+            setCurrentIndex(0)
+          }
         })
       }
       axios.get(`/post/${id}/pv`)

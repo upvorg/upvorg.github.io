@@ -23,19 +23,27 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     if (!(i || u)) {
-      axios.get('/user').then((_) => {
-        if (!_.err) {
-          setUser(_.data.user)
-          localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(_.data.user))
-        }
-      })
+      axios
+        .get('/user')
+        .then((_) => {
+          if (!_.err) {
+            setUser(_.data.user)
+            localStorage.setItem(LOCAL_STORAGE_USER_INFO_KEY, JSON.stringify(_.data.user))
+          }
+        })
+        .catch((_) => {
+          !__DEV__ && setUser({ Name: '[[ERROR]]' } as R.User)
+        })
     }
   }, [])
+
+  if (user?.Name === '[[ERROR]]') return '[[ERROR]]' as any
 
   return (
     <>
       <UserContext.Provider value={user}>
         <Router>
+          {/* @ts-ignore */}
           <Switch>
             <Layout>
               <Suspense fallback={null}>
@@ -71,7 +79,6 @@ export const App: React.FC = () => {
                 />
               </Suspense>
             </Layout>
-            <Route path="/:rest*" component={(() => '404') as unknown as React.FC} />
           </Switch>
         </Router>
       </UserContext.Provider>

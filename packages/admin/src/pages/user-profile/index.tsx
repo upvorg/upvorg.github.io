@@ -67,8 +67,10 @@ export default function UserProfile() {
         <h1 className="title is-5 mb-3">个人信息</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="field is-horizontal avatar">
-            <img className="image is-64x64 avatar" src={user.Avatar} />
-
+            <div>
+              <img className="image is-64x64 avatar" src={user.Avatar} />
+              <p style={{ textAlign: 'center', fontWeight: 'bold' }}>{user.Name}</p>
+            </div>
             <div className="field">
               <div className="field-body"></div>
               <p className="control">
@@ -139,13 +141,6 @@ export default function UserProfile() {
             </div>
 
             <div className="field ">
-              <div className="field Nickname">
-                <label className="label">Name</label>
-                <div className="control">
-                  <input className="input" type="text" disabled value={user.Name} name="Name" />
-                </div>
-              </div>
-
               <div className="field">
                 <label className="label">Role</label>
                 <div className="control">

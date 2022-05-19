@@ -14,7 +14,8 @@
     "@web/shared": "workspace:^1.0.0",
     "copy-text-to-clipboard": "^3.0.1",
     "react-content-loader": "^6.2.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "use-query-params": "^1.2.3"
   },
   "devDependencies": {
     "@types/react-helmet": "^6.1.5"
