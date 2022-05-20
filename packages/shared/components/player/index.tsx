@@ -13,6 +13,9 @@ export interface GriffithPlayerProps {
   onEvent?: (event: EVENTS, payload?: any) => void
 }
 
+const isM3u8 = (url: string) =>
+  !!url && (url.endsWith('.m3u8') || new URL(url).pathname.endsWith('m3u8'))
+
 export const GriffithPlayer = React.memo(
   ({ src, playerIsPlaying = true, duration = 0, auto = true, onEvent }: GriffithPlayerProps) => {
     const [error, setError] = useState<any>(null)
@@ -21,13 +24,13 @@ export const GriffithPlayer = React.memo(
 
     useEffect(() => {
       setError(null)
-      canPlay && src?.endsWith('.m3u8') && setCanplay((c) => !c)
+      canPlay && isM3u8(src) && setCanplay((c) => !c)
       src && document.querySelector('video')?.setAttribute('controlslist', 'nodownload')
     }, [src])
 
     useEffect(() => {
       setTimeout(() => {
-        src?.endsWith('.m3u8') && dispatchPlayRef.current?.click()
+        isM3u8(src) && dispatchPlayRef.current?.click()
       }, 0)
     }, [() => dispatchPlayRef.current, src])
 
@@ -39,7 +42,7 @@ export const GriffithPlayer = React.memo(
     // https://s2.monidai.com/ppvod/FCD7885D5BE89FDA071A063380B93C25.m3u8
     // https://s2.monidai.com/ppvod/700A4258AEF616893FF08919E86A13C5.m3u8
     const sources: PlaySourceMap = { hd: { play_url: src } }
-    if (src?.endsWith('.m3u8')) {
+    if (isM3u8(src)) {
       sources.hd!.format = 'm3u8'
       auto = false
     }

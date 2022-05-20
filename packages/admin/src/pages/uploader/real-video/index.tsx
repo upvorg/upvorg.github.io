@@ -116,7 +116,6 @@ export default function RealVideoUploader({ params }: any) {
     setSubmitLoading(true)
     if (isEdit) {
       axios.put(`/video/${video.ID}`, { data: video }).then((r) => {
-        resetVideo()
         if (!r.err) {
           setVideos(videos.map((v) => (v.ID === video.ID ? video : v)))
           resetVideo()
@@ -178,7 +177,7 @@ export default function RealVideoUploader({ params }: any) {
                   />
                 </div>
                 <div className="field is-horizontal">
-                  <p className="control">
+                  <div className="control">
                     <div
                       className={classNames('file', {
                         'is-primary': coverUploader.status == 'success',
@@ -214,7 +213,7 @@ export default function RealVideoUploader({ params }: any) {
                         </span>
                       </label>
                     </div>
-                  </p>
+                  </div>
                   <input
                     className="input"
                     type="url"
@@ -227,7 +226,7 @@ export default function RealVideoUploader({ params }: any) {
                   />
                 </div>
                 <div className="field is-horizontal">
-                  <p className="control">
+                  <div className="control">
                     <div
                       className={classNames('file', {
                         'is-primary': videoUploader.status == 'success',
@@ -262,7 +261,7 @@ export default function RealVideoUploader({ params }: any) {
                         </span>
                       </label>
                     </div>
-                  </p>
+                  </div>
                   <input
                     disabled={!!videoUploader.file}
                     className="input"
