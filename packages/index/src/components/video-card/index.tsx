@@ -24,7 +24,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
 
   const ref = useCallback((element: HTMLImageElement) => {
-    _IntersectionObserver.observe(element)
+    element && _IntersectionObserver.observe(element)
   }, [])
 
   return (

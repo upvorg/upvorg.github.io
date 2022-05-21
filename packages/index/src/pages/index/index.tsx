@@ -34,7 +34,7 @@ export default function IndexPage() {
       axios.get('/posts/recommends?page_size=12'),
       axios.get('/posts?type=post&page_size=6'),
       axios.get('/posts?type=video&page_size=12'),
-      axios.get('/posts?type=video&genre=原创&page_size=12'),
+      axios.get('/posts?type=video&is_original=2&page_size=12'),
       axios.get(`/post/ranking?&page_size=10`)
     ]).then((_resp) => {
       const resp = _resp.map(

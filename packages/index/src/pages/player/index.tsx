@@ -102,15 +102,22 @@ export default function PlayerPage({ id }: any) {
       })
   }, [state, isCollected])
 
-  const onEvent = useMemo(
+  const onTimeUpdate = useMemo(
     () =>
-      throttle((e: EVENTS, payload: any) => {
-        if (e === EVENTS.TIMEUPDATE) {
-          setLastDuration(payload.currentTime)
-        }
+      throttle((payload: any) => {
+        setLastDuration(payload.currentTime)
       }, 1000),
     []
   )
+
+  const onEvent = useCallback((e: EVENTS, payload: any) => {
+    if (e == EVENTS.TIMEUPDATE) {
+      onTimeUpdate(payload)
+      return
+    } else if (e == EVENTS.ENDED) {
+      setCurrentIndex(currentIndex + 1)
+    }
+  }, [])
 
   const {
     Title,

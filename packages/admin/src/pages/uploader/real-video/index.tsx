@@ -128,8 +128,8 @@ export default function RealVideoUploader({ params }: any) {
         if (!r.err) {
           setVideos([r.data, ...videos])
           resetVideo()
-          setSubmitLoading(false)
         }
+        setSubmitLoading(false)
       })
     }
   }
