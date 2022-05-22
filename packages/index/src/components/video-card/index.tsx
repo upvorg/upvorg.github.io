@@ -51,7 +51,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
           .classList.remove('upv-video-card__error--show')
         $el.current
           .querySelector('.upv-video-card__nocover')!
-          .classList.add('upv-video-card__nocover--show')
+          .classList.remove('upv-video-card__nocover--show')
       }
     }
   }, [$el, info])
