@@ -32,18 +32,10 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
     }
 
     axios.post(`/post/${id}/comment`, { data: { content: comment } }).then((_) => {
-      const newComment = {
-        ID: Date.now(),
-        Uid: user!.ID,
-        CreatedAt: new Date(),
-        Content: comment,
-        Creator: {
-          Avatar: user!.Avatar,
-          Nickname: user!.Nickname
-        }
-      } as R.Comment
-      setComment('')
-      setComments([newComment, ...comments!])
+      if (!_.err) {
+        setComment('')
+        setComments([_.data, ...comments!])
+      }
     })
   }
 
@@ -61,7 +53,7 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
       <div className="video-comment-edit">
         <img
           className="video-comment-edit__avatar"
-          src={user?.Avatar || 'https://upv.life/ic_launcher_round.png'}
+          src={user?.Avatar || '/ic_launcher_round.png'}
           alt=""
         />
         <textarea

@@ -264,7 +264,7 @@ const PostPage: React.FC = ({ id }: any) => {
             <h2 className="video-info__title post-title">{Title}</h2>
             <div className="video-info ">
               <div className="video-author">
-                <img src={Avatar || 'https://upv.life/ic_launcher_round.png'} alt={Nickname} />
+                <img src={Avatar || '/ic_launcher_round.png'} alt={Nickname} />
               </div>
               <div>
                 <span className="video-info__title">{Nickname || '-'}</span>
