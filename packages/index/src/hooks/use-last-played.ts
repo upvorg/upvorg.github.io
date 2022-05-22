@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-const LOCAL_STORAGE_KEY_LAST_PLAYED_INFO = '@player/last-played'
+const LOCAL_STORAGE_KEY_LAST_PLAYED_INFO = '@player/'
 
 type LastPlayedInfo = {
   id: string
@@ -21,50 +21,33 @@ export default function useLastPlayed(id: string) {
 
     return sp.has('v')
       ? defaultLastPlayedInfo
-      : JSON.parse(
-          localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + '-' + id) ||
-            JSON.stringify(defaultLastPlayedInfo)
-        )
+      : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id) || 'null') ||
+          defaultLastPlayedInfo
   }, [])
 
   const [lastEpisode, setLastEpisode] = useState(lastPlayedInfo.episode)
   const [lastDuration, setLastDuration] = useState(lastPlayedInfo.duration)
 
-  const _setLastEpisode = useCallback((duration: number) => {
-    localStorage.setItem(
-      LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + '-' + id,
-      JSON.stringify({
-        ...lastPlayedInfo,
-        time: Date.now(),
-        duration
-      })
-    )
+  const set = useCallback((info: LastPlayedInfo) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id, JSON.stringify(info))
   }, [])
 
-  return [
-    {
-      lastEpisode,
-      setLastEpisode: useCallback(
-        (index: number) => {
-          if (index == lastEpisode) return
-          setLastDuration(0)
-          _setLastEpisode(0)
-          localStorage.setItem(
-            LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + '-' + id,
-            JSON.stringify({
-              ...lastPlayedInfo,
-              time: Date.now(),
-              episode: index
-            })
-          )
-          setLastEpisode(index)
-        },
-        [lastEpisode]
-      )
+  const _setLastEpisode = useCallback(
+    (episode: number) => {
+      if (episode == lastEpisode) return
+      setLastEpisode(episode)
+      setLastDuration(0)
+      set({ id, episode, duration: 0, time: Date.now() })
     },
-    {
-      lastDuration: lastDuration,
-      setLastDuration: _setLastEpisode
-    }
+    [lastEpisode]
+  )
+
+  const _setLastDuration = (duration: number) => {
+    set({ id, episode: lastEpisode, duration, time: Date.now() })
+  }
+
+  return [
+    { lastEpisode, setLastEpisode: _setLastEpisode },
+    { lastDuration: lastDuration, setLastDuration: _setLastDuration }
   ] as const
 }

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
-import { Markdown } from '@web/shared/components/markdown'
 import { GriffithPlayer, EVENTS } from '@web/shared/components/player'
 import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
@@ -11,16 +10,14 @@ import useLastPlayed from '../../hooks/use-last-played'
 import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
+import PlayerInfo from './info'
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
   const [modal, setModal] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [isCollected, setIsCollected] = useState(false)
-  const [
-    { lastEpisode: currentIndex, setLastEpisode: setCurrentIndex },
-    { lastDuration, setLastDuration }
-  ] = useLastPlayed(id)
+  const [{ lastEpisode, setLastEpisode }, { lastDuration, setLastDuration }] = useLastPlayed(id)
 
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [video, setVideo] = useState<R.Video[]>([])
@@ -41,8 +38,8 @@ export default function PlayerPage({ id }: any) {
         axios.get(`/post/${id}/videos`).then((res) => {
           ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
           res.data && setVideo(res.data)
-          if (res.data.length <= currentIndex) {
-            setCurrentIndex(0)
+          if (res.data.length <= lastEpisode) {
+            setLastEpisode(0)
           }
         })
       }
@@ -107,17 +104,20 @@ export default function PlayerPage({ id }: any) {
       throttle((payload: any) => {
         setLastDuration(payload.currentTime)
       }, 1000),
-    []
+    [lastEpisode]
   )
 
-  const onEvent = useCallback((e: EVENTS, payload: any) => {
-    if (e == EVENTS.TIMEUPDATE) {
-      onTimeUpdate(payload)
-      return
-    } else if (e == EVENTS.ENDED) {
-      setCurrentIndex(currentIndex + 1)
-    }
-  }, [])
+  const onEvent = useCallback(
+    (e: EVENTS, payload: any) => {
+      if (e == EVENTS.TIMEUPDATE) {
+        onTimeUpdate(payload)
+        return
+      } else if (e == EVENTS.ENDED) {
+        setLastEpisode(lastEpisode + 1)
+      }
+    },
+    [lastEpisode]
+  )
 
   const {
     Title,
@@ -127,8 +127,7 @@ export default function PlayerPage({ id }: any) {
     Hits,
     CommentCount,
     LikesCount,
-    CollectionCount,
-    Content
+    CollectionCount
   } = state
 
   return (
@@ -139,7 +138,7 @@ export default function PlayerPage({ id }: any) {
       <div className="player-header">
         <div className="player-header__player">
           <GriffithPlayer
-            src={video[currentIndex]?.VideoUrl}
+            src={video[lastEpisode]?.VideoUrl}
             onEvent={onEvent}
             duration={lastDuration}
           />
@@ -149,7 +148,7 @@ export default function PlayerPage({ id }: any) {
             <div className="list-title">
               <h4>播放列表</h4>
               <span className="ep-list-progress">
-                {video.length > 0 ? currentIndex + 1 : 0}/{video.length}
+                {video.length > 0 ? lastEpisode + 1 : 0}/{video.length}
               </span>
             </div>
             <div className="list-wrapper">
@@ -159,9 +158,9 @@ export default function PlayerPage({ id }: any) {
                     <a key={i}>
                       <li
                         className={classNames('list-item has-tooltip-bottom', {
-                          cursor: i === currentIndex
+                          cursor: i === lastEpisode
                         })}
-                        onClick={() => setCurrentIndex(i)}
+                        onClick={() => setLastEpisode(i)}
                         title={item.Title}
                         {...(item.Title && { 'data-tooltip': item.Title })}
                       >
@@ -266,20 +265,7 @@ export default function PlayerPage({ id }: any) {
       )}
 
       <Comment id={id} />
-
-      <div className={classNames('modal', { 'is-active': modal })}>
-        <div className="modal-background" onClick={() => setModal(false)}></div>
-
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">{Title}</p>
-            <button className="delete" aria-label="close" onClick={() => setModal(false)}></button>
-          </header>
-          <section className="modal-card-body">
-            <Markdown type="render" value={Content || '#### 暂无详情'} />
-          </section>
-        </div>
-      </div>
+      <PlayerInfo post={state} show={modal} onChange={setModal} />
     </div>
   )
 }

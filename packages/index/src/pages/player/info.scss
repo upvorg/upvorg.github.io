@@ -1,0 +1,87 @@
+.PlayerInfo.modal {
+  padding: 100px 0 40px;
+
+  .modal-background {
+    opacity: 0.3;
+  }
+  .modal-card-head {
+    padding: 0.8em;
+  }
+  .modal-card-body {
+    min-height: 600px;
+    padding: 0;
+    border-radius: 6px;
+  }
+
+  .modal-card .delete {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+  }
+
+  .post-head {
+    padding: 15px 15px 0;
+    display: flex;
+
+    img {
+      border-radius: 6px;
+      max-width: 200px;
+    }
+
+    .post-info {
+      flex: 1;
+      margin-left: 2em;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-size: 14px;
+
+      .title {
+        margin-bottom: 4px;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--text1);
+        line-height: 24px;
+      }
+
+      &-item.is-h {
+        > .post-info-item {
+          margin-right: 1.5em;
+          margin-bottom: 0;
+        }
+      }
+
+      &-item {
+        display: flex;
+        margin-bottom: 8px;
+
+        > label {
+          color: var(--text3);
+          margin-right: 1em;
+        }
+        > body {
+          color: var(--text1);
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 991px) {
+  .PlayerInfo.modal {
+    padding: 90px 20px 30px !important;
+
+    .post-head {
+      margin-bottom: -25px;
+      .aspect-ratio {
+        max-width: 100px !important;
+      }
+      .post-info {
+        margin-left: 1em;
+      }
+    }
+
+    .modal-card-body {
+      min-height: 60vh;
+    }
+  }
+}

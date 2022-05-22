@@ -13,6 +13,8 @@ export const COOKIE_ACCESS_TOKEN_KEY = 'access_token'
 
 export const PRIMARY_COLOR = '#6668ab'
 
+export const DAY_NAME = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
 export const USER_LEVEL_MAP = {
   4: '普通用户',
   3: '创作者',

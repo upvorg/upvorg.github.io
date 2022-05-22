@@ -7,7 +7,7 @@ import { useUploader } from '../use-uploader'
 import './index.scss'
 
 export default function RealVideoUploader({ params }: any) {
-  const id = +params.id
+  const id = params.id
   const [modal, setModal] = useState(false)
   const [videoPlayerUrl, setVideoPlayerUrl] = useState('')
   const [isEdit, setIsEdit] = useState(false)

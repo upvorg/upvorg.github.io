@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { axios } from '@web/shared/constants'
+import { axios, DAY_NAME } from '@web/shared/constants'
 import VideoCard from '../../components/video-card'
 import './index.scss'
-
-const DAY_NAME = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
 function VideoIndexPage() {
   const [index, setIndex] = useState(new Date().getDay())

@@ -54,7 +54,6 @@
       font-size: var(--title-font-size);
       line-height: var(--title-line-height);
       padding-right: var(--title-padding-right);
-
       display: -webkit-box;
       overflow: hidden;
       -webkit-box-orient: vertical;
@@ -65,7 +64,14 @@
       -webkit-line-clamp: 2;
       color: #18191c;
       transition: color 0.2s linear;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--p);
+      }
     }
+
     &__subtitle {
       margin-top: 4px;
       color: #9499a0;
