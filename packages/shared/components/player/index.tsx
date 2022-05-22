@@ -91,7 +91,7 @@ export const GriffithPlayer = React.memo(
           </button>
         ) : (
           <span style={{ color: 'var(--caption-color)', backgroundColor: '#f4f4f4' }}>
-            {src == undefined ? 'Loading ···' : '暂无视频'}
+            {src == undefined ? 'LOADING ···' : '暂无视频'}
           </span>
         )}
       </AspectRatio>

@@ -7,12 +7,28 @@ const _IntersectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const img = entry.target as HTMLImageElement
+        const container = entry.target as HTMLAnchorElement
+        const img = container.querySelector('img')!
         _IntersectionObserver.unobserve(img)
-        const { src: placeholder } = img
+
+        if (!img.dataset.src) {
+          container
+            .querySelector('.upv-video-card__nocover')!
+            .classList.add('upv-video-card__nocover--show')
+          return
+        }
+
         img.src = img.dataset.src!
+
+        img.onload = () => {
+          container
+            .querySelector('.upv-video-card__loading')!
+            .classList.add('upv-video-card__loading--hidden')
+        }
         img.onerror = () => {
-          img.src = placeholder
+          container
+            .querySelector('.upv-video-card__error')!
+            .classList.add('upv-video-card__error--show')
         }
       }
     })
@@ -23,32 +39,31 @@ const _IntersectionObserver = new IntersectionObserver(
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
 
-  const ref = useCallback((element: HTMLImageElement) => {
+  const ref = useCallback((element: HTMLAnchorElement) => {
     element && _IntersectionObserver.observe(element)
   }, [])
 
   return (
     <div className="upv-video-card">
-      <div className="upv-video-card__wrap">
-        <a href={target} target="_blank">
-          <AspectRatio ratio={3 / 4}>
-            <img
-              ref={ref}
-              className="upv-video-card__image"
-              alt={info.Title}
-              title={info.Title}
-              data-src={info.Cover}
-              src="https://s2.loli.net/2022/04/15/m8MDhjliOSHtXnR.jpg"
-            />
-          </AspectRatio>
-        </a>
-        <div className="upv-video-card__content">
-          <div className="upv-video-card__content__title">{info.Title}</div>
-          <div className="upv-video-card__content__subtitle">
-            <span>{info.Creator?.Nickname || '-'}</span>
-            {' · '}
-            <span>{GetSimplifyDate(info.CreatedAt)}</span>
-          </div>
+      <a href={target} target="_blank" ref={ref}>
+        <AspectRatio ratio={3 / 4}>
+          <img
+            className="upv-video-card__image"
+            alt={info.Title}
+            title={info.Title}
+            data-src={info.Cover}
+          />
+          <div className="upv-video-card__loading">LOADING ···</div>
+          <div className="upv-video-card__error">ERROR</div>
+          <div className="upv-video-card__nocover">NO COVER</div>
+        </AspectRatio>
+      </a>
+      <div className="upv-video-card__content">
+        <div className="upv-video-card__content__title">{info.Title}</div>
+        <div className="upv-video-card__content__subtitle">
+          <span>{info.Creator?.Nickname || '-'}</span>
+          {' · '}
+          <span>{GetSimplifyDate(info.CreatedAt)}</span>
         </div>
       </div>
     </div>

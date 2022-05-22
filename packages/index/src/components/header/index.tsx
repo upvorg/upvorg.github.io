@@ -14,11 +14,13 @@ export default function Header() {
   const user = useUserStore()
 
   useEffect(() => {
-    fetch('//v1.hitokoto.cn?c=a')
-      .then((res) => res.json())
-      .then((data) => {
-        setSearchPlaceholder(data.hitokoto)
-      })
+    if (!__DEV__) {
+      fetch('//v1.hitokoto.cn?c=a')
+        .then((res) => res.json())
+        .then((data) => {
+          setSearchPlaceholder(data.hitokoto)
+        })
+    }
 
     const $navbarBurger: HTMLElement = document.querySelector('.navbar-burger')!
     const handler: EventListener = () => {

@@ -9,15 +9,42 @@
   --icon-size: 18px;
   --title-padding-right: 16px;
 
-  &__wrap {
-    width: 100%;
-    background-color: var(--bg1);
-    z-index: 1;
+  a {
+    display: block;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: var(--bg3);
+    color: var(--text4);
   }
 
   &__image {
-    border-radius: 6px;
     object-fit: cover;
+  }
+
+  &__loading {
+    background-color: var(--bg3);
+    z-index: 1;
+    &--hidden {
+      z-index: -1;
+    }
+  }
+
+  &__error {
+    background-color: var(--bg3);
+    z-index: -1;
+
+    &--show {
+      z-index: 1;
+    }
+  }
+
+  &__nocover {
+    background-color: var(--bg3);
+    z-index: -1;
+
+    &--show {
+      z-index: 1;
+    }
   }
 
   &__content {
