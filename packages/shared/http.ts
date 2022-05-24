@@ -117,7 +117,7 @@ export default class Http<R = any> {
       )
       .then((response) => {
         if (!rawResponse.ok) {
-          return this.interceptors.response.reject?.({
+          throw this.interceptors.response.reject?.({
             status: rawResponse.status,
             statusText: rawResponse.statusText,
             ...response

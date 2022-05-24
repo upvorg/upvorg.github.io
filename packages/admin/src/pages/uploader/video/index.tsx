@@ -179,7 +179,7 @@ export default function VideoUploader() {
                         className="file-input cover-file-input"
                         accept="image/*"
                         type="file"
-                        onChange={(e) => coverUp(e.target!.files![0])}
+                        onChange={(e) => e.target.files?.[0] && coverUp(e.target.files[0])}
                       />
                       <span className="file-cta" style={{ paddingRight: 0, borderRight: 0 }}>
                         <span className="file-icon">
