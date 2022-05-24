@@ -7,14 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CopyPlugin = require('copy-webpack-plugin')
-const {
-  isEnvProduction,
-  LOCAL_API_HOST,
-  API_HOST,
-  STORAGE_HOST,
-  ADMIN_HOST,
-  HOST
-} = require('./config')
+const { isEnvProduction, LOCAL_API_HOST } = require('./config')
 
 module.exports = {
   mode: isEnvProduction ? 'production' : 'development',
@@ -191,13 +184,7 @@ module.exports = {
       chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
     }),
     new ProgressPlugin(),
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(!isEnvProduction),
-      __HOST__: JSON.stringify(HOST),
-      __API_HOST__: JSON.stringify(API_HOST),
-      __STORAGE_HOST__: JSON.stringify(STORAGE_HOST),
-      __ADMIN_HOST__: JSON.stringify(ADMIN_HOST)
-    }),
+    new webpack.DefinePlugin(require('./config')),
     new webpack.ProvidePlugin({
       React: 'react'
     }),
@@ -208,17 +195,17 @@ module.exports = {
       })
   ].filter(Boolean),
   devServer: {
-    static: '../../public',
+    hot: true,
     open: true,
+    compress: true,
     host: 'localhost',
+    static: '../../public',
+    historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': '*',
       'Access-Control-Allow-Headers': '*'
     },
-    compress: true,
-    historyApiFallback: true,
-    hot: true,
     proxy: {
       '/api': {
         target: LOCAL_API_HOST,

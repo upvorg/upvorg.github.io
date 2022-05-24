@@ -11,11 +11,6 @@ export namespace Cookie {
   }
 
   export function del(name: string, path?: string, domain?: string) {
-    //@ts-ignore
-    if (window.cookieStore) {
-      //@ts-ignore
-      return window.cookieStore.delete(name)
-    }
     document.cookie =
       name +
       '=' +

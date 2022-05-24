@@ -101,7 +101,7 @@ export default function Login() {
             </div>
 
             <div className="field">
-              <p className="control">
+              <div className="control">
                 <label className="label">密码</label>
                 <input
                   className="input"
@@ -115,7 +115,7 @@ export default function Login() {
                   <span style={{ float: 'left', color: 'gray' }}>未注册将自动注册</span>
                   <a href="#">forget password?</a>
                 </p>
-              </p>
+              </div>
             </div>
 
             <div className="field">

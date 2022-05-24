@@ -2,6 +2,7 @@ import { Cookie } from './utils/cookie'
 import http from './http'
 
 // webpack proxy
+export const DOMAIN = __DOMAIN__
 export const HOST = __HOST__
 export const API_HOST = __API_HOST__
 export const STORGE_HOST = __STORAGE_HOST__

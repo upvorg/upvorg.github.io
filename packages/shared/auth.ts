@@ -1,6 +1,6 @@
 import {
   COOKIE_ACCESS_TOKEN_KEY,
-  HOST,
+  DOMAIN,
   LOCAL_STORAGE_ACCESS_TOKEN_KEY,
   LOCAL_STORAGE_USER_INFO_KEY
 } from './constants'
@@ -8,7 +8,7 @@ import { Cookie } from './utils/cookie'
 
 export namespace Auth {
   export function logout(href?: string) {
-    Cookie.del(COOKIE_ACCESS_TOKEN_KEY, '/', HOST)
+    Cookie.del(COOKIE_ACCESS_TOKEN_KEY, '/', DOMAIN)
     localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
     localStorage.removeItem(LOCAL_STORAGE_USER_INFO_KEY)
     location.href = href || location.href

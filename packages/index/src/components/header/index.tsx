@@ -1,11 +1,10 @@
 import { Auth } from '@web/shared/auth'
+import { ADMIN_HOST } from '@web/shared/constants'
 import { useUserStore } from '@web/shared/UserContext'
 
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
 import './index.scss'
-
-const admin = __ADMIN_HOST__
 
 export default function Header() {
   const searchValue = useRef('')
@@ -127,7 +126,7 @@ export default function Header() {
 
         <div className="navbar-end">
           <div className="navbar-item upload">
-            <a href={admin} target="_blank">
+            <a href={ADMIN_HOST} target="_blank">
               <button
                 className="button is-primary"
                 aria-haspopup="true"
@@ -149,7 +148,7 @@ export default function Header() {
               <div className="navbar-dropdown is-right">
                 <a
                   className="navbar-item"
-                  href={admin + `/user/profile?name=${user.Name}`}
+                  href={ADMIN_HOST + `/user/profile?name=${user.Name}`}
                   target="_blank"
                 >
                   我的资料
