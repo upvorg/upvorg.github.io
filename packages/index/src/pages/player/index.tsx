@@ -134,7 +134,7 @@ export default function PlayerPage({ id }: any) {
     <div className="player">
       <Helmet>
         <title>{`${Title || '-'} ${Creator?.Nickname ? ` - ${Creator.Nickname}` : ''}`}</title>
-        <meta name="referrer" content="no-referrer" />
+        {/* <meta name="referrer" content="no-referrer" /> */}
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">

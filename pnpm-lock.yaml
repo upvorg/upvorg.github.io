@@ -19,6 +19,7 @@ importers:
       cross-env: ^7.0.3
       css-loader: ^6.7.1
       css-minimizer-webpack-plugin: ^4.0.0
+      disable-devtool: ^0.2.5
       esbuild-loader: ^2.19.0
       file-loader: ^6.2.0
       html-webpack-plugin: ^5.5.0
@@ -33,7 +34,7 @@ importers:
       sass-loader: ^13.0.0
       style-loader: ^3.3.1
       terser-webpack-plugin: ^5.3.1
-      typescript: ^4.6.4
+      typescript: ^4.7.2
       webpack: ^5.72.1
       webpack-bundle-analyzer: ^4.5.0
       webpack-cli: ^4.9.2
@@ -49,11 +50,12 @@ importers:
       bulma-switch: 2.0.4
       bulma-tooltip: 3.0.2
       classnames: 2.3.1
+      disable-devtool: 0.2.5
       query-string: 7.1.1
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
       react-hot-toast: 2.2.0_ef5jwxihqo6n7gxfmzogljlgcm
-      typescript: 4.6.4
+      typescript: 4.7.2
       wouter: 2.8.0-alpha.2_react@18.1.0
     devDependencies:
       autoprefixer: 10.4.7_postcss@8.4.14
@@ -1334,6 +1336,10 @@ packages:
     dependencies:
       path-type: 4.0.0
     dev: true
+
+  /disable-devtool/0.2.5:
+    resolution: {integrity: sha512-zYdWM8elOOIXR0+dvxZOb8M6wP+nCG4TBnkNTW1Clq4GrMWfHqh8IVzznnlraMbAo2AzEa7IDJYsFS4xqZXP9Q==}
+    dev: false
 
   /dns-equal/1.0.0:
     resolution: {integrity: sha1-s55/HabrCnW6nBcySzR1PEfgZU0=}
@@ -4523,8 +4529,8 @@ packages:
       mime-types: 2.1.35
     dev: true
 
-  /typescript/4.6.4:
-    resolution: {integrity: sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==}
+  /typescript/4.7.2:
+    resolution: {integrity: sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: false
