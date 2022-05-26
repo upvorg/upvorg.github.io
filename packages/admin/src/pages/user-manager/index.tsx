@@ -41,20 +41,19 @@ export default function UserManager() {
         </div>
 
         <div className="tags">
-          {[
-            { v: '', t: '全部' },
-            { v: '4', t: '普通用户' },
-            { v: '3', t: '创作者' },
-            { v: '2', t: '管理员' }
-          ].map((s, i) => (
-            <a
-              key={i}
-              className={classNames('tag', { 'is-primary': level == s.v })}
-              onClick={() => setLevel(s.v)}
-            >
-              {s.t}
-            </a>
-          ))}
+          {Object.entries(USER_LEVEL_MAP)
+            .sort((a, b) => {
+              return typeof a[0] == 'string' ? -1 : +a[0] - +b[0]
+            })
+            .map(([k, v], i) => (
+              <a
+                key={i}
+                className={classNames('tag', { 'is-primary': level == k })}
+                onClick={() => setLevel(k)}
+              >
+                {v}
+              </a>
+            ))}
         </div>
 
         <div className="list has-hoverable-list-items has-overflow-ellipsis">
@@ -82,18 +81,6 @@ export default function UserManager() {
                   <span className="tag is-primary is-light mr-2">{USER_LEVEL_MAP[u.Level]}</span>
                   <span>{u.Bio}</span>
                 </div>
-              </div>
-
-              <div className="list-item-controls is-hidden-mobile">
-                {u.Level == 4 && (
-                  <div className="buttons">
-                    <button className="button" data-tooltip="成为创作者">
-                      <span className="icon">
-                        <i className="fa-solid fa-heart"></i>
-                      </span>
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           ))}

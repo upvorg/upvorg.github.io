@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUserStore } from '@web/shared/UserContext'
+import { loadJs } from '@web/shared/utils/functions'
 import { useUploader } from '../use-uploader'
 import './index.scss'
 
@@ -18,9 +19,9 @@ export default function VideoUploader() {
     Type: 'video',
     IsOriginal: 1,
     Meta: {
-      Genre: '其他',
-      Region: '其他',
-      Episodes: 0,
+      Genre: '番剧',
+      Region: '日本',
+      Episodes: 1,
       IsEnd: 0,
       PublishDate: '',
       UpdatedDate: ''
@@ -36,7 +37,7 @@ export default function VideoUploader() {
     if (user && user.Level > USER_LEVEL.CREATOR) {
       toast.error('no permission to upload video')
       setTimeout(() => {
-        window.location.href = '/post/upload'
+        window.history.pushState(null, '', '/post/upload')
       }, 1500)
       return
     }
@@ -45,15 +46,25 @@ export default function VideoUploader() {
   useEffect(() => {
     axios.get('/tags').then((res) => {
       setServerTags(res.data)
+      if (id) {
+        axios.get(`/post/${id}`).then((res) => {
+          if (!res.err) {
+            setPost(() => ({ ...res.data }))
+            res.data.Tags && setTags(res.data.Tags.split(' '))
+          }
+        })
+      }
     })
-    if (id) {
-      axios.get(`/post/${id}`).then((res) => {
-        if (!res.err) {
-          setPost(() => ({ ...res.data }))
-          res.data.Tags && setTags(res.data.Tags.split(' '))
-        }
-      })
-    }
+    loadJs(
+      'https://imgtu.com/sdk/pup.js',
+      {
+        id: 'chevereto-pup-src',
+        'data-url': 'https://imgtu.com/upload',
+        'data-auto-insert': 'mybb',
+        async: ''
+      },
+      () => {}
+    )
   }, [])
 
   const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +73,7 @@ export default function VideoUploader() {
     if (!hasChanged.current && id) {
       //@ts-ignore
       if (e.nativeEvent.submitter.name == 'next') {
-        window.history.pushState(null, '', `/video/${id}/upload`)
+        window.history.pushState(null, '', `/video/${id}/upload?title=${post.Title}`)
       } else {
         window.history.pushState(null, '', '/upload-manager')
       }
@@ -194,7 +205,7 @@ export default function VideoUploader() {
                             })}
                           >
                             {coverUploader.status == 'pending'
-                              ? 'Choose a file…'
+                              ? 'Choose a file… (暂不可用)'
                               : coverUploader.status == 'success'
                               ? coverUploader.file!.name
                               : 'Upload failed'}
@@ -203,6 +214,7 @@ export default function VideoUploader() {
                       </span>
                     </label>
                   </div>
+                  <textarea style={{ display: 'none' }} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <input

@@ -21,6 +21,7 @@
     "unified": "^10.1.2",
     "griffith": "^1.26.0",
     "griffith-message": "^1.25.0",
-    "github-markdown-css": "^5.1.0"
+    "github-markdown-css": "^5.1.0",
+    "disable-devtool": "^0.2.5"
   }
 }

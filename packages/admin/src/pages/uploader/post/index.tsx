@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import qs from 'query-string'
 import { useUploader } from '../use-uploader'
 import { axios } from '@web/shared/constants'
+import { loadJs } from '@web/shared/utils/functions'
 import { Markdown } from '@web/shared/components/markdown'
 import './index.scss'
 
@@ -23,15 +24,25 @@ export default function PostUploader() {
   useEffect(() => {
     axios.get('/tags').then((res) => {
       setServerTags(res.data)
+      if (id) {
+        axios.get(`/post/${id}`).then((res) => {
+          if (!res.err) {
+            setPost(res.data)
+            res.data.Tags && setTags(res.data.Tags.split(' '))
+          }
+        })
+      }
     })
-    if (id) {
-      axios.get(`/post/${id}`).then((res) => {
-        if (!res.err) {
-          setPost(res.data)
-          res.data.Tags && setTags(res.data.Tags.split(' '))
-        }
-      })
-    }
+    loadJs(
+      'https://imgtu.com/sdk/pup.js',
+      {
+        id: 'chevereto-pup-src',
+        'data-url': 'https://imgtu.com/upload',
+        'data-auto-insert': 'mybb',
+        async: ''
+      },
+      () => {}
+    )
   }, [])
 
   const handlePost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -111,7 +122,7 @@ export default function PostUploader() {
                             })}
                           >
                             {uploader.status == 'pending'
-                              ? 'Choose a file…'
+                              ? 'Choose a file… (暂不可用)'
                               : uploader.status == 'success'
                               ? uploader.file!.name
                               : 'Upload failed'}
@@ -120,6 +131,7 @@ export default function PostUploader() {
                       </span>
                     </label>
                   </div>
+                  <textarea style={{ display: 'none' }} />
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <input

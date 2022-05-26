@@ -16,11 +16,20 @@ export const PRIMARY_COLOR = '#6668ab'
 
 export const DAY_NAME = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
+export enum USER_LEVEL {
+  NORMAL = 4,
+  CREATOR = 3,
+  ADMIN = 2,
+  ROOT = 1,
+  ALL = ''
+}
+
 export const USER_LEVEL_MAP = {
-  4: '普通用户',
-  3: '创作者',
-  2: '管理员',
-  1: '超级管理员'
+  [USER_LEVEL.NORMAL]: '普通用户',
+  [USER_LEVEL.CREATOR]: '创作者',
+  [USER_LEVEL.ADMIN]: '管理员',
+  [USER_LEVEL.ROOT]: '超级管理员',
+  [USER_LEVEL.ALL]: '全部'
 }
 
 export const enum POST_STATUS {
@@ -37,13 +46,6 @@ export const POST_STATUS_MAP = {
   [POST_STATUS.PENDING]: '待审核',
   [POST_STATUS.REJECT]: '已下架',
   [POST_STATUS.ALL]: '全部'
-}
-
-export enum USER_LEVEL {
-  NORMAL = 4,
-  CREATOR = 3,
-  ADMIN = 2,
-  ROOT = 1
 }
 
 const axios = http.create<R.Response<any>>(API_HOST, {

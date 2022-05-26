@@ -19,7 +19,6 @@ importers:
       cross-env: ^7.0.3
       css-loader: ^6.7.1
       css-minimizer-webpack-plugin: ^4.0.0
-      disable-devtool: ^0.2.5
       esbuild-loader: ^2.19.0
       file-loader: ^6.2.0
       html-webpack-plugin: ^5.5.0
@@ -50,7 +49,6 @@ importers:
       bulma-switch: 2.0.4
       bulma-tooltip: 3.0.2
       classnames: 2.3.1
-      disable-devtool: 0.2.5
       query-string: 7.1.1
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
@@ -106,6 +104,7 @@ importers:
 
   packages/shared:
     specifiers:
+      disable-devtool: ^0.2.5
       github-markdown-css: ^5.1.0
       griffith: ^1.26.0
       griffith-message: ^1.25.0
@@ -119,6 +118,7 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
+      disable-devtool: 0.2.5
       github-markdown-css: 5.1.0
       griffith: 1.26.0
       griffith-message: 1.25.0
@@ -155,8 +155,8 @@ packages:
       js-tokens: 4.0.0
     dev: true
 
-  /@babel/runtime/7.18.0:
-    resolution: {integrity: sha512-YMQvx/6nKEaucl0MY56mwIG483xk8SDNdlUwb2Ts6FUpr7fm85DxEmsY18LXBNhcTz6tO6JwZV8w1W06v8UKeg==}
+  /@babel/runtime/7.18.3:
+    resolution: {integrity: sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
@@ -782,9 +782,9 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001342
-      electron-to-chromium: 1.4.137
+      electron-to-chromium: 1.4.139
       escalade: 3.1.1
-      node-releases: 2.0.4
+      node-releases: 2.0.5
       picocolors: 1.0.0
     dev: true
 
@@ -1152,7 +1152,7 @@ packages:
       css-what: 6.1.0
       domhandler: 4.3.1
       domutils: 2.8.0
-      nth-check: 2.1.0
+      nth-check: 2.1.1
     dev: true
 
   /css-tree/1.1.3:
@@ -1400,8 +1400,8 @@ packages:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
     dev: true
 
-  /electron-to-chromium/1.4.137:
-    resolution: {integrity: sha512-0Rcpald12O11BUogJagX3HsCN3FE83DSqWjgXoHo5a72KUKMSfI39XBgJpgNNxS9fuGzytaFjE06kZkiVFy2qA==}
+  /electron-to-chromium/1.4.139:
+    resolution: {integrity: sha512-lYxzcUCjWxxVug+A7UxBCUiVr13TCjfZFYJS9Lq1VpU/ErwV4a6zUQo9dfojuGpw/L/x9REGuBl6ICQPGgbs3g==}
     dev: true
 
   /emojis-list/3.0.0:
@@ -2318,8 +2318,8 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immutable/4.0.0:
-    resolution: {integrity: sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==}
+  /immutable/4.1.0:
+    resolution: {integrity: sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==}
     dev: true
 
   /import-fresh/3.3.0:
@@ -2784,7 +2784,7 @@ packages:
       micromark-util-character: 1.1.0
       micromark-util-chunked: 1.0.0
       micromark-util-classify-character: 1.0.0
-      micromark-util-html-tag-name: 1.0.0
+      micromark-util-html-tag-name: 1.1.0
       micromark-util-normalize-identifier: 1.0.0
       micromark-util-resolve-all: 1.0.0
       micromark-util-subtokenize: 1.0.2
@@ -2956,8 +2956,8 @@ packages:
     resolution: {integrity: sha512-U2s5YdnAYexjKDel31SVMPbfi+eF8y1U4pfiRW/Y8EFVCy/vgxk/2wWTxzcqE71LHtCuCzlBDRU2a5CQ5j+mQA==}
     dev: false
 
-  /micromark-util-html-tag-name/1.0.0:
-    resolution: {integrity: sha512-NenEKIshW2ZI/ERv9HtFNsrn3llSPZtY337LID/24WeLqMzeZhBEE6BQ0vS2ZBjshm5n40chKtJ3qjAbVV8S0g==}
+  /micromark-util-html-tag-name/1.1.0:
+    resolution: {integrity: sha512-BKlClMmYROy9UiV03SwNmckkjn8QHVaWkqoAqzivabvdGcwNGMMMH/5szAnywmsTBUzDsU57/mFi0sp4BQO6dA==}
     dev: false
 
   /micromark-util-normalize-identifier/1.0.0:
@@ -3128,8 +3128,8 @@ packages:
     engines: {node: '>= 6.13.0'}
     dev: true
 
-  /node-releases/2.0.4:
-    resolution: {integrity: sha512-gbMzqQtTtDz/00jQzZ21PQzdI9PyLYqUSvD0p3naOhX4odFji0ZxYdnVwPTxmSwkmxhcFImpozceidSG+AgoPQ==}
+  /node-releases/2.0.5:
+    resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
     dev: true
 
   /normalize-path/3.0.0:
@@ -3154,8 +3154,8 @@ packages:
       path-key: 3.1.1
     dev: true
 
-  /nth-check/2.1.0:
-    resolution: {integrity: sha512-/sJnahgHzXT7OGgQeAPJ5WDcxs7teA2FU1wo6fEoYqjoHBU+AQi3Qz5hecKPlnOr1YjnSYwJTlBXADbEsaBMLg==}
+  /nth-check/2.1.1:
+    resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
       boolbase: 1.0.0
     dev: true
@@ -3844,7 +3844,7 @@ packages:
     peerDependencies:
       react: ^16.9.0 || ^17.0.0
     dependencies:
-      '@babel/runtime': 7.18.0
+      '@babel/runtime': 7.18.3
       classnames: 2.3.1
       eventemitter3: 4.0.7
       uuid: 8.3.2
@@ -4094,7 +4094,7 @@ packages:
     hasBin: true
     dependencies:
       chokidar: 3.5.3
-      immutable: 4.0.0
+      immutable: 4.1.0
       source-map-js: 1.0.2
     dev: true
 

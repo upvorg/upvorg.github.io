@@ -5,6 +5,7 @@ import { axios, HOST, LOCAL_STORAGE_USER_INFO_KEY, PRIMARY_COLOR } from '@web/sh
 import { UserContext } from '@web/shared/UserContext'
 import { Auth } from '@web/shared/auth'
 import { Layout } from './components/layout'
+import './index.scss'
 
 axios.interceptors.response.use(
   (response) => (response.err && toast.error(response.err), response),

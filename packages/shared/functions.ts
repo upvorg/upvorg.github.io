@@ -662,26 +662,6 @@ export const resumeHangingPage = () => {
 
 export const getUuid = () => uuidv4()
 
-// 添加回调函数的函数
-function addCallback(callback, tagter) {
-  tagter.onload =
-    tagter.onerror =
-    tagter.onbeforeload =
-      function () {
-        callback()
-      }
-  document.getElementsByTagName('head')[0].appendChild(tagter)
-}
-
-// 加载js
-export const loadJs = (url, callback) => {
-  const script = document.createElement('script')
-  script.type = 'text/javascript'
-  script.src = url
-  script.attr = { async: '' }
-  addCallback(callback, script)
-}
-
 // 返回一个不受限制的路径
 export const getImage = (url) => {
   if (!url) return

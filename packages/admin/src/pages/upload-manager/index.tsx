@@ -85,7 +85,9 @@ export default function UploadManager() {
 
         <div className="tags">
           {Object.entries(POST_STATUS_MAP)
-            .sort((a, b) => +(+b[0] - +a[0]))
+            .sort((a, b) => {
+              return typeof a[0] == 'string' ? -1 : +a[0] - +b[0]
+            })
             .map(([v, t], i) => (
               <a
                 key={i}

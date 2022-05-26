@@ -141,25 +141,27 @@ export default function UserProfile() {
             </div>
 
             <div className="field ">
-              <div className="field">
-                <label className="label">Role</label>
-                <div className="control">
-                  <div className="select">
-                    <select
-                      name="Level"
-                      onChange={handleChange}
-                      value={user.Level}
-                      disabled={isNotAdmin || user.ID == ctxUser?.ID}
-                    >
-                      {Object.entries(USER_LEVEL_MAP).map(([v, t]) => (
-                        <option value={v} key={v}>
-                          {t}
-                        </option>
-                      ))}
-                    </select>
+              {user.Level <= USER_LEVEL.ADMIN && (
+                <div className="field">
+                  <label className="label">Role</label>
+                  <div className="control">
+                    <div className="select">
+                      <select
+                        name="Level"
+                        onChange={handleChange}
+                        value={user.Level}
+                        disabled={isNotAdmin || user.ID == ctxUser?.ID}
+                      >
+                        {Object.entries(USER_LEVEL_MAP).map(([v, t]) => (
+                          <option value={v} key={v}>
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="field" style={{ flex: 1 }}>
                 <label className="label">Email</label>
