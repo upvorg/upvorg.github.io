@@ -7,12 +7,12 @@ interface ListSectionProps {
   asideTitle?: string
   aside?: React.ReactNode
   moreUrl?: string
-  icon?: string
+  icon?: React.ComponentType
 }
 
 export default function ListSection({
   title,
-  icon,
+  icon: Icon,
   videos,
   asideTitle,
   aside,
@@ -23,7 +23,7 @@ export default function ListSection({
       <div className="upv-card-list">
         <div className="list-header">
           <div>
-            {icon && <img src={icon} alt={title} />}
+            {Icon && <Icon />}
             <h2>{title}</h2>
           </div>
           {moreUrl && videos && videos.length > 0 && (

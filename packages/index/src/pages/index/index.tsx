@@ -8,12 +8,12 @@ const indexConfig = [
   {
     title: '推荐',
     query: 'type=recommends&title=推荐',
-    icon: require('../../assets/recommend.svg')
+    icon: require('../../assets/recommend.svg').default
   },
   {
     title: '文章',
     query: 'type=post&title=文章',
-    icon: require('../../assets/post.svg')
+    icon: require('../../assets/post.svg').default
   },
   {
     title: '最新',
