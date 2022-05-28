@@ -15,7 +15,8 @@ module.exports = merge(baseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
-      title: '创作中心 - UPV'
+      title: '创作中心 - UPV',
+      head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />'
     })
   ]
 })
