@@ -11,6 +11,13 @@ import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 import PlayerInfo from './info'
+
+import FaEye from '../../assets/icon/fa-eye.svg'
+import FaHeart from '../../assets/icon/fa-heart.svg'
+import FaInfo from '../../assets/icon/fa-info-circle.svg'
+import FaMessage from '../../assets/icon/fa-message.svg'
+import FaStar from '../../assets/icon/fa-star.svg'
+
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
@@ -179,19 +186,19 @@ export default function PlayerPage({ id }: any) {
       <div className="video-actions">
         <div className="icon-text">
           <span className="icon">
-            <i className="fa-solid fa-eye"></i>
+            <FaEye />
           </span>
           <span className="text">{Hits || '-'}</span>
         </div>
         <div className="icon-text">
           <span className="icon">
-            <i className="fa-solid fa-message"></i>
+            <FaMessage />
           </span>
           <span className="text">{CommentCount || '-'}</span>
         </div>
         <div className={classNames('icon-text', { '--active': isLiked })} onClick={likeHandler}>
           <span className="icon">
-            <i className="fa-solid fa-heart"></i>
+            <FaHeart />
           </span>
           <span className="text">{LikesCount || '-'}</span>
         </div>
@@ -200,7 +207,7 @@ export default function PlayerPage({ id }: any) {
           onClick={collectHandler}
         >
           <span className="icon">
-            <i className="fa-solid fa-star"></i>
+            <FaStar />
           </span>
           <span className="text">{CollectionCount || '-'}</span>
         </div>
@@ -217,7 +224,7 @@ export default function PlayerPage({ id }: any) {
               <h3 className="video-info__title" onClick={() => setModal(true)}>
                 {state.Title || '-'}
                 <span className="icon has-text-info">
-                  <i className="fas fa-info-circle"></i>
+                  <FaInfo />
                 </span>
               </h3>
               <div className="video-meta">

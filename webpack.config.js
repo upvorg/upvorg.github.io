@@ -81,7 +81,12 @@ module.exports = {
         ]
       },
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/i],
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: /url/ // *.svg?url
+      },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         type: 'asset',
         parser: {
           dataUrlCondition: { maxSize: 10 * 1024 }
@@ -132,7 +137,6 @@ module.exports = {
           priority: -10,
           reuseExistingChunk: true,
           name(module) {
-            console.log(`Processing pnpm module: ${module.context}`)
             const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
             return packageName && packageName[1] ? `pnpm.${packageName[1].split('@')[0]}` : false
           }

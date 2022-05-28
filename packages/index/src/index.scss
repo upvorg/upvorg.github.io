@@ -45,6 +45,15 @@ main {
   font-family: 'Nanum Pen Script';
 }
 
+.button > svg {
+  width: 14px;
+  height: 16px;
+}
+
+.button.is-primary svg {
+  fill: #fff;
+}
+
 .empty {
   color: var(--caption-color);
 }

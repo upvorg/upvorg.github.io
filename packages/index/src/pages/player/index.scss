@@ -132,24 +132,27 @@ $pr: 340px;
     cursor: pointer;
     justify-content: center;
 
-    &.--active {
-      .icon,
-      .text {
-        color: var(--primary-color);
+    .icon {
+      margin-right: 6px;
+
+      svg {
+        width: 22px;
+        height: 22px;
+        fill: #757575;
       }
     }
-  }
 
-  .icon {
-    display: inline-block;
-    vertical-align: top;
-    font-size: 1.2em;
-    color: #757575;
-    margin-right: 6px;
-    text-align: center;
-    cursor: pointer;
-    .fa-message {
-      font-size: 0.9em;
+    &:nth-child(2) svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    &.--active {
+      svg,
+      .text {
+        fill: var(--primary-color);
+        color: var(--primary-color);
+      }
     }
   }
 }
@@ -184,9 +187,9 @@ $pr: 340px;
     text-overflow: ellipsis;
     cursor: pointer;
 
-    > .icon {
-      font-size: 12px;
-      color: var(--text3);
+    svg {
+      width: 14px;
+      fill: var(--text3);
     }
   }
 

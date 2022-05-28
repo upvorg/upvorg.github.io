@@ -6,8 +6,9 @@ const { default: merge } = require('webpack-merge')
 
 const isEnvProduction = process.env.NODE_ENV === 'production'
 
-const head = isEnvProduction
-  ? `<script>
+const head = `${
+  isEnvProduction
+    ? `<script>
       var _hmt = _hmt || [];
       (function() {
         var hm = document.createElement("script");
@@ -15,9 +16,9 @@ const head = isEnvProduction
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
       })();
-      </script>
-      `
-  : ''
+      </script>`
+    : ''
+}`
 
 module.exports = merge(baseConfig, {
   entry: './src/index.tsx',
@@ -33,5 +34,14 @@ module.exports = merge(baseConfig, {
       title: 'UPV - free animes no ads',
       head
     })
-  ]
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack']
+      }
+    ]
+  }
 })
