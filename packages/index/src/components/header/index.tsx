@@ -4,7 +4,7 @@ import { useUserStore } from '@web/shared/UserContext'
 
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRoute } from 'wouter'
-import IconMenu from '../../assets/icon/fa-arrow-up-from-bracket.svg'
+import { ReactComponent as FaUpload } from '../../assets/icon/fa-arrow-up-from-bracket.svg'
 import './index.scss'
 
 export default function Header() {
@@ -133,7 +133,7 @@ export default function Header() {
                 aria-haspopup="true"
                 aria-controls="dropdown-menu4"
               >
-                <IconMenu />
+                <FaUpload />
                 &nbsp;&nbsp;
                 <strong>投稿</strong>
               </button>

@@ -3,7 +3,9 @@ declare module '*.less'
 declare module '*.png'
 declare module '*.svg' {
   const url: string
+  const ReactComponent: React.ComponentType
   export default url
+  export { ReactComponent }
 }
 
 declare var __DEV__: boolean

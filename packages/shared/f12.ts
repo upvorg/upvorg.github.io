@@ -1,6 +1,6 @@
 import disableDevtool from 'disable-devtool'
 
-if (!__DEV__) {
+if (!__DEV__ && new URLSearchParams(window.location.search).get('debug') == null) {
   disableDevtool({
     url: 'https://baidu.com/',
     disableMenu: false,

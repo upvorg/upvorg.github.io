@@ -1,4 +1,5 @@
 const isEnvProduction = process.env.NODE_ENV === 'production'
+const isEnvDevelopment = process.env.NODE_ENV === 'development'
 
 const DOMAIN = isEnvProduction ? 'xn--7ov117aclgs4c.life' : 'localhost'
 
@@ -14,12 +15,13 @@ const STORAGE_HOST = isEnvProduction ? `https://storge.${DOMAIN}` : `${LOCAL_SER
 const s = (s) => JSON.stringify(s)
 
 module.exports = {
-  __DEV__: !isEnvProduction,
+  __DEV__: isEnvDevelopment,
   __DOMAIN__: s(DOMAIN),
   __HOST__: s(HOST),
   __API_HOST__: s(API_HOST),
   __STORAGE_HOST__: s(STORAGE_HOST),
   __ADMIN_HOST__: s(ADMIN_HOST),
   isEnvProduction,
+  isEnvDevelopment,
   LOCAL_API_HOST
 }

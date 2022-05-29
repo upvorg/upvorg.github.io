@@ -1,23 +1,28 @@
 const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { ProgressPlugin } = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const CopyPlugin = require('copy-webpack-plugin')
-const { isEnvProduction, LOCAL_API_HOST } = require('./config')
+
+const { getStyleLoaders } = require('./webpack.util')
+const { isEnvDevelopment, isEnvProduction, LOCAL_API_HOST } = require('./config')
+
+const cssRegex = /\.css$/
+const cssModuleRegex = /\.module\.css$/
+const sassRegex = /\.(scss|sass)$/
+const sassModuleRegex = /\.module\.(scss|sass)$/
 
 module.exports = {
-  mode: isEnvProduction ? 'production' : 'development',
   target: ['browserslist'],
-  devtool: !isEnvProduction ? 'cheap-module-source-map' : false,
-  infrastructureLogging: {
-    level: isEnvProduction ? 'error' : 'verbose'
-  },
+  stats: 'errors-warnings',
+  mode: isEnvProduction ? 'production' : 'development',
+  devtool: isEnvDevelopment ? 'cheap-module-source-map' : false,
   output: {
-    pathinfo: !isEnvProduction,
+    pathinfo: isEnvDevelopment,
     filename: isEnvProduction
       ? 'static/js/[name].[contenthash:8].js'
       : 'static/js/bundle_[name].js',
@@ -27,80 +32,11 @@ module.exports = {
     assetModuleFilename: 'static/media/[name].[hash][ext]',
     publicPath: '/'
   },
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue']
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'jsx',
-          target: 'es2015'
-        }
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015'
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          isEnvProduction
-            ? {
-                loader: MiniCssExtractPlugin.loader,
-                options: { publicPath: '../../' }
-              }
-            : 'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          },
-          'postcss-loader'
-        ]
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          isEnvProduction
-            ? {
-                loader: MiniCssExtractPlugin.loader,
-                options: { publicPath: '../../' }
-              }
-            : 'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
-      },
-      {
-        test: /\.svg$/i,
-        type: 'asset',
-        resourceQuery: /url/ // *.svg?url
-      },
-      {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        type: 'asset',
-        parser: {
-          dataUrlCondition: { maxSize: 10 * 1024 }
-        }
-      }
-    ]
-  },
+  infrastructureLogging: { level: 'none' },
   optimization: {
     minimize: isEnvProduction,
     minimizer: [
-      new ESBuildMinifyPlugin({
-        target: 'es2015'
-        // css: true
-      }),
+      new ESBuildMinifyPlugin({ target: 'es2015' }),
       new TerserPlugin({
         terserOptions: {
           parse: {
@@ -162,11 +98,118 @@ module.exports = {
           chunks: 'async',
           priority: 20,
           test: (module) => {
-            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+/.test(module.context)
+            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+/.test(
+              module.context
+            )
           }
         }
       }
     }
+  },
+  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+  module: {
+    strictExportPresence: true,
+    rules: [
+      {
+        oneOf: [
+          {
+            test: /\.jsx?$/,
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'jsx',
+              target: 'es2015'
+            }
+          },
+          {
+            test: /\.tsx?$/,
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'tsx',
+              target: 'es2015'
+            }
+          },
+          {
+            test: cssRegex,
+            exclude: cssModuleRegex,
+            use: getStyleLoaders({
+              importLoaders: 1,
+              sourceMap: isEnvDevelopment,
+              modules: {
+                mode: 'icss'
+              }
+            }),
+            sideEffects: true
+          },
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: getStyleLoaders(
+              {
+                importLoaders: 3,
+                sourceMap: isEnvDevelopment,
+                modules: {
+                  mode: 'icss'
+                }
+              },
+              'sass-loader'
+            ),
+            sideEffects: true
+          },
+          {
+            test: sassModuleRegex,
+            use: getStyleLoaders(
+              {
+                importLoaders: 3,
+                sourceMap: isEnvDevelopment,
+                modules: {
+                  mode: 'local'
+                  // getLocalIdent: getCSSModuleLocalIdent
+                }
+              },
+              'sass-loader'
+            )
+          },
+          {
+            test: /\.svg$/i,
+            type: 'asset',
+            resourceQuery: /url/ // *.svg?url
+          },
+          {
+            test: /\.svg$/,
+            use: [
+              {
+                loader: require.resolve('@svgr/webpack'),
+                options: {
+                  prettier: false,
+                  svgo: false,
+                  svgoConfig: {
+                    plugins: [{ removeViewBox: false }]
+                  },
+                  titleProp: true,
+                  ref: true
+                }
+              },
+              {
+                loader: require.resolve('file-loader'),
+                options: {
+                  name: 'static/media/[name].[hash].[ext]'
+                }
+              }
+            ],
+            issuer: {
+              and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
+            }
+          },
+          {
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            type: 'asset',
+            parser: {
+              dataUrlCondition: { maxSize: 10 * 1024 }
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     new CleanWebpackPlugin({

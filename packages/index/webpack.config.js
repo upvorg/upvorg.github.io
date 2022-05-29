@@ -3,8 +3,9 @@ const path = require('path')
 const baseConfig = require('../../webpack.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { default: merge } = require('webpack-merge')
+const { getHTMLPluginDefaultConfig } = require('../../webpack.util')
 
-const isEnvProduction = process.env.NODE_ENV === 'production'
+const isEnvProduction = baseConfig.isEnvProduction
 
 const head = `${
   isEnvProduction
@@ -32,16 +33,8 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
       title: 'UPV - free animes no ads',
-      head
+      head,
+      ...getHTMLPluginDefaultConfig()
     })
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: ['@svgr/webpack']
-      }
-    ]
-  }
+  ]
 })

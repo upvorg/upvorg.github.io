@@ -3,6 +3,7 @@ const path = require('path')
 const baseConfig = require('../../webpack.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { default: merge } = require('webpack-merge')
+const { getHTMLPluginDefaultConfig } = require('../../webpack.util')
 
 module.exports = merge(baseConfig, {
   entry: './src/index.tsx',
@@ -16,7 +17,8 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
       title: '创作中心 - UPV',
-      head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />'
+      head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />',
+      ...getHTMLPluginDefaultConfig()
     })
   ]
 })

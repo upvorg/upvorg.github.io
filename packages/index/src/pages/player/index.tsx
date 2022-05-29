@@ -12,11 +12,11 @@ import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 import PlayerInfo from './info'
 
-import FaEye from '../../assets/icon/fa-eye.svg'
-import FaHeart from '../../assets/icon/fa-heart.svg'
-import FaInfo from '../../assets/icon/fa-info-circle.svg'
-import FaMessage from '../../assets/icon/fa-message.svg'
-import FaStar from '../../assets/icon/fa-star.svg'
+import { ReactComponent as FaEye } from '../../assets/icon/fa-eye.svg'
+import { ReactComponent as FaHeart } from '../../assets/icon/fa-heart.svg'
+import { ReactComponent as FaInfo } from '../../assets/icon/fa-info-circle.svg'
+import { ReactComponent as FaMessage } from '../../assets/icon/fa-message.svg'
+import { ReactComponent as FaStar } from '../../assets/icon/fa-star.svg'
 
 import './index.scss'
 
