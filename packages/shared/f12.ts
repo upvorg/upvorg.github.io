@@ -8,4 +8,10 @@ if (!__DEV__ && new URLSearchParams(window.location.search).get('debug') == null
     clearIntervalWhenDevOpenTrigger: true,
     clearLog: false
   })
+  //Fallback
+  ;(() => {
+    setInterval(() => {
+      debugger
+    })
+  })()
 }

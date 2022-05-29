@@ -9,7 +9,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const { getStyleLoaders } = require('./webpack.util')
-const { isEnvDevelopment, isEnvProduction, LOCAL_API_HOST } = require('./config')
+const { isEnvDevelopment, isEnvProduction, LOCAL_API_HOST, __ENV__ } = require('./config')
 
 const cssRegex = /\.css$/
 const cssModuleRegex = /\.module\.css$/
@@ -231,7 +231,7 @@ module.exports = {
       chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
     }),
     new ProgressPlugin(),
-    new webpack.DefinePlugin(require('./config')),
+    new webpack.DefinePlugin(__ENV__),
     new webpack.ProvidePlugin({
       React: 'react'
     }),
