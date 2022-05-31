@@ -4,6 +4,7 @@ import { Auth } from '@web/shared/auth'
 import classNames from 'classnames'
 import { useState } from 'react'
 import queryString from 'query-string'
+import { Helmet } from 'react-helmet'
 import './index.scss'
 
 export default function Login() {
@@ -37,6 +38,9 @@ export default function Login() {
 
   return (
     <div className="login card">
+      <Helmet>
+        <title>登录｜注册 - UPV - free animes no ads</title>
+      </Helmet>
       <div className="tabs">
         <ul>
           <li className={classNames({ 'is-active': isLogin })} onClick={() => setIsLogin(true)}>

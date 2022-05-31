@@ -98,7 +98,7 @@ module.exports = {
           chunks: 'async',
           priority: 20,
           test: (module) => {
-            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+/.test(
+            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+|micromark.+|mdast-.+/.test(
               module.context
             )
           }
@@ -213,6 +213,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
+      dry: true,
       cleanOnceBeforeBuildPatterns: ['../../dist'],
       dangerouslyAllowCleanPatternsOutsideProject: true
     }),

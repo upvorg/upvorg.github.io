@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { axios, DAY_NAME } from '@web/shared/constants'
 import VideoCard from '../../components/video-card'
+import { Helmet } from 'react-helmet'
 import './index.scss'
 
 function VideoIndexPage() {
@@ -16,6 +17,9 @@ function VideoIndexPage() {
 
   return (
     <div className="v-index">
+      <Helmet>
+        <title>新番时间表 - UPV - free animes no ads</title>
+      </Helmet>
       <div className="index-header">
         <div className="index-header-left">
           <h1 className="title">每周更新</h1>

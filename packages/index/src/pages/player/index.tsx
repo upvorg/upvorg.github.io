@@ -134,13 +134,25 @@ export default function PlayerPage({ id }: any) {
     Hits,
     CommentCount,
     LikesCount,
-    CollectionCount
+    CollectionCount,
+    Content,
+    Meta,
+    Cover
   } = state
 
   return (
     <div className="player">
       <Helmet>
-        <title>{`${Title || '-'} ${Creator?.Nickname ? ` - ${Creator.Nickname}` : ''}`}</title>
+        <title>{`${Title || ''} - UPV - free animes no ads`}</title>
+        <meta name="description" content={Content?.substring(0, 200)} />
+        <meta name="referrer" content="no-referrer-when-downgrade" />
+        <meta name="keywords" content={`${Title},${Meta?.Genre},${tags?.split(' ')}`} />
+        <meta name="author" content={Creator?.Nickname} />
+
+        <meta property="og:title" content={`${Title} - UPV - free animes no ads`} />
+        <meta property="og:type" content="video" />
+        <meta property="og:image" content={Cover} />
+        <meta property="og:url" content={location.origin + location.pathname} />
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">

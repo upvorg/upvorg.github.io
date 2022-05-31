@@ -27,7 +27,9 @@ export default function SearchPage() {
   return (
     <>
       <Helmet>
-        <title>{k ? `${k} - 搜索` : '搜索'}</title>
+        <title>
+          {k ? `${k} - 搜索 - UPV - free animes no ads` : '搜索 - UPV - free animes no ads'}
+        </title>
       </Helmet>
 
       <div className="search">

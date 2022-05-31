@@ -8,7 +8,6 @@ export default function SearchPage() {
   const [posts, setPosts] = useState<R.Post[]>([])
   const [{ title, type, tag, genre, page, is_original }, setQuery] = useQueryState({
     page: 1,
-    k: '',
     title: '',
     type: '',
     tag: '',
@@ -38,7 +37,21 @@ export default function SearchPage() {
   return (
     <>
       <Helmet>
-        <title>{title}</title>
+        <title>
+          {`${
+            tag != ''
+              ? tag
+              : type !== ''
+              ? type == 'recommends'
+                ? '推荐'
+                : type == 'lastest'
+                ? '最新'
+                : ''
+              : title || genre || is_original
+              ? '原创'
+              : '非原创'
+          } - UPV - free animes no ads`}
+        </title>
       </Helmet>
 
       <div className="search">

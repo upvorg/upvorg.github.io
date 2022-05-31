@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
@@ -18,7 +18,6 @@ const PostPage: React.FC = ({ id }: any) => {
   const [isCollected, setIsCollected] = useState<boolean>(false)
   const [isFocus, setIsFocus] = useState<boolean>(false)
 
-  const cover = useRef<string>()
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
   useEffect(() => {
@@ -33,13 +32,12 @@ const PostPage: React.FC = ({ id }: any) => {
       a.data && setState(a.data)
       a.data.IsLiked == 2 && setIsLiked(true)
       a.data.IsCollected == 2 && setIsCollected(true)
-      cover.current = a.data.Cover
       axios.get(`/post/${id}/pv`)
     })
   }, [])
 
   useEffect(() => {
-    if (!hasCover || isMobile) return
+    if (!!!Cover || isMobile) return
     const scrollHandler = () => {
       if ($cover!.getBoundingClientRect().top <= -200) {
         $side.classList.remove('post-side--hide')
@@ -128,29 +126,39 @@ const PostPage: React.FC = ({ id }: any) => {
     Tags: tags,
     IsOriginal,
     LikesCount,
-    CollectionCount
+    CollectionCount,
+    Content,
+    Cover
   } = state
   const { Nickname, Avatar } = Creator || {}
-  const hasCover = !!cover.current
 
   return (
     <>
       <Helmet>
-        <title>{`${Title || '-'} ${Nickname ? ` - ${Nickname}` : ''}`}</title>
+        <title>{`${Title || ''} - UPV - free animes no ads`}</title>
+        <meta name="description" content={Content?.substring(0, 200)} />
+        <meta name="referrer" content="no-referrer-when-downgrade" />
+        <meta name="keywords" content={`${Title},${tags?.split(' ')}`} />
+        <meta name="author" content={Creator?.Nickname} />
+
+        <meta property="og:title" content={`${Title} - UPV - free animes no ads`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={Cover} />
+        <meta property="og:url" content={location.origin + location.pathname} />
       </Helmet>
-      {hasCover && (
+      {!!Cover && (
         <div
           className="post-container__cover"
           style={{
-            background: `url(${cover.current}) no-repeat top/cover #f4f5f7`
+            background: `url(${Cover}) no-repeat top/cover #f4f5f7`
           }}
         />
       )}
 
-      <div className={classNames('post-container', { '--no-cover': !hasCover })}>
+      <div className={classNames('post-container', { '--no-cover': !!!Cover })}>
         <div
           className={classNames('post-side', {
-            'post-side--hide': hasCover && !isMobile,
+            'post-side--hide': !!Cover && !isMobile,
             '--o': isMobile && isFocus
           })}
         >
@@ -322,7 +330,7 @@ const PostPage: React.FC = ({ id }: any) => {
         ) : (
           <Postkeleton />
         )}
-        <Markdown type="render" value={state.Content} />
+        <Markdown type="render" value={Content} />
         <Tags
           tags={
             !!tags
