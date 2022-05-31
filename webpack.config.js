@@ -65,46 +65,50 @@ module.exports = {
       new CssMinimizerPlugin()
     ],
     runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        pnpm: {
-          test: /[\\/]node_modules[\\/].pnpm[\\/]/,
-          priority: -10,
-          reuseExistingChunk: true,
-          name(module) {
-            const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
-            return packageName && packageName[1] ? `pnpm.${packageName[1].split('@')[0]}` : false
-          }
-        },
-        hls: {
-          name: 'hls',
-          chunks: 'async',
-          priority: 20,
-          test: (module) => {
-            return /hls.+/.test(module.context)
-          }
-        },
-        griffith: {
-          name: 'video-player',
-          chunks: 'async',
-          priority: 20,
-          test: (module) => {
-            return /griffith.+/.test(module.context)
-          }
-        },
-        markdown: {
-          name: 'markdown-editor',
-          chunks: 'async',
-          priority: 20,
-          test: (module) => {
-            return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+|micromark.+|mdast-.+/.test(
-              module.context
-            )
+    splitChunks: isEnvDevelopment
+      ? undefined
+      : {
+          chunks: 'all',
+          cacheGroups: {
+            pnpm: {
+              test: /[\\/]node_modules[\\/].pnpm[\\/]/,
+              priority: -10,
+              reuseExistingChunk: true,
+              name(module) {
+                const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
+                return packageName && packageName[1]
+                  ? `pnpm.${packageName[1].split('@')[0]}`
+                  : false
+              }
+            },
+            hls: {
+              name: 'hls',
+              chunks: 'async',
+              priority: 20,
+              test: (module) => {
+                return /hls.+/.test(module.context)
+              }
+            },
+            griffith: {
+              name: 'video-player',
+              chunks: 'async',
+              priority: 20,
+              test: (module) => {
+                return /griffith.+/.test(module.context)
+              }
+            },
+            markdown: {
+              name: 'markdown-editor',
+              chunks: 'async',
+              priority: 20,
+              test: (module) => {
+                return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+|micromark.+|mdast-.+/.test(
+                  module.context
+                )
+              }
+            }
           }
         }
-      }
-    }
   },
   resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
   module: {
