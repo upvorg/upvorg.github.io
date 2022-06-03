@@ -1,10 +1,12 @@
-import { GriffithPlayer } from '@web/shared/components/player'
-import { axios, STORGE_HOST } from '@web/shared/constants'
-import classNames from 'classnames'
-import { useEffect, useState } from 'react'
-import { Link } from 'wouter'
-import { useUploader } from '../use-uploader'
 import './index.scss'
+
+import { STORGE_HOST, axios } from '@web/shared/constants'
+import { useEffect, useState } from 'react'
+
+import { GriffithPlayer } from '@web/shared/components/player'
+import { Link } from 'wouter'
+import classNames from 'classnames'
+import { useUploader } from '../use-uploader'
 
 export default function RealVideoUploader({ params }: any) {
   const id = params.id
@@ -14,12 +16,12 @@ export default function RealVideoUploader({ params }: any) {
   const [videos, setVideos] = useState<R.Video[]>([])
   const [submitLoading, setSubmitLoading] = useState(false)
   const [video, setVideo] = useState<R.Video>({
+    Pid: id,
     Episode: 1,
     Cover: '',
     Title: '',
     VideoUrl: '',
-    Synopsis: '',
-    Pid: id
+    Synopsis: ''
   } as R.Video)
 
   useEffect(() => {
@@ -62,18 +64,18 @@ export default function RealVideoUploader({ params }: any) {
     setVideo((v) => ({ ...v, [name]: parsedValue }))
   }
 
-  const resetVideo = () => {
-    setVideo({
+  useEffect(() => {
+    setVideo((v) => ({
+      ...v,
       Episode: videos.length + 1,
       Cover: '',
       Title: '',
       VideoUrl: '',
-      Synopsis: '',
-      Pid: id
-    } as R.Video)
+      Synopsis: ''
+    }))
     document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
-    document.querySelector<HTMLInputElement>('.cover-file-input')!.value = ''
-  }
+    document.querySelector<HTMLInputElement>('.video-file-input')!.value = ''
+  }, [videos])
 
   const handleEdit = (video: R.Video) => {
     setVideo(() => ({ ...video }))
@@ -118,7 +120,6 @@ export default function RealVideoUploader({ params }: any) {
       axios.put(`/video/${video.ID}`, { data: video }).then((r) => {
         if (!r.err) {
           setVideos(videos.map((v) => (v.ID === video.ID ? video : v)))
-          resetVideo()
           setIsEdit(false)
         }
         setSubmitLoading(false)
@@ -127,7 +128,6 @@ export default function RealVideoUploader({ params }: any) {
       axios.post(`/post/${id}/video`, { data: video }).then((r) => {
         if (!r.err) {
           setVideos([r.data, ...videos])
-          resetVideo()
         }
         setSubmitLoading(false)
       })
@@ -235,8 +235,9 @@ export default function RealVideoUploader({ params }: any) {
                     >
                       <label className="file-label">
                         <input
-                          className="file-input cover-file-input"
+                          className="file-input video-file-input"
                           type="file"
+                          accept="video/*"
                           onChange={(e) => videoUp(e.target!.files![0])}
                         />
                         <span className="file-cta" style={{ paddingRight: 0, borderRight: 0 }}>

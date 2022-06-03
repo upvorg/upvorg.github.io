@@ -41,9 +41,20 @@
   &__nocover {
     background-color: var(--bg3);
     z-index: -1;
+    padding: 1em;
 
     &--show {
       z-index: 1;
+    }
+    > span {
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      white-space: nowrap;
+      overflow: hidden;
+
+      &.large {
+        font-size: 1.5em;
+      }
     }
   }
 
@@ -72,7 +83,7 @@
       }
     }
 
-    &__subtitle {
+    &__author {
       margin-top: 4px;
       color: #9499a0;
       font-size: var(--subtitle-font-size);
