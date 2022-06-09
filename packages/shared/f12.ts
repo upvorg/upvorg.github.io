@@ -12,10 +12,8 @@ if (!__DEV__ && new URLSearchParams(window.location.search).get('debug') == null
   window.addEventListener('devtoolschange', (event) => {
     //@ts-ignore
     if (event.detail.open) {
-      alert('devtools-detect')
-
-      // window.location.href = 'https://www.baidu.com'
-      // window.close()
+      window.location.href = 'https://www.baidu.com'
+      window.close()
     }
   })
 
