@@ -22,6 +22,8 @@
     "griffith": "^1.26.0",
     "griffith-message": "^1.25.0",
     "github-markdown-css": "^5.1.0",
+    "detect-devtools-via-debugger-heartstop": "^2.0.0",
+    "devtools-detect": "^4.0.0",
     "disable-devtool": "^0.2.5"
   }
 }
