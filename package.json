@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "packageManager": "pnpm@7.1.6",
   "scripts": {
     "dev:admin": "pnpm --filter @web/admin run dev",
     "build:admin": "pnpm --filter @web/admin run build",
@@ -12,7 +13,7 @@
     "build": "pnpm run build:index & pnpm run build:admin"
   },
   "dependencies": {
-    "@types/node": "^17.0.41",
+    "@types/node": "^17.0.43",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "bulma": "^0.9.4",
@@ -21,8 +22,8 @@
     "bulma-tooltip": "^3.0.2",
     "classnames": "^2.3.1",
     "query-string": "^7.1.1",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hot-toast": "^2.2.0",
     "typescript": "^4.7.3",
     "wouter": "^2.8.0-alpha.2"
@@ -47,7 +48,7 @@
     "terser-webpack-plugin": "^5.3.3",
     "webpack": "^5.73.0",
     "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-cli": "^4.9.2",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2",
     "webpack-merge": "^5.8.0",
     "@svgr/webpack": "^6.2.1",
