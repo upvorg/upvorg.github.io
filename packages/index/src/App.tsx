@@ -1,19 +1,20 @@
-import { Router, Switch } from 'wouter'
-import { lazy, Suspense, useEffect, useState } from 'react'
-import { DefaultRoute, IndexRoute } from './components/layout'
-import toast, { Toaster } from 'react-hot-toast'
+import './index.scss'
+
 import {
-  axios,
   COOKIE_ACCESS_TOKEN_KEY,
   HOST,
   LOCAL_STORAGE_USER_INFO_KEY,
-  PRIMARY_COLOR
+  PRIMARY_COLOR,
+  axios
 } from '@web/shared/constants'
-import { UserContext } from '@web/shared/UserContext'
-import { Cookie } from '@web/shared/utils/cookie'
-import { Auth } from '@web/shared/auth'
+import { DefaultRoute, IndexRoute } from './components/layout'
+import { Router, Switch } from 'wouter'
+import { Suspense, lazy, useEffect, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
-import './index.scss'
+import { Auth } from '@web/shared/auth'
+import { Cookie } from '@web/shared/utils/cookie'
+import { UserContext } from '@web/shared/UserContext'
 
 const App = () => {
   const [user, setUser] = useState<R.User | null>(null)
@@ -91,7 +92,7 @@ const App = () => {
             </p>
             <p>
               Copyright © 2022{' '}
-              <a href="" className="font-family-logo">
+              <a href="/" className="font-family-logo">
                 UPV
               </a>
             </p>
