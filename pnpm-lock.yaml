@@ -6,7 +6,7 @@ importers:
     specifiers:
       '@svgr/webpack': ^6.2.1
       '@types/node': ^18.0.0
-      '@types/react': ^18.0.12
+      '@types/react': ^18.0.14
       '@types/react-dom': ^18.0.5
       autoprefixer: ^10.4.7
       browserslist: ^4.20.4
@@ -46,7 +46,7 @@ importers:
       wouter: ^2.8.0-alpha.2
     dependencies:
       '@types/node': 18.0.0
-      '@types/react': 18.0.12
+      '@types/react': 18.0.14
       '@types/react-dom': 18.0.5
       bulma: 0.9.4
       bulma-list: 1.2.0
@@ -112,10 +112,7 @@ importers:
 
   packages/shared:
     specifiers:
-      detect-devtools-via-debugger-heartstop: ^2.0.0
-      devtools-detect: ^4.0.0
       devtools-detector: ^2.0.9
-      disable-devtool: ^0.2.5
       github-markdown-css: ^5.1.0
       griffith: ^1.26.0
       griffith-message: ^1.25.0
@@ -129,10 +126,7 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
-      detect-devtools-via-debugger-heartstop: 2.0.0
-      devtools-detect: 4.0.0
       devtools-detector: 2.0.9
-      disable-devtool: 0.2.5
       github-markdown-css: 5.1.0
       griffith: 1.26.0
       griffith-message: 1.25.0
@@ -1918,7 +1912,7 @@ packages:
   /@types/react-dom/18.0.5:
     resolution: {integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==}
     dependencies:
-      '@types/react': 18.0.12
+      '@types/react': 18.0.14
     dev: false
 
   /@types/react-helmet/6.1.5:
@@ -1941,6 +1935,15 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.0
+    dev: true
+
+  /@types/react/18.0.14:
+    resolution: {integrity: sha512-x4gGuASSiWmo0xjDLpm5mPb52syZHJx02VKbqUKdLmKtAwIh63XClGsiTI1K6DO5q7ox4xAsQrU+Gl3+gGXF9Q==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.0
+    dev: false
 
   /@types/retry/0.12.0:
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==}
@@ -2634,7 +2637,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /connect-history-api-fallback/1.6.0:
@@ -3014,18 +3017,9 @@ packages:
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
     dev: true
 
-  /detect-devtools-via-debugger-heartstop/2.0.0:
-    resolution: {integrity: sha512-SWV2sOdEaLaXZp7ACLdm0wIlSIZI+gN6oZ6/PfJzQ1CR28X81b/fJQXE+p2s65Qbb9xHGi1fTb6vyJaJNFJlhg==}
-    dev: false
-
   /detect-node/2.1.0:
     resolution: {integrity: sha512-T0NIuQpnTvFDATNuHN5roPwSBG83rFsuO+MXXH9/3N1eFbn4wcPjttvjMLEPWJ0RGUYgQE7cGgS3tNxbqCGM7g==}
     dev: true
-
-  /devtools-detect/4.0.0:
-    resolution: {integrity: sha512-BnCKIj1DDWite4sml9z8baFlkZWdtFH0rl1+HcBZ6ORm3HG7JSuehQUVzdOUxbPDLLVmEVuqkrvy3y8y2GOXyQ==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-    dev: false
 
   /devtools-detector/2.0.9:
     resolution: {integrity: sha512-PNjniLWBvgnO7BvY4WA4mxCaHe6PSa8eZs7RFpG8C+jmyl/HqTKeoCaularFi2eEmiy5CH8MkwuZO/PZX6rHvw==}
@@ -3044,10 +3038,6 @@ packages:
     dependencies:
       path-type: 4.0.0
     dev: true
-
-  /disable-devtool/0.2.5:
-    resolution: {integrity: sha512-zYdWM8elOOIXR0+dvxZOb8M6wP+nCG4TBnkNTW1Clq4GrMWfHqh8IVzznnlraMbAo2AzEa7IDJYsFS4xqZXP9Q==}
-    dev: false
 
   /dns-equal/1.0.0:
     resolution: {integrity: sha512-z+paD6YUQsk+AbGCEM4PrOXSss5gd66QfcVBFTKR/HpFL9jCqikS94HYwKww6fQyO7IxrIIyUu+g0Ka9tUS2Cg==}
