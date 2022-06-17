@@ -17,7 +17,7 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
       title: '创作中心 - UPV',
-      head: '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />',
+      head: '<link crossorigin="anonymous" integrity="sha384-/frq1SRXYH/bSyou/HUp/hib7RVN1TawQYja658FEOodR/FQBKVqT9Ol+Oz3Olq5" href="https://lib.baomitu.com/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">',
       ...getHTMLPluginDefaultConfig()
     })
   ]
