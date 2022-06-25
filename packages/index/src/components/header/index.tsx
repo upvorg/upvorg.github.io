@@ -68,7 +68,7 @@ export default function Header() {
           <a className="navbar-item" href="//app.upv.life" target="_blank">
             APP 下载
           </a>
-          <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=5lfSD1B" target="_blank">
+          <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=VUKNMvGC" target="_blank">
             加入我们
           </a>
           <a className="navbar-item" href="/about" target="_blank">
