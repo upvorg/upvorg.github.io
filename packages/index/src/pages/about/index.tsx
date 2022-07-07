@@ -5,7 +5,10 @@ import { Helmet } from 'react-helmet'
 const content = `
 ## 关于
 
-free animes no ads
+free animes no ads.
+
+[APP 下载](https://app.upv.life/) |
+[QQ 交流群](https://jq.qq.com/?_wv=1027&k=5lfSD1B)
 `
 
 const AboutPage: React.FC = () => {

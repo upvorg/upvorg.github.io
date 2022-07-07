@@ -10,6 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@oplayer/core": "^1.0.0",
+    "@oplayer/hls": "^1.0.0",
+    "@oplayer/ui": "^1.0.0",
+    "devtools-detector": "^2.0.10",
+    "github-markdown-css": "^5.1.0",
+    "griffith": "^1.26.0",
+    "griffith-message": "^1.25.0",
+    "hls.js": "^1.1.5",
     "react-markdown-editor-lite": "^1.3.2",
     "rehype-attr": "^2.0.8",
     "rehype-raw": "^6.1.1",
@@ -18,10 +26,6 @@
     "remark-gfm": "^3.0.1",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "unified": "^10.1.2",
-    "griffith": "^1.26.0",
-    "griffith-message": "^1.25.0",
-    "github-markdown-css": "^5.1.0",
-    "devtools-detector": "^2.0.9"
+    "unified": "^10.1.2"
   }
 }
