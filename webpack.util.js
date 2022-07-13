@@ -84,8 +84,11 @@ const getHTMLPluginDefaultConfig = () =>
       : undefined
   )
 
+const getPkgDirByName = (pkgName) => path.resolve(__dirname, '.', 'packages', pkgName)
+
 module.exports = {
   appSrc,
   getStyleLoaders,
+  getPkgDirByName,
   getHTMLPluginDefaultConfig
 }
