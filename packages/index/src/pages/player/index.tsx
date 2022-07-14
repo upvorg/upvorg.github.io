@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
-import { GriffithPlayer, EVENTS } from '@web/shared/components/player'
+import Player, { PlayerEvent } from '@web/shared/components/player/OPlayer'
 import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
@@ -108,18 +108,17 @@ export default function PlayerPage({ id }: any) {
 
   const onTimeUpdate = useMemo(
     () =>
-      throttle((payload: any) => {
-        setLastDuration(payload.currentTime)
+      throttle(({ currentTime }) => {
+        setLastDuration(currentTime)
       }, 1000),
     [lastEpisode]
   )
 
   const onEvent = useCallback(
-    (e: EVENTS, payload: any) => {
-      if (e == EVENTS.TIMEUPDATE) {
-        onTimeUpdate(payload)
-        return
-      } else if (e == EVENTS.ENDED) {
+    (payload: PlayerEvent) => {
+      if (payload.type == 'timeupdate') {
+        onTimeUpdate({ currentTime: payload.payload.target.currentTime * 1000 })
+      } else if (payload.type == 'ended') {
         setLastEpisode(lastEpisode + 1)
       }
     },
@@ -156,11 +155,7 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <GriffithPlayer
-            src={video[lastEpisode]?.VideoUrl}
-            onEvent={onEvent}
-            duration={lastDuration}
-          />
+          <Player src={video[lastEpisode]?.VideoUrl} onEvent={onEvent} duration={lastDuration} />
         </div>
         <div className="player-header__r">
           <div className="eplist_module">

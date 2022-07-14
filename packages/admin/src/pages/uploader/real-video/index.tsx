@@ -3,7 +3,7 @@ import './index.scss'
 import { STORGE_HOST, axios } from '@web/shared/constants'
 import { useEffect, useState } from 'react'
 
-import { GriffithPlayer } from '@web/shared/components/player'
+import Player from '@web/shared/components/player/OPlayer'
 import { Link } from 'wouter'
 import classNames from 'classnames'
 import { useUploader } from '../use-uploader'
@@ -375,7 +375,7 @@ export default function RealVideoUploader({ params }: any) {
       <div className={classNames('modal', { 'is-active': modal })}>
         <div className="modal-background" onClick={() => setModal(false)}></div>
         <div className="modal-content">
-          <GriffithPlayer src={videoPlayerUrl} playerIsPlaying={modal} />
+          <Player src={videoPlayerUrl} playerIsPlaying={modal} />
         </div>
         <button
           className="modal-close is-large"

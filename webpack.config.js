@@ -97,6 +97,14 @@ module.exports = {
                 return /griffith.+/.test(module.context)
               }
             },
+            oplayer: {
+              name: 'oplayer',
+              chunks: 'async',
+              priority: 20,
+              test: (module) => {
+                return /@oplayer.+/.test(module.context)
+              }
+            },
             markdown: {
               name: 'markdown-editor',
               chunks: 'async',
