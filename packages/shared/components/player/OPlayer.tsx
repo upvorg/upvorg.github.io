@@ -18,6 +18,7 @@ const plugins = [ui(), hls()]
 export default function OPlayer({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps) {
   return (
     <Player
+      playbackRate={1}
       playing={playerIsPlaying}
       plugins={plugins}
       source={{ src, poster }}
