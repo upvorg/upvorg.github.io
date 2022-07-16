@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { PlayerEvent, Player as IPlayer } from '@oplayer/core'
+import { PlayerEvent } from '@oplayer/core'
 import ui from '@oplayer/ui'
 import hls from '@oplayer/hls'
 import Player from '@oplayer/react'
@@ -17,20 +16,10 @@ export type { PlayerEvent }
 const plugins = [ui(), hls()]
 
 export default function OPlayer({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps) {
-  const player = useRef<IPlayer | null>(null)
-
-  useEffect(() => {
-    if (playerIsPlaying) {
-      player.current?.play()
-    } else {
-      player.current?.pause()
-    }
-  }, [playerIsPlaying])
-
   return (
     <Player
+      playing={playerIsPlaying}
       plugins={plugins}
-      ref={player}
       source={{ src, poster }}
       duration={duration}
       onEvent={onEvent}
