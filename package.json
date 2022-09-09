@@ -13,7 +13,7 @@
     "build": "pnpm run build:index & pnpm run build:admin"
   },
   "dependencies": {
-    "@types/node": "^18.7.15",
+    "@types/node": "^18.7.16",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "bulma": "^0.9.4",
@@ -25,7 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
-    "typescript": "^4.8.2",
+    "typescript": "^4.8.3",
     "wouter": "^2.8.0-alpha.2"
   },
   "devDependencies": {
@@ -44,16 +44,16 @@
     "postcss": "^8.4.16",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^7.0.1",
-    "postcss-preset-env": "^7.8.0",
+    "postcss-preset-env": "^7.8.1",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.54.8",
+    "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.6",
     "webpack": "^5.74.0",
     "webpack-bundle-analyzer": "^4.6.1",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.10.1",
+    "webpack-dev-server": "^4.11.0",
     "webpack-merge": "^5.8.0"
   },
   "repository": {
