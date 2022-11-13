@@ -18,16 +18,23 @@ jobs:
         run: |
           npm i pnpm -g
           pnpm i
-          pnpm run build
+          pnpm run build:index
 
-      - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v4
+      - name: deploy to github pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          port: 22
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          scp_source: ./dist/*
-          scp_target: /var/www/yszm/
-          after_script: |
-            whoami
+          github_token: ${{ secrets.GIT_HUB_TOKEN }}
+          publish_dir: ./dist/html
+          publish_branch: gh-pages
+
+      # - name: SSH Server Deploy
+      #   uses: kostya-ten/ssh-server-deploy@v4
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     port: 22
+      #     username: ${{ secrets.SSH_USER }}
+      #     password: ${{ secrets.SSH_PASSWORD }}
+      #     scp_source: ./dist/*
+      #     scp_target: /var/www/yszm/
+      #     after_script: |
+      #       whoami
