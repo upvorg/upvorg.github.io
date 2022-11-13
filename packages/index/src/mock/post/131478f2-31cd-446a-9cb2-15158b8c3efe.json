@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "131478f2-31cd-446a-9cb2-15158b8c3efe",
+    "Cover": "https://tu.11114.cc/zxdy/uploads/allimg/210916/2bdb9d09305fc071.jpg",
+    "Title": "你的名字",
+    "Content": "",
+    "Tags": "其他",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-24T21:00:39+08:00",
+    "UpdatedAt": "2022-05-24T21:02:47+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "动画电影",
+      "Region": "其他",
+      "Episodes": 1,
+      "IsEnd": 1,
+      "PublishDate": null,
+      "UpdatedDate": null
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 26,
+    "IsLiked": 1,
+    "LikesCount": 1,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "77745a95-b5db-4c0b-ad08-0a55a6e70f49",
+    "Cover": "https://91m.pilipata.com/upload/vod/20220524-1/552c0b86fab876803f789b73ea22fe11.jpg",
+    "Title": "言叶之庭",
+    "Content": "",
+    "Tags": "其他",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-24T20:51:22+08:00",
+    "UpdatedAt": "2022-05-24T21:01:49+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "番剧",
+      "Region": "日本",
+      "Episodes": 1,
+      "IsEnd": 1,
+      "PublishDate": null,
+      "UpdatedDate": null
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 14,
+    "IsLiked": 1,
+    "LikesCount": 0,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}

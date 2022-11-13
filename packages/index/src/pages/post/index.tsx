@@ -21,7 +21,8 @@ const PostPage: React.FC = ({ id }: any) => {
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
   useEffect(() => {
-    axios.get<R.Response<R.Post>>(`/post/${id}`).then((a) => {
+    // axios.get<R.Response<R.Post>>(`/post/${id}`)
+    import(`../../mock/post/${id}.json`).then((a) => {
       if (!a.data || a.data.Type !== 'post') {
         toast.error('文章不见了', {
           duration: 90000,
@@ -32,7 +33,7 @@ const PostPage: React.FC = ({ id }: any) => {
       a.data && setState(a.data)
       a.data.IsLiked == 2 && setIsLiked(true)
       a.data.IsCollected == 2 && setIsCollected(true)
-      axios.get(`/post/${id}/pv`)
+      // axios.get(`/post/${id}/pv`)
     })
   }, [])
 

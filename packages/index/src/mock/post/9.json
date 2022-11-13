@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "9",
+    "Cover": "https://cdn.tupianla.cc/images/5ikmj/uploads/allimg/210823/25469c1f97c06ad6.jpg",
+    "Title": "秒速5厘米",
+    "Content": "",
+    "Tags": "其他",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-20T12:57:32+08:00",
+    "UpdatedAt": "2022-05-20T15:19:26+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "番剧",
+      "Region": "日本",
+      "Episodes": 0,
+      "IsEnd": 1,
+      "PublishDate": null,
+      "UpdatedDate": null
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 22,
+    "IsLiked": 1,
+    "LikesCount": 0,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}

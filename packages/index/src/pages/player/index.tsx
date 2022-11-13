@@ -30,7 +30,8 @@ export default function PlayerPage({ id }: any) {
   const [video, setVideo] = useState<R.Video[]>([])
 
   useEffect(() => {
-    axios.get(`/post/${id}`).then((_) => {
+    // axios.get(`/post/${id}`)
+    import(`../../mock/post/${id}.json`).then((_) => {
       if (!_.data || _.data.Type !== 'video') {
         toast.error('视频不见了', {
           duration: 90000
@@ -42,7 +43,8 @@ export default function PlayerPage({ id }: any) {
         _.data.IsLiked == 2 && setIsLiked(true)
         _.data.IsCollected == 2 && setIsCollected(true)
 
-        axios.get(`/post/${id}/videos`).then((res) => {
+        // axios.get(`/post/${id}/videos`)
+        import(`../../mock/video/${id}.json`).then((res) => {
           ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
           res.data && setVideo(res.data)
           if (res.data.length <= lastEpisode) {
@@ -50,7 +52,7 @@ export default function PlayerPage({ id }: any) {
           }
         })
       }
-      axios.get(`/post/${id}/pv`)
+      // axios.get(`/post/${id}/pv`)
     })
   }, [])
 

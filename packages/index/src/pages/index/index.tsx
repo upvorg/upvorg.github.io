@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { axios } from '@web/shared/constants'
+// import { axios } from '@web/shared/constants'
 import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
+
+import rank from '../../mock/rank.json'
+import recommends from '../../mock/recommends.json'
+import posts from '../../mock/posts.json'
+import videos from '../../mock/videos.json'
 
 const indexConfig = [
   {
@@ -31,12 +36,17 @@ export default function IndexPage() {
 
   useEffect(() => {
     Promise.allSettled([
-      axios.get('/posts/recommends?page_size=12'),
-      axios.get('/posts?type=post&page_size=6'),
-      axios.get('/posts?type=video&page_size=12'),
-      axios.get('/posts?type=video&is_original=2&page_size=12'),
-      axios.get(`/post/ranking?&page_size=10`)
-    ]).then((_resp) => {
+      // axios.get('/posts/recommends?page_size=12'),
+      // axios.get('/posts?type=post&page_size=6'),
+      // axios.get('/posts?type=video&page_size=12'),
+      // axios.get('/posts?type=video&is_original=2&page_size=12'),
+      // axios.get(`/post/ranking?&page_size=10`)
+      recommends,
+      posts,
+      videos,
+      [],
+      rank
+    ] as any).then((_resp) => {
       const resp = _resp.map(
         (item) => (item as PromiseFulfilledResult<R.Response<R.Post[]>>)?.value?.data ?? []
       )

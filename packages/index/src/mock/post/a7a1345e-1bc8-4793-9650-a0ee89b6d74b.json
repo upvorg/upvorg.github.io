@@ -1,0 +1,29 @@
+{
+  "data": {
+    "ID": "a7a1345e-1bc8-4793-9650-a0ee89b6d74b",
+    "Cover": "",
+    "Title": "新 QQ 群",
+    "Content": "点击链接加入群聊【月色真美】：[https://jq.qq.com/?_wv=1027\u0026k=EFpgexC8](https://jq.qq.com/?_wv=1027\u0026k=EFpgexC8)",
+    "Tags": "公告",
+    "Status": 4,
+    "Type": "post",
+    "IsPined": 1,
+    "IsRecommend": 1,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-06-25T23:47:53+08:00",
+    "UpdatedAt": "2022-06-25T23:50:19+08:00",
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 69,
+    "IsLiked": 1,
+    "LikesCount": 0,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}

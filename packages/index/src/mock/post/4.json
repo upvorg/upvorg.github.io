@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "4",
+    "Cover": "https://tvax3.sinaimg.cn/large/007Pu4zFly1h1lyoe5m8pj30h30m8q4s.jpg",
+    "Title": "杜鹃的婚约",
+    "Content": " 讲述因抱错婴儿，让就读名门私立学校的男子高中生「海野凪」与酒店总裁千金「天野绘里香」被父母订下婚约，但凪暗恋着「濑川弥」，而凪的妹妹也对他有着不一样的心情，因此展开一场四角关系的恋爱喜剧。",
+    "Tags": "其他",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-13T18:00:05+08:00",
+    "UpdatedAt": "2022-05-13T20:50:24+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "番剧",
+      "Region": "日本",
+      "Episodes": 1,
+      "IsEnd": 1,
+      "PublishDate": null,
+      "UpdatedDate": "2022-05-14T08:00:00+08:00"
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 73,
+    "IsLiked": 1,
+    "LikesCount": 1,
+    "IsCollected": 1,
+    "CollectionCount": 1,
+    "CommentCount": 0
+  }
+}
