@@ -1,8 +1,13 @@
-import { axios } from '@web/shared/constants'
+// import { axios } from '@web/shared/constants'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
 import { useQueryState } from '../../hooks/useQueryState'
+
+const cache: Record<string, any> = {}
+
+//@ts-ignore
+const store = require.context('../../mock/post/', true, /\.*\.json$/)
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<R.Post[]>([])
@@ -18,7 +23,7 @@ export default function SearchPage() {
   let query = `/posts?type=${type}&tag=${tag}&genre=${genre}&is_original=${is_original}&page=${page}&page_size=12`
   if (type == 'recommends') {
     query = '/posts/recommends'
-  } else if (type == 'lastest') {
+  } else if (type == 'latest') {
     query = '/posts?type=video'
   }
 
@@ -29,9 +34,12 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    axios.get(query).then((res) => {
-      setPosts(res.data)
-    })
+    store.keys().forEach((key: string) => (cache[key] = store(key).data))
+    setPosts(Object.values(cache).splice(20 * (page - 1), 20))
+
+    // axios.get(query).then((res) => {
+    //   setPosts(res.data)
+    // })
   }, [])
 
   return (
@@ -44,7 +52,7 @@ export default function SearchPage() {
               : type !== ''
               ? type == 'recommends'
                 ? '推荐'
-                : type == 'lastest'
+                : type == 'latest'
                 ? '最新'
                 : ''
               : title || genre || is_original

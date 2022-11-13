@@ -20,9 +20,14 @@ const Comment = ({ id, onFocus, onBlur }: CommentProps) => {
   const user = useUserStore()
 
   useEffect(() => {
-    axios.get(`/post/${id}/comments`).then((c) => {
-      setComments(c?.data || [])
-    })
+    axios
+      .get(`/post/${id}/comments`)
+      .then((c) => {
+        setComments(c?.data || [])
+      })
+      .catch(() => {
+        setComments([])
+      })
   }, [])
 
   const doComment = () => {
