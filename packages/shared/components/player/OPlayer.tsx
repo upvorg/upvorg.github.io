@@ -13,7 +13,7 @@ interface OPlayerProps {
 
 export type { PlayerEvent }
 
-const plugins = [ui(), hls({ options: { hlsQualityControl: true } })]
+const plugins = [ui(), hls({ options: { hlsQualityControl: true, forceHLS: true } })]
 
 export default function OPlayer({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps) {
   return (
