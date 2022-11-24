@@ -21,8 +21,7 @@ export default function useLastPlayed(id: string) {
 
     return sp.has('v')
       ? defaultLastPlayedInfo
-      : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id) || 'null') ||
-          defaultLastPlayedInfo
+      : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id) || 'null') || defaultLastPlayedInfo
   }, [])
 
   const [lastEpisode, setLastEpisode] = useState(lastPlayedInfo.episode)
@@ -35,15 +34,19 @@ export default function useLastPlayed(id: string) {
   const _setLastEpisode = useCallback(
     (episode: number) => {
       if (episode == lastEpisode) return
+      set({ id, episode, duration: 0, time: Date.now() })
       setLastEpisode(episode)
       setLastDuration(0)
-      set({ id, episode, duration: 0, time: Date.now() })
     },
     [lastEpisode]
   )
 
   const _setLastDuration = (duration: number) => {
-    set({ id, episode: lastEpisode, duration, time: Date.now() })
+    set({
+      ...JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id)!),
+      duration,
+      time: Date.now()
+    })
   }
 
   return [
