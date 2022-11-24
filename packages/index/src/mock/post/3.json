@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "7",
+    "Cover": "https://cdn.tupianla.cc/images/5ikmj/uploads/allimg/210821/85f7787b37c25437.jpg",
+    "Title": "擅长捉弄的高木同学 剧场版",
+    "Content": "擅长捉弄的高木同学 剧场版",
+    "Tags": "爱情,治愈,日本动漫",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-18T15:22:49+08:00",
+    "UpdatedAt": "2022-05-18T15:33:11+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "动画电影",
+      "Region": "日本",
+      "Episodes": 1,
+      "IsEnd": 2,
+      "PublishDate": null,
+      "UpdatedDate": null
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 2,
+    "IsLiked": 1,
+    "LikesCount": 0,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}

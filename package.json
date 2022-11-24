@@ -26,7 +26,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "typescript": "^4.9.3",
-    "wouter": "^2.8.1"
+    "wouter": "^2.9.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
