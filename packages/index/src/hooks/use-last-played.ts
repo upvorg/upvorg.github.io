@@ -25,32 +25,19 @@ export default function useLastPlayed(id: string) {
   }, [])
 
   const [lastEpisode, setLastEpisode] = useState(lastPlayedInfo.episode)
-  const [lastDuration, setLastDuration] = useState(lastPlayedInfo.duration)
 
   const set = useCallback((info: LastPlayedInfo) => {
     localStorage.setItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id, JSON.stringify(info))
   }, [])
 
-  const _setLastEpisode = useCallback(
-    (episode: number) => {
-      if (episode == lastEpisode) return
-      set({ id, episode, duration: 0, time: Date.now() })
-      setLastEpisode(episode)
-      setLastDuration(0)
+  const update = useCallback(
+    (id: any, episode: number, duration: number) => {
+      const same = episode == lastEpisode
+      set({ id, episode, duration, time: Date.now() })
+      if (!same) setLastEpisode(episode)
     },
     [lastEpisode]
   )
 
-  const _setLastDuration = (duration: number) => {
-    set({
-      ...JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_LAST_PLAYED_INFO + id)!),
-      duration,
-      time: Date.now()
-    })
-  }
-
-  return [
-    { lastEpisode, setLastEpisode: _setLastEpisode },
-    { lastDuration: lastDuration, setLastDuration: _setLastDuration }
-  ] as const
+  return [lastEpisode, lastPlayedInfo.duration, update] as const
 }

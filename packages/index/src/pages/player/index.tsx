@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
 import Player, { PlayerEvent } from '@web/shared/components/player/OPlayer'
 import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
-import { throttle } from '@web/shared/utils/schedulers'
 import useLastPlayed from '../../hooks/use-last-played'
 import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
@@ -24,7 +23,7 @@ export default function PlayerPage({ id }: any) {
   const [modal, setModal] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [isCollected, setIsCollected] = useState(false)
-  const [{ lastEpisode, setLastEpisode }, { lastDuration, setLastDuration }] = useLastPlayed(id)
+  const [lastEpisode, lastDuration, update] = useLastPlayed(id)
 
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [video, setVideo] = useState<R.Video[]>([])
@@ -108,24 +107,19 @@ export default function PlayerPage({ id }: any) {
       })
   }, [state, isCollected])
 
-  const onTimeUpdate = useMemo(
-    () =>
-      throttle(({ currentTime }) => {
-        setLastDuration(currentTime)
-      }, 1000),
-    [lastEpisode]
-  )
+  const ep = useRef(lastEpisode)
+  ep.current = lastEpisode
 
-  const onEvent = useCallback(
-    (payload: PlayerEvent) => {
-      if (payload.type == 'timeupdate') {
-        onTimeUpdate({ currentTime: payload.payload.target.currentTime * 1000 })
-      } else if (payload.type == 'ended') {
-        setLastEpisode(lastEpisode + 1)
+  const onEvent = ({ type, payload }: PlayerEvent) => {
+    const time = payload?.target?.currentTime
+    if (type == 'timeupdate') {
+      if (!(time < 1)) {
+        update(id, ep.current, time * 1000)
       }
-    },
-    [lastEpisode]
-  )
+    } else if (type == 'ended') {
+      update(id, ep.current + 1, 0)
+    }
+  }
 
   const {
     Title,
@@ -176,7 +170,7 @@ export default function PlayerPage({ id }: any) {
                         className={classNames('list-item has-tooltip-bottom', {
                           cursor: i === lastEpisode
                         })}
-                        onClick={() => setLastEpisode(i)}
+                        onClick={() => update(id, i, 0)}
                         title={item.Title}
                         {...(item.Title && { 'data-tooltip': item.Title })}
                       >
@@ -211,10 +205,7 @@ export default function PlayerPage({ id }: any) {
           </span>
           <span className="text">{LikesCount || '-'}</span>
         </div>
-        <div
-          className={classNames('icon-text', { '--active': isCollected })}
-          onClick={collectHandler}
-        >
+        <div className={classNames('icon-text', { '--active': isCollected })} onClick={collectHandler}>
           <span className="icon">
             <FaStar />
           </span>
@@ -268,9 +259,7 @@ export default function PlayerPage({ id }: any) {
                       href: `/pv/tag?type=video&title=${tag}`
                     }))
                     .concat(
-                      IsOriginal == 2
-                        ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
-                        : []
+                      IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
                     )
                 : []
             }

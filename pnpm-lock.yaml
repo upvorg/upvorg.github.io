@@ -131,10 +131,10 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
-      '@oplayer/core': 1.0.57
-      '@oplayer/hls': 1.0.57_zlxkoievxb7kdvwwrpgfuvf7bi
-      '@oplayer/react': 1.0.57_@oplayer+core@1.0.57
-      '@oplayer/ui': 1.0.57_@oplayer+core@1.0.57
+      '@oplayer/core': 1.1.0
+      '@oplayer/hls': 1.1.0_372hkbesrox2vr24sibzzkj4sy
+      '@oplayer/react': 1.1.0_@oplayer+core@1.1.0
+      '@oplayer/ui': 1.1.0_@oplayer+core@1.1.0
       devtools-detector: 2.0.12
       github-markdown-css: 5.1.0
       griffith: 1.29.0
@@ -1681,36 +1681,36 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@oplayer/core/1.0.57:
-    resolution: {integrity: sha512-UiaBh8JoiSKgwjf89YUpCcsrBQrLADaxyhMnpaLXbRtpZqBaYzYEzLL78j6YMnDzkEEdaPMAmk5/NqV4OkZSOg==}
+  /@oplayer/core/1.1.0:
+    resolution: {integrity: sha512-5nKoMFOBEZtb2X74TUznWnqO/g+jd0A3i96s4Dt8UTgBkTU6AVd3giW6CCKLm6IDNloQi1rsdWyVtpbSGRyVaQ==}
     dev: false
 
-  /@oplayer/hls/1.0.57_zlxkoievxb7kdvwwrpgfuvf7bi:
-    resolution: {integrity: sha512-RFwAuKFweaCaFxR9dJjhvRFVo0n4KHfwowKL3OabrMnJRUX0pZgwDD2gun+sGEB69J2qcN5XnCYSh041vHRcGQ==}
+  /@oplayer/hls/1.1.0_372hkbesrox2vr24sibzzkj4sy:
+    resolution: {integrity: sha512-ddDb3pRKK1Nzi4H8V2yR/STR60PlN2Vq0K3s3kpURJOmg03I3ZeAeO9DA3J+ch1gDjL2k+ZSRNvJKYUCNwqTrg==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.0.57
+      '@oplayer/core': 1.1.0
       hls.js: 1.2.7
     dev: false
 
-  /@oplayer/react/1.0.57_@oplayer+core@1.0.57:
-    resolution: {integrity: sha512-yckCgyonoyhzwSLoIpnec2KZPaD9SSle2p7nbGAftcgVTMEbH1eLiiV6K0b1fb/pWx6XF9MZUCTzwqJh/jzkqw==}
+  /@oplayer/react/1.1.0_@oplayer+core@1.1.0:
+    resolution: {integrity: sha512-Em4CYmhQ1ZdzAp04CAnH4Xjf1W1VLPP2JnOTsqadKc2HETAXweQEePA4Shu3OndQQjFMYDDgU2AjWzJRsS5ZvQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@oplayer/core': 1.0.57
+      '@oplayer/core': 1.1.0
     dev: false
 
-  /@oplayer/ui/1.0.57_@oplayer+core@1.0.57:
-    resolution: {integrity: sha512-dkq/3JQa8czXFi4f08DErpRNIEeOCK6/g3I2JZJ3W5UBM1NsxE5Z/ntkKxWeXq4xmz/S59PvZAZplQ/cbHSDIQ==}
+  /@oplayer/ui/1.1.0_@oplayer+core@1.1.0:
+    resolution: {integrity: sha512-ZesUqfzXccscu02+XzXvQtu4kwZl4ruWZ1sIletpoGfiw1LCF9+ioCWk7L+3P8ngRFFZyxBrTmi7aa+cDDMhAw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.0.57
+      '@oplayer/core': 1.1.0
     dev: false
 
   /@polka/url/1.0.0-next.21:
@@ -2651,8 +2651,8 @@ packages:
     engines: {node: '>=6.0'}
     dev: true
 
-  /ci-info/3.6.2:
-    resolution: {integrity: sha512-lVZdhvbEudris15CLytp2u6Y0p5EKfztae9Fqa189MfNmln9F33XuH69v5fvNfiRN5/0eAUz2yJL3mo+nhaRKg==}
+  /ci-info/3.7.0:
+    resolution: {integrity: sha512-2CpRNYmImPx+RXKLq6jko/L07phmS9I02TyqkcNU20GCF/GgaWvc58hPtjxDX8lPpkdwc9sNh72V9k00S7ezog==}
     engines: {node: '>=8'}
     dev: true
 
@@ -4340,7 +4340,7 @@ packages:
       '@jest/types': 29.3.1
       '@types/node': 18.11.9
       chalk: 4.1.2
-      ci-info: 3.6.2
+      ci-info: 3.7.0
       graceful-fs: 4.2.10
       picomatch: 2.3.1
     dev: true
