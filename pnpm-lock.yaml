@@ -131,10 +131,10 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
-      '@oplayer/core': 1.1.0
-      '@oplayer/hls': 1.1.0_372hkbesrox2vr24sibzzkj4sy
-      '@oplayer/react': 1.1.0_@oplayer+core@1.1.0
-      '@oplayer/ui': 1.1.0_@oplayer+core@1.1.0
+      '@oplayer/core': 1.1.1
+      '@oplayer/hls': 1.1.1_s4q7qwoa367znznegmhkb5rsdi
+      '@oplayer/react': 1.1.1_@oplayer+core@1.1.1
+      '@oplayer/ui': 1.1.1_@oplayer+core@1.1.1
       devtools-detector: 2.0.12
       github-markdown-css: 5.1.0
       griffith: 1.29.0
@@ -1681,36 +1681,36 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@oplayer/core/1.1.0:
-    resolution: {integrity: sha512-5nKoMFOBEZtb2X74TUznWnqO/g+jd0A3i96s4Dt8UTgBkTU6AVd3giW6CCKLm6IDNloQi1rsdWyVtpbSGRyVaQ==}
+  /@oplayer/core/1.1.1:
+    resolution: {integrity: sha512-xLgcliY2qQZIRqlusMO4wWf8wOfSEaonSDDHclXjBZrwKjBnQ2PvtbSMZvZ1ztjqXmdq4bEOJAsYV6XIQwlMNA==}
     dev: false
 
-  /@oplayer/hls/1.1.0_372hkbesrox2vr24sibzzkj4sy:
-    resolution: {integrity: sha512-ddDb3pRKK1Nzi4H8V2yR/STR60PlN2Vq0K3s3kpURJOmg03I3ZeAeO9DA3J+ch1gDjL2k+ZSRNvJKYUCNwqTrg==}
+  /@oplayer/hls/1.1.1_s4q7qwoa367znznegmhkb5rsdi:
+    resolution: {integrity: sha512-o+b5bmBU7ceQJpT0AsX2ilniFXU4nWm+9RjUzupu2qX+eOdXxxeJNPsPq0hKqw+EGyACt8rh5n8Hfl15W7h/1Q==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.1.0
+      '@oplayer/core': 1.1.1
       hls.js: 1.2.7
     dev: false
 
-  /@oplayer/react/1.1.0_@oplayer+core@1.1.0:
-    resolution: {integrity: sha512-Em4CYmhQ1ZdzAp04CAnH4Xjf1W1VLPP2JnOTsqadKc2HETAXweQEePA4Shu3OndQQjFMYDDgU2AjWzJRsS5ZvQ==}
+  /@oplayer/react/1.1.1_@oplayer+core@1.1.1:
+    resolution: {integrity: sha512-QOyn7c0Xx7lotCP3k5v1EdeUo3cVReQE3gmYtWxDj1lph+q9M1bKkHt6p/OTsEi2GxygamobSY1T55cMvTD4gg==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@oplayer/core': 1.1.0
+      '@oplayer/core': 1.1.1
     dev: false
 
-  /@oplayer/ui/1.1.0_@oplayer+core@1.1.0:
-    resolution: {integrity: sha512-ZesUqfzXccscu02+XzXvQtu4kwZl4ruWZ1sIletpoGfiw1LCF9+ioCWk7L+3P8ngRFFZyxBrTmi7aa+cDDMhAw==}
+  /@oplayer/ui/1.1.1_@oplayer+core@1.1.1:
+    resolution: {integrity: sha512-am9RFEygx6ANwt9KzxqVARFADWWLTqTDXQDOvNt5OJ07Fv4U5mexep3r80pzr97nRfflOAgfrbSHjCcwceqZwQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.1.0
+      '@oplayer/core': 1.1.1
     dev: false
 
   /@polka/url/1.0.0-next.21:
