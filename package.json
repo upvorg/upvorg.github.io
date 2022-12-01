@@ -13,7 +13,7 @@
     "build": "pnpm run build:index & pnpm run build:admin"
   },
   "dependencies": {
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.11.10",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "bulma": "^0.9.4",
@@ -40,10 +40,10 @@
     "esbuild-loader": "^2.20.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.7.0",
+    "mini-css-extract-plugin": "^2.7.1",
     "postcss": "^8.4.19",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-loader": "^7.0.1",
+    "postcss-loader": "^7.0.2",
     "postcss-preset-env": "^7.8.3",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.56.1",
