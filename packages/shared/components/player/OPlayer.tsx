@@ -13,7 +13,14 @@ interface OPlayerProps {
 
 export type { PlayerEvent }
 
-const plugins = [ui(), hls({ options: { hlsQualityControl: true, forceHLS: true } })]
+const plugins = [
+  ui(),
+  hls({
+    matcher: (_, source) =>
+      source.format === 'm3u8' ||
+      ((source.format === 'auto' || typeof source.format === 'undefined') && /m3u8(#|\?|$)/i.test(source.src))
+  })
+]
 
 export default function OPlayer({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps) {
   return (
