@@ -3,7 +3,7 @@ import './index.scss'
 
 interface ListSectionProps {
   title: string
-  videos: R.Post[] | null
+  videos?: R.Post[] | null
   asideTitle?: string
   aside?: React.ReactNode
   moreUrl?: string

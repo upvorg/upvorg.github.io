@@ -113,7 +113,7 @@ importers:
   packages/shared:
     specifiers:
       '@oplayer/core': ^1.2.5
-      '@oplayer/hls': ^1.2.3
+      '@oplayer/hls': ^1.2.4
       '@oplayer/react': ^1.2.2
       '@oplayer/ui': ^1.2.7
       devtools-detector: ^2.0.14
@@ -132,7 +132,7 @@ importers:
       unified: ^10.1.2
     dependencies:
       '@oplayer/core': 1.2.5
-      '@oplayer/hls': 1.2.3_4gqwlkf2e2l2f2puuutnynw4qu
+      '@oplayer/hls': 1.2.4_4gqwlkf2e2l2f2puuutnynw4qu
       '@oplayer/react': 1.2.2_@oplayer+core@1.2.5
       '@oplayer/ui': 1.2.7_@oplayer+core@1.2.5
       devtools-detector: 2.0.14
@@ -1688,8 +1688,8 @@ packages:
     resolution: {integrity: sha512-w3fha/VsQWie14AHm86gU8mxcSTzIpJ2teFajfZvRHm/QYua1nhcKM7YDoR77VjwetWOShMrf4x0m88vS0Dh4g==}
     dev: false
 
-  /@oplayer/hls/1.2.3_4gqwlkf2e2l2f2puuutnynw4qu:
-    resolution: {integrity: sha512-ij55La5S1QeduViDZUxfKUrsKp/toL3RhWsWnld8YI2GeGbGQZJd/Auona94UVcxkJACFjRf7U5o4NlhoCbDiA==}
+  /@oplayer/hls/1.2.4_4gqwlkf2e2l2f2puuutnynw4qu:
+    resolution: {integrity: sha512-XjlTELp9Ge1iEWZw4w+S7k4W/QIULfhdHeovtowyq3lDz7WpZ+o9PHnfyfOPv33rRZfP7GcFq+2sZjs40KSdEg==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
