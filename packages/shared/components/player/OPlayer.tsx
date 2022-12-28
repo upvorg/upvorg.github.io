@@ -1,7 +1,9 @@
-import { PlayerEvent } from '@oplayer/core'
+import type { PlayerEvent, Player } from '@oplayer/core'
 import ui from '@oplayer/ui'
 import hls from '@oplayer/hls'
-import Player from '@oplayer/react'
+import ReactPlayer from '@oplayer/react'
+import { useImperativeHandle, useRef } from 'react'
+import React from 'react'
 
 interface OPlayerProps {
   src: string
@@ -11,7 +13,7 @@ interface OPlayerProps {
   onEvent?: (event: PlayerEvent) => void
 }
 
-export type { PlayerEvent }
+export type { PlayerEvent, Player }
 
 const plugins = [
   ui(),
@@ -22,10 +24,14 @@ const plugins = [
   })
 ]
 
-export default function OPlayer({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps) {
+const OPlayer = React.forwardRef(({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps, ref) => {
+  const _ref = useRef<Player>(null)
+
+  useImperativeHandle(ref, () => _ref.current)
+
   return (
-    <Player
-      playbackRate={1}
+    <ReactPlayer
+      ref={_ref}
       playing={playerIsPlaying}
       plugins={plugins}
       source={{ src, poster }}
@@ -33,4 +39,6 @@ export default function OPlayer({ playerIsPlaying, src, poster, duration, onEven
       onEvent={onEvent}
     />
   )
-}
+})
+
+export default OPlayer

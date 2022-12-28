@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
+import { enimesAdapter } from '../../enime.adp'
 import { useQueryState } from '../../hooks/useQueryState'
 
 const cache: Record<string, any> = {}
@@ -36,6 +37,14 @@ export default function SearchPage() {
   useEffect(() => {
     store.keys().forEach((key: string) => (cache[key] = store(key).data))
     setPosts(Object.values(cache).splice(20 * (page - 1), 20))
+
+    if (type == 'enime') {
+      fetch(`https://api.enime.moe/recent?perPage=${24}&currentPage=${page}`)
+        .then((it) => it.json())
+        .then((it) => {
+          setPosts(enimesAdapter(it.data))
+        })
+    }
 
     // axios.get(query).then((res) => {
     //   setPosts(res.data)
@@ -72,11 +81,7 @@ export default function SearchPage() {
               style={{ justifyContent: 'center', paddingBottom: '28px' }}
             >
               <p className="control">
-                <button
-                  className="button"
-                  onClick={() => pageHandler(+page - 1)}
-                  disabled={+page <= 1}
-                >
+                <button className="button" onClick={() => pageHandler(+page - 1)} disabled={+page <= 1}>
                   <span>Newer</span>
                 </button>
               </p>

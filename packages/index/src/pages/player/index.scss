@@ -70,6 +70,8 @@ $pr: 340px;
       .list-wrapper {
         height: 100%;
         padding: 0 16px 12px;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         ul {
           display: grid;

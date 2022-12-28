@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
-import Player, { PlayerEvent } from '@web/shared/components/player/OPlayer'
+import ReactPlayer, { PlayerEvent, Player } from '@web/shared/components/player/OPlayer'
 import { axios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
@@ -10,6 +10,7 @@ import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 import PlayerInfo from './info'
+import { enimeAdapter } from '../../enime.adp'
 
 import { ReactComponent as FaEye } from '../../assets/icon/fa-eye.svg'
 import { ReactComponent as FaHeart } from '../../assets/icon/fa-heart.svg'
@@ -25,35 +26,83 @@ export default function PlayerPage({ id }: any) {
   const [isCollected, setIsCollected] = useState(false)
   const [lastEpisode, lastDuration, update] = useLastPlayed(id)
 
-  const [state, setState] = useState<R.Post>({} as R.Post)
+  const [state, setState] = useState<R.Post | any>({} as R.Post)
   const [video, setVideo] = useState<R.Video[]>([])
+
+  const player = useRef<typeof Player>(null)
+  let [isEnime, setIsEnime] = useState(false)
+  const [source, setSource] = useState<any>()
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
-    import(`../../mock/post/${id}.json`).then((_) => {
-      if (!_.data || _.data.Type !== 'video') {
-        toast.error('视频不见了', {
-          duration: 90000
-        })
-        return
-      }
-      if (!_.err) {
-        _.data && setState(_.data)
-        _.data.IsLiked == 2 && setIsLiked(true)
-        _.data.IsCollected == 2 && setIsCollected(true)
+    import(`../../mock/post/${id}.json`)
+      .catch(() => {
+        setIsEnime(true)
+        throw new Error('')
+      })
+      .then((_) => {
+        if (!_.data || _.data.Type !== 'video') {
+          toast.error('视频不见了', {
+            duration: 90000
+          })
+          return
+        }
 
-        // axios.get(`/post/${id}/videos`)
-        import(`../../mock/video/${id}.json`).then((res) => {
-          ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
-          res.data && setVideo(res.data)
-          if (res.data.length <= lastEpisode) {
-            setLastEpisode(0)
-          }
-        })
-      }
-      // axios.get(`/post/${id}/pv`)
-    })
+        if (!_.err) {
+          _.data && setState(_.data)
+          _.data.IsLiked == 2 && setIsLiked(true)
+          _.data.IsCollected == 2 && setIsCollected(true)
+
+          // axios.get(`/post/${id}/videos`)
+          import(`../../mock/video/${id}.json`).then((res) => {
+            ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
+            res.data && setVideo(res.data)
+            if (res.data.length <= lastEpisode) {
+              update(id, 0, 0)
+            }
+          })
+        }
+        // axios.get(`/post/${id}/pv`)
+      })
   }, [])
+
+  useEffect(() => {
+    if (video[lastEpisode]?.VideoUrl) setSource({ url: video[lastEpisode].VideoUrl })
+  }, [lastEpisode])
+
+  useEffect(() => {
+    if (!isEnime) return
+    //@ts-ignore
+    player.current!.isSourceChanging = true
+    //@ts-ignore
+    player.current!.emit('videosourcechange')
+    fetch(`https://cors.proxy.consumet.org/https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
+      .then((it) => it.json())
+      .then(enimeAdapter)
+      .then((it) => {
+        setState(it)
+        setVideo(it.episodes)
+        fetch(`https://api.enime.moe/source/${it.sources[0].id}`)
+          .then((res) => res.json())
+          .then((res) => {
+            setSource({
+              ...res,
+              url: it.sources[0].url.includes('zoro') ? `https://cors.proxy.consumet.org/${res.url}` : res.url
+            })
+
+            if (res.subtitle) {
+              //@ts-ignore
+              player.current?.plugins.ui.subtitle.updateSource([
+                {
+                  default: true,
+                  src: source.subtitle,
+                  name: 'English'
+                }
+              ])
+            }
+          })
+      })
+  }, [isEnime, lastEpisode])
 
   const likeHandler = useCallback(() => {
     const c = isLiked ? -1 : 1
@@ -151,7 +200,17 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          <Player src={video[lastEpisode]?.VideoUrl} onEvent={onEvent} duration={lastDuration} />
+          {useMemo(() => {
+            return (
+              <ReactPlayer
+                ref={player}
+                onEvent={onEvent}
+                duration={lastDuration}
+                src={source?.url}
+                poster={state.image || state.anime?.coverImage}
+              />
+            )
+          }, [source])}
         </div>
         <div className="player-header__r">
           <div className="eplist_module">

@@ -1,7 +1,7 @@
-import { axios } from '@web/shared/constants'
 import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
+import { enimeSearchAdapter } from '../../enime.adp'
 import { useQueryState } from '../../hooks/useQueryState'
 import './index.scss'
 
@@ -18,18 +18,19 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (k) {
-      axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
-        setPosts(res.data)
-      })
+      // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
+      //   setPosts(res.data)
+      // })
+      fetch(`https://api.enime.moe/search/${encodeURIComponent(k)}`)
+        .then((it) => it.json())
+        .then((it) => setPosts(enimeSearchAdapter(it.data) as any))
     }
   }, [])
 
   return (
     <>
       <Helmet>
-        <title>
-          {k ? `${k} - 搜索 - UPV - free animes no ads` : '搜索 - UPV - free animes no ads'}
-        </title>
+        <title>{k ? `${k} - 搜索 - UPV - free animes no ads` : '搜索 - UPV - free animes no ads'}</title>
       </Helmet>
 
       <div className="search">
@@ -67,11 +68,7 @@ export default function SearchPage() {
             style={{ justifyContent: 'center', paddingBottom: '28px' }}
           >
             <p className="control">
-              <button
-                className="button"
-                onClick={() => pageHandler(+page - 1)}
-                disabled={+page <= 1}
-              >
+              <button className="button" onClick={() => pageHandler(+page - 1)} disabled={+page <= 1}>
                 <span>Newer</span>
               </button>
             </p>
