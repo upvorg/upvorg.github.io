@@ -35,7 +35,11 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    store.keys().forEach((key: string) => (cache[key] = store(key).data))
+    store
+      .keys()
+      .filter((it) => !it.startsWith('./-'))
+      .forEach((key: string) => (cache[key] = store(key).data))
+
     const local = Object.values(cache).splice(20 * (page - 1), 20)
 
     if (type == 'enime') {
