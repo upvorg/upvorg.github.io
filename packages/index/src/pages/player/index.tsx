@@ -76,7 +76,7 @@ export default function PlayerPage({ id }: any) {
     player.current!.isSourceChanging = true
     //@ts-ignore
     player.current!.emit('videosourcechange')
-    fetch(`https://cors.proxy.consumet.org/https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
+    fetch(`https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
       .then((it) => it.json())
       .then(enimeAdapter)
       .then((it) => {

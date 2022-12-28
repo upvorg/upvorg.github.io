@@ -7,7 +7,7 @@ import './index.scss'
 
 export default function SearchPage() {
   const inputKeyword = useRef('')
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState<any[]>()
   const [{ page, k }, setQuery] = useQueryState({ page: 1, k: '' })
 
   const pageHandler = (page: number) => {
@@ -25,6 +25,7 @@ export default function SearchPage() {
       fetch(`https://api.enime.moe/search/${encodeURIComponent(k)}`)
         .then((it) => it.json())
         .then((it) => setPosts(enimeSearchAdapter(it.data) as any))
+        .catch(() => setPosts([]))
     }
   }, [])
 
@@ -76,7 +77,7 @@ export default function SearchPage() {
             <p className="control">
               <button
                 className="button is-outlined"
-                disabled={posts.length < 1 || posts.length < 12}
+                disabled={!posts || (posts && (posts?.length < 1 || posts?.length < 12))}
                 onClick={() => pageHandler(+page + 1)}
               >
                 <span className="is-primary">Older</span>
