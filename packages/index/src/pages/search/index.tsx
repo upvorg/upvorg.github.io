@@ -18,6 +18,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (k) {
+      inputKeyword.current = k
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
@@ -38,7 +39,7 @@ export default function SearchPage() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              setQuery({ k: inputKeyword.current })
+              setQuery({ k: inputKeyword.current, v: Date.now() } as any)
             }}
           >
             <div className="search-wrap">
