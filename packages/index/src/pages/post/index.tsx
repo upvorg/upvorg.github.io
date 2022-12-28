@@ -22,17 +22,19 @@ const PostPage: React.FC = ({ id }: any) => {
 
   useEffect(() => {
     // axios.get<R.Response<R.Post>>(`/post/${id}`)
-    import(`../../mock/post/${id}.json`).then((a) => {
-      if (!a.data || a.data.Type !== 'post') {
-        toast.error('文章不见了', {
-          duration: 90000,
-          position: 'top-center'
-        })
-        return
-      }
-      a.data && setState(a.data)
-      a.data.IsLiked == 2 && setIsLiked(true)
-      a.data.IsCollected == 2 && setIsCollected(true)
+    //@ts-ignore
+    import(`../../mock/posts.json`).then((resp) => {
+      setState(resp.data.find((it) => it.ID == id) as any)
+      // if (!a.data || a.data.Type !== 'post') {
+      //   toast.error('文章不见了', {
+      //     duration: 90000,
+      //     position: 'top-center'
+      //   })
+      //   return
+      // }
+      // a.data && setState(a.data)
+      // a.data.IsLiked == 2 && setIsLiked(true)
+      // a.data.IsCollected == 2 && setIsCollected(true)
       // axios.get(`/post/${id}/pv`)
     })
   }, [])
@@ -57,9 +59,7 @@ const PostPage: React.FC = ({ id }: any) => {
   }, [state])
 
   const shareHandler = () => {
-    if (
-      copyTextToClipboard(`${state.Title} - ${state.Creator.Nickname} \r\n${window.location.href}`)
-    ) {
+    if (copyTextToClipboard(`${state.Title} - ${state.Creator.Nickname} \r\n${window.location.href}`)) {
       toast.success('copied!')
     } else {
       toast.error('write to clipboard failed')
@@ -163,11 +163,7 @@ const PostPage: React.FC = ({ id }: any) => {
             '--o': isMobile && isFocus
           })}
         >
-          <div
-            className={classNames('post-side-action', { '--l': isLiked })}
-            role="button"
-            onClick={likeHandler}
-          >
+          <div className={classNames('post-side-action', { '--l': isLiked })} role="button" onClick={likeHandler}>
             <div className="side-action-icon">
               <svg
                 className="side-action__icon"
@@ -226,9 +222,7 @@ const PostPage: React.FC = ({ id }: any) => {
                 ></path>
               </svg>
             </div>
-            <div className="side-action__text">
-              {isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}
-            </div>
+            <div className="side-action__text">{isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}</div>
           </div>
           <div
             className={classNames('post-side-action', { '--l': isCollected })}
@@ -294,13 +288,7 @@ const PostPage: React.FC = ({ id }: any) => {
                     ></path>
                   </svg>
                   <span>{CreatedAt ? getTimeDistance(CreatedAt) : '-'}</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -309,13 +297,7 @@ const PostPage: React.FC = ({ id }: any) => {
                     ></path>
                   </svg>
                   <span>{Hits || '-'}</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -342,11 +324,7 @@ const PostPage: React.FC = ({ id }: any) => {
                     title: tag,
                     href: `/pv/tag?type=video&title=${tag}`
                   }))
-                  .concat(
-                    IsOriginal == 2
-                      ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
-                      : []
-                  )
+                  .concat(IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : [])
               : []
           }
         />
