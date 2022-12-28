@@ -1,0 +1,14 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:11
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-KEY:METHOD=AES-128,URI="https://im2txv.wow911.com/uploads/m3u8/enc.key",IV=0x388275450afce191ed48034f69106d55
+#EXTINF:10.232000,
+https://im2txv.wow911.com/uploads/km3u8/624/62418d9fdb668c5ee1c4aefef5ea323d/index0.ts
+#EXTINF:10.124000,
+https://im2txv.wow911.com/uploads/km3u8/624/62418d9fdb668c5ee1c4aefef5ea323d/index1.ts
+#EXTINF:9.774000,
+https://im2txv.wow911.com/uploads/km3u8/624/62418d9fdb668c5ee1c4aefef5ea323d/index2.ts
+#EXTINF:7.996000,
+https://im2txv.wow911.com/uploads/km3u8/624/62418d9fdb668c5ee1c4aefef5ea323d/index3.ts
+#EXT-X-ENDLIST
