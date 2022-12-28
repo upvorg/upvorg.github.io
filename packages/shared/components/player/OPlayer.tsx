@@ -10,6 +10,7 @@ interface OPlayerProps {
   poster?: string
   playerIsPlaying?: boolean
   duration?: number
+  autoplay?: boolean
   onEvent?: (event: PlayerEvent) => void
 }
 
@@ -24,7 +25,7 @@ const plugins = [
   })
 ]
 
-const OPlayer = React.forwardRef(({ playerIsPlaying, src, poster, duration, onEvent }: OPlayerProps, ref) => {
+const OPlayer = React.forwardRef(({ playerIsPlaying, src, poster, duration, onEvent, autoplay }: OPlayerProps, ref) => {
   const _ref = useRef<Player>(null)
 
   useImperativeHandle(ref, () => _ref.current)
@@ -32,11 +33,12 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, src, poster, duration, onEv
   return (
     <ReactPlayer
       ref={_ref}
-      playing={playerIsPlaying}
       plugins={plugins}
-      source={{ src, poster }}
-      duration={duration}
       onEvent={onEvent}
+      autoplay={autoplay}
+      duration={duration}
+      source={{ src, poster }}
+      playing={playerIsPlaying}
     />
   )
 })

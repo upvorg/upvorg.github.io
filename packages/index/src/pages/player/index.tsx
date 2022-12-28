@@ -204,9 +204,10 @@ export default function PlayerPage({ id }: any) {
             return (
               <ReactPlayer
                 ref={player}
+                autoplay={true}
+                src={source?.url}
                 onEvent={onEvent}
                 duration={lastDuration}
-                src={source?.url}
                 poster={state.image || state.anime?.coverImage}
               />
             )
