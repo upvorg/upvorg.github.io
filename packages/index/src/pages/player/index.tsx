@@ -68,7 +68,7 @@ export default function PlayerPage({ id }: any) {
 
   useEffect(() => {
     if (video[lastEpisode]?.VideoUrl) setSource({ url: video[lastEpisode].VideoUrl })
-  }, [lastEpisode])
+  }, [lastEpisode, video])
 
   useEffect(() => {
     if (!isEnime) return

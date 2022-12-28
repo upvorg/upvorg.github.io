@@ -36,14 +36,16 @@ export default function SearchPage() {
 
   useEffect(() => {
     store.keys().forEach((key: string) => (cache[key] = store(key).data))
-    setPosts(Object.values(cache).splice(20 * (page - 1), 20))
+    const local = Object.values(cache).splice(20 * (page - 1), 20)
 
     if (type == 'enime') {
-      fetch(`https://api.enime.moe/recent?perPage=${24}&currentPage=${page}`)
+      fetch(`https://api.enime.moe/recent?perPage=${24}&page=${page}`)
         .then((it) => it.json())
         .then((it) => {
           setPosts(enimesAdapter(it.data))
         })
+    } else {
+      setPosts(local)
     }
 
     // axios.get(query).then((res) => {
