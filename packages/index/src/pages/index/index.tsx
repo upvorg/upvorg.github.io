@@ -44,7 +44,7 @@ export default function IndexPage() {
       // axios.get('/posts?type=video&is_original=2&page_size=12'),
       // axios.get(`/post/ranking?&page_size=10`)
       recommends,
-      fetch('https://api.enime.moe/recent?perPage=20').then((it) => it.json()),
+      fetch('https://api.enime.moe/recent?perPage=20&language=JP').then((it) => it.json()),
       posts,
       videos,
       rank
