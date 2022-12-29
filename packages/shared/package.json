@@ -13,7 +13,7 @@
     "@oplayer/core": "^1.2.5",
     "@oplayer/hls": "^1.2.4",
     "@oplayer/react": "^1.2.2",
-    "@oplayer/ui": "^1.2.7",
+    "@oplayer/ui": "^1.2.8-dev.1",
     "devtools-detector": "^2.0.14",
     "github-markdown-css": "^5.1.0",
     "griffith": "^1.29.0",
