@@ -43,7 +43,7 @@ export default function SearchPage() {
     const local = Object.values(cache).splice(20 * (page - 1), 20)
 
     if (type == 'enime') {
-      fetch(`https://api.enime.moe/recent?perPage=${24}&page=${page}`)
+      fetch(`https://api.enime.moe/recent?perPage=${24}&page=${page}&language=JP`)
         .then((it) => it.json())
         .then((it) => {
           setPosts(enimesAdapter(it.data))
