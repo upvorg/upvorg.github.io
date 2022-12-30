@@ -201,7 +201,6 @@ export default function PlayerPage({ id }: any) {
       <div className="player-header">
         <div className="player-header__player">
           {useMemo(() => {
-            if (!state.ID) return null
             return (
               <ReactPlayer
                 ref={player}
@@ -209,8 +208,8 @@ export default function PlayerPage({ id }: any) {
                 src={source?.url}
                 onEvent={onEvent}
                 duration={lastDuration}
-                isLive={state.isLive}
-                format={state.isLive ? 'm3u8' : 'auto'}
+                isLive={id == 'iptv'}
+                format={id == 'iptv' ? 'm3u8' : 'auto'}
                 poster={state.image || state.anime?.coverImage}
               />
             )
