@@ -17,7 +17,10 @@ interface OPlayerProps {
 export type { PlayerEvent, Player }
 
 const plugins = [
-  ui(),
+  ui({
+    pictureInPicture: true,
+    slideToSeek: 'always'
+  }),
   hls({
     matcher: (_, source) =>
       source.format === 'm3u8' ||
