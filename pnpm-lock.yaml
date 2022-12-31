@@ -112,10 +112,10 @@ importers:
 
   packages/shared:
     specifiers:
-      '@oplayer/core': ^1.2.7
-      '@oplayer/hls': ^1.2.4
-      '@oplayer/react': ^1.2.2
-      '@oplayer/ui': 1.2.8-alpha.0
+      '@oplayer/core': ^1.2.8-alpha.0
+      '@oplayer/hls': ^1.2.5-alpha.0
+      '@oplayer/react': ^1.2.3-alpha.0
+      '@oplayer/ui': 1.2.8-alpha.1
       devtools-detector: ^2.0.14
       github-markdown-css: ^5.1.0
       griffith: ^1.29.0
@@ -131,10 +131,10 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
-      '@oplayer/core': 1.2.7
-      '@oplayer/hls': 1.2.4_7hzeextkwfkpqkaoltjh3upaue
-      '@oplayer/react': 1.2.2_@oplayer+core@1.2.7
-      '@oplayer/ui': 1.2.8-alpha.0_@oplayer+core@1.2.7
+      '@oplayer/core': 1.2.8-alpha.0
+      '@oplayer/hls': 1.2.5-alpha.0_sjrfmg7b7b2pl3wkzohjfmyd2a
+      '@oplayer/react': 1.2.3-alpha.0_mzrikbkr6tctw57wvtgtk6prqm
+      '@oplayer/ui': 1.2.8-alpha.1_mzrikbkr6tctw57wvtgtk6prqm
       devtools-detector: 2.0.14
       github-markdown-css: 5.1.0
       griffith: 1.29.0
@@ -1684,36 +1684,36 @@ packages:
       fastq: 1.14.0
     dev: true
 
-  /@oplayer/core/1.2.7:
-    resolution: {integrity: sha512-V+OZ0xYnn85HIMM6SZyAtupSOd/ePL2EREkBmeu6xg91yWVCr04JP8GDmDrbNJnGDjVFG0LWJHRqu2yC8chS8Q==}
+  /@oplayer/core/1.2.8-alpha.0:
+    resolution: {integrity: sha512-MdJLrJ6i3UzTv+R74DUpx2rnntzgodYLpRRUvz/Tjp3WA8++XkMhL6QQkc2izF7Olf07bTktksJsPV4oal9JqA==}
     dev: false
 
-  /@oplayer/hls/1.2.4_7hzeextkwfkpqkaoltjh3upaue:
-    resolution: {integrity: sha512-XjlTELp9Ge1iEWZw4w+S7k4W/QIULfhdHeovtowyq3lDz7WpZ+o9PHnfyfOPv33rRZfP7GcFq+2sZjs40KSdEg==}
+  /@oplayer/hls/1.2.5-alpha.0_sjrfmg7b7b2pl3wkzohjfmyd2a:
+    resolution: {integrity: sha512-IQjvu1FPFNbLDfabDdfrXVzfya0dPx5fxR2qjR3EoeQI2b12CnuFcvxk6AF1Wu0Iac/AkUQlSlz/+z6WvXtqHw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.2.7
+      '@oplayer/core': 1.2.8-alpha.0
       hls.js: 1.2.9
     dev: false
 
-  /@oplayer/react/1.2.2_@oplayer+core@1.2.7:
-    resolution: {integrity: sha512-66DFow1mcocd5ioZrPwCqjed2iID1Cru3xn+flP4/Lxw7sBHex74JxxKfnWut3aggYvzo/yeMBdvBZ5zCLNX3A==}
+  /@oplayer/react/1.2.3-alpha.0_mzrikbkr6tctw57wvtgtk6prqm:
+    resolution: {integrity: sha512-7NVU5v4sYQzBIT2JiktD5kWZb9bBcD34tdI8mC1uAbNpI3O4mFfZqD6+2y4QQgBMt80rxNpOuzz9Xi4LBcU7kg==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@oplayer/core': 1.2.7
+      '@oplayer/core': 1.2.8-alpha.0
     dev: false
 
-  /@oplayer/ui/1.2.8-alpha.0_@oplayer+core@1.2.7:
-    resolution: {integrity: sha512-TA6sGue7Lso/I8uHzkU+VURHQnzL9TAeKqovJUo/wGSS7o1DN2bKQeZyU3stplCrUBEk/5k8P2HRin+3MGz0ZQ==}
+  /@oplayer/ui/1.2.8-alpha.1_mzrikbkr6tctw57wvtgtk6prqm:
+    resolution: {integrity: sha512-IqPuwrJBXl0F0DVItEIxL7p1Y9pXxhGI1GwpQnHt2QZHPZnO00KJPy1yG/UqQuKDE7XOToexbIG3G2GUlUuLWQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.2.7
+      '@oplayer/core': 1.2.8-alpha.0
     dev: false
 
   /@polka/url/1.0.0-next.21:
@@ -1898,7 +1898,7 @@ packages:
   /@types/connect-history-api-fallback/1.3.5:
     resolution: {integrity: sha512-h8QJa8xSb1WD4fpKBDcATDNGXghFj6/3GRWG6dhmRcu0RX1Ubasur2Uvx5aeEwlf0MwblEC2bMzzMQntxnw/Cw==}
     dependencies:
-      '@types/express-serve-static-core': 4.17.31
+      '@types/express-serve-static-core': 4.17.32
       '@types/node': 18.11.18
     dev: true
 
@@ -1932,8 +1932,8 @@ packages:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
     dev: true
 
-  /@types/express-serve-static-core/4.17.31:
-    resolution: {integrity: sha512-DxMhY+NAsTwMMFHBTtJFNp5qiHKJ7TeqOo23zVEM9alT1Ml27Q3xcTH0xwxn7Q0BbMcVEJOs/7aQtUWupUQN3Q==}
+  /@types/express-serve-static-core/4.17.32:
+    resolution: {integrity: sha512-aI5h/VOkxOF2Z1saPy0Zsxs5avets/iaiAJYznQFm5By/pamU31xWKL//epiF4OfUA2qTOc9PV6tCUjhO8wlZA==}
     dependencies:
       '@types/node': 18.11.18
       '@types/qs': 6.9.7
@@ -1944,7 +1944,7 @@ packages:
     resolution: {integrity: sha512-Yv0k4bXGOH+8a+7bELd2PqHQsuiANB+A8a4gnQrkRWzrkKlb6KHaVvyXhqs04sVW/OWlbPyYxRgYlIXLfrufMQ==}
     dependencies:
       '@types/body-parser': 1.19.2
-      '@types/express-serve-static-core': 4.17.31
+      '@types/express-serve-static-core': 4.17.32
       '@types/qs': 6.9.7
       '@types/serve-static': 1.15.0
     dev: true
