@@ -21,6 +21,7 @@ const plugins = [
   ui({
     pictureInPicture: true,
     slideToSeek: 'always',
+    screenshot: true,
     keyboard: { global: true }
   }),
   hls({
