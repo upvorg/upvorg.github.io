@@ -2,7 +2,7 @@ import type { PlayerEvent, Player, PlayerOptions } from '@oplayer/core'
 import ui from '@oplayer/ui'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
-import { useImperativeHandle, useMemo, useRef } from 'react'
+import { useImperativeHandle, useRef } from 'react'
 import React from 'react'
 
 interface OPlayerProps extends PlayerOptions {
@@ -20,7 +20,8 @@ export type { PlayerEvent, Player }
 const plugins = [
   ui({
     pictureInPicture: true,
-    slideToSeek: 'always'
+    slideToSeek: 'always',
+    keyboard: { global: true }
   }),
   hls({
     matcher: (_, source) =>
