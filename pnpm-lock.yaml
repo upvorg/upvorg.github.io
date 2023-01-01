@@ -112,10 +112,10 @@ importers:
 
   packages/shared:
     specifiers:
-      '@oplayer/core': ^1.2.8-alpha.0
-      '@oplayer/hls': ^1.2.5-alpha.0
-      '@oplayer/react': ^1.2.3-alpha.0
-      '@oplayer/ui': 1.2.8-alpha.1
+      '@oplayer/core': 1.2.8-alpha.0
+      '@oplayer/hls': 1.2.5-alpha.0
+      '@oplayer/react': 1.2.3-alpha.0
+      '@oplayer/ui': 1.2.8-alpha.3
       devtools-detector: ^2.0.14
       github-markdown-css: ^5.1.0
       griffith: ^1.29.0
@@ -134,7 +134,7 @@ importers:
       '@oplayer/core': 1.2.8-alpha.0
       '@oplayer/hls': 1.2.5-alpha.0_sjrfmg7b7b2pl3wkzohjfmyd2a
       '@oplayer/react': 1.2.3-alpha.0_mzrikbkr6tctw57wvtgtk6prqm
-      '@oplayer/ui': 1.2.8-alpha.1_mzrikbkr6tctw57wvtgtk6prqm
+      '@oplayer/ui': 1.2.8-alpha.3_mzrikbkr6tctw57wvtgtk6prqm
       devtools-detector: 2.0.14
       github-markdown-css: 5.1.0
       griffith: 1.29.0
@@ -189,7 +189,7 @@ packages:
       convert-source-map: 1.9.0
       debug: 4.3.4
       gensync: 1.0.0-beta.2
-      json5: 2.2.2
+      json5: 2.2.3
       semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
@@ -1708,8 +1708,8 @@ packages:
       '@oplayer/core': 1.2.8-alpha.0
     dev: false
 
-  /@oplayer/ui/1.2.8-alpha.1_mzrikbkr6tctw57wvtgtk6prqm:
-    resolution: {integrity: sha512-IqPuwrJBXl0F0DVItEIxL7p1Y9pXxhGI1GwpQnHt2QZHPZnO00KJPy1yG/UqQuKDE7XOToexbIG3G2GUlUuLWQ==}
+  /@oplayer/ui/1.2.8-alpha.3_mzrikbkr6tctw57wvtgtk6prqm:
+    resolution: {integrity: sha512-jNLA44NinLIkgzFGbyvpnofXHL4lJZUEQbmZ6rsXayPBBGbLjmpjYYWMkQUQpJ+qj5VuN4waOb2W7wRrYu4NIA==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
@@ -3399,7 +3399,7 @@ packages:
     dependencies:
       esbuild: 0.15.18
       joycon: 3.1.1
-      json5: 2.2.2
+      json5: 2.2.3
       loader-utils: 2.0.4
       tapable: 2.2.1
       webpack: 5.75.0_webpack-cli@4.10.0
@@ -4398,8 +4398,8 @@ packages:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
     dev: true
 
-  /json5/2.2.2:
-    resolution: {integrity: sha512-46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==}
+  /json5/2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
     dev: true
@@ -4439,7 +4439,7 @@ packages:
     dependencies:
       big.js: 5.2.2
       emojis-list: 3.0.0
-      json5: 2.2.2
+      json5: 2.2.3
     dev: true
 
   /locate-path/5.0.0:

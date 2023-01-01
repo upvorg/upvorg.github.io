@@ -17,8 +17,8 @@ const indexConfig = [
     icon: require('../../assets/recommend.svg').default
   },
   {
-    title: 'Enime&title=Enime',
-    query: 'type=enime'
+    title: 'Enime',
+    query: 'type=enime&title=Enime'
     // query: 'type=video&is_original=2&title=原创'
   },
   {
