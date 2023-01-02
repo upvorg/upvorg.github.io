@@ -213,7 +213,7 @@ module.exports = {
             }
           },
           {
-            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.m3u8$/],
             type: 'asset',
             parser: {
               dataUrlCondition: { maxSize: 10 * 1024 }
