@@ -115,7 +115,7 @@ importers:
       '@oplayer/core': ^1.2.8
       '@oplayer/hls': ^1.2.5
       '@oplayer/react': ^1.2.3
-      '@oplayer/ui': ^1.2.8
+      '@oplayer/ui': ^1.2.9
       devtools-detector: ^2.0.14
       github-markdown-css: ^5.1.0
       griffith: ^1.29.0
@@ -134,7 +134,7 @@ importers:
       '@oplayer/core': 1.2.8
       '@oplayer/hls': 1.2.5_2dzrp22hcvxocp2pwcawktxcpi
       '@oplayer/react': 1.2.3_@oplayer+core@1.2.8
-      '@oplayer/ui': 1.2.8_@oplayer+core@1.2.8
+      '@oplayer/ui': 1.2.9_@oplayer+core@1.2.8
       devtools-detector: 2.0.14
       github-markdown-css: 5.1.0
       griffith: 1.29.0
@@ -1708,8 +1708,8 @@ packages:
       '@oplayer/core': 1.2.8
     dev: false
 
-  /@oplayer/ui/1.2.8_@oplayer+core@1.2.8:
-    resolution: {integrity: sha512-lgB3sLkKzlNXXiIM+6CzGOWbTNKAOi0Qz//LGqbiWKHMAMnMeL0DxiNbbUzvFVtDEoTor0D+aFaIpfXzbcK+2A==}
+  /@oplayer/ui/1.2.9_@oplayer+core@1.2.8:
+    resolution: {integrity: sha512-fmcjUNqVVZqWeTaw9Ey1pyZZDOqdSlhyJnYwM6AxrWbQAPy74tELDwjrkcWzxgwoDcBUX/Cyz7DAyLlGPRyEwA==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
