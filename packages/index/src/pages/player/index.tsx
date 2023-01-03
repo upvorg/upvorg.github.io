@@ -67,7 +67,12 @@ export default function PlayerPage({ id }: any) {
   }, [])
 
   useEffect(() => {
-    if (video[lastEpisode]?.VideoUrl) setSource({ url: video[lastEpisode].VideoUrl })
+    if (video[lastEpisode]?.VideoUrl)
+      setSource({
+        src: video[lastEpisode].VideoUrl,
+        format: id == 'iptv' ? 'm3u8' : 'auto',
+        poster: 'https://i.gifer.com/BxQY.gif'
+      })
   }, [lastEpisode, video])
 
   useEffect(() => {
@@ -84,7 +89,6 @@ export default function PlayerPage({ id }: any) {
           .then((res) => {
             return {
               ...res,
-              format: id == 'iptv' ? 'm3u8' : 'auto',
               poster: state.image || state.anime?.coverImage,
               src: it.sources[0].url.includes('zoro') ? `https://cors.proxy.consumet.org/${res.url}` : res.url
             }
