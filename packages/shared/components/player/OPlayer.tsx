@@ -6,12 +6,9 @@ import { useImperativeHandle, useRef } from 'react'
 import React from 'react'
 
 interface OPlayerProps extends PlayerOptions {
-  src: string
-  poster?: string
   playerIsPlaying?: boolean
   duration?: number
   autoplay?: boolean
-  format?: string
   onEvent?: (event: PlayerEvent) => void
 }
 
@@ -31,25 +28,22 @@ const plugins = [
   })
 ]
 
-const OPlayer = React.forwardRef(
-  ({ playerIsPlaying, src, poster, format, duration, onEvent, autoplay, ...rest }: OPlayerProps, ref) => {
-    const _ref = useRef<Player>(null)
+const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay, ...rest }: OPlayerProps, ref) => {
+  const _ref = useRef<Player | null>(null)
 
-    useImperativeHandle(ref, () => _ref.current)
+  useImperativeHandle(ref, () => _ref.current)
 
-    return (
-      <ReactPlayer
-        ref={_ref}
-        {...rest}
-        plugins={plugins}
-        onEvent={onEvent}
-        autoplay={autoplay}
-        duration={duration}
-        source={{ src, poster, format }}
-        playing={playerIsPlaying}
-      />
-    )
-  }
-)
+  return (
+    <ReactPlayer
+      ref={_ref}
+      {...rest}
+      plugins={plugins}
+      onEvent={onEvent}
+      autoplay={autoplay}
+      duration={duration}
+      playing={playerIsPlaying}
+    />
+  )
+})
 
 export default OPlayer

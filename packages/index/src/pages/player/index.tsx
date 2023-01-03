@@ -31,7 +31,7 @@ export default function PlayerPage({ id }: any) {
 
   const player = useRef<typeof Player>(null)
   let [isEnime, setIsEnime] = useState(false)
-  const [source, setSource] = useState<any>()
+  const [source, setSource] = useState<any>({ poster: 'https://i.gifer.com/BxQY.gif' })
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
@@ -72,36 +72,39 @@ export default function PlayerPage({ id }: any) {
 
   useEffect(() => {
     if (!isEnime) return
-    //@ts-ignore
-    player.current!.isSourceChanging = true
-    //@ts-ignore
-    player.current!.emit('videosourcechange')
-    fetch(`https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
+
+    const source = fetch(`https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
       .then((it) => it.json())
       .then(enimeAdapter)
       .then((it) => {
         setState(it)
         setVideo(it.episodes)
-        fetch(`https://api.enime.moe/source/${it.sources[0].id}`)
+        return fetch(`https://api.enime.moe/source/${it.sources[0].id}`)
           .then((res) => res.json())
           .then((res) => {
-            setSource({
+            return {
               ...res,
-              url: it.sources[0].url.includes('zoro') ? `https://cors.proxy.consumet.org/${res.url}` : res.url
-            })
-
-            if (res.subtitle) {
-              //@ts-ignore
-              player.current?.plugins.ui.subtitle.updateSource([
-                {
-                  default: true,
-                  src: source.subtitle,
-                  name: 'English'
-                }
-              ])
+              format: id == 'iptv' ? 'm3u8' : 'auto',
+              poster: state.image || state.anime?.coverImage,
+              src: it.sources[0].url.includes('zoro') ? `https://cors.proxy.consumet.org/${res.url}` : res.url
             }
           })
       })
+
+    setSource(source)
+
+    source.then((source) => {
+      if (source.subtitle) {
+        //@ts-ignore
+        player.current?.plugins.ui.subtitle.updateSource([
+          {
+            default: true,
+            src: source.subtitle,
+            name: 'English'
+          }
+        ])
+      }
+    })
   }, [isEnime, lastEpisode])
 
   const likeHandler = useCallback(() => {
@@ -205,12 +208,10 @@ export default function PlayerPage({ id }: any) {
               <ReactPlayer
                 ref={player}
                 autoplay={true}
-                src={source?.url}
+                source={source}
                 onEvent={onEvent}
                 duration={lastDuration}
                 isLive={id == 'iptv'}
-                format={id == 'iptv' ? 'm3u8' : 'auto'}
-                poster={state.image || state.anime?.coverImage}
               />
             )
           }, [state, source])}
