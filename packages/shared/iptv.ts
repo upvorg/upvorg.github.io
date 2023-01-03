@@ -26,7 +26,10 @@ export const iptv = () =>
           Pid: '2',
           CreatedAt: '2022-05-12T16:04:45+08:00',
           UpdatedAt: '2022-05-12T16:04:45+08:00',
-          Title: /tvg-name="(.+?)"/.exec(it[0])?.[1] || /roup-title="(.+?)"/.exec(it[0])?.[1],
+          Title:
+            /roup-title="(.+?)",(.*)/.exec(it[0])?.[2] ||
+            /tvg-name="(.+?)",(.=?)/.exec(it[0])?.[1] ||
+            /roup-title="(.+?)"/.exec(it[0])?.[1],
           VideoUrl: it[1]
         }
       })
