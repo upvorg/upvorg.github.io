@@ -1,8 +1,10 @@
 // https://github.com/youshandefeiyang/IPTV/blob/main/main/IPTV.m3u
 // 'https://raw.githubusercontent.com/youshandefeiyang/IPTV/main/main/IPTV.m3u'
 
+//https://github.com/YanG-1989/m3u
+
 export const iptv = () =>
-  fetch('https://raw.githubusercontent.com/youshandefeiyang/IPTV/main/main/IPTV.m3u')
+  fetch('https://github.com/YanG-1989/m3u/raw/main/Gather.m3u')
     .then((_) => _.text())
     .then((_) => {
       const arr = _.split('\n').slice(1)
@@ -29,7 +31,7 @@ export const iptv = () =>
         }
       })
 
-      console.log(JSON.stringify(episodes))
+      console.log(JSON.stringify({ data: episodes }))
     })
 
 // const store = require.context('../../../../../public/m3u8/', true, /\.*\.m3u8$/)
