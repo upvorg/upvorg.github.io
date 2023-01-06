@@ -84,33 +84,59 @@ export default function PlayerPage({ id }: any) {
       .then((it) => {
         setState(it)
         setVideo(it.episodes)
-        return fetch(`https://api.enime.moe/source/${(it.sources[1] || it.sources[0]).id}`)
-          .then((res) => res.json())
-          .then((res) => {
-            return {
-              ...res,
-              poster: state.image || state.anime?.coverImage,
-              src: (it.sources[1] || it.sources[0]).url.includes('zoro')
-                ? `https://cors.proxy.consumet.org/${res.url}`
-                : res.url
+
+        function change(id: any) {
+          //@ts-ignore
+          player.current?.changeSource(
+            fetch(`https://api.enime.moe/source/${id}`)
+              .then((res) => res.json())
+              .then((res) => {
+                if (res.subtitle) {
+                  //@ts-ignore
+                  player.current.on(
+                    'loadedmetadata',
+                    () => {
+                      //@ts-ignore
+                      player.current?.plugins.ui.subtitle.updateSource([
+                        {
+                          default: true,
+                          src: res.subtitle,
+                          name: 'English'
+                        }
+                      ])
+                    },
+                    { once: true }
+                  )
+                }
+                return {
+                  ...res,
+                  poster: state.image || state.anime?.coverImage,
+                  src: (it.sources[1] || it.sources[0]).url.includes('zoro')
+                    ? `https://cors.proxy.consumet.org/${res.url}`
+                    : res.url
+                }
+              })
+          )
+        }
+
+        if (it.sources.length > 1) {
+          //@ts-ignore
+          player.current?.plugins.ui?.menu.register({
+            name: 'Source',
+            children: it.sources.map((it, i) => ({
+              name: it.url.includes('zoro') ? 'ZORO' : 'GOGO',
+              default: i == 1,
+              value: i
+            })),
+            onChange({ value }) {
+              change(it.sources[value])
             }
           })
+        }
+        return change((it.sources[1] || it.sources[0]).id)
       })
 
     setSource(source)
-
-    source.then((source) => {
-      if (source.subtitle) {
-        //@ts-ignore
-        player.current?.plugins.ui.subtitle.updateSource([
-          {
-            default: true,
-            src: source.subtitle,
-            name: 'English'
-          }
-        ])
-      }
-    })
   }, [isEnime, lastEpisode])
 
   const likeHandler = useCallback(() => {
