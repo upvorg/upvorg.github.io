@@ -16,10 +16,11 @@ export type { PlayerEvent, Player }
 
 const plugins = [
   ui({
-    pictureInPicture: true,
-    slideToSeek: 'always',
     screenshot: true,
-    keyboard: { global: true }
+    slideToSeek: 'always',
+    pictureInPicture: true,
+    keyboard: { global: true },
+    subtitle: { fontSize: 20 }
   }),
   hls({
     matcher: (_, source) =>
