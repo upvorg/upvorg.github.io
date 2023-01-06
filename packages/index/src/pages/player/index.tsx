@@ -84,13 +84,15 @@ export default function PlayerPage({ id }: any) {
       .then((it) => {
         setState(it)
         setVideo(it.episodes)
-        return fetch(`https://api.enime.moe/source/${it.sources[0].id}`)
+        return fetch(`https://api.enime.moe/source/${(it.sources[1] || it.sources[0]).id}`)
           .then((res) => res.json())
           .then((res) => {
             return {
               ...res,
               poster: state.image || state.anime?.coverImage,
-              src: it.sources[0].url.includes('zoro') ? `https://cors.proxy.consumet.org/${res.url}` : res.url
+              src: (it.sources[1] || it.sources[0]).url.includes('zoro')
+                ? `https://cors.proxy.consumet.org/${res.url}`
+                : res.url
             }
           })
       })
