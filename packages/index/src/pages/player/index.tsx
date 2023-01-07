@@ -77,7 +77,8 @@ export default function PlayerPage({ id }: any) {
 
   useEffect(() => {
     if (!isEnime) return
-
+    //@ts-ignore
+    player.current?.plugins.ui?.menu.unregister('Source')
     const source = fetch(`https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
       .then((it) => it.json())
       .then(enimeAdapter)
@@ -85,38 +86,35 @@ export default function PlayerPage({ id }: any) {
         setState(it)
         setVideo(it.episodes)
 
-        function change(id: any) {
-          //@ts-ignore
-          player.current?.changeSource(
-            fetch(`https://api.enime.moe/source/${id}`)
-              .then((res) => res.json())
-              .then((res) => {
-                if (res.subtitle) {
-                  //@ts-ignore
-                  player.current.on(
-                    'loadedmetadata',
-                    () => {
-                      //@ts-ignore
-                      player.current?.plugins.ui.subtitle.updateSource([
-                        {
-                          default: true,
-                          src: res.subtitle,
-                          name: 'English'
-                        }
-                      ])
-                    },
-                    { once: true }
-                  )
-                }
-                return {
-                  ...res,
-                  poster: state.image || state.anime?.coverImage,
-                  src: (it.sources[1] || it.sources[0]).url.includes('zoro')
-                    ? `https://cors.proxy.consumet.org/${res.url}`
-                    : res.url
-                }
-              })
-          )
+        function sourcePromise(id: any) {
+          return fetch(`https://api.enime.moe/source/${id}`)
+            .then((res) => res.json())
+            .then((res) => {
+              if (res.subtitle) {
+                //@ts-ignore
+                player.current.on(
+                  'loadedmetadata',
+                  () => {
+                    //@ts-ignore
+                    player.current?.plugins.ui.subtitle.updateSource([
+                      {
+                        default: true,
+                        src: res.subtitle,
+                        name: 'English'
+                      }
+                    ])
+                  },
+                  { once: true }
+                )
+              }
+              return {
+                ...res,
+                poster: state.image || state.anime?.coverImage,
+                src: (it.sources[1] || it.sources[0]).url.includes('zoro')
+                  ? `https://cors.proxy.consumet.org/${res.url}`
+                  : res.url
+              }
+            })
         }
 
         if (it.sources.length > 1) {
@@ -130,11 +128,12 @@ export default function PlayerPage({ id }: any) {
               value: i
             })),
             onChange({ value }) {
-              change(it.sources[value].id)
+              //@ts-ignore
+              player.current?.changeSource(sourcePromise(it.sources[value].id))
             }
           })
         }
-        return change((it.sources[1] || it.sources[0]).id)
+        return sourcePromise((it.sources[1] || it.sources[0]).id)
       })
 
     setSource(source)
@@ -247,7 +246,7 @@ export default function PlayerPage({ id }: any) {
                 isLive={id == 'iptv'}
               />
             )
-          }, [state, source])}
+          }, [source])}
         </div>
         <div className="player-header__r">
           <div className="eplist_module">
