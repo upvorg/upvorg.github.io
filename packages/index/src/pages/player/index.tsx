@@ -31,7 +31,7 @@ export default function PlayerPage({ id }: any) {
 
   const player = useRef<typeof Player>(null)
   const [isEnime, setIsEnime] = useState(false)
-  const [source, setSource] = useState<any>({ poster: 'https://i.gifer.com/BxQY.gif', title: '' })
+  const [source, setSource] = useState<any>({ poster: 'https://i.gifer.com/BxQY.gif', title: '少女祈祷中 ...' })
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
@@ -67,8 +67,6 @@ export default function PlayerPage({ id }: any) {
   }, [])
 
   useEffect(() => {
-    console.log(state)
-
     if (video[lastEpisode]?.VideoUrl)
       setSource({
         title: video[lastEpisode].Title || state.Title,
@@ -113,7 +111,7 @@ export default function PlayerPage({ id }: any) {
 
               return {
                 ...res,
-                title: it.Title,
+                title: it.title ? (it.title.length >= 30 ? it.title.substring(0, 27) + '...' : it.title) : it.Title,
                 poster: state.image || state.anime?.coverImage,
                 src: (it.sources[1] || it.sources[0]).url.includes('zoro')
                   ? `https://cors.proxy.consumet.org/${res.url}`
