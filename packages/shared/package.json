@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@oplayer/core": "^1.2.9",
+    "@oplayer/core": "^1.2.10",
     "@oplayer/hls": "^1.2.7",
     "@oplayer/react": "^1.2.4",
-    "@oplayer/ui": "^1.2.11",
+    "@oplayer/ui": "^1.2.12",
     "devtools-detector": "^2.0.14",
     "github-markdown-css": "^5.1.0",
     "griffith": "^1.29.0",

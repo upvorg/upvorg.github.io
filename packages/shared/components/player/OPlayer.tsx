@@ -16,6 +16,8 @@ export type { PlayerEvent, Player }
 
 const plugins = [
   ui({
+    controlBar: true,
+    topSetting: true,
     screenshot: true,
     slideToSeek: 'always',
     pictureInPicture: true,
