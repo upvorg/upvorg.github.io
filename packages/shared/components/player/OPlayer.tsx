@@ -21,7 +21,7 @@ const plugins = [
     slideToSeek: 'always',
     pictureInPicture: true,
     keyboard: { global: true },
-    subtitle: { fontSize: 20 },
+    // subtitle: { fontSize: 20 },
     controlBar: { back: 'fullscreen' }
   }),
   hls({
