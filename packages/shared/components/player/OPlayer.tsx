@@ -16,13 +16,13 @@ export type { PlayerEvent, Player }
 
 const plugins = [
   ui({
-    controlBar: true,
     topSetting: true,
     screenshot: true,
     slideToSeek: 'always',
     pictureInPicture: true,
     keyboard: { global: true },
-    subtitle: { fontSize: 20 }
+    subtitle: { fontSize: 20 },
+    controlBar: { back: 'fullscreen' }
   }),
   hls({
     matcher: (_, source) =>
