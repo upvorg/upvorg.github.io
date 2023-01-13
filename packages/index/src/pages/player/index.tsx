@@ -111,7 +111,7 @@ export default function PlayerPage({ id }: any) {
 
               return {
                 ...res,
-                title: it.title ? (it.title.length >= 20 ? it.title.substring(0, 20) + '...' : it.title) : it.Title,
+                title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
                 src: (it.sources[1] || it.sources[0]).url.includes('zoro')
                   ? `https://cors.proxy.consumet.org/${res.url}`
