@@ -1,9 +1,9 @@
-import type { PlayerEvent, Player, PlayerOptions } from '@oplayer/core'
-import ui from '@oplayer/ui'
+import type { Player, PlayerEvent, PlayerOptions } from '@oplayer/core'
+import { isMobile } from '@oplayer/core'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
-import { useImperativeHandle, useRef } from 'react'
-import React from 'react'
+import ui from '@oplayer/ui'
+import React, { useImperativeHandle, useRef } from 'react'
 
 interface OPlayerProps extends PlayerOptions {
   playerIsPlaying?: boolean
@@ -16,12 +16,11 @@ export type { PlayerEvent, Player }
 
 const plugins = [
   ui({
-    topSetting: true,
     screenshot: true,
+    topSetting: isMobile,
     slideToSeek: 'always',
     pictureInPicture: true,
     keyboard: { global: true },
-    // subtitle: { fontSize: 20 },
     controlBar: { back: 'fullscreen' }
   }),
   hls({

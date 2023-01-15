@@ -44,9 +44,9 @@ export const enimeAdapter = (item: any) => {
   }
 }
 
-export const enimesAdapter = (data: any) => data.map(enimeAdapter)
+export const enimesAdapter = (data: any[] = []) => data.map(enimeAdapter)
 
-export const enimeSearchAdapter = (data: any[]) => {
+export const enimeSearchAdapter = (data: any[] = []) => {
   return data.map((item) => ({
     ...item,
     enime: true,
