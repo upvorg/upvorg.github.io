@@ -113,9 +113,7 @@ export default function PlayerPage({ id }: any) {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src: (it.sources[1] || it.sources[0]).url.includes('zoro')
-                  ? `https://cors.proxy.consumet.org/${res.url}`
-                  : res.url
+                src: `https://proxy.nade.me/redirect?url=${res.url}`
               }
             })
         }
@@ -137,7 +135,7 @@ export default function PlayerPage({ id }: any) {
             }
           })
         }
-        return sourcePromise((it.sources[1] || it.sources[0]).id)
+        return sourcePromise(it.sources[0].id)
       })
 
     setSource(source)
