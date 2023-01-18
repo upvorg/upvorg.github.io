@@ -14,6 +14,8 @@ interface OPlayerProps extends PlayerOptions {
 
 export type { PlayerEvent, Player }
 
+export { isMobile }
+
 const plugins = [
   ui({
     screenshot: true,
