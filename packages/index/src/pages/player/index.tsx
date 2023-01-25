@@ -113,7 +113,7 @@ export default function PlayerPage({ id }: any) {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src: `https://proxy.nade.me/redirect?url=${res.url}`
+                src: `https://cdn.nade.me/redirect?url=${res.url}`
               }
             })
         }
