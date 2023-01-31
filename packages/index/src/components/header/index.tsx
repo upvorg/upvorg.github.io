@@ -44,13 +44,7 @@ export default function Header() {
             <h1 className="logo">UPV</h1>
           </a>
         </Link>
-        <a
-          role="button"
-          className="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="upv-nav"
-        >
+        <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="upv-nav">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -65,8 +59,12 @@ export default function Header() {
           <a className="navbar-item" href="/anime/index" target="_blank">
             新番时间表
           </a>
-          <a className="navbar-item" href="//app.upv.life" target="_blank">
-            APP 下载
+          <a
+            className="navbar-item"
+            href="https://cdn.jsdelivr.net/gh/upvorg/cdn@master/apk/app-arm64-v8a-release.apk"
+            target="_blank"
+          >
+            APP Download
           </a>
           <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=VUKNMvGC" target="_blank">
             加入我们
@@ -128,11 +126,7 @@ export default function Header() {
         <div className="navbar-end">
           <div className="navbar-item upload">
             <a href={ADMIN_HOST} target="_blank">
-              <button
-                className="button is-primary"
-                aria-haspopup="true"
-                aria-controls="dropdown-menu4"
-              >
+              <button className="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu4">
                 <FaUpload />
                 &nbsp;&nbsp;
                 <strong>投稿</strong>
@@ -147,11 +141,7 @@ export default function Header() {
                 </figure>
               </div>
               <div className="navbar-dropdown is-right">
-                <a
-                  className="navbar-item"
-                  href={ADMIN_HOST + `/user/profile?name=${user.Name}`}
-                  target="_blank"
-                >
+                <a className="navbar-item" href={ADMIN_HOST + `/user/profile?name=${user.Name}`} target="_blank">
                   我的资料
                 </a>
                 <hr className="navbar-divider" />
