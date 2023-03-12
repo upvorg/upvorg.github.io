@@ -7,11 +7,7 @@ export default function RankList({ list }: { list: R.Post[] | null }) {
         list.length > 0 ? (
           <ul className="rank-video-list__list">
             {list.map((item, i) => (
-              <a
-                href={item.Type == 'video' ? `/v/${item.ID}` : `/p/${item.ID}`}
-                key={i}
-                target="_blank"
-              >
+              <a href={item.Type == 'video' ? `/v/${item.ID}` : `/p/${item.ID}`} key={i} target="_blank">
                 <li className="rank-video-list__item">
                   <span className="rank-video-list__item--index" data-index={i}>
                     {i + 1}
@@ -22,10 +18,10 @@ export default function RankList({ list }: { list: R.Post[] | null }) {
             ))}
           </ul>
         ) : (
-          <div className="empty">暂无数据</div>
+          <div className="empty">No Data</div>
         )
       ) : (
-        <div className="loading empty">加载中···</div>
+        <div className="loading empty">loading···</div>
       )}
     </div>
   )

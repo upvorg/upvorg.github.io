@@ -12,7 +12,7 @@ import { enimesAdapter } from '../../enime.adp'
 
 const indexConfig = [
   {
-    title: '推荐',
+    title: 'Recommends',
     query: 'type=recommends&title=推荐',
     icon: require('../../assets/recommend.svg').default
   },
@@ -22,12 +22,12 @@ const indexConfig = [
     // query: 'type=video&is_original=2&title=原创'
   },
   {
-    title: '文章',
+    title: 'Post',
     query: 'type=post&title=文章',
     icon: require('../../assets/post.svg').default
   },
   {
-    title: '最新',
+    title: 'Latest',
     query: 'type=video&title=最新'
   }
 ]
@@ -73,7 +73,7 @@ export default function IndexPage() {
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
             aside={index == 0 && <RankList list={rankList} />}
-            asideTitle={(index == 0 && '排行榜') as any}
+            asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
       })}

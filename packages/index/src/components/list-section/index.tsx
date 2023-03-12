@@ -10,14 +10,7 @@ interface ListSectionProps {
   icon?: string
 }
 
-export default function ListSection({
-  title,
-  icon,
-  videos,
-  asideTitle,
-  aside,
-  moreUrl
-}: ListSectionProps) {
+export default function ListSection({ title, icon, videos, asideTitle, aside, moreUrl }: ListSectionProps) {
   return (
     <div className={`upv-grid ${!!asideTitle ? 'col-2' : ''}`}>
       <div className="upv-card-list">
@@ -28,7 +21,7 @@ export default function ListSection({
           </div>
           {moreUrl && videos && videos.length > 0 && (
             <a className="list-header__more" href={moreUrl} target="_blank">
-              更多
+              more
               <svg
                 width="10"
                 height="10"
@@ -56,10 +49,10 @@ export default function ListSection({
             videos.length > 0 ? (
               videos.map((item, index) => <VideoCard key={index} info={item} />)
             ) : (
-              <div className="empty">暂无数据</div>
+              <div className="empty">No Data</div>
             )
           ) : (
-            <span className="loading empty">加载中···</span>
+            <span className="loading empty">loading···</span>
           )}
         </div>
       </div>

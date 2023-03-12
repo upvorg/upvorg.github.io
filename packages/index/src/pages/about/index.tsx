@@ -3,13 +3,19 @@ import { Markdown } from '@web/shared/components/markdown'
 import { Helmet } from 'react-helmet'
 
 const content = `
-## 关于
+## About
 
-free animes no ads.
+Free animes no ads.
 
-[APP 下载](https://app.upv.life/) |
-[QQ 交流群](https://jq.qq.com/?_wv=1027&k=5lfSD1B) |
-[![Discord](https://img.shields.io/discord/1017615537234264185.svg?label=&logo=discord&logoColor=fff&color=7389D8&labelColor=6A7EC2&style=flat-square)](https://discord.gg/hzjxYyPbKh)
+[Discord](https://discord.gg/Ue3p4CnRDP) |
+[GitHub](https://github.com/upvorg) |
+[APP Download](https://github.com/upvorg/cdn/releases) |
+[QQ Group](https://jq.qq.com/?_wv=1027&k=5lfSD1B)
+
+| ![](https://i.ibb.co/8PQ2P1Z/Screenshot-20230303-203520.jpg) | ![](https://i.ibb.co/yfcxbyZ/Screenshot-20230227-212716.jpg) | ![image](https://i.ibb.co/kKpLTs6/Screenshot-20230303-204742.jpg) |
+|---|---|-------------------------------------------------------------------|
+
+
 `
 
 const AboutPage: React.FC = () => {

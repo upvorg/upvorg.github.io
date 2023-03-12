@@ -54,23 +54,23 @@ export default function Header() {
       <div id="upv-nav" className="navbar-menu">
         <div className="navbar-start">
           <Link href="/">
-            <a className="navbar-item">首页</a>
+            <a className="navbar-item">Home</a>
           </Link>
           <a className="navbar-item" href="/anime/index" target="_blank">
-            新番时间表
+            Schedule
           </a>
           <a
             className="navbar-item"
             href="https://cdn.jsdelivr.net/gh/upvorg/cdn@master/apk/app-arm64-v8a-release.apk"
             target="_blank"
           >
-            APP Download
+            App
           </a>
-          <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=VUKNMvGC" target="_blank">
-            加入我们
-          </a>
+          {/* <a className="navbar-item" href="https://jq.qq.com/?_wv=1027&k=VUKNMvGC" target="_blank">
+            Join-Us
+          </a> */}
           <a className="navbar-item" href="/about" target="_blank">
-            关于我们
+            About
           </a>
         </div>
 
@@ -129,7 +129,7 @@ export default function Header() {
               <button className="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu4">
                 <FaUpload />
                 &nbsp;&nbsp;
-                <strong>投稿</strong>
+                <strong>Upload</strong>
               </button>
             </a>
           </div>

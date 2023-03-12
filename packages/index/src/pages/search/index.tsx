@@ -2,32 +2,37 @@ import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
 import { enimeSearchAdapter } from '../../enime.adp'
-import { useQueryState } from '../../hooks/useQueryState'
+import queryString from 'query-string'
+import useLocation, { useSearch } from 'wouter/use-location'
+
 import './index.scss'
 
 export default function SearchPage() {
   const inputKeyword = useRef('')
-  const [posts, setPosts] = useState<any[]>()
-  const [{ page, k }, setQuery] = useQueryState({ page: 1, k: '' })
+  const [posts, setPosts] = useState<any[] | null>()
+  const [, setLocation] = useLocation()
+  const { page, k } = queryString.parse(useSearch()) as Record<string, string>
 
   const pageHandler = (page: number) => {
-    setQuery({ page: page < 1 ? 1 : page })
+    const qs = Object.assign({}, queryString.parse(window.location.search), { page })
+    setLocation(`/search?${queryString.stringify(qs)}`)
     //@ts-ignore
     ;(root as HTMLDivElement).scrollTop = 0
   }
 
   useEffect(() => {
     if (k) {
-      inputKeyword.current = k
+      setPosts(null)
+      inputKeyword.current = k as string
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
-      fetch(`https://api.enime.moe/search/${encodeURIComponent(k)}`)
+      fetch(`https://api.enime.moe/search/${encodeURIComponent(k)}?page=${page}&perPage=20`)
         .then((it) => it.json())
         .then((it) => setPosts(enimeSearchAdapter(it.data) as any))
         .catch(() => setPosts([]))
     }
-  }, [])
+  }, [k, page])
 
   return (
     <>
@@ -40,7 +45,12 @@ export default function SearchPage() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              setQuery({ k: inputKeyword.current, v: Date.now() } as any)
+              const qs = Object.assign({}, queryString.parse(window.location.search), {
+                k: inputKeyword.current,
+                page: 1
+              })
+              setLocation(`/search?${queryString.stringify(qs)}`)
+              // setQuery({ k: inputKeyword.current, v: Date.now() } as any)
             }}
           >
             <div className="search-wrap">

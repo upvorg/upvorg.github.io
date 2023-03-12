@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
 import { enimesAdapter } from '../../enime.adp'
-import { useQueryState } from '../../hooks/useQueryState'
+import useLocation, { useSearch } from 'wouter/use-location'
+import queryString from 'query-string'
 
 const cache: Record<string, any> = {}
 
@@ -11,15 +12,16 @@ const cache: Record<string, any> = {}
 const store = require.context('../../mock/post/', true, /\.*\.json$/)
 
 export default function SearchPage() {
-  const [posts, setPosts] = useState<R.Post[]>()
-  const [{ title, type, tag, genre, page, is_original }, setQuery] = useQueryState({
-    page: 1,
-    title: '',
-    type: '',
-    tag: '',
-    genre: '',
-    is_original: 0
-  })
+  const [posts, setPosts] = useState<R.Post[] | null>()
+  const {
+    title,
+    type,
+    tag,
+    genre,
+    page = 1,
+    is_original = 0
+  } = queryString.parse(useSearch()) as Record<string, string>
+  const [, setLocation] = useLocation()
 
   // let query = `/posts?type=${type}&tag=${tag}&genre=${genre}&is_original=${is_original}&page=${page}&page_size=12`
   // if (type == 'recommends') {
@@ -29,33 +31,34 @@ export default function SearchPage() {
   // }
 
   const pageHandler = (page: number) => {
-    setQuery({ page: page < 1 ? 1 : page })
+    const qs = Object.assign({}, queryString.parse(window.location.search), { page })
+    setLocation(`/pv/tag?${queryString.stringify(qs)}`)
     //@ts-ignore
     ;(root as HTMLDivElement).scrollTop = 0
   }
 
   useEffect(() => {
-    store
-      .keys()
-      .filter((it) => !it.startsWith('./-'))
-      .forEach((key: string) => (cache[key] = store(key).data))
-
-    const local = Object.values(cache).splice(20 * (page - 1), 20)
-
     if (type == 'enime') {
+      setPosts(null)
       fetch(`https://api.enime.moe/recent?perPage=${24}&page=${page}&language=JP`)
         .then((it) => it.json())
         .then((it) => {
           setPosts(enimesAdapter(it.data))
         })
     } else {
+      store
+        .keys()
+        .filter((it) => !it.startsWith('./-'))
+        .forEach((key: string) => (cache[key] = store(key).data))
+
+      const local = Object.values(cache).splice(20 * (+page - 1), 20)
       setPosts(local)
     }
 
     // axios.get(query).then((res) => {
     //   setPosts(res.data)
     // })
-  }, [])
+  }, [page])
 
   return (
     <>
