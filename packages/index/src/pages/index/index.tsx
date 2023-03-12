@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-// import { axios } from '@web/shared/constants'
 import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
 
 import rank from '../../mock/rank.json'
 import recommends from '../../mock/recommends.json'
-import posts from '../../mock/posts.json'
-import videos from '../../mock/videos.json'
 import { enimesAdapter } from '../../enime.adp'
 
 const indexConfig = [
@@ -17,36 +14,19 @@ const indexConfig = [
     icon: require('../../assets/recommend.svg').default
   },
   {
-    title: 'Enime',
-    query: 'type=enime&title=Enime'
-    // query: 'type=video&is_original=2&title=原创'
-  },
-  {
-    title: 'Post',
-    query: 'type=post&title=文章',
-    icon: require('../../assets/post.svg').default
-  },
-  {
     title: 'Latest',
-    query: 'type=video&title=最新'
+    query: 'type=enime&title=Enime'
   }
 ]
 
 export default function IndexPage() {
-  const [state, setState] = useState<R.Post[][] | null[]>([null, null, null])
+  const [state, setState] = useState<R.Post[][] | null[]>([null, null])
   const [rankList, setRankList] = useState<R.Post[] | null>(null)
 
   useEffect(() => {
     Promise.allSettled([
-      // axios.get('/posts/recommends?page_size=12'),
-      // axios.get('/posts?type=post&page_size=6'),
-      // axios.get('/posts?type=video&page_size=12'),
-      // axios.get('/posts?type=video&is_original=2&page_size=12'),
-      // axios.get(`/post/ranking?&page_size=10`)
       recommends,
-      fetch('https://api.enime.moe/recent?perPage=20&language=JP').then((it) => it.json()),
-      posts,
-      videos,
+      fetch('https://api.enime.moe/recent?perPage=18&language=JP').then((it) => it.json()),
       rank
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {

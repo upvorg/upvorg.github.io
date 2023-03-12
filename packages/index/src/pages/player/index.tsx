@@ -226,7 +226,8 @@ export default function PlayerPage({ id }: any) {
       <Helmet>
         <title>{`${Title || ''} - UPV - free animes no ads`}</title>
         <meta name="description" content={Content?.substring(0, 200)} />
-        <meta name="referrer" content="no-referrer-when-downgrade" />
+        {/* <meta name="referrer" content="no-referrer-when-downgrade" /> */}
+        <meta name="referrer" content="no-referrer" />
         <meta name="keywords" content={`${Title},${Meta?.Genre},${tags?.split(' ')}`} />
         <meta name="author" content={Creator?.Nickname} />
 

@@ -1,4 +1,3 @@
-// import { axios } from '@web/shared/constants'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
@@ -13,22 +12,8 @@ const store = require.context('../../mock/post/', true, /\.*\.json$/)
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<R.Post[] | null>()
-  const {
-    title,
-    type,
-    tag,
-    genre,
-    page = 1,
-    is_original = 0
-  } = queryString.parse(useSearch()) as Record<string, string>
+  const { title, type, page = 1 } = queryString.parse(useSearch()) as Record<string, string>
   const [, setLocation] = useLocation()
-
-  // let query = `/posts?type=${type}&tag=${tag}&genre=${genre}&is_original=${is_original}&page=${page}&page_size=12`
-  // if (type == 'recommends') {
-  //   query = '/posts/recommends'
-  // } else if (type == 'latest') {
-  //   query = '/posts?type=video'
-  // }
 
   const pageHandler = (page: number) => {
     const qs = Object.assign({}, queryString.parse(window.location.search), { page })
@@ -54,30 +39,12 @@ export default function SearchPage() {
       const local = Object.values(cache).splice(20 * (+page - 1), 20)
       setPosts(local)
     }
-
-    // axios.get(query).then((res) => {
-    //   setPosts(res.data)
-    // })
   }, [page])
 
   return (
     <>
       <Helmet>
-        <title>
-          {`${
-            tag != ''
-              ? tag
-              : type !== ''
-              ? type == 'recommends'
-                ? '推荐'
-                : type == 'latest'
-                ? '最新'
-                : ''
-              : title || genre || is_original
-              ? '原创'
-              : '非原创'
-          } - UPV - free animes no ads`}
-        </title>
+        <title>{`${title} - UPV - free animes no ads`}</title>
       </Helmet>
 
       <div className="search">

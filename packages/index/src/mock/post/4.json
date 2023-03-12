@@ -1,26 +1,26 @@
 {
   "data": {
-    "ID": "4",
-    "Cover": "https://tvax3.sinaimg.cn/large/007Pu4zFly1h1lyoe5m8pj30h30m8q4s.jpg",
-    "Title": "杜鹃的婚约",
-    "Content": " 讲述因抱错婴儿，让就读名门私立学校的男子高中生「海野凪」与酒店总裁千金「天野绘里香」被父母订下婚约，但凪暗恋着「濑川弥」，而凪的妹妹也对他有着不一样的心情，因此展开一场四角关系的恋爱喜剧。",
+    "ID": "1",
+    "Cover": "http://www.sbdm.net/pic/uploadimg/2020-3/20203292283853417.jpg",
+    "Title": "进击的巨人 最终季 完结篇 前篇",
+    "Content": "进击的巨人 最终季 完结篇 前篇",
     "Tags": "其他",
     "Status": 4,
     "Type": "video",
     "IsPined": 1,
     "IsRecommend": 2,
     "IsOriginal": 1,
-    "CreatedAt": "2022-05-13T18:00:05+08:00",
-    "UpdatedAt": "2022-05-13T20:50:24+08:00",
+    "CreatedAt": "2022-05-12T15:44:00+08:00",
+    "UpdatedAt": "2022-05-12T16:40:13+08:00",
     "Meta": {
       "TitleJapanese": "",
       "TitleRomanji": "",
       "Genre": "番剧",
       "Region": "日本",
-      "Episodes": 1,
-      "IsEnd": 1,
+      "Episodes": 12,
+      "IsEnd": 2,
       "PublishDate": null,
-      "UpdatedDate": "2022-05-14T08:00:00+08:00"
+      "UpdatedDate": null
     },
     "Creator": {
       "ID": 1,
@@ -29,11 +29,11 @@
       "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
       "Bio": "这个人很酷，什么都没有留下"
     },
-    "Hits": 73,
+    "Hits": 33,
     "IsLiked": 1,
     "LikesCount": 1,
     "IsCollected": 1,
-    "CollectionCount": 1,
+    "CollectionCount": 0,
     "CommentCount": 0
   }
 }

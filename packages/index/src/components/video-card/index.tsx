@@ -17,14 +17,10 @@ const _IntersectionObserver = new IntersectionObserver(
         const img = container.querySelector('img')!
         img.src = img.dataset.src!
         img.onload = () => {
-          container
-            .querySelector('.upv-video-card__loading')!
-            .classList.add('upv-video-card__loading--hidden')
+          container.querySelector('.upv-video-card__loading')!.classList.add('upv-video-card__loading--hidden')
         }
         img.onerror = () => {
-          container
-            .querySelector('.upv-video-card__error')!
-            .classList.add('upv-video-card__error--show')
+          container.querySelector('.upv-video-card__error')!.classList.add('upv-video-card__error--show')
         }
       }
     })
@@ -35,19 +31,16 @@ const _IntersectionObserver = new IntersectionObserver(
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
   const $el = useRef<HTMLAnchorElement | null>(null)
+  const nativeLazySupported = 'loading' in HTMLImageElement.prototype
 
   useEffect(() => {
-    if ($el.current?.dataset.cover) {
+    if ($el.current?.dataset.cover && !nativeLazySupported) {
       _IntersectionObserver.observe($el.current)
       return () => {
         if ($el.current) {
           _IntersectionObserver.unobserve($el.current)
-          $el.current
-            .querySelector('.upv-video-card__loading')!
-            .classList.remove('upv-video-card__loading--hidden')
-          $el.current
-            .querySelector('.upv-video-card__error')!
-            .classList.remove('upv-video-card__error--show')
+          $el.current.querySelector('.upv-video-card__loading')!.classList.remove('upv-video-card__loading--hidden')
+          $el.current.querySelector('.upv-video-card__error')!.classList.remove('upv-video-card__error--show')
         }
       }
     }
@@ -60,13 +53,17 @@ export default function VideoCard({ info }: { info: R.Post }) {
           {info.Cover && (
             <>
               <img
+                loading="lazy"
                 className="upv-video-card__image"
                 alt={info.Title}
                 title={info.Title}
                 data-src={info.Cover}
+                src={nativeLazySupported ? info.Cover : undefined}
               />
-              <div className="upv-video-card__loading">LOADING</div>
-              <div className="upv-video-card__error">ERROR</div>
+              {!nativeLazySupported && [
+                <div className="upv-video-card__loading">LOADING</div>,
+                <div className="upv-video-card__error">ERROR</div>
+              ]}
             </>
           )}
 
