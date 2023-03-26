@@ -1,0 +1,60 @@
+{
+  "data": [
+    {
+      "ID": 0,
+      "Episode": 1,
+      "Cover": "",
+      "Title": "铃芽之旅 12m",
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "VideoUrl": "https://vip.ffzy-online1.com/20230319/31498_edf77b45/index.m3u8",
+      "Synopsis": "",
+      "Uid": 1,
+      "Pid": "7",
+      "CreatedAt": "2022-05-18T15:23:02+08:00",
+      "UpdatedAt": "2022-05-18T15:23:02+08:00"
+    },
+    {
+      "ID": 0,
+      "Episode": 1,
+      "Cover": "",
+      "Title": "铃芽之旅 12m",
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "VideoUrl": "https://t.tianmaozya.com/play/yb8BVvWe/index.m3u8",
+      "Synopsis": "",
+      "Uid": 1,
+      "Pid": "7",
+      "CreatedAt": "2022-05-18T15:23:02+08:00",
+      "UpdatedAt": "2022-05-18T15:23:02+08:00"
+    },
+    {
+      "ID": 0,
+      "Episode": 1,
+      "Cover": "",
+      "Title": "铃芽之旅 TC",
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "VideoUrl": "https://cdn15.yzzy-tv1.com/20230325/4003_945d600a/index.m3u8",
+      "Synopsis": "",
+      "Uid": 1,
+      "Pid": "7",
+      "CreatedAt": "2022-05-18T15:23:02+08:00",
+      "UpdatedAt": "2022-05-18T15:23:02+08:00"
+    },
+    {
+      "ID": 0,
+      "Episode": 1,
+      "Cover": "",
+      "Title": "铃芽之旅 TC",
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "VideoUrl": "https://v.gsuus.com/play/lejLW1Bb/index.m3u8",
+      "Synopsis": "",
+      "Uid": 1,
+      "Pid": "7",
+      "CreatedAt": "2022-05-18T15:23:02+08:00",
+      "UpdatedAt": "2022-05-18T15:23:02+08:00"
+    }
+  ]
+}
