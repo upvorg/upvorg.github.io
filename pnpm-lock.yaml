@@ -166,8 +166,8 @@ importers:
         specifier: ^1.2.5
         version: 1.2.5(@oplayer/core@1.2.20-alpha.1)(react-dom@17.0.2)(react@17.0.2)
       '@oplayer/ui':
-        specifier: 1.2.20-alpha.3
-        version: 1.2.20-alpha.3(@oplayer/core@1.2.20-alpha.1)
+        specifier: 1.2.20-alpha.4
+        version: 1.2.20-alpha.4(@oplayer/core@1.2.20-alpha.1)
       devtools-detector:
         specifier: ^2.0.14
         version: 2.0.14
@@ -1955,8 +1955,8 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     dev: false
 
-  /@oplayer/ui@1.2.20-alpha.3(@oplayer/core@1.2.20-alpha.1):
-    resolution: {integrity: sha512-OWqqH1NqH25Ga1dtGlctNV7P01QauOdrl5f/5cc4iXCpXo5ft4rn8qSxAdDRVb56bU9mJW7d8hKaPMt7Ru+K4w==}
+  /@oplayer/ui@1.2.20-alpha.4(@oplayer/core@1.2.20-alpha.1):
+    resolution: {integrity: sha512-shGXUhm9XDRXWt3BoGnRbSRO4MTWI5wxyA17vOonj5DDGawpPDbObqvHHbleMv0VWDm2nkCAMUQeQnvTlzx3MQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:

@@ -3,7 +3,7 @@ import { isMobile } from '@oplayer/core'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
-import React, { useImperativeHandle, useRef } from 'react'
+import React, { useImperativeHandle, useMemo, useRef } from 'react'
 
 interface OPlayerProps extends PlayerOptions {
   playerIsPlaying?: boolean
@@ -41,7 +41,7 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
     <ReactPlayer
       ref={_ref}
       {...rest}
-      plugins={plugins}
+      plugins={useMemo(() => plugins, [])}
       onEvent={onEvent}
       autoplay={autoplay}
       duration={duration}

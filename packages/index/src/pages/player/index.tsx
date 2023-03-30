@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
 import ReactPlayer, { PlayerEvent, Player, isMobile } from '@web/shared/components/player/OPlayer'
 import { axios } from '@web/shared/constants'
@@ -232,18 +232,14 @@ export default function PlayerPage({ id }: any) {
       </Helmet>
       <div className="player-header">
         <div className="player-header__player">
-          {useMemo(() => {
-            return (
-              <ReactPlayer
-                ref={player}
-                autoplay={true}
-                source={source}
-                onEvent={onEvent}
-                duration={lastDuration}
-                isLive={id == 'iptv'}
-              />
-            )
-          }, [source])}
+          <ReactPlayer
+            ref={player}
+            autoplay={true}
+            source={source}
+            onEvent={onEvent}
+            duration={lastDuration}
+            isLive={id == 'iptv'}
+          />
         </div>
         <div className="player-header__r">
           <div className="eplist_module">
