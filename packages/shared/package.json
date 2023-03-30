@@ -12,7 +12,7 @@
   "dependencies": {
     "@oplayer/core": "1.2.20-alpha.1",
     "@oplayer/hls": "1.2.20-alpha.1",
-    "@oplayer/react": "^1.2.5",
+    "@oplayer/react": "^1.2.6",
     "@oplayer/ui": "1.2.20-alpha.4",
     "devtools-detector": "^2.0.14",
     "github-markdown-css": "^5.2.0",
