@@ -1,0 +1,39 @@
+{
+  "data": {
+    "ID": "0",
+    "Cover": "https://image.maimn.com/cover/aca8d4b0dd45052f72fc42d3e5a5deff.jpg",
+    "Title": "铃芽之旅",
+    "Content": "",
+    "Tags": "其他",
+    "Status": 4,
+    "Type": "video",
+    "IsPined": 1,
+    "IsRecommend": 2,
+    "IsOriginal": 1,
+    "CreatedAt": "2022-05-12T15:44:00+08:00",
+    "UpdatedAt": "2022-05-12T16:40:13+08:00",
+    "Meta": {
+      "TitleJapanese": "",
+      "TitleRomanji": "",
+      "Genre": "番剧",
+      "Region": "日本",
+      "Episodes": 12,
+      "IsEnd": 2,
+      "PublishDate": null,
+      "UpdatedDate": null
+    },
+    "Creator": {
+      "ID": 1,
+      "Name": "root",
+      "Nickname": "YUESE",
+      "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
+      "Bio": "这个人很酷，什么都没有留下"
+    },
+    "Hits": 33,
+    "IsLiked": 1,
+    "LikesCount": 1,
+    "IsCollected": 1,
+    "CollectionCount": 0,
+    "CommentCount": 0
+  }
+}
