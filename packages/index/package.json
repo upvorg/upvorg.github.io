@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@web/shared": "workspace:^1.0.0",
+    "@web/shared": "workspace:^",
     "copy-text-to-clipboard": "^3.1.0",
     "react-content-loader": "^6.2.1",
     "react-helmet": "^6.1.0",
