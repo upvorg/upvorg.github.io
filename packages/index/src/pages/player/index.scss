@@ -2,6 +2,24 @@ $pr: 340px;
 
 .player {
   max-width: 1300px;
+
+  &.no-side {
+    .player-header {
+      max-width: 100%;
+      padding-right: 0;
+    }
+
+    .player-header__r {
+      display: none;
+    }
+
+    .video-actions,
+    .video-info-wrapper,
+    .video-comment {
+      padding-right: 0;
+      margin-right: 0;
+    }
+  }
 }
 
 .player-header {
