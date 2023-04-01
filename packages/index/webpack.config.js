@@ -6,8 +6,9 @@ const { default: merge } = require('webpack-merge')
 const { getHTMLPluginDefaultConfig } = require('../../webpack.util')
 const { isEnvProduction } = require('../../config')
 
-const head = isEnvProduction
-  ? `<script>
+const head =
+  false ?? isEnvProduction
+    ? `<script>
       var _hmt = _hmt || [];
       (function() {
         var hm = document.createElement("script");
@@ -16,7 +17,7 @@ const head = isEnvProduction
         s.parentNode.insertBefore(hm, s);
       })();
       </script>`
-  : ''
+    : ''
 
 module.exports = merge(baseConfig, {
   entry: './src/index.tsx',
