@@ -157,17 +157,17 @@ importers:
   packages/shared:
     dependencies:
       '@oplayer/core':
-        specifier: 1.2.20-alpha.2
-        version: 1.2.20-alpha.2
+        specifier: ^1.2.20-alpha.3
+        version: 1.2.20-alpha.3
       '@oplayer/hls':
-        specifier: 1.2.20-alpha.1
-        version: 1.2.20-alpha.1(@oplayer/core@1.2.20-alpha.2)(hls.js@1.3.5)
+        specifier: ^1.2.20-alpha.1
+        version: 1.2.20-alpha.1(@oplayer/core@1.2.20-alpha.3)(hls.js@1.3.5)
       '@oplayer/react':
         specifier: ^1.2.6
-        version: 1.2.6(@oplayer/core@1.2.20-alpha.2)
+        version: 1.2.6(@oplayer/core@1.2.20-alpha.3)
       '@oplayer/ui':
-        specifier: 1.2.20-alpha.6
-        version: 1.2.20-alpha.6(@oplayer/core@1.2.20-alpha.2)
+        specifier: ^1.2.20-alpha.7
+        version: 1.2.20-alpha.7(@oplayer/core@1.2.20-alpha.3)
       devtools-detector:
         specifier: ^2.0.14
         version: 2.0.14
@@ -1931,36 +1931,36 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@oplayer/core@1.2.20-alpha.2:
-    resolution: {integrity: sha512-8SsXgq9JsE30+RQgL+LbVUqWQRs5aQF0Y9c6GfEvuEnzouPO5R24S89ubxJXDD61wm8eXARw046NnoXCPE4lxg==}
+  /@oplayer/core@1.2.20-alpha.3:
+    resolution: {integrity: sha512-vSfz2We6EuJHEZfY3vazOw8aYkftCkpnOeOABosZbWt1c7FLtu5vQvq3Pmd6ertRiAAaoBwVFS0rEiyrODhkvw==}
     dev: false
 
-  /@oplayer/hls@1.2.20-alpha.1(@oplayer/core@1.2.20-alpha.2)(hls.js@1.3.5):
+  /@oplayer/hls@1.2.20-alpha.1(@oplayer/core@1.2.20-alpha.3)(hls.js@1.3.5):
     resolution: {integrity: sha512-Ilat5FxRR8p+ID5cMxZceW14gHWEQd+uLD74TSDoljj++G5ICxrTVFeG2+6kGlG3O/LoD4XWTVbu11kB7s4H0Q==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.2.20-alpha.2
+      '@oplayer/core': 1.2.20-alpha.3
       hls.js: 1.3.5
     dev: false
 
-  /@oplayer/react@1.2.6(@oplayer/core@1.2.20-alpha.2):
+  /@oplayer/react@1.2.6(@oplayer/core@1.2.20-alpha.3):
     resolution: {integrity: sha512-/CP1SK1HDyAMgl4mD/rm2fxowFm06pf2kvVMzBcVMIFJQdpaRXleEiYzt7+8GiCekCvEBPpMkkcH7NYKmAKx6A==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@oplayer/core': 1.2.20-alpha.2
+      '@oplayer/core': 1.2.20-alpha.3
     dev: false
 
-  /@oplayer/ui@1.2.20-alpha.6(@oplayer/core@1.2.20-alpha.2):
-    resolution: {integrity: sha512-jABwWKBUFrPeg10BaKbSgrnmE0qdF9uav07aAd3zQi8gFwMG8bVgqckTDmr+NLT4DMomCyljX1mHmwxgfRg5Lw==}
+  /@oplayer/ui@1.2.20-alpha.7(@oplayer/core@1.2.20-alpha.3):
+    resolution: {integrity: sha512-voHRznc/0p8wd8ZzjzXHEasuvpKdkYhmcCxTh6vB9s4Cdho9LD8H6IEcjWSKFnR4lzOU9CFPE52Axp2bIIhdXQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.2.20-alpha.2
+      '@oplayer/core': 1.2.20-alpha.3
     dev: false
 
   /@polka/url@1.0.0-next.21:
@@ -4822,8 +4822,8 @@ packages:
       uvu: 0.5.6
     dev: false
 
-  /micromark-extension-gfm-footnote@1.0.4:
-    resolution: {integrity: sha512-E/fmPmDqLiMUP8mLJ8NbJWJ4bTw6tS+FEQS8CcuDtZpILuOb2kjLqPEeAePF1djXROHXChM/wPJw0iS4kHCcIg==}
+  /micromark-extension-gfm-footnote@1.1.0:
+    resolution: {integrity: sha512-RWYce7j8+c0n7Djzv5NzGEGitNNYO3uj+h/XYMdS/JinH1Go+/Qkomg/rfxExFzYTiydaV6GLeffGO5qcJbMPA==}
     dependencies:
       micromark-core-commonmark: 1.0.6
       micromark-factory-space: 1.0.0
@@ -4876,7 +4876,7 @@ packages:
     resolution: {integrity: sha512-p2sGjajLa0iYiGQdT0oelahRYtMWvLjy8J9LOCxzIQsllMCGLbsLW+Nc+N4vi02jcRJvedVJ68cjelKIO6bpDA==}
     dependencies:
       micromark-extension-gfm-autolink-literal: 1.0.3
-      micromark-extension-gfm-footnote: 1.0.4
+      micromark-extension-gfm-footnote: 1.1.0
       micromark-extension-gfm-strikethrough: 1.0.5
       micromark-extension-gfm-table: 1.0.5
       micromark-extension-gfm-tagfilter: 1.0.2
