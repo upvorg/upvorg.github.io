@@ -8,33 +8,38 @@ import classNames from 'classnames'
 
 const TEXT_COVER_LENGTH = 6
 
-const _IntersectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const container = entry.target as HTMLAnchorElement
-        _IntersectionObserver.unobserve(container)
-        const img = container.querySelector('img')!
-        img.src = img.dataset.src!
-        img.onload = () => {
-          container.querySelector('.upv-video-card__loading')!.classList.add('upv-video-card__loading--hidden')
+let _IntersectionObserver: IntersectionObserver
+
+const nativeLazySupported = 'loading' in HTMLImageElement.prototype
+
+if (!nativeLazySupported) {
+  _IntersectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const container = entry.target as HTMLAnchorElement
+          _IntersectionObserver.unobserve(container)
+          const img = container.querySelector('img')!
+          img.src = img.dataset.src!
+          img.onload = () => {
+            container.querySelector('.upv-video-card__loading')!.classList.add('upv-video-card__loading--hidden')
+          }
+          img.onerror = () => {
+            container.querySelector('.upv-video-card__error')!.classList.add('upv-video-card__error--show')
+          }
         }
-        img.onerror = () => {
-          container.querySelector('.upv-video-card__error')!.classList.add('upv-video-card__error--show')
-        }
-      }
-    })
-  },
-  { threshold: [0.15] }
-)
+      })
+    },
+    { threshold: [0.15] }
+  )
+}
 
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
   const $el = useRef<HTMLAnchorElement | null>(null)
-  const nativeLazySupported = 'loading' in HTMLImageElement.prototype
 
   useEffect(() => {
-    if ($el.current?.dataset.cover && !nativeLazySupported) {
+    if (_IntersectionObserver && $el.current?.dataset.cover) {
       _IntersectionObserver.observe($el.current)
       return () => {
         if ($el.current) {
