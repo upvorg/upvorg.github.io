@@ -6,18 +6,17 @@ const { default: merge } = require('webpack-merge')
 const { getHTMLPluginDefaultConfig } = require('../../webpack.util')
 const { isEnvProduction } = require('../../config')
 
-const head =
-  false ?? isEnvProduction
-    ? `<script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?7a313c71a898699ef66a38a6bb6da72d";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();
-      </script>`
-    : ''
+const head = isEnvProduction
+  ? `<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J69HPPY47C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J69HPPY47C');
+    </script>`
+  : ''
 
 module.exports = merge(baseConfig, {
   entry: './src/index.tsx',
