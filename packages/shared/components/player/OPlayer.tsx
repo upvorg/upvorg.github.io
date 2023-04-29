@@ -23,7 +23,8 @@ const plugins = [
     slideToSeek: 'always',
     pictureInPicture: true,
     keyboard: { global: true },
-    controlBar: { back: 'fullscreen' }
+    controlBar: { back: 'fullscreen' },
+    subtitle: { background: true }
   }),
   hls({
     matcher: (_, source) =>
