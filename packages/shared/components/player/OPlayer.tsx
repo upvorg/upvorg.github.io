@@ -24,7 +24,13 @@ const plugins = [
     pictureInPicture: true,
     keyboard: { global: true },
     controlBar: { back: 'fullscreen' },
-    subtitle: { background: true }
+    subtitle: { background: true },
+    icons: {
+      loadingIndicator: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" data-spinner="true" class="spinner">
+      <circle data-spinner-trace="true" cx="24" cy="24" r="22" stroke="white"></circle>
+      <circle data-spinner-circle="true" cx="24" cy="24" r="22" stroke="white"></circle>
+      </svg>`
+    }
   }),
   hls({
     matcher: (_, source) =>
