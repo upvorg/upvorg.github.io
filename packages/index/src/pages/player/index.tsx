@@ -207,17 +207,14 @@ export default function PlayerPage({ id }: any) {
         })
   }, [state, isCollected])
 
-  const ep = useRef(lastEpisode)
-  ep.current = lastEpisode
-
   const onEvent = ({ type, payload }: PlayerEvent) => {
     const time = payload?.target?.currentTime
     if (type == 'timeupdate') {
       if (!(time < 1)) {
-        update(id, ep.current, time * 1000)
+        update(id, lastEpisode, time * 1000)
       }
     } else if (type == 'ended') {
-      update(id, ep.current + 1, 0)
+      update(id, lastEpisode + 1, 0)
     }
   }
 
