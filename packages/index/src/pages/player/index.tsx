@@ -56,7 +56,7 @@ export default function PlayerPage({ id }: any) {
 
           // axios.get(`/post/${id}/videos`)
           import(`../../mock/video/${id}.json`).then((res) => {
-            ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
+            ; (res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
             res.data && setVideo(res.data)
             if (res.data.length <= lastEpisode) {
               update(id, 0, 0)
@@ -92,7 +92,7 @@ export default function PlayerPage({ id }: any) {
             .then((res) => res.json())
             .then((res) => {
               if (res.subtitle) {
-                player.current!.on(
+                player.current!.once(
                   'loadedmetadata',
                   () => {
                     player.current!.context.ui.subtitle.updateSource([
@@ -103,7 +103,6 @@ export default function PlayerPage({ id }: any) {
                       }
                     ])
                   },
-                  { once: true }
                 )
               }
 
@@ -162,25 +161,25 @@ export default function PlayerPage({ id }: any) {
 
     setIsLiked((isLiked) => !isLiked)
     setState((state) => ({ ...state, LikesCount: LikesCount + c }))
-    ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
-        } else {
-          if (isLiked) {
-            toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
+      ; (isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
+        .then((_) => {
+          if (_.err) {
+            setIsLiked((isLiked) => !isLiked)
+            setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
           } else {
-            toast.success('nice!')
+            if (isLiked) {
+              toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
+            } else {
+              toast.success('nice!')
+            }
           }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
-        }, 300)
-      })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            setIsLiked((isLiked) => !isLiked)
+            setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
+          }, 300)
+        })
   }, [state, isLiked])
 
   const collectHandler = useCallback(() => {
@@ -188,24 +187,24 @@ export default function PlayerPage({ id }: any) {
 
     setIsCollected((isCollected) => !isCollected)
     setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
-    ;(isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
-        } else {
-          if (isCollected) {
+      ; (isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
+        .then((_) => {
+          if (_.err) {
+            setIsCollected((isCollected) => !isCollected)
+            setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
           } else {
-            toast.success('nice!')
+            if (isCollected) {
+            } else {
+              toast.success('nice!')
+            }
           }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
-        }, 300)
-      })
+        })
+        .catch(() => {
+          setTimeout(() => {
+            setIsCollected((isCollected) => !isCollected)
+            setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
+          }, 300)
+        })
   }, [state, isCollected])
 
   const ep = useRef(lastEpisode)
@@ -360,15 +359,15 @@ export default function PlayerPage({ id }: any) {
             tags={
               !!tags
                 ? tags
-                    .trim()
-                    .split(' ')
-                    .map((tag) => ({
-                      title: tag,
-                      href: `/pv/tag?type=video&title=${tag}`
-                    }))
-                    .concat(
-                      IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
-                    )
+                  .trim()
+                  .split(' ')
+                  .map((tag) => ({
+                    title: tag,
+                    href: `/pv/tag?type=video&title=${tag}`
+                  }))
+                  .concat(
+                    IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
+                  )
                 : []
             }
           />
