@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const { ProgressPlugin } = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
+const { EsbuildPlugin } = require('esbuild-loader')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
@@ -23,12 +23,8 @@ module.exports = {
   devtool: isEnvDevelopment ? 'cheap-module-source-map' : false,
   output: {
     pathinfo: isEnvDevelopment,
-    filename: isEnvProduction
-      ? 'static/js/[name].[contenthash:8].js'
-      : 'static/js/bundle_[name].js',
-    chunkFilename: isEnvProduction
-      ? 'static/js/[name].[contenthash:8].chunk.js'
-      : 'static/js/[name].chunk.js',
+    filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle_[name].js',
+    chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[name].[hash][ext]',
     publicPath: '/'
   },
@@ -36,7 +32,7 @@ module.exports = {
   optimization: {
     minimize: isEnvProduction,
     minimizer: [
-      new ESBuildMinifyPlugin({ target: 'es2015' }),
+      new EsbuildPlugin({ target: 'es2015' }),
       new TerserPlugin({
         terserOptions: {
           parse: {
@@ -76,9 +72,7 @@ module.exports = {
               reuseExistingChunk: true,
               name(module) {
                 const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
-                return packageName && packageName[1]
-                  ? `pnpm.${packageName[1].split('@')[0]}`
-                  : false
+                return packageName && packageName[1] ? `pnpm.${packageName[1].split('@')[0]}` : false
               }
             },
             hls: {
