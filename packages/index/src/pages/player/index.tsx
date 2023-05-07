@@ -87,33 +87,30 @@ export default function PlayerPage({ id }: any) {
         setState(it)
         setVideo(it.episodes)
 
-        function sourcePromise(id: any) {
+        function sourcePromise({ id, url }) {
           return fetch(`https://api.enime.moe/source/${id}`)
             .then((res) => res.json())
             .then((res) => {
               if (res.subtitle) {
-                player.current!.once(
-                  'loadedmetadata',
-                  () => {
-                    player.current!.context.ui.subtitle.updateSource([
-                      {
-                        default: true,
-                        src: res.subtitle,
-                        name: 'English'
-                      }
-                    ])
-                  },
-                )
+                player.current!.context.ui.subtitle.updateSource([
+                  {
+                    default: true,
+                    src: res.subtitle,
+                    name: 'English'
+                  }
+                ])
               }
 
               return {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src: res.url.includes('zoro') ? res.url : `https://cdn.nade.me/redirect?url=${res.url}`,
+                src: url.includes('zoro') ? res.url : `https://cdn.nade.me/redirect?url=${res.url}`,
               }
             })
         }
+
+        const index = it.sources.length - 1
 
         if (it.sources.length > 1) {
           player.current?.context.ui?.menu.register({
@@ -122,15 +119,15 @@ export default function PlayerPage({ id }: any) {
             icon: `<svg viewBox="0 0 1024 1024" style="transform: scale(0.9);"><path d="M554.666667 597.333333c-143.36 0-190.293333 57.6-205.653334 95.573334C394.666667 712.533333 426.666667 757.76 426.666667 810.666667a128 128 0 0 1-128 128 128 128 0 0 1-128-128c0-55.893333 35.413333-103.253333 85.333333-120.746667V334.08A127.573333 127.573333 0 0 1 170.666667 213.333333a128 128 0 0 1 128-128 128 128 0 0 1 128 128c0 55.893333-35.413333 103.253333-85.333334 120.746667v225.706667c37.546667-27.733333 92.16-47.786667 170.666667-47.786667 113.92 0 151.893333-57.173333 164.266667-95.146667A128.256 128.256 0 0 1 597.333333 298.666667a128 128 0 0 1 128-128 128 128 0 0 1 128 128c0 57.173333-37.546667 106.666667-89.173333 122.026666C753.066667 481.706667 711.68 597.333333 554.666667 597.333333m-256 170.666667a42.666667 42.666667 0 0 0-42.666667 42.666667 42.666667 42.666667 0 0 0 42.666667 42.666666 42.666667 42.666667 0 0 0 42.666666-42.666666 42.666667 42.666667 0 0 0-42.666666-42.666667M298.666667 170.666667a42.666667 42.666667 0 0 0-42.666667 42.666666 42.666667 42.666667 0 0 0 42.666667 42.666667 42.666667 42.666667 0 0 0 42.666666-42.666667 42.666667 42.666667 0 0 0-42.666666-42.666666m426.666666 85.333333a42.666667 42.666667 0 0 0-42.666666 42.666667 42.666667 42.666667 0 0 0 42.666666 42.666666 42.666667 42.666667 0 0 0 42.666667-42.666666 42.666667 42.666667 0 0 0-42.666667-42.666667z" fill="#ffffff" p-id="7015"></path></svg>`,
             children: it.sources.map((item, i) => ({
               name: item.url.includes('zoro') ? 'ZORO' : 'GOGO',
-              default: i == 0,
-              value: item.id
+              default: i == index,
+              value: { id: item.id, url: item.url },
             })),
             onChange({ value }) {
               player.current?.changeSource(sourcePromise(value))
-            }
+            },
           })
         }
-        return sourcePromise(it.sources.at(-1).id)
+        return sourcePromise({ id: it.sources[index].id, url: it.sources[index].url })
       })
 
     setSource(source)
