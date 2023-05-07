@@ -110,7 +110,7 @@ export default function PlayerPage({ id }: any) {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src: `https://cdn.nade.me/redirect?url=${res.url}`
+                src: res.url.includes('zoro') ? res.url : `https://cdn.nade.me/redirect?url=${res.url}`,
               }
             })
         }
@@ -130,7 +130,7 @@ export default function PlayerPage({ id }: any) {
             }
           })
         }
-        return sourcePromise(it.sources[0].id)
+        return sourcePromise(it.sources.at(-1).id)
       })
 
     setSource(source)
