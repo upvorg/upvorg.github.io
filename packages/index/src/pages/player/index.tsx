@@ -87,25 +87,30 @@ export default function PlayerPage({ id }: any) {
         setState(it)
         setVideo(it.episodes)
 
-        function sourcePromise({ id, url }) {
+        function sourcePromise({ id, url:_ }) {
           return fetch(`https://api.enime.moe/source/${id}`)
             .then((res) => res.json())
             .then((res) => {
               if (res.subtitle) {
-                player.current!.context.ui.subtitle.updateSource([
-                  {
-                    default: true,
-                    src: res.subtitle,
-                    name: 'English'
-                  }
-                ])
+                player.current!.once(
+                  'loadedmetadata',
+                  () => {
+                    player.current!.context.ui.subtitle.updateSource([
+                      {
+                        default: true,
+                        src: res.subtitle,
+                        name: 'English'
+                      }
+                    ])
+                  },
+                )
               }
 
               return {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src: url.includes('zoro') ? res.url : `https://cdn.nade.me/redirect?url=${res.url}`,
+                src:  `https://techz-cors-bypass.herokuapp.com/${res.url}` // `https://cdn.nade.me/redirect?url=${res.url}`,
               }
             })
         }
