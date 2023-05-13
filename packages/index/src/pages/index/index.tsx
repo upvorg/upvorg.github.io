@@ -9,14 +9,14 @@ import { enimesAdapter } from '../../enime.adp'
 
 const indexConfig = [
   {
+    title: 'Latest',
+    query: 'type=enime&title=Enime'
+  },
+  {
     title: 'Recommends',
     query: 'type=recommends&title=推荐',
     icon: require('../../assets/recommend.svg').default
   },
-  {
-    title: 'Latest',
-    query: 'type=enime&title=Enime'
-  }
 ]
 
 export default function IndexPage() {
@@ -25,12 +25,12 @@ export default function IndexPage() {
 
   useEffect(() => {
     Promise.allSettled([
-      recommends,
       fetch('https://api.enime.moe/recent?perPage=18&language=JP').then((it) => it.json()),
+      recommends,
       rank
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
-        if (i == 1) return enimesAdapter(itemPromise.value?.data)
+        if (i == 0) return enimesAdapter(itemPromise.value?.data)
         return (itemPromise as any)?.value?.data || []
       })
 
@@ -52,8 +52,8 @@ export default function IndexPage() {
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
-            aside={index == 0 && <RankList list={rankList} />}
-            asideTitle={(index == 0 && 'Ranks') as any}
+            aside={index == 1 && <RankList list={rankList} />}
+            asideTitle={(index == 1 && 'Ranks') as any}
           />
         )
       })}
