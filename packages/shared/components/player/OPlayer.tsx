@@ -3,7 +3,7 @@ import { isMobile } from '@oplayer/core'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
-import React, { useImperativeHandle, useMemo, useRef } from 'react'
+import React, { useImperativeHandle, useRef } from 'react'
 
 interface OPlayerProps extends PlayerOptions {
   playerIsPlaying?: boolean
@@ -24,19 +24,15 @@ const plugins = [
     pictureInPicture: true,
     keyboard: { global: true },
     controlBar: { back: 'fullscreen' },
-    subtitle: { background: true },
+    subtitle: { background: true, shadow: 'none' },
     icons: {
       loadingIndicator: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" data-spinner="true" class="spinner">
       <circle data-spinner-trace="true" cx="24" cy="24" r="22" stroke="white"></circle>
       <circle data-spinner-circle="true" cx="24" cy="24" r="22" stroke="white"></circle>
-      </svg>`
-    }
+      </svg>`,
+    },
   }),
-  hls({
-    matcher: (_, source) =>
-      source.format === 'm3u8' ||
-      ((source.format === 'auto' || typeof source.format === 'undefined') && /m3u8(#|\?|$)/i.test(source.src))
-  })
+  hls({ forceHLS: true }),
 ]
 
 const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay, ...rest }: OPlayerProps, ref) => {
@@ -48,7 +44,7 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
     <ReactPlayer
       ref={_ref}
       {...rest}
-      plugins={useMemo(() => plugins, [])}
+      plugins={plugins}
       onEvent={onEvent}
       autoplay={autoplay}
       duration={duration}
