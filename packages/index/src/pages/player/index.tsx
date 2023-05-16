@@ -210,6 +210,8 @@ export default function PlayerPage({ id }: any) {
   }, [state, isCollected])
 
   const onEvent = ({ type, payload }: PlayerEvent) => {
+    console.log({ type, payload });
+    
     const time = payload?.target?.currentTime
     if (type == 'timeupdate') {
       if (!(time < 1)) {
