@@ -28,11 +28,16 @@ html.light body {
   background-color: $light !important;
   transition: all 0.4s ease;
   color: $dark !important;
+  --white: $dark;
+  --black: $light;
 }
 
 html.dark body {
   background-color: $dark !important;
   color: $light !important;
+  --white: $light;
+  --black: $dark;
+  --backgroud: #4a4a4a;
 }
 
 ::view-transition-old(root),
@@ -47,6 +52,17 @@ html.dark body {
 
 .dark::view-transition-new(root) {
   z-index: 1;
+}
+
+html.dark body .navbar {
+  background-color: #4a4a4a;
+}
+html.dark body .footer {
+  background-color: var(--white, white);
+}
+
+.dark a:hover {
+  color: #fff;
 }
 
 // fix safari
@@ -90,11 +106,13 @@ main {
   .links > a {
     font-size: 0.8em;
     color: #4a4a4a;
+    color: var(--white, white);
   }
 }
 
 .bd-footer-support {
-  background-color: #fafafa;
+  // background-color: #fafafa;
+  color: var(--white, white);
   text-align: center;
 
   .bd-footer-title {

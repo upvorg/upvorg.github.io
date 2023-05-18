@@ -1,3 +1,8 @@
+.dark .rank-video-list {
+  &__list {
+    background-color: #4a4a4a;
+  }
+}
 .rank-video-list {
   height: 100%;
   --index-font-size: 14px;
@@ -35,13 +40,13 @@
     overflow: hidden;
     height: 100%;
 
-    &:nth-of-type(2n + 1) {
-      // background-color: #ffffff;
-    }
+    // &:nth-of-type(2n + 1) {
+    //   background-color: #ffffff;
+    // }
 
-    &:nth-of-type(2n) {
-      // background-color: #f6f7f8;
-    }
+    // &:nth-of-type(2n) {
+    //   background-color: #f6f7f8;
+    // }
 
     &--index {
       margin-right: 6px;

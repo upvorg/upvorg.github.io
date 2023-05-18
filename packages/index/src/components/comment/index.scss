@@ -140,3 +140,8 @@
     color: var(--text1);
   }
 }
+
+.dark .video-comment .video-comment-edit__input {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: none;
+}
