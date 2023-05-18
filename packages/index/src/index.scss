@@ -24,10 +24,10 @@
 
 @import '../../../node_modules/bulma-tooltip/src/sass/index.sass';
 
-html.light body {
-  background-color: $light !important;
+html {
   transition: all 0.4s ease;
-  color: $dark !important;
+  // background-color: $light !important;
+  // color: $dark !important;
   --white: $dark;
   --black: $light;
 }

@@ -1,8 +1,3 @@
-.dark .rank-video-list {
-  &__list {
-    background-color: #4a4a4a;
-  }
-}
 .rank-video-list {
   height: 100%;
   --index-font-size: 14px;
@@ -17,7 +12,7 @@
   &__list {
     // border: 1px solid var(--line_light);
     // border-radius: 6px;
-    background-color: var(--bg2);
+    // background-color: var(--bg2);
     overflow: hidden;
     list-style: none;
     height: 100%;
