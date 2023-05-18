@@ -54,14 +54,18 @@ html.dark body {
   z-index: 1;
 }
 
-html.dark body .navbar {
-  background-color: #4a4a4a;
+html.dark body .navbar,
+html.dark .navbar-menu {
+  background-color: #4a4a4a !important;
 }
+
 html.dark body .footer {
   background-color: var(--white, white);
 }
 
-.dark a:hover {
+.dark a:hover,
+.dark .navbar-item,
+.navbar-link {
   color: #fff;
 }
 
