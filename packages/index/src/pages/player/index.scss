@@ -22,13 +22,22 @@ $pr: 340px;
   }
 }
 
-.dark .eplist_module {
-  background-color: rgb(0 0 0 / 15%) !important;
-}
-
-.dark .video-info-wrapper,
-.dark .video-actions {
-  border-bottom-color: #505050;
+.dark {
+  .player-header__r .eplist_module .list-wrapper .list-item {
+    background-color: #000;
+    color: rgb(255 255 255 / 55%);
+    border-color: rgb(255 255 255 / 55%);
+  }
+  .video-info__title {
+    color: unset;
+  }
+  .video-info-wrapper,
+  .video-actions {
+    border-bottom-color: #505050;
+  }
+  .eplist_module {
+    background-color: rgb(0 0 0 / 15%) !important;
+  }
 }
 
 .player-header {
