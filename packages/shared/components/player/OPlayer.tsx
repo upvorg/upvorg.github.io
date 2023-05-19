@@ -21,7 +21,6 @@ const plugins = [
     screenshot: true,
     topSetting: isMobile,
     slideToSeek: 'always',
-    pictureInPicture: true,
     keyboard: { global: true },
     controlBar: { back: 'fullscreen' },
     subtitle: { background: true, shadow: 'none' },

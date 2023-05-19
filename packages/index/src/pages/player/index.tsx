@@ -110,7 +110,8 @@ export default function PlayerPage({ id }: any) {
                 ...res,
                 title: it.title || it.Title,
                 poster: state.image || state.anime?.coverImage,
-                src:  `https://techz-cors-bypass.herokuapp.com/${res.url}` // `https://cdn.nade.me/redirect?url=${res.url}`,
+                src: `https://cdn.nade.me/redirect?url=${res.url}`,
+                // src:  `https://techz-cors-bypass.herokuapp.com/${res.url}` // `https://cdn.nade.me/redirect?url=${res.url}`,
               }
             })
         }
