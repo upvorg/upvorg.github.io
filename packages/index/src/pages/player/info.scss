@@ -40,7 +40,7 @@
         margin-bottom: 4px;
         font-size: 20px;
         font-weight: 500;
-        color: var(--text1);
+        // color: var(--text1);
         line-height: 24px;
       }
 
@@ -83,5 +83,14 @@
     .modal-card-body {
       min-height: 60vh;
     }
+  }
+}
+
+.dark {
+  .modal-card-body,
+  .rc-md-editor,
+  .markdown-body {
+    background-color: #000;
+    color: azure;
   }
 }

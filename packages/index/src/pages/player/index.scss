@@ -25,18 +25,18 @@ $pr: 340px;
 .dark {
   .player-header__r .eplist_module .list-wrapper .list-item {
     background-color: #000;
-    color: rgb(255 255 255 / 55%);
-    border-color: rgb(255 255 255 / 55%);
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
   }
   .video-info__title {
     color: unset;
   }
   .video-info-wrapper,
   .video-actions {
-    border-bottom-color: #505050;
+    border: none;
   }
   .eplist_module {
-    background-color: rgb(0 0 0 / 15%) !important;
+    background-color: rgba(95, 95, 95, 0.1) !important;
   }
 }
 
@@ -64,7 +64,7 @@ $pr: 340px;
     width: 320px;
     height: 100%;
 
-    [data-tooltip] {
+    [data-tooltip]::before {
       line-height: 14px !important;
     }
 
@@ -84,7 +84,7 @@ $pr: 340px;
           height: 42px;
           line-height: 42px;
           font-size: 16px;
-          color: #212121;
+          // color: #212121;
           font-weight: 400;
           max-width: 220px;
           overflow: hidden;
@@ -121,14 +121,10 @@ $pr: 340px;
           line-height: 36px;
           background-color: #fff;
           border: 1px solid #e5e9ef;
-          padding: 0;
           text-align: center;
-          -webkit-transition: none;
-          -o-transition: none;
-          transition: none;
           overflow: visible;
-          opacity: 1;
           color: #222;
+          line-height: 36px;
 
           &.cursor {
             border-color: var(--primary-color);
@@ -141,16 +137,6 @@ $pr: 340px;
               border-color: var(--primary-color);
               color: var(--primary-color);
             }
-          }
-
-          > span {
-            overflow: hidden;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            height: 36px;
-            line-height: 36px;
-            display: block;
           }
         }
       }
@@ -220,7 +206,7 @@ $pr: 340px;
     margin-bottom: 4px;
     font-size: 20px;
     font-weight: 500;
-    color: var(--text1);
+    // color: var(--text1);
     line-height: 24px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -269,6 +255,9 @@ $pr: 340px;
 }
 
 @media screen and (max-width: 991px) {
+  [data-tooltip]::before {
+    display: none !important;
+  }
   .player-header {
     min-width: 100%;
     flex-direction: column;

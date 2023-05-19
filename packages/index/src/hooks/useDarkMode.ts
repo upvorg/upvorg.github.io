@@ -34,9 +34,9 @@ export const useDarkModeInternal = (
   useEffect(() => {
     const presentedDarkMode = localStorage.getItem(storageKey)
 
-    if (presentedDarkMode !== undefined) {
+    if (presentedDarkMode) {
       setDarkMode(presentedDarkMode === 'true')
-    } else if (typeof initialState === 'undefined') {
+    } else {
       setDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches)
     }
   }, [storageKey])
