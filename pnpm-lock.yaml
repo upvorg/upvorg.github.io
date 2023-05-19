@@ -158,16 +158,16 @@ importers:
     dependencies:
       '@oplayer/core':
         specifier: latest
-        version: 1.2.25
+        version: 1.2.26-beta.0
       '@oplayer/hls':
         specifier: latest
-        version: 1.2.22(@oplayer/core@1.2.25)(hls.js@0.14.17)
+        version: 1.2.22(@oplayer/core@1.2.26-beta.0)(hls.js@0.14.17)
       '@oplayer/react':
         specifier: latest
-        version: 1.2.8(@oplayer/core@1.2.25)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.2.8(@oplayer/core@1.2.26-beta.0)(react-dom@18.2.0)(react@18.2.0)
       '@oplayer/ui':
         specifier: latest
-        version: 1.2.26-beta.1(@oplayer/core@1.2.25)
+        version: 1.2.26-beta.1(@oplayer/core@1.2.26-beta.0)
       devtools-detector:
         specifier: ^2.0.14
         version: 2.0.14
@@ -2104,38 +2104,38 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@oplayer/core@1.2.25:
-    resolution: {integrity: sha512-gCvTJ9OymWgOIHgObfS5kZ+83/TYWloEvsjqEf8jXdgBWtY6sxjvuR7oKuvDeS01hBfh9FbVAEo2C0dO6rwGVA==}
+  /@oplayer/core@1.2.26-beta.0:
+    resolution: {integrity: sha512-baT28mIxjtA/B4UF1acv98ie1hW1MXZ2gBQ7XDuL2kEj8EpbSsddyR0cawiRL5y0iK2w4VfXUoE/bAiQM6BY3g==}
     dev: false
 
-  /@oplayer/hls@1.2.22(@oplayer/core@1.2.25)(hls.js@0.14.17):
+  /@oplayer/hls@1.2.22(@oplayer/core@1.2.26-beta.0)(hls.js@0.14.17):
     resolution: {integrity: sha512-thQgVUfSYTdnDK59SzINDqxRCOfsK5FPhCunqIxtzqMKtLphwYW7pNHqmeBil3ME17wklM1TyKiEv3uC/St5bQ==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.2.25
+      '@oplayer/core': 1.2.26-beta.0
       hls.js: 0.14.17
     dev: false
 
-  /@oplayer/react@1.2.8(@oplayer/core@1.2.25)(react-dom@18.2.0)(react@18.2.0):
+  /@oplayer/react@1.2.8(@oplayer/core@1.2.26-beta.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qjpGLCTi1GXwLcSfWabfnxcPvDk/I4ZkT5N7eneliixP//vWbrEXgvUb245/awniwFHbVyhHO0K8zq88MHUWgg==}
     peerDependencies:
       '@oplayer/core': '>=1'
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@oplayer/core': 1.2.25
+      '@oplayer/core': 1.2.26-beta.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@oplayer/ui@1.2.26-beta.1(@oplayer/core@1.2.25):
+  /@oplayer/ui@1.2.26-beta.1(@oplayer/core@1.2.26-beta.0):
     resolution: {integrity: sha512-p+ySfKS3h/3LzLIis/GyXMlpZAKRpa0c3E9UDo7N3ZCGNe7P6Y6YG2XMSuSMtXGskpzVsln6y34OIg30KhzdwA==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.2.25
+      '@oplayer/core': 1.2.26-beta.0
     dev: false
 
   /@polka/url@1.0.0-next.21:
