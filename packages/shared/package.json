@@ -16,8 +16,6 @@
     "@oplayer/ui": "latest",
     "devtools-detector": "^2.0.14",
     "github-markdown-css": "^5.2.0",
-    "griffith": "^1.30.0",
-    "griffith-message": "^1.30.0",
     "hls.js": "0.14.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
