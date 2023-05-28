@@ -3,7 +3,7 @@ import './index.scss'
 import { useEffect, useRef } from 'react'
 
 import AspectRatio from '@web/shared/components/AspectRatio'
-import { GetSimplifyDate } from '@web/shared/utils/date'
+import { getTimeDistance } from '@web/shared/utils/date'
 import classNames from 'classnames'
 
 const TEXT_COVER_LENGTH = 6
@@ -88,7 +88,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
         <div className="upv-video-card__content__author">
           <span>{info.Creator?.Nickname || '-'}</span>
           {' · '}
-          <span>{GetSimplifyDate(info.CreatedAt)}</span>
+          <span>{getTimeDistance(info.CreatedAt)}</span>
         </div>
       </div>
     </div>

@@ -106,6 +106,7 @@ export default function PlayerPage({ id }: any) {
                 )
               }
 
+              // https://cors.moopa.my.id/?url=
               return {
                 ...res,
                 title: it.title || it.Title,
