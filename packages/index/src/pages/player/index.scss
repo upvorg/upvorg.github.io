@@ -201,6 +201,10 @@ $pr: 340px;
     background-color: #f4f4f4;
   }
 
+  > *:nth-child(2) {
+    overflow: hidden;
+  }
+
   &__title {
     // margin-top: 20px;
     margin-bottom: 4px;
@@ -208,6 +212,7 @@ $pr: 340px;
     font-weight: 500;
     // color: var(--text1);
     line-height: 24px;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
@@ -314,7 +319,8 @@ $pr: 340px;
     stroke-linecap: round;
     stroke-dasharray: 200;
     stroke-dashoffset: 200;
-    animation: spinner_module_rotate 2s linear 0.25s infinite, spinner_module_dash 1.5s ease-in-out 0.25s infinite;
+    animation: spinner_module_rotate 2s linear 0.25s infinite,
+      spinner_module_dash 1.5s ease-in-out 0.25s infinite;
   }
 
   @keyframes spinner_module_rotate {
