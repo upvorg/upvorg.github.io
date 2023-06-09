@@ -31,7 +31,7 @@ export default function PlayerPage({ id }: any) {
 
   const player = useRef<Player>(null)
   const [isEnime, setIsEnime] = useState(false)
-  const [source, setSource] = useState<any>({ poster: 'https://i.gifer.com/BxQY.gif', title: '少女祈祷中 ...' })
+  const [source, setSource] = useState<any>({ poster: 'https://api.paugram.com/wallpaper?source=gt', title: 'LOADING ...' })
   const [displayEpBar, setDisplayEpBar] = useState(true)
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function PlayerPage({ id }: any) {
         title: video[lastEpisode].Title || state.Title,
         src: video[lastEpisode].VideoUrl,
         format: id == 'iptv' ? 'm3u8' : 'auto',
-        poster: 'https://i.gifer.com/BxQY.gif'
+        poster: 'https://api.paugram.com/wallpaper?source=gt'
       })
   }, [state, lastEpisode, video])
 
