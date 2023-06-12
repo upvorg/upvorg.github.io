@@ -5,15 +5,17 @@ const fps = 30
 
 export default class Anime4kPlugin implements PlayerPlugin {
   name = 'anime4k.js'
-  anime4kUpscaler: anime4k.VideoUpscaler | null | undefined
   player!: Player
+
+  anime4kUpscaler: anime4k.VideoUpscaler | undefined
 
   apply(player: Player) {
     if (isMobile) return
 
-    this.player = player
+    const { context, $video } = (this.player = player)
+    const on = Boolean(+(localStorage.getItem('anime4k') || 0))
     const onChange = (value: boolean) => {
-      if (!this.anime4kUpscaler && value) this.init()
+      if (!this.anime4kUpscaler && value) this.initAnime4k()
       localStorage.setItem('anime4k', Number(value).toString())
 
       if (value) {
@@ -22,23 +24,22 @@ export default class Anime4kPlugin implements PlayerPlugin {
         this.anime4kUpscaler?.stop()
       }
     }
-    const on = Boolean(+(localStorage.getItem('anime4k') || 0))
 
-    player.context.ui.setting.register({
+    context.ui.setting.register({
       name: 'Anime4k',
       type: 'switcher',
       key: 'anime4k',
-      svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+      icon: '<span style="margin-right: 1em;">4K</span>',
       default: on,
       onChange,
     })
 
     if (on) {
-      onChange(true)
+      $video.addEventListener('loadeddata', this.initAnime4k.bind(this), { once: true })
     }
   }
 
-  init() {
+  initAnime4k() {
     const canvas = document.createElement('canvas')
     canvas.style.position = 'absolute'
     canvas.style.width = canvas.style.height = '100%'
@@ -46,20 +47,11 @@ export default class Anime4kPlugin implements PlayerPlugin {
     this.player.$video.parentNode?.appendChild(canvas)
     this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k.ANIME4KJS_SIMPLE_M_2X)
     this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
-
-    this.player.$video.addEventListener(
-      'loadeddata',
-      () => {
-        this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k.ANIME4KJS_SIMPLE_M_2X)
-        this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
-      },
-      { once: true }
-    )
   }
 
   destroy() {
     this.anime4kUpscaler?.stop()
     this.anime4kUpscaler?.detachVideo()
-    this.anime4kUpscaler = null
+    this.anime4kUpscaler = undefined
   }
 }
