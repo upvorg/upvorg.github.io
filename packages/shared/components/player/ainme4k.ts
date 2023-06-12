@@ -1,7 +1,7 @@
 import { Player, PlayerPlugin, isMobile } from '@oplayer/core'
 import * as anime4k from 'anime4k.js'
 
-const fps = 30
+const fps = 45
 
 export default class Anime4kPlugin implements PlayerPlugin {
   name = 'anime4k.js'
@@ -29,13 +29,20 @@ export default class Anime4kPlugin implements PlayerPlugin {
       name: 'Anime4k',
       type: 'switcher',
       key: 'anime4k',
-      icon: '<span style="margin-right: 1em;">4K</span>',
+      icon: '<span style="margin: 0 .7em 0 .2em;">4K</span>',
       default: on,
       onChange,
     })
 
     if (on) {
-      $video.addEventListener('loadeddata', this.initAnime4k.bind(this), { once: true })
+      $video.addEventListener(
+        'loadeddata',
+        () => {
+          this.initAnime4k()
+          this.anime4kUpscaler!.start()
+        },
+        { once: true }
+      )
     }
   }
 
