@@ -4,6 +4,7 @@ import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useRef } from 'react'
+import Anime4kPlugin from './ainme4k'
 
 interface OPlayerProps extends PlayerOptions {
   playerIsPlaying?: boolean
@@ -32,24 +33,27 @@ const plugins = [
     },
   }),
   hls({ forceHLS: true }),
+  new Anime4kPlugin(),
 ]
 
-const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay, ...rest }: OPlayerProps, ref) => {
-  const _ref = useRef<Player | null>(null)
+const OPlayer = React.forwardRef(
+  ({ playerIsPlaying, duration, onEvent, autoplay, ...rest }: OPlayerProps, ref) => {
+    const _ref = useRef<Player | null>(null)
 
-  useImperativeHandle(ref, () => _ref.current)
+    useImperativeHandle(ref, () => _ref.current)
 
-  return (
-    <ReactPlayer
-      ref={_ref}
-      {...rest}
-      plugins={plugins}
-      onEvent={onEvent}
-      autoplay={autoplay}
-      duration={duration}
-      playing={playerIsPlaying}
-    />
-  )
-})
+    return (
+      <ReactPlayer
+        ref={_ref}
+        {...rest}
+        plugins={plugins}
+        onEvent={onEvent}
+        autoplay={autoplay}
+        duration={duration}
+        playing={playerIsPlaying}
+      />
+    )
+  }
+)
 
 export default OPlayer
