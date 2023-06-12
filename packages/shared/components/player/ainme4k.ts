@@ -1,7 +1,7 @@
 import { Player, PlayerPlugin, isMobile } from '@oplayer/core'
 import * as anime4k from 'anime4k.js'
 
-const fps = 45
+const fps = 30
 
 export default class Anime4kPlugin implements PlayerPlugin {
   name = 'anime4k.js'
@@ -12,10 +12,17 @@ export default class Anime4kPlugin implements PlayerPlugin {
   apply(player: Player) {
     if (isMobile) return
 
-    const { context, $video } = (this.player = player)
+    const { context, $video, $root } = (this.player = player)
     const on = Boolean(+(localStorage.getItem('anime4k') || 0))
+
     const onChange = (value: boolean) => {
-      if (!this.anime4kUpscaler && value) this.initAnime4k()
+      if (!this.anime4kUpscaler && value) {
+        const canvas = document.createElement('canvas')
+        canvas.style.cssText = `width:100%;height:100%;position:absolute;left:0;top:0;`
+        $root.insertBefore(canvas, context.ui.$root)
+        this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k.ANIME4KJS_SIMPLE_M_2X)
+        this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
+      }
       localStorage.setItem('anime4k', Number(value).toString())
 
       if (value) {
@@ -38,27 +45,16 @@ export default class Anime4kPlugin implements PlayerPlugin {
       $video.addEventListener(
         'loadeddata',
         () => {
-          this.initAnime4k()
-          this.anime4kUpscaler!.start()
+          onChange(true)
         },
         { once: true }
       )
     }
   }
 
-  initAnime4k() {
-    const canvas = document.createElement('canvas')
-    canvas.style.position = 'absolute'
-    canvas.style.width = canvas.style.height = '100%'
-    canvas.style.top = canvas.style.left = '0'
-    this.player.$video.parentNode?.appendChild(canvas)
-    this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k.ANIME4KJS_SIMPLE_M_2X)
-    this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
-  }
-
   destroy() {
     this.anime4kUpscaler?.stop()
     this.anime4kUpscaler?.detachVideo()
-    this.anime4kUpscaler = undefined
+    this.player = this.anime4kUpscaler = undefined as any
   }
 }
