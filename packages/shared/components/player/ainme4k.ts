@@ -1,4 +1,4 @@
-import { Player, PlayerPlugin } from '@oplayer/core'
+import { Player, PlayerPlugin, isMobile } from '@oplayer/core'
 import * as anime4k from 'anime4k.js'
 
 const fps = 30
@@ -9,8 +9,9 @@ export default class Anime4kPlugin implements PlayerPlugin {
   player!: Player
 
   apply(player: Player) {
-    this.player = player
+    if (isMobile) return
 
+    this.player = player
     const onChange = (value: boolean) => {
       if (!this.anime4kUpscaler && value) this.init()
       localStorage.setItem('anime4k', Number(value).toString())
@@ -24,9 +25,10 @@ export default class Anime4kPlugin implements PlayerPlugin {
     const on = Boolean(+(localStorage.getItem('anime4k') || 0))
 
     player.context.ui.setting.register({
-      name: 'anime4k',
+      name: 'Anime4k',
       type: 'switcher',
       key: 'anime4k',
+      svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
       default: on,
       onChange,
     })
