@@ -47,7 +47,7 @@ export default function SearchPage() {
               e.preventDefault()
               const qs = Object.assign({}, queryString.parse(window.location.search), {
                 k: inputKeyword.current,
-                page: 1
+                page: 1,
               })
               setLocation(`/search?${queryString.stringify(qs)}`)
               // setQuery({ k: inputKeyword.current, v: Date.now() } as any)
@@ -69,12 +69,12 @@ export default function SearchPage() {
                   />
                 </div>
               </div>
-              <button className="button is-primary">搜索</button>
+              <button className="button is-primary">search</button>
             </div>
           </form>
         </div>
         <div className="search-body">
-          <ListSection title="搜索结果" videos={posts} />
+          <ListSection title="Result" videos={posts} />
           <div
             className="paginate-container field has-addons"
             style={{ justifyContent: 'center', paddingBottom: '28px' }}

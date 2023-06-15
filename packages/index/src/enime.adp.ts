@@ -1,4 +1,5 @@
 export const enimeAdapter = (item: any) => {
+  if (!item.anime) item.anime = item
   return {
     ...item,
     enime: true,
@@ -18,14 +19,14 @@ export const enimeAdapter = (item: any) => {
       Episodes: 13,
       IsEnd: 2,
       PublishDate: '2015-01-01T08:00:00+08:00',
-      UpdatedDate: null
+      UpdatedDate: null,
     },
     Creator: {
       ID: 1,
       Name: 'enime.moe',
       Nickname: 'enime',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
-      Bio: '这个人很酷，什么都没有留下'
+      Bio: '这个人很酷，什么都没有留下',
     },
     episodes: item.anime?.episodes?.map((ep: any) => ({
       ID: ep.id,
@@ -39,8 +40,8 @@ export const enimeAdapter = (item: any) => {
       Uid: 1,
       Pid: item.anime?.slug,
       CreatedAt: ep.airedAt || ep.createdAt,
-      UpdatedAt: ep.updatedAt
-    }))
+      UpdatedAt: ep.updatedAt,
+    })),
   }
 }
 
@@ -66,14 +67,14 @@ export const enimeSearchAdapter = (data: any[] = []) => {
       Episodes: 13,
       IsEnd: 2,
       PublishDate: '2015-01-01T08:00:00+08:00',
-      UpdatedDate: null
+      UpdatedDate: null,
     },
     Creator: {
       ID: 1,
       Name: 'enime.moe',
       Nickname: 'enime',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
-      Bio: '这个人很酷，什么都没有留下'
-    }
+      Bio: '这个人很酷，什么都没有留下',
+    },
   }))
 }
