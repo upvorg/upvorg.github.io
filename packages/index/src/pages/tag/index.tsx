@@ -23,9 +23,9 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    if (type == 'enime') {
+    if (type == 'recent' || type == 'popular') {
       setPosts(null)
-      fetch(`https://api.enime.moe/recent?perPage=${24}&page=${page}&language=JP`)
+      fetch(`https://api.enime.moe/${type}?perPage=${24}&page=${page}&language=JP`)
         .then((it) => it.json())
         .then((it) => {
           setPosts(enimesAdapter(it.data))

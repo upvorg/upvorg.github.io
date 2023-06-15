@@ -9,11 +9,11 @@ import { enimesAdapter } from '../../enime.adp'
 const indexConfig = [
   {
     title: 'Latest Releases',
-    query: 'type=enime&title=Latest Releases',
+    query: 'type=recent&title=Latest Releases',
   },
   {
     title: `What We're Watching Right Now`,
-    query: `type=enime&title=What We're Watching Right Now`,
+    query: `type=popular&title=What We're Watching Right Now`,
   },
   {
     title: 'Recommends',
