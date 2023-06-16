@@ -92,18 +92,17 @@ export default function PlayerPage({ id }: any) {
             .then((res) => res.json())
             .then((res) => {
               if (res.subtitle) {
-                player.current!.once(
-                  'loadedmetadata',
-                  () => {
-                    player.current!.context.ui.subtitle.updateSource([
-                      {
-                        default: true,
-                        src: res.subtitle,
-                        name: 'English'
-                      }
-                    ])
-                  },
-                )
+                function updateSubtitle() {
+                  player.current!.context.ui.subtitle.updateSource([
+                    {
+                      default: true,
+                      src: res.subtitle,
+                      name: 'English',
+                    },
+                  ])
+                }
+                player.current!.off('loadedmetadata', updateSubtitle)
+                player.current!.once('loadedmetadata', updateSubtitle)
               }
 
               // https://cors.moopa.my.id/?url=
