@@ -31,7 +31,7 @@
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
     "autoprefixer": "^10.4.14",
-    "browserslist": "^4.21.8",
+    "browserslist": "^4.21.9",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",

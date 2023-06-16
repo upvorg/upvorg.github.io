@@ -93,13 +93,14 @@ export default function PlayerPage({ id }: any) {
             .then((res) => {
               if (res.subtitle) {
                 function updateSubtitle() {
-                  player.current!.context.ui.subtitle.updateSource([
-                    {
-                      default: true,
-                      src: res.subtitle,
-                      name: 'English',
-                    },
-                  ])
+                  if(player.current!.options.source.src == `https://cdn.nade.me/redirect?url=${res.url}`)
+                    player.current!.context.ui.subtitle.updateSource([
+                      {
+                        default: true,
+                        src: res.subtitle,
+                        name: 'English',
+                      },
+                    ])
                 }
                 player.current!.once('loadedmetadata', updateSubtitle)
                 player.current!.once('videosourcechange',()=>{
