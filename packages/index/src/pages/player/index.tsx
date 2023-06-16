@@ -101,8 +101,10 @@ export default function PlayerPage({ id }: any) {
                     },
                   ])
                 }
-                player.current!.off('loadedmetadata', updateSubtitle)
                 player.current!.once('loadedmetadata', updateSubtitle)
+                player.current!.once('videosourcechange',()=>{
+                  player.current!.off('loadedmetadata', updateSubtitle)
+                })
               }
 
               // https://cors.moopa.my.id/?url=
