@@ -224,7 +224,11 @@ export default function PlayerPage({ id }: any) {
     } else if (type == 'ended') {
       update(id, lastEpisode + 1, 0)
     } else if (type == 'next') {
-      update(id, lastEpisode + 1, 0)
+      if (video[lastEpisode + 1]) {
+        update(id, lastEpisode + 1, 0)
+      } else {
+        player.current!.emit('notice', { text: 'No next ep' })
+      }
     }
   }
 
