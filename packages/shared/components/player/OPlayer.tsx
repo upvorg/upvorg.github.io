@@ -30,6 +30,7 @@ const plugins = [
       <circle data-spinner-trace="true" cx="24" cy="24" r="22" stroke="white"></circle>
       <circle data-spinner-circle="true" cx="24" cy="24" r="22" stroke="white"></circle>
       </svg>`,
+      next: `<svg style="transform: scale(0.7);" viewBox="0 0 1024 1024"><path d="M743.36 427.52L173.76 119.04A96 96 0 0 0 32 203.52v616.96a96 96 0 0 0 141.76 84.48l569.6-308.48a96 96 0 0 0 0-168.96zM960 96a32 32 0 0 0-32 32v768a32 32 0 0 0 64 0V128a32 32 0 0 0-32-32z"></path></svg>`,
     },
   }),
   hls({ forceHLS: true }),

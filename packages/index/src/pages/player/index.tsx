@@ -223,6 +223,8 @@ export default function PlayerPage({ id }: any) {
       }
     } else if (type == 'ended') {
       update(id, lastEpisode + 1, 0)
+    } else if (type == 'next') {
+      update(id, lastEpisode + 1, 0)
     }
   }
 
