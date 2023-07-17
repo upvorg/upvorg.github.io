@@ -13,9 +13,9 @@
     "build": "pnpm run build:index & pnpm run build:admin"
   },
   "dependencies": {
-    "@types/node": "^18.16.18",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
+    "@types/node": "^18.16.19",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
     "bulma": "^0.9.4",
     "bulma-list": "^1.2.0",
     "bulma-switch": "^2.0.4",
@@ -41,7 +41,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.26",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^7.3.3",
     "postcss-preset-env": "^8.5.1",
