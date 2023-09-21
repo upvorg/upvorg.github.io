@@ -27,13 +27,13 @@ export default function IndexPage() {
 
   useEffect(() => {
     Promise.allSettled([
+      recommends,
       fetch('https://api.enime.moe/recent?perPage=16&language=JP').then((it) => it.json()),
       fetch('https://api.enime.moe/popular?perPage=18&language=JP').then((it) => it.json()),
-      recommends,
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
-        if (i == 0 || i == 1) return enimesAdapter(itemPromise.value?.data)
-        return (itemPromise as any)?.value?.data || []
+        if (i == 0) return (itemPromise as any)?.value?.data || []
+        return enimesAdapter(itemPromise.value?.data)
       })
 
       setState(resp)
@@ -54,7 +54,7 @@ export default function IndexPage() {
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
             aside={index == 0 && <RankList list={state[1]} />}
-            asideTitle={(index == 0 && 'Ranks') as any}
+            asideTitle={(index == 1 && 'Ranks') as any}
           />
         )
       })}
