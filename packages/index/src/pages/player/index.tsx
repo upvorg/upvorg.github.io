@@ -55,6 +55,12 @@ export default function PlayerPage({ id }: any) {
           _.data.IsCollected == 2 && setIsCollected(true)
 
           // axios.get(`/post/${id}/videos`)
+
+          if(_.data.videos){
+            setVideo(_.data.videos)
+            return
+          }
+          
           import(`../../mock/video/${id}.json`).then((res) => {
             ; (res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
             res.data && setVideo(res.data)
@@ -215,7 +221,7 @@ export default function PlayerPage({ id }: any) {
 
   const onEvent = ({ type, payload }: PlayerEvent) => {
     console.log({ type, payload });
-    
+
     const time = payload?.target?.currentTime
     if (type == 'timeupdate') {
       if (!(time < 1)) {
