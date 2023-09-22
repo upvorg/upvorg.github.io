@@ -96,7 +96,7 @@ export default function PlayerPage({ id }: any) {
             .split('\n')
             .filter(Boolean)
             .map((v, i) => {
-              const [src, chunkString] = v.split('$')
+              const [chunkString, src] = v.split('$')
               const [Episode, Title] = chunkString.split(' ')
               return ({ Episode: Title ? Episode : i, Title: Title || Episode, VideoUrl: src })
             })
