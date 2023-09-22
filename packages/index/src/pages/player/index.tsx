@@ -35,7 +35,6 @@ export default function PlayerPage({ id }: any) {
   const [displayEpBar, setDisplayEpBar] = useState(true)
 
   useEffect(() => {
-    if (!__DEV__) return
     // axios.get(`/post/${id}`)
     import(`../../mock/post/${id}.json`)
       .catch(() => {
