@@ -94,8 +94,12 @@ export default function PlayerPage({ id }: any) {
         setVideo(
           it.videos
             .split('\n')
-            .map((v) => ({ VideoUrl: v.split('$')[1], Title: v.split('$')[0] }))
             .filter(Boolean)
+            .map((v, i) => {
+              const [src, chunkString] = v.split('$')
+              const [Episode, Title] = chunkString.split(' ')
+              return ({ Episode: Title ? Episode : i, Title: Title || Episode, VideoUrl: src })
+            })
         )
       })
   }, [isAdp])
