@@ -10,7 +10,7 @@ import Comment from '../../components/comment'
 import { VideoMetaSkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 import PlayerInfo from './info'
-import { enimeAdapter } from '../../enime.adp'
+import { clicliAdapter } from '../../enime.adp'
 
 import { ReactComponent as FaEye } from '../../assets/icon/fa-eye.svg'
 import { ReactComponent as FaHeart } from '../../assets/icon/fa-heart.svg'
@@ -30,21 +30,22 @@ export default function PlayerPage({ id }: any) {
   const [video, setVideo] = useState<R.Video[]>([])
 
   const player = useRef<Player>(null)
-  const [isEnime, setIsEnime] = useState(false)
+  const [isAdp, setIsAdp] = useState(false)
   const [source, setSource] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
   const [displayEpBar, setDisplayEpBar] = useState(true)
 
   useEffect(() => {
+    if (!__DEV__) return
     // axios.get(`/post/${id}`)
     import(`../../mock/post/${id}.json`)
       .catch(() => {
-        setIsEnime(true)
+        setIsAdp(true)
         throw new Error('')
       })
       .then((_) => {
         if (!_.data || _.data.Type !== 'video') {
           toast.error('视频不见了', {
-            duration: 90000
+            duration: 90000,
           })
           return
         }
@@ -56,13 +57,13 @@ export default function PlayerPage({ id }: any) {
 
           // axios.get(`/post/${id}/videos`)
 
-          if(_.data.videos){
+          if (_.data.videos) {
             setVideo(_.data.videos)
             return
           }
-          
+
           import(`../../mock/video/${id}.json`).then((res) => {
-            ; (res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
+            ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
             res.data && setVideo(res.data)
             if (res.data.length <= lastEpisode) {
               update(id, 0, 0)
@@ -79,74 +80,26 @@ export default function PlayerPage({ id }: any) {
         title: video[lastEpisode].Title || state.Title,
         src: video[lastEpisode].VideoUrl,
         format: id == 'iptv' ? 'm3u8' : 'auto',
-        poster: 'https://api.imlazy.ink/img'
+        poster: 'https://api.imlazy.ink/img',
       })
-  }, [state, lastEpisode, video])
+  }, [lastEpisode, video])
 
   useEffect(() => {
-    if (!isEnime) return
+    if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
-    const source = fetch(`https://api.enime.moe/view/${id}/${lastEpisode + 1}`)
+    fetch(`https://cors.moopa.my.id/?url=https://www.clicli.cc/post/${id}`)
       .then((it) => it.json())
-      .then(enimeAdapter)
+      .then((it) => clicliAdapter(it.result))
       .then((it) => {
         setState(it)
-        setVideo(it.episodes)
-
-        function sourcePromise({ id, url:_ }) {
-          return fetch(`https://api.enime.moe/source/${id}`)
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.subtitle) {
-                function updateSubtitle() {
-                  if(player.current!.options.source.src == `https://cdn.nade.me/redirect?url=${res.url}`)
-                    player.current!.context.ui.subtitle.updateSource([
-                      {
-                        default: true,
-                        src: res.subtitle,
-                        name: 'English',
-                      },
-                    ])
-                }
-                player.current!.once('loadedmetadata', updateSubtitle)
-                player.current!.once('videosourcechange',()=>{
-                  player.current!.off('loadedmetadata', updateSubtitle)
-                })
-              }
-
-              // https://cors.moopa.my.id/?url=
-              return {
-                ...res,
-                title: it.title || it.Title,
-                poster: state.image || state.anime?.coverImage,
-                src: `https://cdn.nade.me/redirect?url=${res.url}`,
-                // src:  `https://techz-cors-bypass.herokuapp.com/${res.url}` // `https://cdn.nade.me/redirect?url=${res.url}`,
-              }
-            })
-        }
-
-        const index = it.sources.length - 1
-
-        if (it.sources.length > 1) {
-          player.current?.context.ui?.menu.register({
-            name: 'Source',
-            position: isMobile ? 'top' : 'bottom',
-            icon: `<svg viewBox="0 0 1024 1024" style="transform: scale(0.9);"><path d="M554.666667 597.333333c-143.36 0-190.293333 57.6-205.653334 95.573334C394.666667 712.533333 426.666667 757.76 426.666667 810.666667a128 128 0 0 1-128 128 128 128 0 0 1-128-128c0-55.893333 35.413333-103.253333 85.333333-120.746667V334.08A127.573333 127.573333 0 0 1 170.666667 213.333333a128 128 0 0 1 128-128 128 128 0 0 1 128 128c0 55.893333-35.413333 103.253333-85.333334 120.746667v225.706667c37.546667-27.733333 92.16-47.786667 170.666667-47.786667 113.92 0 151.893333-57.173333 164.266667-95.146667A128.256 128.256 0 0 1 597.333333 298.666667a128 128 0 0 1 128-128 128 128 0 0 1 128 128c0 57.173333-37.546667 106.666667-89.173333 122.026666C753.066667 481.706667 711.68 597.333333 554.666667 597.333333m-256 170.666667a42.666667 42.666667 0 0 0-42.666667 42.666667 42.666667 42.666667 0 0 0 42.666667 42.666666 42.666667 42.666667 0 0 0 42.666666-42.666666 42.666667 42.666667 0 0 0-42.666666-42.666667M298.666667 170.666667a42.666667 42.666667 0 0 0-42.666667 42.666666 42.666667 42.666667 0 0 0 42.666667 42.666667 42.666667 42.666667 0 0 0 42.666666-42.666667 42.666667 42.666667 0 0 0-42.666666-42.666666m426.666666 85.333333a42.666667 42.666667 0 0 0-42.666666 42.666667 42.666667 42.666667 0 0 0 42.666666 42.666666 42.666667 42.666667 0 0 0 42.666667-42.666666 42.666667 42.666667 0 0 0-42.666667-42.666667z" fill="#ffffff" p-id="7015"></path></svg>`,
-            children: it.sources.map((item, i) => ({
-              name: item.url.includes('zoro') ? 'ZORO' : 'GOGO',
-              default: i == index,
-              value: { id: item.id, url: item.url },
-            })),
-            onChange({ value }) {
-              player.current?.changeSource(sourcePromise(value))
-            },
-          })
-        }
-        return sourcePromise({ id: it.sources[index].id, url: it.sources[index].url })
+        setVideo(
+          it.videos
+            .split('\n')
+            .map((v) => ({ VideoUrl: v.split('$')[1], Title: v.split('$')[0] }))
+            .filter(Boolean)
+        )
       })
-
-    setSource(source)
-  }, [isEnime, lastEpisode])
+  }, [isAdp])
 
   useEffect(() => {
     if (isMobile) return
@@ -163,7 +116,7 @@ export default function PlayerPage({ id }: any) {
           }
           return !it
         })
-      }
+      },
     })
   }, [])
 
@@ -173,25 +126,25 @@ export default function PlayerPage({ id }: any) {
 
     setIsLiked((isLiked) => !isLiked)
     setState((state) => ({ ...state, LikesCount: LikesCount + c }))
-      ; (isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
-        .then((_) => {
-          if (_.err) {
-            setIsLiked((isLiked) => !isLiked)
-            setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
+    ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
+      .then((_) => {
+        if (_.err) {
+          setIsLiked((isLiked) => !isLiked)
+          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
+        } else {
+          if (isLiked) {
+            toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
           } else {
-            if (isLiked) {
-              toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
-            } else {
-              toast.success('nice!')
-            }
+            toast.success('nice!')
           }
-        })
-        .catch(() => {
-          setTimeout(() => {
-            setIsLiked((isLiked) => !isLiked)
-            setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
-          }, 300)
-        })
+        }
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setIsLiked((isLiked) => !isLiked)
+          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
+        }, 300)
+      })
   }, [state, isLiked])
 
   const collectHandler = useCallback(() => {
@@ -199,28 +152,28 @@ export default function PlayerPage({ id }: any) {
 
     setIsCollected((isCollected) => !isCollected)
     setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
-      ; (isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
-        .then((_) => {
-          if (_.err) {
-            setIsCollected((isCollected) => !isCollected)
-            setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
+    ;(isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
+      .then((_) => {
+        if (_.err) {
+          setIsCollected((isCollected) => !isCollected)
+          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
+        } else {
+          if (isCollected) {
           } else {
-            if (isCollected) {
-            } else {
-              toast.success('nice!')
-            }
+            toast.success('nice!')
           }
-        })
-        .catch(() => {
-          setTimeout(() => {
-            setIsCollected((isCollected) => !isCollected)
-            setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
-          }, 300)
-        })
+        }
+      })
+      .catch(() => {
+        setTimeout(() => {
+          setIsCollected((isCollected) => !isCollected)
+          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
+        }, 300)
+      })
   }, [state, isCollected])
 
   const onEvent = ({ type, payload }: PlayerEvent) => {
-    console.log({ type, payload });
+    console.log({ type, payload })
 
     const time = payload?.target?.currentTime
     if (type == 'timeupdate') {
@@ -249,7 +202,7 @@ export default function PlayerPage({ id }: any) {
     CollectionCount,
     Content,
     Meta,
-    Cover
+    Cover,
   } = state
 
   return (
@@ -292,13 +245,13 @@ export default function PlayerPage({ id }: any) {
                     <a key={i}>
                       <li
                         className={classNames('list-item has-tooltip-bottom', {
-                          cursor: i === lastEpisode
+                          cursor: i === lastEpisode,
                         })}
                         onClick={() => update(id, i, 0)}
                         title={item.Title}
                         {...(item.Title && { 'data-tooltip': item.Title })}
                       >
-                        <span> {item.Episode}</span>
+                        <span> {item.Episode || i + 1}</span>
                       </li>
                     </a>
                   ))}
@@ -376,15 +329,17 @@ export default function PlayerPage({ id }: any) {
             tags={
               !!tags
                 ? tags
-                  .trim()
-                  .split(' ')
-                  .map((tag) => ({
-                    title: tag,
-                    href: `/pv/tag?type=video&title=${tag}`
-                  }))
-                  .concat(
-                    IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
-                  )
+                    .trim()
+                    .split(' ')
+                    .map((tag) => ({
+                      title: tag,
+                      href: `/pv/tag?type=video&title=${tag}`,
+                    }))
+                    .concat(
+                      IsOriginal == 2
+                        ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
+                        : []
+                    )
                 : []
             }
           />

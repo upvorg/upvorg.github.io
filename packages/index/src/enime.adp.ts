@@ -3,6 +3,7 @@ export const enimeAdapter = (item: any) => {
   return {
     ...item,
     enime: true,
+    adp: true,
     ID: item.anime?.slug,
     Cover: item.anime?.coverImage || '',
     Title: item.anime?.title.native || '',
@@ -78,3 +79,59 @@ export const enimeSearchAdapter = (data: any[] = []) => {
     },
   }))
 }
+
+export function getSuo(content) {
+  if (!content) return "https://ae01.alicdn.com/kf/U6751d35799cc4d06965aa7b1879e0fc6i.jpg"
+  let m = content.match(/suo(.+?)\)/i)
+  return m ? m[1].slice(2) : 'https://cdn-us.imgs.moe/2023/02/27/63fcb180cbb30.jpg'
+}
+
+export const clicliAdapter = (item: any) => {
+  if (!item) return {}
+  return {
+    ...item,
+    adp: true,
+    clicli: true,
+    ID: item.id,
+    Cover: getSuo(item.content),
+    Title: item.title,
+    Content: item.content,
+    Tags: item.tag,
+    Type: 'video',
+    CreatedAt: item.time,
+    UpdatedAt: item.time,
+    Meta: {
+      TitleJapanese: '',
+      TitleRomanji: '',
+      Genre: item.sort,
+      Region: 'clicli',
+      Episodes: item.content.split('\n').length,
+      IsEnd: 2,
+      PublishDate: item.time,
+      UpdatedDate: null,
+    },
+    Creator: {
+      ID: 1,
+      Name: item.title,
+      Nickname: item.title,
+      Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
+      Bio: '这个人很酷，什么都没有留下',
+    },
+    episodes: item.content.split('\n').map((ep: any) => ({
+      ID: ep.split('$')[0],
+      Episode: ep.split('$')[0],
+      Cover: getSuo(item.content),
+      Title: ep.split('$')[0],
+      TitleJapanese: '',
+      TitleRomanji: '',
+      VideoUrl: '',
+      Synopsis: '',
+      Uid: 1,
+      Pid: item.id,
+      CreatedAt: item.time,
+      UpdatedAt: item.time,
+    })),
+  }
+}
+
+export const cliclisAdapter = (data: any[] = []) => data.map(clicliAdapter)
