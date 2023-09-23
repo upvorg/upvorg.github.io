@@ -112,8 +112,8 @@ export const clicliAdapter = (item: any) => {
     },
     Creator: {
       ID: 1,
-      Name: item.title,
-      Nickname: item.title,
+      Name: 'YUESE',
+      Nickname: 'YUESE',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
       Bio: '这个人很酷，什么都没有留下',
     },

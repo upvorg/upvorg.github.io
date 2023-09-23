@@ -53,7 +53,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
 
   return (
     <div className="upv-video-card">
-      <a href={target} target="_blank" ref={$el} data-cover={info.Cover} title={info.Title}>
+      <a href={target} ref={$el} data-cover={info.Cover} title={info.Title}>
         <AspectRatio ratio={3 / 4}>
           {info.Cover && (
             <>
