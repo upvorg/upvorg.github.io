@@ -98,7 +98,7 @@ export default function PlayerPage({ id }: any) {
             .map((v, i) => {
               const [chunkString, src] = v.split('$')
               const [Episode, Title] = chunkString.split(' ')
-              return ({ Episode: Title ? Episode : i, Title: Title || Episode, VideoUrl: src })
+              return { Episode: Title ? Episode : i, Title: Title || Episode, VideoUrl: src }
             })
         )
       })
@@ -176,8 +176,6 @@ export default function PlayerPage({ id }: any) {
   }, [state, isCollected])
 
   const onEvent = ({ type, payload }: PlayerEvent) => {
-    console.log({ type, payload })
-
     const time = payload?.target?.currentTime
     if (type == 'timeupdate') {
       if (!(time < 1)) {

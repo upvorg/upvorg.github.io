@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
-import { enimeSearchAdapter } from '../../enime.adp'
+import { cliclisAdapter } from '../../enime.adp'
 import queryString from 'query-string'
 import useLocation, { useSearch } from 'wouter/use-location'
 
@@ -27,9 +27,9 @@ export default function SearchPage() {
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
-      fetch(`https://api.enime.moe/search/${encodeURIComponent(k)}?page=${page}&perPage=20`)
+      fetch(`https://cors.moopa.my.id/?url=https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
         .then((it) => it.json())
-        .then((it) => setPosts(enimeSearchAdapter(it.data) as any))
+        .then((it) => setPosts(cliclisAdapter(it.posts) as any))
         .catch(() => setPosts([]))
     }
   }, [k, page])
