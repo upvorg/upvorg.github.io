@@ -20,6 +20,8 @@ export { isMobile }
 const plugins = [
   ui({
     screenshot: true,
+    settings: [],
+    speeds: [],
     topSetting: isMobile,
     slideToSeek: 'always',
     keyboard: { global: true },
@@ -32,6 +34,21 @@ const plugins = [
       </svg>`,
       next: `<svg style="transform: scale(0.7);" viewBox="0 0 1024 1024"><path d="M743.36 427.52L173.76 119.04A96 96 0 0 0 32 203.52v616.96a96 96 0 0 0 141.76 84.48l569.6-308.48a96 96 0 0 0 0-168.96zM960 96a32 32 0 0 0-32 32v768a32 32 0 0 0 64 0V128a32 32 0 0 0-32-32z"></path></svg>`,
     },
+    menu: [
+      {
+        name: '倍速',
+        children: ['2.0', '1.5', '1.25', '1.0', '0.75', '0.5'].map((speed) => ({
+          name: speed + 'x',
+          value: speed,
+          default: (localStorage.getItem('speed') || '1.0') == speed,
+        })),
+        onChange({ name, value }, elm, player) {
+          elm.innerText = name
+          player.setPlaybackRate(+value)
+          localStorage.setItem('speed', value)
+        },
+      },
+    ],
   }),
   hls({ forceHLS: true }),
   // new Anime4kPlugin(),
@@ -47,6 +64,7 @@ const OPlayer = React.forwardRef(
       <ReactPlayer
         ref={_ref}
         {...rest}
+        playbackRate={localStorage.getItem('speed') ? +localStorage.getItem('speed')! : 1}
         plugins={plugins}
         onEvent={onEvent}
         autoplay={autoplay}
