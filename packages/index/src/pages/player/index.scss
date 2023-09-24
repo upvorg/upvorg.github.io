@@ -4,6 +4,8 @@ $pr: 340px;
   max-width: 1300px;
 
   &.no-side {
+    max-width: 77%;
+    margin: 0 auto;
     .player-header {
       max-width: 100%;
       padding-right: 0;
