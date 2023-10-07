@@ -27,7 +27,7 @@ export default function SearchPage() {
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
-      fetch(`https://cors.moopa.my.id/?url=https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
+      fetch(`https://ottocors.vercel.app/cors?url=https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
         .then((it) => it.json())
         .then((it) => setPosts(cliclisAdapter(it.posts) as any))
         .catch(() => setPosts([]))

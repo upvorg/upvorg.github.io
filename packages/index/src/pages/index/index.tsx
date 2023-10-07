@@ -31,16 +31,16 @@ export default function IndexPage() {
     Promise.allSettled([
       recommends,
       fetch(
-        `https://cors.moopa.my.id/?url=${encodeURIComponent(
+        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
           'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
         )}`
       ).then((it) => it.json()),
       fetch(
-        `https://cors.moopa.my.id/?url=${encodeURIComponent(
+        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
           'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=100'
         )}`
       ).then((it) => it.json()),
-      fetch('https://cors.moopa.my.id/?url=https://www.clicli.cc/rank?day=300').then((it) => it.json()),
+      fetch('https://ottocors.vercel.app/cors?url=https://www.clicli.cc/rank?day=300').then((it) => it.json()),
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
         if (i == 0) return (itemPromise as any)?.value?.data || []

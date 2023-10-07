@@ -13,9 +13,9 @@
     "build": "pnpm run build:index & pnpm run build:admin"
   },
   "dependencies": {
-    "@types/node": "^18.17.19",
-    "@types/react": "^18.2.22",
-    "@types/react-dom": "^18.2.7",
+    "@types/node": "^18.18.4",
+    "@types/react": "^18.2.25",
+    "@types/react-dom": "^18.2.11",
     "bulma": "^0.9.4",
     "bulma-list": "^1.2.0",
     "bulma-switch": "^2.0.4",
@@ -26,12 +26,12 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "typescript": "^5.2.2",
-    "wouter": "^2.11.0"
+    "wouter": "^2.12.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
     "autoprefixer": "^10.4.16",
-    "browserslist": "^4.21.11",
+    "browserslist": "^4.22.1",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
@@ -41,12 +41,12 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
-    "postcss": "^8.4.30",
+    "postcss": "^8.4.31",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^7.3.3",
     "postcss-preset-env": "^8.5.1",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.68.0",
+    "sass": "^1.69.0",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.9",

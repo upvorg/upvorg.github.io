@@ -86,7 +86,7 @@ export default function PlayerPage({ id }: any) {
   useEffect(() => {
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
-    fetch(`https://cors.moopa.my.id/?url=https://www.clicli.cc/post/${id}`)
+    fetch(`https://ottocors.vercel.app/cors?url=https://www.clicli.cc/post/${id}`)
       .then((it) => it.json())
       .then((it) => clicliAdapter(it.result))
       .then((it) => {
