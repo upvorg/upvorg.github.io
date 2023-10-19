@@ -44,18 +44,15 @@ export default class Http<R = any> {
 
     this.interceptors = {
       request: new Interceptor<HeadersInit, R>(),
-      response: new Interceptor<R, R>()
+      response: new Interceptor<R, R>(),
     }
   }
 
-  static create<R = any>(
-    url?: string,
-    options?: { header?: HeadersInit; config?: Options['config'] }
-  ) {
+  static create<R = any>(url?: string, options?: { header?: HeadersInit; config?: Options['config'] }) {
     return new Http<R>({
       baseUrl: url,
       headers: options?.header,
-      config: options?.config
+      config: options?.config,
     })
   }
 
@@ -76,15 +73,10 @@ export default class Http<R = any> {
   }
 
   //TODO: Return Promise<R<T>>
-  private _send<T>(
-    url: string,
-    method: string,
-    headers: HeadersInit = {},
-    data: any = {}
-  ): Promise<T> {
+  private _send<T>(url: string, method: string, headers: HeadersInit = {}, data: any = {}): Promise<T> {
     const config: any = this.interceptors.request.resolve?.({
       ...this.headers,
-      ...headers
+      ...headers,
     })
 
     if (!(data instanceof FormData) && this.headers['Content-type']) {
@@ -93,13 +85,13 @@ export default class Http<R = any> {
 
     if (__DEV__) console.log(`-> REQUEST: ${method} ${url} data: `, method.toUpperCase(), data)
     let rawResponse: Response
-    return fetch(`${this.baseUrl}${url}`, {
+    return fetch(`${this.baseUrl}${this.baseUrl ? encodeURIComponent(url) : url}`, {
       method,
       headers: config,
       ...this.config,
       ...(!['GET', 'HEAD'].includes(method.toUpperCase()) && {
-        body: data instanceof FormData ? data : JSON.stringify(data)
-      })
+        body: data instanceof FormData ? data : JSON.stringify(data),
+      }),
     })
       .then(
         (res: Response) => {
@@ -120,7 +112,7 @@ export default class Http<R = any> {
           throw this.interceptors.response.reject?.({
             status: rawResponse.status,
             statusText: rawResponse.statusText,
-            ...response
+            ...response,
           })
         }
         if (__DEV__) console.log(`<--- RESPONSE: ${method} ${url} response: `, response)
