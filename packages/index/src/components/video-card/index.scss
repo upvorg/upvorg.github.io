@@ -95,3 +95,34 @@
 .dark .upv-video-card a {
   background-color: #4a4a4a;
 }
+
+.live-card {
+  display: flex;
+  background-color: #6668ab;
+  border-radius: 6px;
+  color: #fff;
+
+  .live-avatar {
+    width: 100px;
+    height: 100px;
+    margin-right: 16px;
+  }
+
+  .live-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    > span:first-child {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .live-card .live-avatar{
+    width: 60px;
+    height: 60px;
+  }
+}

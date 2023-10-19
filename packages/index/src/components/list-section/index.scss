@@ -30,6 +30,10 @@ $min-height: 350px;
         grid-template-columns: repeat(3, 1fr) !important;
       }
     }
+
+    &.is-live .upv-card-list .list-body{
+      grid-template-columns: repeat(2, 1fr)!important;
+    }
   }
 
   &.col-2 {
@@ -42,6 +46,10 @@ $min-height: 350px;
         grid-template-columns: repeat(4, 1fr);
       }
     }
+  }
+
+  &.is-live .upv-card-list .list-body{
+    grid-template-columns: repeat(3, 1fr);
   }
 
   aside {

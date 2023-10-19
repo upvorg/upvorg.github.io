@@ -16,7 +16,7 @@
     "@oplayer/ui": "1.2.34-beta.0",
     "anime4k.js": "latest",
     "devtools-detector": "^2.0.14",
-    "github-markdown-css": "^5.2.0",
+    "github-markdown-css": "^5.3.0",
     "hls.js": "0.14.17",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

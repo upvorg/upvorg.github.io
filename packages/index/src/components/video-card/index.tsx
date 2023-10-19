@@ -22,7 +22,9 @@ if (!nativeLazySupported) {
           const img = container.querySelector('img')!
           img.src = img.dataset.src!
           img.onload = () => {
-            container.querySelector('.upv-video-card__loading')!.classList.add('upv-video-card__loading--hidden')
+            container
+              .querySelector('.upv-video-card__loading')!
+              .classList.add('upv-video-card__loading--hidden')
           }
           img.onerror = () => {
             container.querySelector('.upv-video-card__error')!.classList.add('upv-video-card__error--show')
@@ -44,7 +46,9 @@ export default function VideoCard({ info }: { info: R.Post }) {
       return () => {
         if ($el.current) {
           _IntersectionObserver.unobserve($el.current)
-          $el.current.querySelector('.upv-video-card__loading')!.classList.remove('upv-video-card__loading--hidden')
+          $el.current
+            .querySelector('.upv-video-card__loading')!
+            .classList.remove('upv-video-card__loading--hidden')
           $el.current.querySelector('.upv-video-card__error')!.classList.remove('upv-video-card__error--show')
         }
       }
@@ -67,14 +71,14 @@ export default function VideoCard({ info }: { info: R.Post }) {
               />
               {!nativeLazySupported && [
                 <div className="upv-video-card__loading">LOADING</div>,
-                <div className="upv-video-card__error">ERROR</div>
+                <div className="upv-video-card__error">ERROR</div>,
               ]}
             </>
           )}
 
           <div
             className={classNames('upv-video-card__nocover', {
-              'upv-video-card__nocover--show': !info.Cover
+              'upv-video-card__nocover--show': !info.Cover,
             })}
           >
             <span className={classNames({ large: info.Title.length <= 4 })}>
@@ -92,5 +96,23 @@ export default function VideoCard({ info }: { info: R.Post }) {
         </div>
       </div>
     </div>
+  )
+}
+
+export function LiveCard({ id, level, name, qq, sign }) {
+  return (
+    <a href={`/v/${id}?live`}>
+      <div className="live-card" style={{ display: 'flex' }}>
+        <div className="live-avatar">
+          <img src={`https://q1.qlogo.cn/g?b=qq&nk=${qq}&s=640`} alt="name" />
+        </div>
+        <div className="live-info">
+          <span>
+            {sign} <sup>{level}</sup>
+          </span>
+          <span>{name}</span>
+        </div>
+      </div>
+    </a>
   )
 }

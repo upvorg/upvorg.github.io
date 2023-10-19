@@ -84,6 +84,12 @@ export default function PlayerPage({ id }: any) {
   }, [lastEpisode, video])
 
   useEffect(() => {
+    if (document.location.search.includes('live')) {
+      setVideo([
+        { Episode: 1, Title: 'live', VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108` } as any,
+      ])
+      return
+    }
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
     fetch(`https://ottocors.vercel.app/cors?url=https://www.clicli.cc/post/${id}`)
@@ -228,7 +234,7 @@ export default function PlayerPage({ id }: any) {
             source={source}
             onEvent={onEvent}
             duration={lastDuration}
-            isLive={id == 'iptv'}
+            isLive={id == 'iptv' || document.location.search.includes('live')}
           />
         </div>
         <div className="player-header__r">

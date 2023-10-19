@@ -8,6 +8,11 @@ import { cliclisAdapter } from '../../enime.adp'
 
 const indexConfig = [
   {
+    title: 'Lives',
+    query: 'type=recommends&title=recommends',
+    icon: require('../../assets/live.svg').default,
+  },
+  {
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
@@ -29,6 +34,11 @@ export default function IndexPage() {
   // https://techz-cors-bypass.herokuapp.com/${res.url}
   useEffect(() => {
     Promise.allSettled([
+      fetch(
+        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
+          'https://www.clicli.cc/users?level=4&page=1&pageSize=9'
+        )}`
+      ).then((it) => it.json()),
       recommends,
       fetch(
         `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
@@ -37,13 +47,16 @@ export default function IndexPage() {
       ).then((it) => it.json()),
       fetch(
         `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
-          'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=100'
+          'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=25'
         )}`
       ).then((it) => it.json()),
-      fetch('https://ottocors.vercel.app/cors?url=https://www.clicli.cc/rank?day=300').then((it) => it.json()),
+      fetch('https://ottocors.vercel.app/cors?url=https://www.clicli.cc/rank?day=300').then((it) =>
+        it.json()
+      ),
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
-        if (i == 0) return (itemPromise as any)?.value?.data || []
+        if (i == 0) return (itemPromise as any)?.value?.users || []
+        if (i == 1) return (itemPromise as any)?.value?.data || []
         return cliclisAdapter(itemPromise.value?.posts)
       })
 
@@ -61,11 +74,12 @@ export default function IndexPage() {
           <ListSection
             key={index}
             videos={state[index]}
+            isLive={index == 0}
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
-            aside={index == 0 && <RankList list={state[3]} />}
-            asideTitle={(index == 0 && 'Ranks') as any}
+            aside={index == 1 && <RankList list={state[-1]} />}
+            asideTitle={(index == 1 && 'Ranks') as any}
           />
         )
       })}

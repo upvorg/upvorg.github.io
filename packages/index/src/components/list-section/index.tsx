@@ -1,4 +1,5 @@
-import VideoCard from '../video-card'
+import VideoCard, { LiveCard } from '../video-card'
+import cls from 'classnames'
 import './index.scss'
 
 interface ListSectionProps {
@@ -8,12 +9,23 @@ interface ListSectionProps {
   aside?: React.ReactNode
   moreUrl?: string
   icon?: string
+  isLive: boolean
 }
 
-export default function ListSection({ title, icon, videos, asideTitle, aside, moreUrl }: ListSectionProps) {
+export default function ListSection({
+  title,
+  icon,
+  videos,
+  asideTitle,
+  aside,
+  moreUrl,
+  isLive,
+}: ListSectionProps) {
+  console.log(videos)
+
   return (
-    <div className={`upv-grid ${!!asideTitle ? 'col-2' : ''}`}>
-      <div className="upv-card-list">
+    <div className={cls('upv-grid', { 'col-2': asideTitle, 'is-live': isLive })}>
+      <div className={'upv-card-list'}>
         <div className="list-header">
           <div>
             {icon && <img src={icon} alt={title} />}
@@ -47,7 +59,10 @@ export default function ListSection({ title, icon, videos, asideTitle, aside, mo
         <div className="list-body">
           {videos ? (
             videos.length > 0 ? (
-              videos.map((item, index) => <VideoCard key={index} info={item} />)
+              videos.map((item, index) => {
+                if (isLive) return <LiveCard {...(item as any)} />
+                return <VideoCard key={index} info={item} />
+              })
             ) : (
               <div className="empty">No Data</div>
             )
