@@ -21,7 +21,7 @@ export enum USER_LEVEL {
   CREATOR = 3,
   ADMIN = 2,
   ROOT = 1,
-  ALL = ''
+  ALL = '',
 }
 
 export const USER_LEVEL_MAP = {
@@ -29,7 +29,7 @@ export const USER_LEVEL_MAP = {
   [USER_LEVEL.CREATOR]: '创作者',
   [USER_LEVEL.ADMIN]: '管理员',
   [USER_LEVEL.ROOT]: '超级管理员',
-  [USER_LEVEL.ALL]: '全部'
+  [USER_LEVEL.ALL]: '全部',
 }
 
 export const enum POST_STATUS {
@@ -38,34 +38,37 @@ export const enum POST_STATUS {
   PENDING = 3,
   REJECT = 2,
   DELETED = 1,
-  ALL = ''
+  ALL = '',
 }
 
 export const POST_STATUS_MAP = {
   [POST_STATUS.PUBLISHED]: '已发布',
   [POST_STATUS.PENDING]: '待审核',
   [POST_STATUS.REJECT]: '已下架',
-  [POST_STATUS.ALL]: '全部'
+  [POST_STATUS.ALL]: '全部',
 }
 
 const axios = http.create<R.Response<any>>(API_HOST, {
   config: {
-    credentials: 'include'
-  }
+    credentials: 'include',
+  },
 })
 
 axios.interceptors.request.use((config) => {
   const ck = Cookie.get(COOKIE_ACCESS_TOKEN_KEY)
   return {
     ...config,
-    Authorization: ck ? `Bearer ${ck}` : ''
+    Authorization: ck ? `Bearer ${ck}` : '',
   }
 })
 
-const corsAxios = http.create<R.Response<any>>('https://ottocors.vercel.app/cors?url=', {
-  config: {
-    credentials: 'include'
-  },
-})
+const corsAxios = http.create<R.Response<any>>(
+  document.location.search.includes('cors') ? '' : 'https://ottocors.vercel.app/cors?url=',
+  {
+    config: {
+      credentials: 'include',
+    },
+  }
+)
 
 export { axios, corsAxios }
