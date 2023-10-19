@@ -6,6 +6,7 @@ import queryString from 'query-string'
 import useLocation, { useSearch } from 'wouter/use-location'
 
 import './index.scss'
+import { corsAxios } from '@web/shared/constants'
 
 export default function SearchPage() {
   const inputKeyword = useRef('')
@@ -27,7 +28,7 @@ export default function SearchPage() {
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
-      fetch(`https://ottocors.vercel.app/cors?url=https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
+      corsAxios.get(`https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
         .then((it) => it.json())
         .then((it) => setPosts(cliclisAdapter(it.posts) as any))
         .catch(() => setPosts([]))

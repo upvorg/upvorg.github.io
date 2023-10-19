@@ -21,8 +21,6 @@ export default function ListSection({
   moreUrl,
   isLive,
 }: ListSectionProps) {
-  console.log(videos)
-
   return (
     <div className={cls('upv-grid', { 'col-2': asideTitle, 'is-live': isLive })}>
       <div className={'upv-card-list'}>
@@ -60,7 +58,7 @@ export default function ListSection({
           {videos ? (
             videos.length > 0 ? (
               videos.map((item, index) => {
-                if (isLive) return <LiveCard {...(item as any)} />
+                if (isLive) return <LiveCard key={index} {...(item as any)} />
                 return <VideoCard key={index} info={item} />
               })
             ) : (

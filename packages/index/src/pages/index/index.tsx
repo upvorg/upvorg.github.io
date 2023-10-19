@@ -5,6 +5,7 @@ import ListSection from '../../components/list-section'
 
 import recommends from '../../mock/recommends.json'
 import { cliclisAdapter } from '../../enime.adp'
+import { corsAxios } from '@web/shared/constants'
 
 const indexConfig = [
   {
@@ -34,25 +35,15 @@ export default function IndexPage() {
   // https://techz-cors-bypass.herokuapp.com/${res.url}
   useEffect(() => {
     Promise.allSettled([
-      fetch(
-        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
-          'https://www.clicli.cc/users?level=4&page=1&pageSize=9'
-        )}`
-      ).then((it) => it.json()),
+      corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
       recommends,
-      fetch(
-        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
-          'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
-        )}`
-      ).then((it) => it.json()),
-      fetch(
-        `https://ottocors.vercel.app/cors?url=${encodeURIComponent(
-          'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=25'
-        )}`
-      ).then((it) => it.json()),
-      fetch('https://ottocors.vercel.app/cors?url=https://www.clicli.cc/rank?day=300').then((it) =>
-        it.json()
+      corsAxios.get(
+        'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
       ),
+      corsAxios.get(
+        'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=25'
+      ),
+      corsAxios.get('https://www.clicli.cc/rank?day=300'),
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
         if (i == 0) return (itemPromise as any)?.value?.users || []
@@ -78,7 +69,7 @@ export default function IndexPage() {
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
-            aside={index == 1 && <RankList list={state[-1]} />}
+            aside={index == 1 && <RankList list={state.at(-1)!} />}
             asideTitle={(index == 1 && 'Ranks') as any}
           />
         )

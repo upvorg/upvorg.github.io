@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
 import ReactPlayer, { PlayerEvent, Player, isMobile } from '@web/shared/components/player/OPlayer'
-import { axios } from '@web/shared/constants'
+import { axios, corsAxios } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
@@ -92,7 +92,7 @@ export default function PlayerPage({ id }: any) {
     }
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
-    fetch(`https://ottocors.vercel.app/cors?url=https://www.clicli.cc/post/${id}`)
+    corsAxios.get(`https://www.clicli.cc/post/${id}`)
       .then((it) => it.json())
       .then((it) => clicliAdapter(it.result))
       .then((it) => {

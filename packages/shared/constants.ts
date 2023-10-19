@@ -62,4 +62,10 @@ axios.interceptors.request.use((config) => {
   }
 })
 
-export { axios }
+const corsAxios = http.create<R.Response<any>>('', {
+  config: {
+    credentials: 'include'
+  },
+})
+
+export { axios, corsAxios }
