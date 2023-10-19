@@ -62,7 +62,7 @@ axios.interceptors.request.use((config) => {
   }
 })
 
-const corsAxios = http.create<R.Response<any>>('', {
+const corsAxios = http.create<R.Response<any>>('https://ottocors.vercel.app/cors?url=', {
   config: {
     credentials: 'include'
   },
