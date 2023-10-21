@@ -41,13 +41,14 @@ export default function IndexPage() {
         'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
       ),
       corsAxios.get(
-        'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=25'
+        'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=24'
       ),
       corsAxios.get('https://www.clicli.cc/rank?day=300'),
     ] as any).then((_resp) => {
       const resp = _resp.map((itemPromise: any, i) => {
         if (i == 0) return (itemPromise as any)?.value?.users || []
         if (i == 1) return (itemPromise as any)?.value?.data || []
+        if (i == 2) return cliclisAdapter(itemPromise.value?.posts).slice(1)
         return cliclisAdapter(itemPromise.value?.posts)
       })
 
