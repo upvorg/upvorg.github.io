@@ -63,7 +63,7 @@ axios.interceptors.request.use((config) => {
 })
 
 const corsAxios = http.create<R.Response<any>>(
-  document.location.search.includes('cors') ? '' : 'https://ottocors.vercel.app/cors?url=',
+  document.location.search.includes('cors') ? '' : 'https://cors-flame.vercel.app/api/cors?url=',
   {
     config: {
       credentials: 'include',
