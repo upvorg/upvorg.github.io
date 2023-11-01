@@ -86,26 +86,37 @@ export default function PlayerPage({ id }: any) {
   useEffect(() => {
     if (document.location.search.includes('live')) {
       setVideo([
-        { Episode: 1, Title: 'live', VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108` } as any,
+        {
+          Episode: 1,
+          Title: 'live',
+          VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108`,
+        } as any,
       ])
       return
     }
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
-    corsAxios.get(`https://www.clicli.cc/post/${id}`)
+    corsAxios
+      .get(`https://www.clicli.cc/post/${id}`)
       .then((it) => clicliAdapter(it.result))
       .then((it) => {
         setState(it)
-        setVideo(
-          it.videos
-            .split('\n')
-            .filter(Boolean)
-            .map((v, i) => {
-              const [chunkString, src] = v.split('$')
-              const [Episode, Title] = chunkString.split(' ')
-              return { Episode: Title ? Episode : i, Title: Title || Episode, VideoUrl: src }
-            })
-        )
+        const videos = it.videos
+          .split('\n')
+          .filter(Boolean)
+          .map((v, i) => {
+            const [chunkString, src] = v.split('$')
+            const [Episode, Title] = chunkString.split(' ')
+            return {
+              Episode: Title ? Episode : i,
+              Title: Title || Episode,
+              VideoUrl: src,
+              title: Title || Episode,
+              src,
+            }
+          })
+        setVideo(videos)
+        player.current?.context.playlist.changeSourceList(videos)
       })
   }, [isAdp])
 
