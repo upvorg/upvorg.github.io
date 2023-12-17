@@ -30,7 +30,6 @@ export default function SearchPage() {
       // })
       corsAxios
         .get(`https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
-        .then((it) => it.json())
         .then((it) => setPosts(cliclisAdapter(it.posts) as any))
         .catch((err) => {
           setPosts([])
