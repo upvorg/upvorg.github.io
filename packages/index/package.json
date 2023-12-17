@@ -18,6 +18,6 @@
     "use-query-params": "^2.2.1"
   },
   "devDependencies": {
-    "@types/react-helmet": "^6.1.8"
+    "@types/react-helmet": "^6.1.11"
   }
 }

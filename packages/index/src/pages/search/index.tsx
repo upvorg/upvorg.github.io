@@ -28,10 +28,14 @@ export default function SearchPage() {
       // axios.get(`/posts?keyword=${k}&page=${page}&page_size=12`).then((res) => {
       //   setPosts(res.data)
       // })
-      corsAxios.get(`https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
+      corsAxios
+        .get(`https://www.clicli.cc/search/posts?key=${encodeURIComponent(k)}`)
         .then((it) => it.json())
         .then((it) => setPosts(cliclisAdapter(it.posts) as any))
-        .catch(() => setPosts([]))
+        .catch((err) => {
+          setPosts([])
+          console.log(err)
+        })
     }
   }, [k, page])
 
