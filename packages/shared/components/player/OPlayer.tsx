@@ -38,7 +38,7 @@ const plugins = [
     },
     menu: [
       {
-        name: '倍速',
+        name: localStorage.getItem('speed') ? localStorage.getItem('speed')! + 'x' : '倍速',
         children: ['2.0', '1.5', '1.25', '1.0', '0.75', '0.5'].map((speed) => ({
           name: speed + 'x',
           value: speed,
