@@ -8,11 +8,11 @@ import { cliclisAdapter } from '../../enime.adp'
 import { corsAxios } from '@web/shared/constants'
 
 const indexConfig = [
-  {
-    title: 'Lives',
-    query: 'type=recommends&title=recommends',
-    icon: require('../../assets/live.svg').default,
-  },
+  // {
+  //   title: 'Lives',
+  //   query: 'type=recommends&title=recommends',
+  //   icon: require('../../assets/live.svg').default,
+  // },
   {
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
@@ -35,7 +35,7 @@ export default function IndexPage() {
   // https://techz-cors-bypass.herokuapp.com/${res.url}
   useEffect(() => {
     Promise.allSettled([
-      corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
+      // corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
       recommends,
       corsAxios.get(
         'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
@@ -45,11 +45,12 @@ export default function IndexPage() {
       ),
       corsAxios.get('https://www.clicli.cc/rank?day=300'),
     ] as any).then((_resp) => {
-      const resp = _resp.map((itemPromise: any, i) => {
-        if (i == 0) return (itemPromise as any)?.value?.users || []
-        if (i == 1) return (itemPromise as any)?.value?.data || []
-        if (i == 2) return cliclisAdapter(itemPromise.value?.posts).slice(1)
-        return cliclisAdapter(itemPromise.value?.posts)
+      const resp = _resp.map(({ value }: any) => {
+        if (value.posts) {
+          return cliclisAdapter(value.posts)
+        }
+
+        return value.data
       })
 
       setState(resp)
@@ -66,12 +67,12 @@ export default function IndexPage() {
           <ListSection
             key={index}
             videos={state[index]}
-            isLive={index == 0}
+            isLive={index == -1}
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
-            aside={index == 1 && <RankList list={state.at(-1)!} />}
-            asideTitle={(index == 1 && 'Ranks') as any}
+            aside={index == 0 && <RankList list={state.at(-1)!} />}
+            asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
       })}
