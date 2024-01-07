@@ -45,8 +45,9 @@ export default function IndexPage() {
       ),
       corsAxios.get('https://www.clicli.cc/rank?day=300'),
     ] as any).then((_resp) => {
-      const resp = _resp.map(({ value }: any) => {
+      const resp = _resp.map(({ value }: any, i) => {
         if (value.posts) {
+          if (i == 1) value.posts.splice(0, 1)
           return cliclisAdapter(value.posts)
         }
 
