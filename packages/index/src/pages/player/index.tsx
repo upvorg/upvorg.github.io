@@ -350,7 +350,7 @@ export default function PlayerPage({ id }: any) {
                     .split(' ')
                     .map((tag) => ({
                       title: tag,
-                      href: `/pv/tag?type=video&title=${tag}`,
+                      href: `/pv/tag?type=video&title=${tag}&tag=${tag}`,
                     }))
                     .concat(
                       IsOriginal == 2

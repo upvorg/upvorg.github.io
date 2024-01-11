@@ -1,6 +1,10 @@
 let _isOpen = false
 
-if (!__DEV__ && new URLSearchParams(window.location.search).get('debug') == null) {
+if (document.location.search.includes('debug')) {
+  localStorage.setItem('debug', '1')
+}
+
+if (!__DEV__ &&  localStorage.getItem('debug') != '1') {
   const 打断施法 = async (devtoolsDetector: any) => {
     if (devtoolsDetector.isSafari) {
       document.body.innerHTML = '<h1 style="font-size:2em;font-weight:bold">👾打断施法!</h1>'

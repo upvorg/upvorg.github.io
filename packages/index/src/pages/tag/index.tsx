@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
-import { enimesAdapter } from '../../enime.adp'
+import { cliclisAdapter } from '../../enime.adp'
 import useLocation, { useSearch } from 'wouter/use-location'
 import queryString from 'query-string'
+import { corsAxios } from '@web/shared/constants'
 
 const cache: Record<string, any> = {}
 
@@ -12,7 +13,7 @@ const store = require.context('../../mock/post/', true, /\.*\.json$/)
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<R.Post[] | null>()
-  const { title, type, page = 1 } = queryString.parse(useSearch()) as Record<string, string>
+  const { title, type, page = 1, tag } = queryString.parse(useSearch()) as Record<string, string>
   const [, setLocation] = useLocation()
 
   const pageHandler = (page: number) => {
@@ -23,12 +24,12 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    if (type == 'recent' || type == 'popular') {
+    if (type == 'recent' || type == 'popular' || tag) {
       setPosts(null)
-      fetch(`https://api.enime.moe/${type}?perPage=${24}&page=${page}&language=JP`)
-        .then((it) => it.json())
-        .then((it) => {
-          setPosts(enimesAdapter(it.data))
+      corsAxios.get(
+       `https://www.clicli.cc/posts?status=public&sort=&tag=${tag || type}&uid=&page=${page}&pageSize=24`
+      ).then((it) => {
+          setPosts(cliclisAdapter(it.posts))
         })
     } else {
       store

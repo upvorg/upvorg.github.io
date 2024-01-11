@@ -62,8 +62,12 @@ axios.interceptors.request.use((config) => {
   }
 })
 
+if (document.location.search.includes('cors')) {
+  localStorage.setItem('cors', '1')
+}
+
 const corsAxios = http.create<R.Response<any>>(
-  document.location.search.includes('cors') ? '' : 'https://cors-flame.vercel.app/api/cors?url=',
+  localStorage.getItem('cors') == '1' ? '' : 'https://cors-flame.vercel.app/api/cors?url=',
 )
 
 export { axios, corsAxios }
