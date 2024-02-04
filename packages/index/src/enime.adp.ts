@@ -134,4 +134,6 @@ export const clicliAdapter = (item: any) => {
   }
 }
 
-export const cliclisAdapter = (data: any[] = []) => data.map(clicliAdapter)
+const blackList = [3421, 786]
+
+export const cliclisAdapter = (data: any[] = []) => data.filter(it => !blackList.includes(it.id)).map(clicliAdapter)
