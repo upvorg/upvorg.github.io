@@ -43,7 +43,7 @@ export default function IndexPage() {
       corsAxios.get(
         'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=24'
       ),
-      corsAxios.get('https://www.clicli.cc/rank?day=300'),
+      corsAxios.get('https://www.clicli.cc/rank?day=60'),
     ] as any).then((_resp) => {
       const resp = _resp.map(({ value }: any, i) => {
         if (value.posts) {
