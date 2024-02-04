@@ -26,6 +26,7 @@ const plugins = [
     speeds: [],
     topSetting: isMobile,
     slideToSeek: 'always',
+    ctrlHideBehavior: 'delay',
     keyboard: { global: true },
     controlBar: { back: 'fullscreen' },
     subtitle: { background: true, shadow: 'none' },
