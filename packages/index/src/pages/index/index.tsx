@@ -38,10 +38,10 @@ export default function IndexPage() {
       // corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
       recommends,
       corsAxios.get(
-        'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=13'
+        'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
       ),
       corsAxios.get(
-        'https://www.clicli.cc/posts?status=public&sort=%E6%96%B0%E7%95%AA&tag=&uid=&page=1&pageSize=24'
+        'https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'
       ),
       corsAxios.get('https://www.clicli.cc/rank?day=60'),
     ] as any).then((_resp) => {
