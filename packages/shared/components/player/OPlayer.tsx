@@ -15,10 +15,6 @@ interface OPlayerProps extends PlayerOptions {
   onEvent?: (event: PlayerEvent) => void
 }
 
-export type { PlayerEvent, Player }
-
-export { isMobile }
-
 const plugins = [
   ui({
     screenshot: true,
@@ -68,12 +64,13 @@ const OPlayer = React.forwardRef(
       <ReactPlayer
         ref={_ref}
         {...rest}
-        playbackRate={localStorage.getItem('speed') ? +localStorage.getItem('speed')! : 1}
         plugins={plugins}
         onEvent={onEvent}
         autoplay={autoplay}
         duration={duration}
         playing={playerIsPlaying}
+        volume={localStorage.getItem('volume') ? +localStorage.getItem('volume')! : 1}
+        playbackRate={localStorage.getItem('speed') ? +localStorage.getItem('speed')! : 1}
       />
     )
   }

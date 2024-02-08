@@ -10,14 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@oplayer/core": "^1.2.31",
+    "@oplayer/core": "latest",
     "@oplayer/hls": "latest",
     "@oplayer/plugins": "latest",
     "@oplayer/react": "latest",
     "@oplayer/ui": "latest",
     "anime4k.js": "latest",
     "devtools-detector": "^2.0.14",
-    "github-markdown-css": "^5.5.0",
+    "github-markdown-css": "^5.5.1",
     "hls.js": "0.14.17",
     "m3u8-parser": "^7.1.0",
     "react": "^18.2.0",
@@ -29,7 +29,7 @@
     "rehype-stringify": "^10.0.0",
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.0.0",
+    "remark-rehype": "^11.1.0",
     "unified": "^11.0.4"
   }
 }
