@@ -5,7 +5,6 @@ import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useRef } from 'react'
 import { PlaylistPlugin } from '@oplayer/plugins'
-
 // import Anime4kPlugin from './ainme4k'
 
 interface OPlayerProps extends PlayerOptions {
@@ -77,3 +76,7 @@ const OPlayer = React.forwardRef(
 )
 
 export default OPlayer
+
+export type { PlayerEvent, Player }
+
+export { isMobile }
