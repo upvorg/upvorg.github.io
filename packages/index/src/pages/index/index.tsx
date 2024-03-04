@@ -40,9 +40,7 @@ export default function IndexPage() {
       corsAxios.get(
         'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
       ),
-      corsAxios.get(
-        'https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'
-      ),
+      corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'),
       corsAxios.get('https://www.clicli.cc/rank?day=60'),
     ] as any).then((_resp) => {
       const resp = _resp.map(({ value }: any, i) => {
@@ -71,7 +69,7 @@ export default function IndexPage() {
             icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
-            aside={index == 0 && <RankList list={state.at(-1)!} />}
+            aside={index == 0 && <RankList list={state[state.length - 1]} />}
             asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
