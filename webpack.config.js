@@ -25,8 +25,8 @@ module.exports = {
     pathinfo: isEnvDevelopment,
     filename: (pathData, assetInfo) => {
       if (pathData.chunk.name == 'sw') return 'sw.js'
-      if (isEnvProduction) return 'static/js/bundle_[name].js'
-      return 'static/js/[name].[contenthash:8].js'
+      if (isEnvProduction) return 'static/js/[name].[contenthash:8].js'
+      return 'static/js/bundle_[name].js'
     },
     chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[name].[hash][ext]',

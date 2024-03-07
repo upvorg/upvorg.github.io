@@ -3,10 +3,11 @@ import { respondWithCache, pause, clearAssetCache } from './asset-cache.js'
 
 declare const self: ServiceWorkerGlobalScope
 
-const ASSET_CACHE_PATTERN = /.+\.[0-9a-f]{8}\..*(js|css|woff2?|svg|png|jpg|jpeg|json|wasm)$/
-const CDN_CACHE_PATTERN = /(.*cdnjs.cloudflare.com.*)|(.*fonts.googleapis.com.*)/
-// |(.*sinaimg.cn.*)|(.*alicdn.com.*)|(.*loli.net.*)|(.*pic.url.cn.*)|(.*tupianla.cc.*)
 const ACTIVATE_TIMEOUT = 3000
+
+const ASSET_CACHE_PATTERN = /.+\.[0-9a-f]{8}\..*(js|css|woff2?|svg|png|jpg|jpeg|json|wasm)$/
+const CDN_CACHE_PATTERN = /(.*cdnjs.cloudflare.com.*)|(.*fonts.googleapis.com.*)|(.*cdn-us.imgs.moe.*)/
+// |(.*sinaimg.cn.*)|(.*alicdn.com.*)|(.*loli.net.*)|(.*pic.url.cn.*)|(.*tupianla.cc.*)
 
 self.addEventListener('install', (e) => {
   // Activate worker immediately
@@ -27,7 +28,7 @@ self.addEventListener('activate', (e) => {
   )
 })
 
-self.addEventListener('fetch', (e /*: FetchEvent*/) => {
+self.addEventListener('fetch', (e: FetchEvent) => {
   const { url } = e.request
 
   if ((url.startsWith('http') && url.match(ASSET_CACHE_PATTERN)) || url.match(CDN_CACHE_PATTERN)) {
