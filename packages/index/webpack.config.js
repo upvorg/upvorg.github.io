@@ -19,19 +19,22 @@ const head = isEnvProduction
   : ''
 
 module.exports = merge(baseConfig, {
-  entry: './src/index.tsx',
+  entry: {
+    app: './src/index.tsx',
+    sw: '../sw/src/sw.ts',
+  },
   output: {
-    path: path.resolve(__dirname, '../../dist/html')
+    path: path.resolve(__dirname, '../../dist/html'),
   },
   devServer: {
-    port: 3001
+    port: 3001,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: '../../public/index.html',
       title: 'UPV - free animes no ads',
       head,
-      ...getHTMLPluginDefaultConfig()
-    })
-  ]
+      ...getHTMLPluginDefaultConfig(),
+    }),
+  ],
 })

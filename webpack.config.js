@@ -23,7 +23,11 @@ module.exports = {
   devtool: isEnvDevelopment ? 'cheap-module-source-map' : false,
   output: {
     pathinfo: isEnvDevelopment,
-    filename: isEnvProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle_[name].js',
+    filename: (pathData, assetInfo) => {
+      if (pathData.chunk.name == 'sw') return 'sw.js'
+      if (isEnvProduction) return 'static/js/bundle_[name].js'
+      return 'static/js/[name].[contenthash:8].js'
+    },
     chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[name].[hash][ext]',
     publicPath: '/'
