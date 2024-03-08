@@ -1,8 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "noImplicitAny": false
+    "lib": [
+      "WebWorker"
+    ],
   },
-  "include": ["src", "../../types"]
+  "include": [
+    "src",
+  ]
 }

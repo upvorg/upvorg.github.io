@@ -1,5 +1,5 @@
 // import { handlePush, handleNotificationClick, handleClientMessage } from './push-notification'
-import { respondWithCache, pause, clearAssetCache } from './asset-cache.js'
+import { respondWithCache, pause, clearAssetCache, ASSET_CACHE_NAME } from './asset-cache.js'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -9,9 +9,20 @@ const ASSET_CACHE_PATTERN = /.+\.[0-9a-f]{8}\..*(js|css|woff2?|svg|png|jpg|jpeg|
 const CDN_CACHE_PATTERN = /(.*cdnjs.cloudflare.com.*)|(.*fonts.googleapis.com.*)|(.*cdn-us.imgs.moe.*)/
 // |(.*sinaimg.cn.*)|(.*alicdn.com.*)|(.*loli.net.*)|(.*pic.url.cn.*)|(.*tupianla.cc.*)
 
+const STATIC_ASSETS = ['https://lib.baomitu.com/fonts/nanum-pen-script/nanum-pen-script-regular.woff2']
+
 self.addEventListener('install', (e) => {
   // Activate worker immediately
-  e.waitUntil(self.skipWaiting())
+  e.waitUntil(
+    caches
+      .open(ASSET_CACHE_NAME)
+      .then(function (e) {
+        return e.addAll(STATIC_ASSETS)
+      })
+      .then(function () {
+        return self.skipWaiting()
+      })
+  )
 })
 
 self.addEventListener('activate', (e) => {
@@ -31,7 +42,10 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e: FetchEvent) => {
   const { url } = e.request
 
-  if ((url.startsWith('http') && url.match(ASSET_CACHE_PATTERN)) || url.match(CDN_CACHE_PATTERN)) {
+  if (
+    url.startsWith('http') &&
+    (STATIC_ASSETS.includes(url) || url.match(ASSET_CACHE_PATTERN) || url.match(CDN_CACHE_PATTERN))
+  ) {
     e.respondWith(respondWithCache(e))
     return true
   }

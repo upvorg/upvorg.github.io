@@ -1,4 +1,4 @@
-const ASSET_CACHE_NAME = 'asset-cache'
+export const ASSET_CACHE_NAME = 'asset-cache'
 
 // declare const self: ServiceWorkerGlobalScope
 
@@ -39,10 +39,7 @@ export async function respondWithCache(e /*: FetchEvent*/) {
 
 async function withTimeout(cb /*: () => Promise<T>*/, timeout /*: number*/) {
   try {
-    return await Promise.race([
-      pause(timeout).then(() => Promise.reject(new Error('TIMEOUT'))),
-      cb()
-    ])
+    return await Promise.race([pause(timeout).then(() => Promise.reject(new Error('TIMEOUT'))), cb()])
   } catch (err) {
     console.error(err)
     return undefined

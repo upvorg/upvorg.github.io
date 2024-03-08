@@ -1,0 +1,13 @@
+{
+  "name": "@web/sw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/sw.ts",
+  "scripts": {
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

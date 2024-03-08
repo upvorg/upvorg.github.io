@@ -21,7 +21,7 @@ const head = isEnvProduction
 module.exports = merge(baseConfig, {
   entry: {
     app: './src/index.tsx',
-    sw: '../sw/src/sw.ts',
+    // sw: '../sw/src/sw.ts',
   },
   output: {
     path: path.resolve(__dirname, '../../dist/html'),

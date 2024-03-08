@@ -10,7 +10,8 @@
     "dev:index": "pnpm --filter @web/index run dev",
     "build:index": "pnpm --filter @web/index run build",
     "dev": "pnpm run dev:index & pnpm run dev:admin",
-    "build": "pnpm run build:index & pnpm run build:admin"
+    "build": "pnpm run build:index & pnpm run build:admin",
+    "gen:sw": "pnpm --filter @web/sw run build"
   },
   "dependencies": {
     "@types/node": "^20.11.24",
@@ -26,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "typescript": "^5.3.3",
+    "worker-loader": "^3.0.8",
     "wouter": "^2.12.1"
   },
   "devDependencies": {

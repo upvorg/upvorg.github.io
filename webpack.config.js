@@ -24,7 +24,7 @@ module.exports = {
   output: {
     pathinfo: isEnvDevelopment,
     filename: (pathData, assetInfo) => {
-      if (pathData.chunk.name == 'sw') return 'sw.js'
+      // if (pathData.chunk.name == 'sw') return 'sw.js'
       if (isEnvProduction) return 'static/js/[name].[contenthash:8].js'
       return 'static/js/bundle_[name].js'
     },
