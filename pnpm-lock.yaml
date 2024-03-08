@@ -224,6 +224,8 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
 
+  packages/sw: {}
+
 packages:
 
   /@ampproject/remapping@2.3.0:
