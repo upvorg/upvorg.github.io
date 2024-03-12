@@ -1,5 +1,5 @@
 // import { handlePush, handleNotificationClick, handleClientMessage } from './push-notification'
-import { respondWithCache, pause, clearAssetCache, ASSET_CACHE_NAME } from './asset-cache'
+import { respondWithCache, pause, clearAssetCache, ASSET_CACHE_NAME } from './asset-cache.ts'
 
 declare const self: ServiceWorkerGlobalScope
 
