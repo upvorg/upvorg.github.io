@@ -256,7 +256,7 @@ module.exports = {
     hot: true,
     open: true,
     compress: true,
-    host: 'localhost',
+    host: '0.0.0.0',
     static: '../../public',
     historyApiFallback: true,
     headers: {

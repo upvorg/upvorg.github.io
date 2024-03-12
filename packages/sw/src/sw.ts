@@ -47,6 +47,9 @@ self.addEventListener('fetch', (e: FetchEvent) => {
     (STATIC_ASSETS.includes(url) || url.match(ASSET_CACHE_PATTERN) || url.match(CDN_CACHE_PATTERN))
   ) {
     e.respondWith(respondWithCache(e))
+    // ...and `waitUntil()` to prevent the worker from being killed until the
+    // cache is updated.
+    // e.waitUntil(update(e.request))
     return true
   }
 

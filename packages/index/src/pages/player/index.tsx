@@ -74,13 +74,14 @@ export default function PlayerPage({ id }: any) {
   }, [])
 
   useEffect(() => {
-    if (video[lastEpisode]?.VideoUrl)
-      setSource({
-        title: video[lastEpisode].Title || state.Title,
-        src: video[lastEpisode].VideoUrl,
-        format: id == 'iptv' ? 'm3u8' : 'auto',
-        poster: 'https://api.imlazy.ink/img',
-      })
+    // if (video[lastEpisode]?.VideoUrl)
+    //   setSource({
+    //     title: video[lastEpisode].Title || state.Title,
+    //     src: video[lastEpisode].VideoUrl,
+    //     format: id == 'iptv' ? 'm3u8' : 'auto',
+    //     poster: 'https://api.imlazy.ink/img',
+    //   })
+    player.current?.context.playlist.changeSource(lastEpisode)
   }, [lastEpisode, video])
 
   useEffect(() => {
@@ -113,6 +114,7 @@ export default function PlayerPage({ id }: any) {
               VideoUrl: src,
               title: Title || Episode,
               src,
+              poster: 'https://api.imlazy.ink/img?id' + i,
             }
           })
         setVideo(videos)
@@ -204,6 +206,10 @@ export default function PlayerPage({ id }: any) {
         update(id, lastEpisode + 1, 0)
       } else {
         player.current!.emit('notice', { text: 'No next ep' })
+      }
+    } else if (type == 'playlistsourcechange') {
+      if (lastEpisode != payload.id) {
+        update(id, payload.id, 0)
       }
     }
   }
@@ -353,9 +359,7 @@ export default function PlayerPage({ id }: any) {
                       href: `/pv/tag?type=video&title=${tag}&tag=${tag}`,
                     }))
                     .concat(
-                      IsOriginal == 2
-                        ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
-                        : []
+                      IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
                     )
                 : []
             }
