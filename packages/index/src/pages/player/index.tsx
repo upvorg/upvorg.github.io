@@ -31,8 +31,8 @@ export default function PlayerPage({ id }: any) {
 
   const player = useRef<Player>(null)
   const [isAdp, setIsAdp] = useState(false)
-  const [source, setSource] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
-  const [displayEpBar, setDisplayEpBar] = useState(true)
+  const [source, _] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
+  const [displayEpBar, setDisplayEpBar] = useState(false)
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
@@ -114,7 +114,6 @@ export default function PlayerPage({ id }: any) {
               VideoUrl: src,
               title: Title || Episode,
               src,
-              poster: 'https://api.imlazy.ink/img?id' + i,
             }
           })
         setVideo(videos)
@@ -127,7 +126,7 @@ export default function PlayerPage({ id }: any) {
     player.current?.context.ui.menu.register({
       name: 'Toggle Ep-Bar',
       position: 'top',
-      icon: `<svg style="transform: scale(1.2);" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M288 416v320h448V416H288z m0-64h448V288H288v64zM256 224h512a32 32 0 0 1 32 32v512a32 32 0 0 1-32 32H256a32 32 0 0 1-32-32V256a32 32 0 0 1 32-32z m384 224a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0v-192a32 32 0 0 1 32-32z"></path></svg>`,
+      icon: `<svg style="transform: scale(1.2);opacity: 0.4;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M288 416v320h448V416H288z m0-64h448V288H288v64zM256 224h512a32 32 0 0 1 32 32v512a32 32 0 0 1-32 32H256a32 32 0 0 1-32-32V256a32 32 0 0 1 32-32z m384 224a32 32 0 0 1 32 32v192a32 32 0 0 1-64 0v-192a32 32 0 0 1 32-32z"></path></svg>`,
       onClick(svg: SVGAElement) {
         setDisplayEpBar((it) => {
           if (it) {

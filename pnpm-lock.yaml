@@ -162,19 +162,19 @@ importers:
     dependencies:
       '@oplayer/core':
         specifier: latest
-        version: 1.2.32
+        version: 1.2.33-beta.0
       '@oplayer/hls':
         specifier: latest
-        version: 1.2.24(@oplayer/core@1.2.32)(hls.js@0.14.17)
+        version: 1.2.24(@oplayer/core@1.2.33-beta.0)(hls.js@0.14.17)
       '@oplayer/plugins':
         specifier: latest
-        version: 1.0.10-beta.0(@oplayer/core@1.2.32)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0)
+        version: 1.0.10-beta.0(@oplayer/core@1.2.33-beta.0)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0)
       '@oplayer/react':
         specifier: latest
-        version: 1.2.10(@oplayer/core@1.2.32)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.2.10(@oplayer/core@1.2.33-beta.0)(react-dom@18.2.0)(react@18.2.0)
       '@oplayer/ui':
         specifier: latest
-        version: 1.2.35(@oplayer/core@1.2.32)
+        version: 1.2.35(@oplayer/core@1.2.33-beta.0)
       anime4k.js:
         specifier: latest
         version: 0.0.4
@@ -352,8 +352,8 @@ packages:
       - supports-color
     dev: true
 
-  /@babel/helper-define-polyfill-provider@0.6.0(@babel/core@7.24.0):
-    resolution: {integrity: sha512-efwOM90nCG6YeT8o3PCyBVSxRfmILxCNL+TNI8CGQl7a62M0Wd9VkV+XHwIlkOz1r4b+lxu6gBjdWiOMdUCrCQ==}
+  /@babel/helper-define-polyfill-provider@0.6.1(@babel/core@7.24.0):
+    resolution: {integrity: sha512-o7SDgTJuvx5vLKD6SFvkydkSMBvahDKGiNJzG22IZYXhiqoe9efY7zocICBgzHV4IRg5wdgl2nEL/tulKIEIbA==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     dependencies:
@@ -1437,7 +1437,7 @@ packages:
       '@babel/plugin-transform-unicode-regex': 7.23.3(@babel/core@7.24.0)
       '@babel/plugin-transform-unicode-sets-regex': 7.23.3(@babel/core@7.24.0)
       '@babel/preset-modules': 0.1.6-no-external-plugins(@babel/core@7.24.0)
-      babel-plugin-polyfill-corejs2: 0.4.9(@babel/core@7.24.0)
+      babel-plugin-polyfill-corejs2: 0.4.10(@babel/core@7.24.0)
       babel-plugin-polyfill-corejs3: 0.9.0(@babel/core@7.24.0)
       babel-plugin-polyfill-regenerator: 0.5.5(@babel/core@7.24.0)
       core-js-compat: 3.36.0
@@ -2250,50 +2250,50 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@oplayer/core@1.2.32:
-    resolution: {integrity: sha512-ZEPE3TPeUXnqNPNc5TugfC+uwFMhBb52aQarfkVaiQ2aGivTEzQoHntfPrPXW+XbRG9T1xp9gJ+Onb6AFbFEQw==}
+  /@oplayer/core@1.2.33-beta.0:
+    resolution: {integrity: sha512-wMI/eK+zdtru/XA45oW/xvXPAy/OSVk5jT3JXnracMwVIEQUIj9g6iA3gduI/9Z8PI3dHbcJPxBo7CNfmMyyxw==}
     dev: false
 
-  /@oplayer/hls@1.2.24(@oplayer/core@1.2.32)(hls.js@0.14.17):
+  /@oplayer/hls@1.2.24(@oplayer/core@1.2.33-beta.0)(hls.js@0.14.17):
     resolution: {integrity: sha512-o+C9SZzU2a+DKtWRDuCwrPriZ0Z8L/EyNGlVcmayOZQFTDuQpJNuZ7mUTzYW8ZlAoIx3qo6A+kcvIQ8swJUPcw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.2.32
+      '@oplayer/core': 1.2.33-beta.0
       hls.js: 0.14.17
     dev: false
 
-  /@oplayer/plugins@1.0.10-beta.0(@oplayer/core@1.2.32)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0):
+  /@oplayer/plugins@1.0.10-beta.0(@oplayer/core@1.2.33-beta.0)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0):
     resolution: {integrity: sha512-SpHn6WDWiF5+CoTxM6kLLglrA5L4PKEYNEi4A2BihASDlcdJs20kWGP2U2TVMKkZsbFxcSjrSQe5lk3EBW1TOw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       '@oplayer/ui': '>=1.0.0'
       m3u8-parser: ^7.1.0
     dependencies:
-      '@oplayer/core': 1.2.32
-      '@oplayer/ui': 1.2.35(@oplayer/core@1.2.32)
+      '@oplayer/core': 1.2.33-beta.0
+      '@oplayer/ui': 1.2.35(@oplayer/core@1.2.33-beta.0)
       m3u8-parser: 7.1.0
     dev: false
 
-  /@oplayer/react@1.2.10(@oplayer/core@1.2.32)(react-dom@18.2.0)(react@18.2.0):
+  /@oplayer/react@1.2.10(@oplayer/core@1.2.33-beta.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-lemUyen4u5os7j9WNEpHmamhRXPcqPXwiNOkaITma8KfUqdS5DY8U4QazwjDf6j+uBXrtyZ+cZP9/QFPt6lKyA==}
     peerDependencies:
       '@oplayer/core': '>=1'
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@oplayer/core': 1.2.32
+      '@oplayer/core': 1.2.33-beta.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@oplayer/ui@1.2.35(@oplayer/core@1.2.32):
+  /@oplayer/ui@1.2.35(@oplayer/core@1.2.33-beta.0):
     resolution: {integrity: sha512-5cjOVCGl0FyT7dBgg24uUJjJKh+YPNstCZHlz8W4BKaYMGaaceArcpwlybCaPDoKYAmrIV7tr/Vw5P2XJYmdfg==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.2.32
+      '@oplayer/core': 1.2.33-beta.0
     dev: false
 
   /@polka/url@1.0.0-next.25:
@@ -3017,14 +3017,14 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /babel-plugin-polyfill-corejs2@0.4.9(@babel/core@7.24.0):
-    resolution: {integrity: sha512-BXIWIaO3MewbXWdJdIGDWZurv5OGJlFNo7oy20DpB3kWDVJLcY2NRypRsRUbRe5KMqSNLuOGnWTFQQtY5MAsRw==}
+  /babel-plugin-polyfill-corejs2@0.4.10(@babel/core@7.24.0):
+    resolution: {integrity: sha512-rpIuu//y5OX6jVU+a5BCn1R5RSZYWAl2Nar76iwaOdycqb6JPxediskWFMMl7stfwNJR4b7eiQvh5fB5TEQJTQ==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
     dependencies:
       '@babel/compat-data': 7.23.5
       '@babel/core': 7.24.0
-      '@babel/helper-define-polyfill-provider': 0.6.0(@babel/core@7.24.0)
+      '@babel/helper-define-polyfill-provider': 0.6.1(@babel/core@7.24.0)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -3125,7 +3125,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001597
-      electron-to-chromium: 1.4.701
+      electron-to-chromium: 1.4.702
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
     dev: true
@@ -3886,8 +3886,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
 
-  /electron-to-chromium@1.4.701:
-    resolution: {integrity: sha512-K3WPQ36bUOtXg/1+69bFlFOvdSm0/0bGqmsfPDLRXLanoKXdA+pIWuf/VbA9b+2CwBFuONgl4NEz4OEm+OJOKA==}
+  /electron-to-chromium@1.4.702:
+    resolution: {integrity: sha512-LYLXyEUsZ3nNSwiOWjI88N1PJUAMU2QphQSgGLVkFnb3FxZxNui2Vzi2PaKPgPWbsWbZstZnh6BMf/VQJamjiQ==}
     dev: true
 
   /emojis-list@3.0.0:
