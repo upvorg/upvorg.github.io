@@ -162,19 +162,19 @@ importers:
     dependencies:
       '@oplayer/core':
         specifier: latest
-        version: 1.2.33-beta.0
+        version: 1.2.33-beta.1
       '@oplayer/hls':
         specifier: latest
-        version: 1.2.24(@oplayer/core@1.2.33-beta.0)(hls.js@0.14.17)
+        version: 1.2.24(@oplayer/core@1.2.33-beta.1)(hls.js@0.14.17)
       '@oplayer/plugins':
         specifier: latest
-        version: 1.0.10-beta.0(@oplayer/core@1.2.33-beta.0)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0)
+        version: 1.0.10-beta.1(@oplayer/core@1.2.33-beta.1)(@oplayer/ui@1.2.36-beta.0)(m3u8-parser@7.1.0)
       '@oplayer/react':
         specifier: latest
-        version: 1.2.10(@oplayer/core@1.2.33-beta.0)(react-dom@18.2.0)(react@18.2.0)
+        version: 1.2.10(@oplayer/core@1.2.33-beta.1)(react-dom@18.2.0)(react@18.2.0)
       '@oplayer/ui':
         specifier: latest
-        version: 1.2.35(@oplayer/core@1.2.33-beta.0)
+        version: 1.2.36-beta.0(@oplayer/core@1.2.33-beta.1)
       anime4k.js:
         specifier: latest
         version: 0.0.4
@@ -2250,50 +2250,50 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@oplayer/core@1.2.33-beta.0:
-    resolution: {integrity: sha512-wMI/eK+zdtru/XA45oW/xvXPAy/OSVk5jT3JXnracMwVIEQUIj9g6iA3gduI/9Z8PI3dHbcJPxBo7CNfmMyyxw==}
+  /@oplayer/core@1.2.33-beta.1:
+    resolution: {integrity: sha512-XOXX8qrHbJrm3YxA4YNMDLHAiujfTvmLJREMa1lELGxRjiuCOC+xUNkuAgaPDy5xWKXwy5Z29rRSL3Db6plOvg==}
     dev: false
 
-  /@oplayer/hls@1.2.24(@oplayer/core@1.2.33-beta.0)(hls.js@0.14.17):
+  /@oplayer/hls@1.2.24(@oplayer/core@1.2.33-beta.1)(hls.js@0.14.17):
     resolution: {integrity: sha512-o+C9SZzU2a+DKtWRDuCwrPriZ0Z8L/EyNGlVcmayOZQFTDuQpJNuZ7mUTzYW8ZlAoIx3qo6A+kcvIQ8swJUPcw==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       hls.js: '*'
     dependencies:
-      '@oplayer/core': 1.2.33-beta.0
+      '@oplayer/core': 1.2.33-beta.1
       hls.js: 0.14.17
     dev: false
 
-  /@oplayer/plugins@1.0.10-beta.0(@oplayer/core@1.2.33-beta.0)(@oplayer/ui@1.2.35)(m3u8-parser@7.1.0):
-    resolution: {integrity: sha512-SpHn6WDWiF5+CoTxM6kLLglrA5L4PKEYNEi4A2BihASDlcdJs20kWGP2U2TVMKkZsbFxcSjrSQe5lk3EBW1TOw==}
+  /@oplayer/plugins@1.0.10-beta.1(@oplayer/core@1.2.33-beta.1)(@oplayer/ui@1.2.36-beta.0)(m3u8-parser@7.1.0):
+    resolution: {integrity: sha512-sTi0Z3y3Xx5Dtru/paO/vX6iDT8DSBoT/+FahV1vsASE5eqFACZU5jqygbNPVZXUKNe3+Aq/YqcGZUfwo7DV9w==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
       '@oplayer/ui': '>=1.0.0'
       m3u8-parser: ^7.1.0
     dependencies:
-      '@oplayer/core': 1.2.33-beta.0
-      '@oplayer/ui': 1.2.35(@oplayer/core@1.2.33-beta.0)
+      '@oplayer/core': 1.2.33-beta.1
+      '@oplayer/ui': 1.2.36-beta.0(@oplayer/core@1.2.33-beta.1)
       m3u8-parser: 7.1.0
     dev: false
 
-  /@oplayer/react@1.2.10(@oplayer/core@1.2.33-beta.0)(react-dom@18.2.0)(react@18.2.0):
+  /@oplayer/react@1.2.10(@oplayer/core@1.2.33-beta.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-lemUyen4u5os7j9WNEpHmamhRXPcqPXwiNOkaITma8KfUqdS5DY8U4QazwjDf6j+uBXrtyZ+cZP9/QFPt6lKyA==}
     peerDependencies:
       '@oplayer/core': '>=1'
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      '@oplayer/core': 1.2.33-beta.0
+      '@oplayer/core': 1.2.33-beta.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@oplayer/ui@1.2.35(@oplayer/core@1.2.33-beta.0):
-    resolution: {integrity: sha512-5cjOVCGl0FyT7dBgg24uUJjJKh+YPNstCZHlz8W4BKaYMGaaceArcpwlybCaPDoKYAmrIV7tr/Vw5P2XJYmdfg==}
+  /@oplayer/ui@1.2.36-beta.0(@oplayer/core@1.2.33-beta.1):
+    resolution: {integrity: sha512-oLjVkaWsTllPBDZ21ETbOEu9KEzsGxSHedX/7u6evnbci+OzptrLJnBC3gvjJIqnLaYCJgZqzCS28GS1v0r68w==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
     dependencies:
-      '@oplayer/core': 1.2.33-beta.0
+      '@oplayer/core': 1.2.33-beta.1
     dev: false
 
   /@polka/url@1.0.0-next.25:
