@@ -22,6 +22,12 @@ $pr: 340px;
       margin-right: 0;
     }
   }
+
+  @media screen and (max-width: 991px) {
+    &.no-side {
+      max-width: inherit;
+    }
+  }
 }
 
 .dark {
@@ -321,8 +327,7 @@ $pr: 340px;
     stroke-linecap: round;
     stroke-dasharray: 200;
     stroke-dashoffset: 200;
-    animation: spinner_module_rotate 2s linear 0.25s infinite,
-      spinner_module_dash 1.5s ease-in-out 0.25s infinite;
+    animation: spinner_module_rotate 2s linear 0.25s infinite, spinner_module_dash 1.5s ease-in-out 0.25s infinite;
   }
 
   @keyframes spinner_module_rotate {
