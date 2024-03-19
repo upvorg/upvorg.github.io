@@ -81,7 +81,9 @@ export default function PlayerPage({ id }: any) {
     //     format: id == 'iptv' ? 'm3u8' : 'auto',
     //     poster: 'https://api.imlazy.ink/img',
     //   })
-    player.current?.context.playlist.changeSource(lastEpisode)
+    if (video.length) {
+      player.current?.context.playlist.changeSource(lastEpisode)
+    }
   }, [lastEpisode, video])
 
   useEffect(() => {

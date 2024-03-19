@@ -30,7 +30,7 @@ module.exports = {
     },
     chunkFilename: isEnvProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[name].[hash][ext]',
-    publicPath: '/'
+    publicPath: '/',
   },
   infrastructureLogging: { level: 'none' },
   optimization: {
@@ -41,28 +41,28 @@ module.exports = {
         terserOptions: {
           parse: {
             //@ts-ignore
-            ecma: 8
+            ecma: 8,
           },
           compress: {
             ecma: 5,
             //@ts-ignore
             warnings: false,
             comparisons: false,
-            inline: 2
+            inline: 2,
           },
           mangle: {
-            safari10: true
+            safari10: true,
           },
           keep_classnames: false,
           keep_fnames: false,
           output: {
             ecma: 5,
             comments: false,
-            ascii_only: true
-          }
-        }
+            ascii_only: true,
+          },
+        },
       }),
-      new CssMinimizerPlugin()
+      new CssMinimizerPlugin(),
     ],
     runtimeChunk: 'single',
     splitChunks: isEnvDevelopment
@@ -77,7 +77,7 @@ module.exports = {
               name(module) {
                 const packageName = module.context.match(/node_modules\/\.pnpm[\\/]+(.*?)(\/|$)/)
                 return packageName && packageName[1] ? `pnpm.${packageName[1].split('@')[0]}` : false
-              }
+              },
             },
             hls: {
               name: 'hls',
@@ -85,7 +85,7 @@ module.exports = {
               priority: 20,
               test: (module) => {
                 return /hls.+/.test(module.context)
-              }
+              },
             },
             griffith: {
               name: 'video-player',
@@ -93,7 +93,7 @@ module.exports = {
               priority: 20,
               test: (module) => {
                 return /griffith.+/.test(module.context)
-              }
+              },
             },
             oplayer: {
               name: 'oplayer',
@@ -101,7 +101,7 @@ module.exports = {
               priority: 20,
               test: (module) => {
                 return /@oplayer.+/.test(module.context)
-              }
+              },
             },
             markdown: {
               name: 'markdown-editor',
@@ -111,10 +111,10 @@ module.exports = {
                 return /unified|react-markdown-editor-lite|rehype-.+|remark-.+|.+markdown.+|micromark.+|mdast-.+/.test(
                   module.context
                 )
-              }
-            }
-          }
-        }
+              },
+            },
+          },
+        },
   },
   resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
   module: {
@@ -127,16 +127,16 @@ module.exports = {
             loader: 'esbuild-loader',
             options: {
               loader: 'jsx',
-              target: 'es2015'
-            }
+              target: 'es2015',
+            },
           },
           {
             test: /\.tsx?$/,
             loader: 'esbuild-loader',
             options: {
               loader: 'tsx',
-              target: 'es2015'
-            }
+              target: 'es2015',
+            },
           },
           {
             test: cssRegex,
@@ -145,10 +145,10 @@ module.exports = {
               importLoaders: 1,
               sourceMap: isEnvDevelopment,
               modules: {
-                mode: 'icss'
-              }
+                mode: 'icss',
+              },
             }),
-            sideEffects: true
+            sideEffects: true,
           },
           {
             test: sassRegex,
@@ -158,12 +158,12 @@ module.exports = {
                 importLoaders: 3,
                 sourceMap: isEnvDevelopment,
                 modules: {
-                  mode: 'icss'
-                }
+                  mode: 'icss',
+                },
               },
               'sass-loader'
             ),
-            sideEffects: true
+            sideEffects: true,
           },
           {
             test: sassModuleRegex,
@@ -172,17 +172,17 @@ module.exports = {
                 importLoaders: 3,
                 sourceMap: isEnvDevelopment,
                 modules: {
-                  mode: 'local'
+                  mode: 'local',
                   // getLocalIdent: getCSSModuleLocalIdent
-                }
+                },
               },
               'sass-loader'
-            )
+            ),
           },
           {
             test: /\.svg$/i,
             type: 'asset',
-            resourceQuery: /url/ // *.svg?url
+            resourceQuery: /url/, // *.svg?url
           },
           {
             test: /\.svg$/,
@@ -193,64 +193,64 @@ module.exports = {
                   prettier: false,
                   svgo: false,
                   svgoConfig: {
-                    plugins: [{ removeViewBox: false }]
+                    plugins: [{ removeViewBox: false }],
                   },
                   titleProp: true,
-                  ref: true
-                }
+                  ref: true,
+                },
               },
               {
                 loader: require.resolve('file-loader'),
                 options: {
-                  name: 'static/media/[name].[hash].[ext]'
-                }
-              }
+                  name: 'static/media/[name].[hash].[ext]',
+                },
+              },
             ],
             issuer: {
-              and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
-            }
+              and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+            },
           },
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.m3u8$/],
             type: 'asset',
             parser: {
-              dataUrlCondition: { maxSize: 10 * 1024 }
-            }
-          }
-        ]
-      }
-    ]
+              dataUrlCondition: { maxSize: 10 * 1024 },
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin({
       dry: true,
       cleanOnceBeforeBuildPatterns: ['../../dist'],
-      dangerouslyAllowCleanPatternsOutsideProject: true
+      dangerouslyAllowCleanPatternsOutsideProject: true,
     }),
     new CopyPlugin({
       patterns: [
         {
           from: '../../public/',
           globOptions: {
-            ignore: ['**/*.html']
-          }
-        }
-      ]
+            ignore: ['**/*.html'],
+          },
+        },
+      ],
     }),
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
     }),
     new ProgressPlugin(),
     new webpack.DefinePlugin(__ENV__),
     new webpack.ProvidePlugin({
-      React: 'react'
+      React: 'react',
     }),
     isEnvProduction &&
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
-        openAnalyzer: false
-      })
+        openAnalyzer: false,
+      }),
   ].filter(Boolean),
   devServer: {
     hot: true,
@@ -259,18 +259,22 @@ module.exports = {
     host: '0.0.0.0',
     static: '../../public',
     historyApiFallback: true,
+    client: {
+      overlay: true,
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': '*',
-      'Access-Control-Allow-Headers': '*'
+      'Access-Control-Allow-Headers': '*',
     },
-    proxy: {
-      '/api': {
+    proxy: [
+      {
+        context: ['/api'],
         target: LOCAL_API_HOST,
         pathRewrite: { '^/api': '' },
         secure: false,
-        changeOrigin: true
-      }
-    }
-  }
+        changeOrigin: true,
+      },
+    ],
+  },
 }

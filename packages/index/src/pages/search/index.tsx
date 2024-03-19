@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import ListSection from '../../components/list-section'
 import { cliclisAdapter } from '../../enime.adp'
 import queryString from 'query-string'
-import useLocation, { useSearch } from 'wouter/use-location'
+import { useLocation, useSearch } from 'wouter'
 
 import './index.scss'
 import { corsAxios } from '@web/shared/constants'

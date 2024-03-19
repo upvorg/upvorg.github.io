@@ -1,4 +1,4 @@
-import { useEffect, PropsWithChildren } from 'react'
+import { useEffect, PropsWithChildren, Suspense } from 'react'
 import { Route, RouteProps } from 'wouter'
 import Header from '../header'
 import './index.scss'
@@ -55,25 +55,16 @@ const DefaultLayout: React.FC<PropsWithChildren<any>> = (props) => {
 
 type LayoutRouteProps = RouteProps & { layout: React.FC<any>; component?: React.FC<any> }
 
-const LayoutRoute = ({
-  component: Component,
-  layout: Layout,
-  children,
-  ...rest
-}: LayoutRouteProps) => {
+const LayoutRoute = ({ component: Component, layout: Layout, children, ...rest }: LayoutRouteProps) => {
   return (
     <Route
       {...rest}
       component={({ params }) => {
         return (
           <Layout>
-            {Component ? (
-              <Component {...params} />
-            ) : typeof children === 'function' ? (
-              children(params)
-            ) : (
-              children
-            )}
+            <Suspense fallback={<Loading />}>
+              {Component ? <Component {...params} /> : typeof children === 'function' ? children(params) : children}
+            </Suspense>
           </Layout>
         )
       }}
@@ -81,12 +72,16 @@ const LayoutRoute = ({
   )
 }
 
-const IndexRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => (
-  <LayoutRoute {...rest} layout={IndexLayout} />
-)
+const IndexRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRoute {...rest} layout={IndexLayout} />
 
-const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => (
-  <LayoutRoute {...rest} layout={DefaultLayout} />
-)
+const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRoute {...rest} layout={DefaultLayout} />
+
+function Loading() {
+  return (
+    <div style={{ height: '80vh', lineHeight: '80vh', textAlign: 'center', fontSize: '36px' }}>
+      <h2>🌀 Loading...</h2>
+    </div>
+  )
+}
 
 export { IndexLayout, DefaultLayout, IndexRoute, DefaultRoute }

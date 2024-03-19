@@ -37,7 +37,7 @@ if (!nativeLazySupported) {
 
 export default function VideoCard({ info }: { info: R.Post }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
-  const $el = useRef<HTMLAnchorElement | null>(null)
+  const $el = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (_IntersectionObserver && $el.current?.dataset.cover) {
@@ -55,7 +55,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
   return (
     <div className="upv-video-card">
       <Link href={target}>
-        <a ref={$el} data-cover={info.Cover} title={info.Title}>
+        <div ref={$el} data-cover={info.Cover} title={info.Title}>
           <AspectRatio ratio={3 / 4}>
             {info.Cover && (
               <>
@@ -84,7 +84,7 @@ export default function VideoCard({ info }: { info: R.Post }) {
               </span>
             </div>
           </AspectRatio>
-        </a>
+        </div>
       </Link>
       <div className="upv-video-card__content">
         <div className="upv-video-card__content__title">{info.Title}</div>
