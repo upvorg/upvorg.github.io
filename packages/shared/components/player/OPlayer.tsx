@@ -24,10 +24,11 @@ const plugins = [
 
     theme: {
       controller: {
-        header: { back: 'fullscreen' },
+        header: {},
         slideToSeek: 'always',
         displayBehavior: 'delay',
       },
+      progress: { position: 'top' },
     },
 
     settings: [
