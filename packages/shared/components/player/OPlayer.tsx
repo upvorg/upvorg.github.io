@@ -1,5 +1,5 @@
 import type { Player, PlayerEvent, PlayerOptions } from '@oplayer/core'
-import { isMobile } from '@oplayer/core'
+import { isIOS, isMobile } from '@oplayer/core'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
@@ -28,7 +28,7 @@ const plugins = [
         slideToSeek: 'always',
         displayBehavior: 'delay',
       },
-      progress: { position: 'top' },
+      progress: { position: isIOS ? 'top' : 'auto' },
     },
 
     settings: [

@@ -3,7 +3,7 @@ import './index.scss'
 import { COOKIE_ACCESS_TOKEN_KEY, HOST, LOCAL_STORAGE_USER_INFO_KEY, PRIMARY_COLOR, axios } from '@web/shared/constants'
 import { DefaultRoute, IndexRoute } from './components/layout'
 import { Router, Switch } from 'wouter'
-import React, { Suspense, lazy, useEffect, useState } from 'react'
+import React, { lazy, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 
 import { Auth } from '@web/shared/auth'
