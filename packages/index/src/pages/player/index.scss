@@ -505,10 +505,6 @@ $pr: 340px;
     margin-right: 5px;
   }
 
-  [data-ctrl-hidden='false'] video {
-    filter: brightness(0.85);
-  }
-
   @media (max-width: 640px) {
     [aria-label='Screenshot'] {
       display: none !important;

@@ -78,11 +78,13 @@ const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutR
 
 function Loading() {
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 })
+    //@ts-expect-error
+    root.scrollTo({ top: 0, left: 0 })
   }, [])
   return (
-    <div style={{ height: '80vh', lineHeight: '80vh', textAlign: 'center', fontSize: '36px' }}>
-      <h2 className="loading">🌀 Loading...</h2>
+    <div style={{ height: '80vh', lineHeight: '80vh', textAlign: 'center', fontSize: '32px' }}>
+      <h2 className="__loading__">🌀 Loading...</h2>
+      <style>{`.__loading__{ animation: loading 5s infinite ease-in-out; }`}</style>
     </div>
   )
 }
