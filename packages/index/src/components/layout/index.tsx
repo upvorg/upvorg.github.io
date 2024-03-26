@@ -56,6 +56,10 @@ const DefaultLayout: React.FC<PropsWithChildren<any>> = (props) => {
 type LayoutRouteProps = RouteProps & { layout: React.FC<any>; component?: React.FC<any> }
 
 const LayoutRoute = ({ component: Component, layout: Layout, children, ...rest }: LayoutRouteProps) => {
+  useEffect(() => {
+    //@ts-expect-error
+    root.scrollTo({ top: 0, left: 0 })
+  }, [])
   return (
     <Route
       {...rest}
@@ -77,10 +81,6 @@ const IndexRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRou
 const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRoute {...rest} layout={DefaultLayout} />
 
 function Loading() {
-  useEffect(() => {
-    //@ts-expect-error
-    root.scrollTo({ top: 0, left: 0 })
-  }, [])
   return (
     <div style={{ height: '80vh', lineHeight: '80vh', textAlign: 'center', fontSize: '32px' }}>
       <h2 className="__loading__">🌀 Loading...</h2>
