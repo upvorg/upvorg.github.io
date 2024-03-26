@@ -9,18 +9,10 @@ interface ListSectionProps {
   aside?: React.ReactNode
   moreUrl?: string
   icon?: string
-  isLive: boolean
+  isLive?: boolean
 }
 
-export default function ListSection({
-  title,
-  icon,
-  videos,
-  asideTitle,
-  aside,
-  moreUrl,
-  isLive,
-}: ListSectionProps) {
+export default function ListSection({ title, icon, videos, asideTitle, aside, moreUrl, isLive }: ListSectionProps) {
   return (
     <div className={cls('upv-grid', { 'col-2': asideTitle, 'is-live': isLive })}>
       <div className={'upv-card-list'}>

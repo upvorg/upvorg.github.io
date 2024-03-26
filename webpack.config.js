@@ -2,7 +2,6 @@ const webpack = require('webpack')
 const { ProgressPlugin } = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const { EsbuildPlugin } = require('esbuild-loader')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
@@ -36,7 +35,6 @@ module.exports = {
   optimization: {
     minimize: isEnvProduction,
     minimizer: [
-      new EsbuildPlugin({ target: 'es2015' }),
       new TerserPlugin({
         terserOptions: {
           parse: {
@@ -124,18 +122,13 @@ module.exports = {
         oneOf: [
           {
             test: /\.jsx?$/,
-            loader: 'esbuild-loader',
-            options: {
-              loader: 'jsx',
-              target: 'es2015',
-            },
+            loader: 'babel-loader',
           },
           {
             test: /\.tsx?$/,
-            loader: 'esbuild-loader',
+            loader: 'ts-loader',
             options: {
-              loader: 'tsx',
-              target: 'es2015',
+              transpileOnly: true,
             },
           },
           {
