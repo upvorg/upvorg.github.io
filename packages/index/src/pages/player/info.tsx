@@ -76,6 +76,7 @@ export default function PlayerInfo({
                 .replace(/播放出错.+\n/, '')
                 .replace(/播放失效.+\n/, '')
                 .replace(/有问题.+\n/, '')
+                .replace(/clicli.+\n/, '')
                 .replace(/CliCli官方.+\d+/, '') || '#### 暂无详情'
             }
           />

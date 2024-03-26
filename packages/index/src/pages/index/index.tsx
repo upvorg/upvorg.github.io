@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
 
-import recommends from '../../mock/recommends.json'
+// import recommends from '../../mock/recommends.json'
 import { cliclisAdapter } from '../../enime.adp'
 import { corsAxios } from '@web/shared/constants'
 
@@ -13,11 +13,11 @@ const indexConfig = [
   //   query: 'type=recommends&title=recommends',
   //   icon: require('../../assets/live.svg').default,
   // },
-  {
-    title: 'Recommends',
-    query: 'type=recommends&title=recommends',
-    icon: require('../../assets/recommend.svg').default,
-  },
+  // {
+  //   title: 'Recommends',
+  //   query: 'type=recommends&title=recommends',
+  //   icon: require('../../assets/recommend.svg').default,
+  // },
   {
     title: `What We're Watching Right Now`,
     query: `type=popular&title=What We're Watching Right Now`,
@@ -36,10 +36,8 @@ export default function IndexPage() {
   useEffect(() => {
     Promise.allSettled([
       // corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
-      recommends,
-      corsAxios.get(
-        'https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'
-      ),
+      // recommends,
+      corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'),
       corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'),
       corsAxios.get('https://www.clicli.cc/rank?day=60'),
     ] as any).then((_resp) => {
@@ -66,7 +64,7 @@ export default function IndexPage() {
             key={index}
             videos={state[index]}
             isLive={index == -1}
-            icon={indexConfig[index].icon}
+            // icon={indexConfig[index].icon}
             title={indexConfig[index].title}
             moreUrl={`/pv/tag?${indexConfig[index].query}`}
             aside={index == 0 && <RankList list={state[state.length - 1]} />}
