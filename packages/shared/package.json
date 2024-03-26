@@ -16,7 +16,7 @@
     "@oplayer/react": "latest",
     "@oplayer/ui": "latest",
     "anime4k.js": "latest",
-    "devtools-detector": "^2.0.15",
+    "devtools-detector": "^2.0.16",
     "github-markdown-css": "^5.5.1",
     "hls.js": "0.14.17",
     "m3u8-parser": "^7.1.0",
