@@ -19,11 +19,12 @@ export const useDarkModeInternal = (
   options: DarkModeConfig = {} as any
 ): IMediaStore => {
   const {
-    classNameDark = 'dark',
-    classNameLight = 'light',
+    classNameDark = 'theme-dark',
+    classNameLight = 'theme-light',
     storageKey = darkModeKey,
     element = globalThis.document && document.documentElement,
-    transition = !!(document as any).startViewTransition && !window.matchMedia(`(prefers-reduced-motion: reduce)`).matches
+    transition = !!(document as any).startViewTransition &&
+    !window.matchMedia(`(prefers-reduced-motion: reduce)`).matches
       ? (document as any).startViewTransition()
       : undefined,
   } = options
