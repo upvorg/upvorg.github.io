@@ -1,5 +1,8 @@
 name: SSH Server Deploy
-on: [push]
+
+on:
+  push:
+    branches: main
 
 jobs:
   build:
