@@ -14,22 +14,22 @@
   padding: 0;
 }
 
-.dark .navbar-burger {
+.theme-dark .navbar-burger {
   color: unset;
 }
 
-html.dark body .navbar,
-html.dark .navbar-menu {
+html.theme-dark body .navbar,
+html.theme-dark .navbar-menu {
   background-color: #000 !important;
 }
 
-.dark a:hover,
-.dark .navbar-item,
+.theme-dark a:hover,
+.theme-dark .navbar-item,
 .navbar-link {
   color: #fff;
 }
 
-.dark {
+.theme-dark {
   a.navbar-item:focus,
   a.navbar-item:focus-within,
   a.navbar-item:hover,
