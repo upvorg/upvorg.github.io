@@ -62,8 +62,18 @@ export default function PlayerPage({ id }: any) {
           }
 
           import(`../../mock/video/${id}.json`).then((res) => {
+            if (!res.data) return
             ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
-            res.data && setVideo(res.data)
+            setVideo(res.data)
+            player.current?.context.playlist.changeSourceList(
+              res.data.map((it) => {
+                return {
+                  ...it,
+                  title: it.Title,
+                  src: it.VideoUrl,
+                }
+              })
+            )
             if (res.data.length <= lastEpisode) {
               update(id, 0, 0)
             }
