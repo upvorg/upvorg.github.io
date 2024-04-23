@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "packageManager": "pnpm@7.1.6",
   "scripts": {
     "dev:admin": "pnpm --filter @web/admin run dev",
     "build:admin": "pnpm --filter @web/admin run build",
