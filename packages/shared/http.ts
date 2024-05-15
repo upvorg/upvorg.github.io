@@ -1,3 +1,5 @@
+import { LRUCache } from 'lru-cache'
+
 interface HeadersInit {
   'Content-Type'?: string
   [key: string]: any
@@ -26,6 +28,8 @@ class Interceptor<S = any, F = any> {
     reject && (this.reject = reject)
   }
 }
+
+const cache = new LRUCache({ max: 10 })
 
 export default class Http<R = any> {
   private baseUrl: string
@@ -74,6 +78,11 @@ export default class Http<R = any> {
 
   //TODO: Return Promise<R<T>>
   private _send<T>(url: string, method: string, headers: HeadersInit = {}, data: any = {}): Promise<T> {
+    const lruKey = JSON.stringify({ url, method, headers, data })
+    if (cache.has(lruKey)) {
+      return cache.get(lruKey) as any
+    }
+
     const config: any = this.interceptors.request.resolve?.({
       ...this.headers,
       ...headers,
@@ -96,15 +105,17 @@ export default class Http<R = any> {
       .then(
         (res: Response) => {
           rawResponse = res
+          const json = res.json()
+          cache.set(lruKey, json)
           try {
-            return res.json()
+            return json
           } catch (error) {
             throw error
           }
         },
-        (reson: any) => {
-          console.error('<--- request error' + reson)
-          return this.interceptors.request.reject?.(reson)
+        (reason: any) => {
+          console.error('<--- request error' + reason)
+          return this.interceptors.request.reject?.(reason)
         }
       )
       .then((response) => {

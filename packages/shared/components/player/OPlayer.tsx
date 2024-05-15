@@ -4,7 +4,7 @@ import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useMemo, useRef } from 'react'
-import { PlaylistPlugin, Chromecast } from '@oplayer/plugins'
+import { Playlist, Chromecast } from '@oplayer/plugins'
 // import Anime4kPlugin from './ainme4k'
 
 interface OPlayerProps extends PlayerOptions {
@@ -93,7 +93,7 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
         ],
       }),
       hls({ forceHLS: true }),
-      new PlaylistPlugin({ sources: [] }),
+      new Playlist({ sources: [] }),
       new Chromecast(),
       // new Anime4kPlugin(),
     ],
