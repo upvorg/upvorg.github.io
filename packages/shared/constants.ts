@@ -66,8 +66,12 @@ if (document.location.search.includes('cors')) {
   localStorage.setItem('cors', '1')
 }
 
+if (document.location.search.includes('nocors')) {
+  localStorage.removeItem('cors')
+}
+
 const corsAxios = http.create<R.Response<any>>(
-  localStorage.getItem('cors') == '1' ? '' : 'https://cors-flame.vercel.app/api/cors?url=',
+  localStorage.getItem('cors') == '1' ? '' : 'https://cors-flame.vercel.app/api/cors?url='
 )
 
 export { axios, corsAxios }
