@@ -253,7 +253,7 @@ module.exports = {
     static: '../../public',
     historyApiFallback: true,
     client: {
-      overlay: true,
+      overlay: false,
     },
     headers: {
       'Access-Control-Allow-Origin': '*',

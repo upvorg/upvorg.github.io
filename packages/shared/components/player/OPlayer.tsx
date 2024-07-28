@@ -5,6 +5,7 @@ import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useMemo, useRef } from 'react'
 import { Playlist, Chromecast } from '@oplayer/plugins'
+import { copyToClipboard } from '../../utils/copy'
 // import Anime4kPlugin from './ainme4k'
 
 interface OPlayerProps extends PlayerOptions {
@@ -45,6 +46,30 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
             onChange() {
               window.open('https://github.com/shiyiya/oplayer')
             },
+          },
+          {
+            icon: '',
+            name: 'Share',
+            type: 'selector',
+            onChange({ value }) {
+              const url = `https://x.com/intent/post?url=${window.location.href}&text=${document.title}`
+              if (value == 'Twitter') {
+                window.open(url)
+              } else if (value == 'copy') {
+                copyToClipboard(url)
+              }
+            },
+            key: 'x',
+            children: [
+              {
+                name: 'Copy link',
+                value: 'copy',
+              },
+              {
+                name: 'Twitter',
+                value: 'Twitter',
+              },
+            ] as any,
           },
         ],
 

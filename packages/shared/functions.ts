@@ -12,7 +12,7 @@ export const handleImg = (opts) =>
       type: null,
       compress: 1, // 压缩范围（0-1）
       maxHeight: window.innerHeight, // 压缩后的最大高度
-      maxWidth: window.innerWidth // 压缩后的最大宽度
+      maxWidth: window.innerWidth, // 压缩后的最大宽度
     }
 
     if (typeof opts !== 'object') {
@@ -115,7 +115,7 @@ export const dataURItoBlob = (base64, format) => {
     return builder.getBlob(format)
   }
   return new window.Blob([uBuffer], {
-    type: format
+    type: format,
   })
 }
 
@@ -186,7 +186,7 @@ const optWatermark = {
   init(img) {
     // eslint-disable-next-line no-param-reassign
     img.crossOrigin = 'anonymous'
-  }
+  },
 }
 
 export const getWatermarkImg = (img, brand) =>
@@ -424,7 +424,7 @@ export const getInitURLParams = () => {
     custom: getParameterByName('custom'), // 提交反馈自定义字段
     locale: getParameterByName('locale'), // 本地化设置
     scale: getParameterByName('scale'), // 缩放比例
-    submitCallBack: getParameterByName('submitCallBack') // 控制提交反馈后调用 schemaurl(aisee://feedback/info)
+    submitCallBack: getParameterByName('submitCallBack'), // 控制提交反馈后调用 schemaurl(aisee://feedback/info)
   }
   if (!window.localStorage) {
     return paramsFromURL
@@ -537,9 +537,7 @@ export const insertCustomButtonClass = (bgColor) => {
 }
 
 export const isIphoneX = () =>
-  /iphone/gi.test(window.navigator.userAgent) &&
-  window.screen.height === 812 &&
-  window.screen.width === 375
+  /iphone/gi.test(window.navigator.userAgent) && window.screen.height === 812 && window.screen.width === 375
 
 export const isAndroid = () => /(android)/i.test(window.navigator.userAgent)
 
@@ -576,7 +574,7 @@ export const getMessage = (path, vue) => {
     'feedbackPage.foldFaq': '收起完整内容',
     'feedbackPage.roleMyself': '我',
     'feedbackPage.admin': '管理员',
-    'feedbackPage.system': '管理员'
+    'feedbackPage.system': '管理员',
   }
   return backupMessages[path]
 }
@@ -631,24 +629,6 @@ export const callBackNative = (path, data = {}, cmd) => {
   setTimeout(() => {
     a.remove()
   }, 100)
-}
-
-export const copyToClipboard = (textToCopy) => {
-  const textarea = document.createElement('textarea')
-  textarea.setAttribute('readonly', 'readonly')
-  textarea.value = textToCopy
-  textarea.style.position = 'fixed'
-  textarea.style.top = 0
-  document.body.insertBefore(textarea, document.body.childNodes[0])
-  textarea.focus()
-  textarea.setSelectionRange(0, textToCopy.length) // 兼容 iOS select() 方法不可用问题。最大复制长度 9999
-  if (document.execCommand('copy')) {
-    document.execCommand('copy')
-    document.body.removeChild(textarea)
-    return 0
-  }
-  document.body.removeChild(textarea)
-  return -1
 }
 
 export const resumeHangingPage = () => {
