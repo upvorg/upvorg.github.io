@@ -183,13 +183,13 @@ importers:
         version: 1.2.27-beta.0(@oplayer/core@1.2.36)(hls.js@1.5.8)
       '@oplayer/plugins':
         specifier: latest
-        version: 1.0.13(@oplayer/core@1.2.36)(@oplayer/ui@1.3.3-beta.0(@oplayer/core@1.2.36))(m3u8-parser@7.1.0)
+        version: 1.0.13(@oplayer/core@1.2.36)(@oplayer/ui@1.3.3-beta.2(@oplayer/core@1.2.36))(m3u8-parser@7.1.0)
       '@oplayer/react':
         specifier: ^1.2.10
         version: 1.2.10(@oplayer/core@1.2.36)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@oplayer/ui':
         specifier: latest
-        version: 1.3.3-beta.0(@oplayer/core@1.2.36)
+        version: 1.3.3-beta.2(@oplayer/core@1.2.36)
       anime4k.js:
         specifier: ^0.0.4
         version: 0.0.4
@@ -1353,8 +1353,8 @@ packages:
       react: '>=16'
       react-dom: '>=16'
 
-  '@oplayer/ui@1.3.3-beta.0':
-    resolution: {integrity: sha512-tA+sMhyWv1R4uCJotxYhhk5SpVThoiwd/hTTZeEWSlXQqDh1n7TKVX3rl81E0cUt1JiGsZYcOt+ujv+tGovn9w==}
+  '@oplayer/ui@1.3.3-beta.2':
+    resolution: {integrity: sha512-jX1bhVwBGQ+1gjV9v+OZoFmP/cJDc2GS5T6JY27LC94bZCoQHeF0lcacTfhFtVu8Qwqy4DQMY2ouTOL7u+m2Og==}
     peerDependencies:
       '@oplayer/core': '>=1.0.0'
 
@@ -5715,10 +5715,10 @@ snapshots:
       '@oplayer/core': 1.2.36
       hls.js: 1.5.8
 
-  '@oplayer/plugins@1.0.13(@oplayer/core@1.2.36)(@oplayer/ui@1.3.3-beta.0(@oplayer/core@1.2.36))(m3u8-parser@7.1.0)':
+  '@oplayer/plugins@1.0.13(@oplayer/core@1.2.36)(@oplayer/ui@1.3.3-beta.2(@oplayer/core@1.2.36))(m3u8-parser@7.1.0)':
     dependencies:
       '@oplayer/core': 1.2.36
-      '@oplayer/ui': 1.3.3-beta.0(@oplayer/core@1.2.36)
+      '@oplayer/ui': 1.3.3-beta.2(@oplayer/core@1.2.36)
       m3u8-parser: 7.1.0
 
   '@oplayer/react@1.2.10(@oplayer/core@1.2.36)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
@@ -5727,7 +5727,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@oplayer/ui@1.3.3-beta.0(@oplayer/core@1.2.36)':
+  '@oplayer/ui@1.3.3-beta.2(@oplayer/core@1.2.36)':
     dependencies:
       '@oplayer/core': 1.2.36
 
