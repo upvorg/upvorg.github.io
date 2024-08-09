@@ -37,7 +37,8 @@ export default function IndexPage() {
     Promise.allSettled([
       // corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
       recommends,
-      corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'),
+      corsAxios.get(`https://www.clicli.cc/posts?status=public&sort=新番%2C完结&tag=7月新番&page=1&pageSize=99`),
+      // corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'),
       corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'),
     ] as any).then((_resp) => {
       const resp = _resp.map(({ value }: any) => {
