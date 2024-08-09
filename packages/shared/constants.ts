@@ -71,7 +71,8 @@ if (document.location.search.includes('nocors')) {
 }
 
 const corsAxios = http.create<R.Response<any>>(
-  localStorage.getItem('cors') == null ? 'https://cors-flame.vercel.app/api/cors?url=' : ''
+  //https://cors-flame.vercel.app/api/cors
+  localStorage.getItem('cors') == null ? 'https://cors.jinlilili.top/api/cors?url=' : ''
 )
 
 export { axios, corsAxios }
