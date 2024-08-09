@@ -24,14 +24,10 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    if (type == 'recent' || type == 'popular' || tag) {
+    if (tag || tag == 'all') {
       setPosts(null)
       corsAxios
-        .get(
-          `https://www.clicli.cc/posts?status=public&sort=&tag=${
-            type == 'popular' ? '推荐' : tag
-          }&uid=&page=${page}&pageSize=24`
-        )
+        .get(`https://www.clicli.cc/posts?status=public&sort=&tag=${tag}&uid=&page=${page}&pageSize=24`)
         .then((it) => {
           setPosts(cliclisAdapter(it.posts))
         })

@@ -17,14 +17,17 @@ const indexConfig = [
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
+    remoto: recommends,
   },
   {
-    title: `What We're Watching Right Now`,
-    query: `type=popular&title=What We're Watching Right Now`,
+    title: `❤️‍🔥`,
+    remoto: `https://www.clicli.cc/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
+    query: `tag=恋爱&title=❤️‍🔥`,
   },
   {
     title: 'Latest Releases',
-    query: 'type=recent&title=Latest Releases',
+    remoto: `https://www.clicli.cc/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+    query: 'tag=all&title=Latest Releases',
   },
 ]
 
@@ -34,13 +37,9 @@ export default function IndexPage() {
   // https://cors.moopa.my.id/?url=
   // https://techz-cors-bypass.herokuapp.com/${res.url}
   useEffect(() => {
-    Promise.allSettled([
-      // corsAxios.get(`https://www.clicli.cc/users?level=4&page=1&pageSize=9`),
-      recommends,
-      corsAxios.get(`https://www.clicli.cc/posts?status=public&sort=新番%2C完结&tag=7月新番&page=1&pageSize=99`),
-      // corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=%E6%8E%A8%E8%8D%90&uid=&page=1&pageSize=12'),
-      corsAxios.get('https://www.clicli.cc/posts?status=public&sort=&tag=&uid=&page=1&pageSize=24'),
-    ] as any).then((_resp) => {
+    Promise.allSettled(
+      indexConfig.map(({ remoto }) => (typeof remoto == 'string' ? corsAxios.get(remoto) : remoto))
+    ).then((_resp) => {
       const resp = _resp.map(({ value }: any) => {
         if (value.posts) {
           return cliclisAdapter(value.posts)
