@@ -2,6 +2,8 @@ import { Link } from 'wouter'
 import './index.scss'
 import { useEffect, useState } from 'react'
 import { corsAxios } from '@web/shared/constants'
+import classNames from 'classnames'
+import { clicliAdapter } from '../../enime.adp'
 
 export default function RankList() {
   const [day, setDay] = useState(30)
@@ -9,16 +11,18 @@ export default function RankList() {
 
   useEffect(() => {
     corsAxios.get(`https://www.clicli.cc/rank?day=${day}`).then((rsp) => {
-      setList(rsp.posts)
+      setList(clicliAdapter(rsp.posts))
     })
   }, [day])
 
   return (
     <div className="rank-video-list">
-      <div style={{ marginBottom: '6px' }}>
+      <div className="tags" style={{ marginBottom: '6px' }}>
         {[7, 30, 120, 365].map((n) => (
           <span
-            className={'tag is-hoverable' + (day == n && ' is-primary')}
+            className={classNames('tag is-hoverable', {
+              'is-primary': day == n,
+            })}
             onClick={() => {
               setDay(n)
             }}
