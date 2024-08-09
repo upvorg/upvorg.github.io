@@ -20,13 +20,13 @@ const indexConfig = [
     remoto: recommends,
   },
   {
-    title: `❤️‍🔥`,
-    remoto: `https://www.clicli.cc/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
+    title: `❤️‍🔥I Miss U`,
+    remoto: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
     query: `tag=恋爱&title=❤️‍🔥`,
   },
   {
     title: 'Latest Releases',
-    remoto: `https://www.clicli.cc/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+    remoto: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
     query: 'tag=all&title=Latest Releases',
   },
 ]

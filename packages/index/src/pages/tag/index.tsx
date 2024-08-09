@@ -26,11 +26,9 @@ export default function SearchPage() {
   useEffect(() => {
     if (tag || tag == 'all') {
       setPosts(null)
-      corsAxios
-        .get(`https://www.clicli.cc/posts?status=public&sort=&tag=${tag}&uid=&page=${page}&pageSize=24`)
-        .then((it) => {
-          setPosts(cliclisAdapter(it.posts))
-        })
+      corsAxios.get(`/posts?status=public&sort=&tag=${tag}&uid=&page=${page}&pageSize=24`).then((it) => {
+        setPosts(cliclisAdapter(it.posts))
+      })
     } else {
       store
         .keys()

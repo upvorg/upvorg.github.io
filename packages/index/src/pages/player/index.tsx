@@ -110,7 +110,7 @@ export default function PlayerPage({ id }: any) {
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
     corsAxios
-      .get(`https://www.clicli.cc/post/${id}`)
+      .get(`/post/${id}`)
       .then((it) => clicliAdapter(it.result))
       .then((it) => {
         setState(it)

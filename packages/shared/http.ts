@@ -94,7 +94,7 @@ export default class Http<R = any> {
 
     if (__DEV__) console.log(`-> REQUEST: ${method} ${url} data: `, method.toUpperCase(), data)
     let rawResponse: Response
-    return fetch(`${this.baseUrl}${this.baseUrl ? encodeURIComponent(url) : url}`, {
+    return fetch(`${this.baseUrl}${url}`, {
       method,
       headers: config,
       ...this.config,

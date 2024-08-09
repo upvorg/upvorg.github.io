@@ -10,7 +10,7 @@ export default function RankList() {
   const [list, setList] = useState<R.Post[]>()
 
   useEffect(() => {
-    corsAxios.get(`https://www.clicli.cc/rank?day=${day}`).then((rsp) => {
+    corsAxios.get(`/rank?day=${day}`).then((rsp) => {
       setList(cliclisAdapter(rsp.posts))
     })
   }, [day])
