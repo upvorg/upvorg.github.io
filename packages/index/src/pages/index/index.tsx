@@ -32,7 +32,7 @@ const indexConfig = [
 ]
 
 export default function IndexPage() {
-  const [state, setState] = useState<R.Post[][] | null[]>([null, null])
+  const [state, setState] = useState<R.Post[][] | null[]>(Array.from({ length: indexConfig.length }, () => null))
 
   // https://cors.moopa.my.id/?url=
   // https://techz-cors-bypass.herokuapp.com/${res.url}

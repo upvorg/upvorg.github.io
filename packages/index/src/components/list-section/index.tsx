@@ -47,15 +47,13 @@ export default function ListSection({ title, icon, videos, asideTitle, aside, mo
           )}
         </div>
         <div className="list-body">
-          {videos ? (
-            videos.length > 0 ? (
-              videos.map((item, index) => {
-                if (isLive) return <LiveCard key={index} {...(item as any)} />
-                return <VideoCard key={index} info={item} />
-              })
-            ) : (
-              <div className="empty">No Data</div>
-            )
+          {videos && videos?.length > 0 ? (
+            videos.map((item, index) => {
+              if (isLive) return <LiveCard key={index} {...(item as any)} />
+              return <VideoCard key={index} info={item} />
+            })
+          ) : videos == undefined ? (
+            <div className="empty">No Data</div>
           ) : (
             <span className="loading empty">loading···</span>
           )}
