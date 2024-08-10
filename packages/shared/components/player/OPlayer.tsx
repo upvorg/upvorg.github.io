@@ -1,4 +1,4 @@
-import type { Player, PlayerEvent, PlayerOptions } from '@oplayer/core'
+import type { Player, PlayerEvent, PlayerOptions, PlayerPlugin } from '@oplayer/core'
 import { isIOS, isMobile } from '@oplayer/core'
 import hls from '@oplayer/hls'
 import ReactPlayer from '@oplayer/react'
@@ -113,10 +113,28 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
             },
           },
         ],
+
+        errorBuilder(e, _, builder) {
+          const error = e as any
+          builder({
+            ...e,
+            message:
+              (error.message ? `${error.message}\n\n` : '') +
+              (error.code ? `ErrorCode:${error.code} \n\n` : '') +
+              'Open an issues https://github.com/shiyiya/oplayer/issues/new/choose',
+          })
+        },
       }),
       hls({ forceHLS: true }),
       new Playlist({ sources: [] }),
       new Chromecast(),
+      {
+        apply(player: Player) {
+          player.on('volumechange', () => {
+            localStorage.setItem('volume', player.volume + '')
+          })
+        },
+      } as PlayerPlugin,
       // new Anime4kPlugin(),
     ],
     []
@@ -131,7 +149,7 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
       autoplay={autoplay}
       duration={duration}
       playing={playerIsPlaying}
-      volume={localStorage.getItem('volume') ? +localStorage.getItem('volume')! : 1}
+      volume={localStorage.getItem('volume') ? +localStorage.getItem('volume')! : 0.8}
       playbackRate={localStorage.getItem('speed') ? +localStorage.getItem('speed')! : 1}
     />
   )
