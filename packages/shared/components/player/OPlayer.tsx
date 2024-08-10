@@ -115,16 +115,10 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
         ],
 
         errorBuilder(e, _, builder) {
-          if (_ref.current?.options.source.title == '花束般的恋爱') {
-            builder({ message: '愿你有一天，能与你最重要的人重逢' })
-            return
-          }
-          const error = e as any
           builder({
             ...e,
             message:
-              (error.message ? `${error.message}\n\n` : '') +
-              (error.code ? `ErrorCode:${error.code} \n\n` : '') +
+              `愿你有一天，能与你最重要的人重逢 \n\n` +
               'Open an issues https://github.com/shiyiya/oplayer/issues/new/choose',
           })
         },
