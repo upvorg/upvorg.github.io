@@ -1,5 +1,6 @@
 import { useEffect, PropsWithChildren, Suspense } from 'react'
 import { Route, RouteProps } from 'wouter'
+import { debounce } from '@web/shared/utils/schedulers'
 import Header from '../header'
 import './index.scss'
 
@@ -9,7 +10,7 @@ const IndexLayout: React.FC<PropsWithChildren<any>> = (props) => {
   useEffect(() => {
     const header = document.querySelector('.upv-header__bar')!
 
-    const scrollHandler = (_: Event) => {
+    const scrollHandler = debounce((_: Event) => {
       const scrollTop = $root.scrollTop
 
       if (scrollTop >= 222) {
@@ -17,7 +18,7 @@ const IndexLayout: React.FC<PropsWithChildren<any>> = (props) => {
       } else {
         header.classList.remove('fixed-header')
       }
-    }
+    }, 200)
 
     $root.addEventListener('scroll', scrollHandler)
     return () => {
