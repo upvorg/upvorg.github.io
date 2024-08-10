@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { cliclisAdapter } from '../../enime.adp'
 
 export default function RankList() {
-  const [day, setDay] = useState(30)
+  const [day, setDay] = useState(3)
   const [list, setList] = useState<R.Post[]>()
 
   useEffect(() => {
@@ -18,11 +18,12 @@ export default function RankList() {
   return (
     <div className="rank-video-list">
       <div className="tags" style={{ marginBottom: '6px' }}>
-        {[7, 30, 120, 365].map((n) => (
+        {[3, 7, 30, 90, 365].map((n) => (
           <a
             className={classNames('tag is-hoverable', {
               'is-primary': day == n,
             })}
+            key={n}
             onClick={() => {
               setDay(n)
             }}

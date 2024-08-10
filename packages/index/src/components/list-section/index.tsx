@@ -52,7 +52,7 @@ export default function ListSection({ title, icon, videos, asideTitle, aside, mo
               if (isLive) return <LiveCard key={index} {...(item as any)} />
               return <VideoCard key={index} info={item} />
             })
-          ) : videos == undefined ? (
+          ) : videos === undefined ? (
             <div className="empty">No Data</div>
           ) : (
             <span className="loading empty">loading···</span>

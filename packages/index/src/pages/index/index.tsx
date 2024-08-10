@@ -17,16 +17,16 @@ const indexConfig = [
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
-    remoto: recommends,
+    remote: recommends,
   },
   {
-    title: `❤️‍🔥I Miss U`,
-    remoto: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
+    title: `❤️‍🔥MISS U`,
+    remote: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
     query: `tag=恋爱&title=❤️‍🔥`,
   },
   {
-    title: 'Latest Releases',
-    remoto: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+    title: '✨Latest Releases',
+    remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
     query: 'tag=all&title=Latest Releases',
   },
 ]
@@ -38,7 +38,7 @@ export default function IndexPage() {
   // https://techz-cors-bypass.herokuapp.com/${res.url}
   useEffect(() => {
     Promise.allSettled(
-      indexConfig.map(({ remoto }) => (typeof remoto == 'string' ? corsAxios.get(remoto) : remoto))
+      indexConfig.map(({ remote: remote }) => (typeof remote == 'string' ? corsAxios.get(remote) : remote))
     ).then((_resp) => {
       const resp = _resp.map(({ value }: any) => {
         if (value.posts) {

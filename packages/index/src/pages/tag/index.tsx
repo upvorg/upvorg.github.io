@@ -24,11 +24,13 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    if (tag || tag == 'all') {
+    if (tag) {
       setPosts(null)
-      corsAxios.get(`/posts?status=public&sort=&tag=${tag}&uid=&page=${page}&pageSize=24`).then((it) => {
-        setPosts(cliclisAdapter(it.posts))
-      })
+      corsAxios
+        .get(`/posts?status=public&sort=&tag=${tag == 'all' ? '' : tag}&uid=&page=${page}&pageSize=24`)
+        .then((it) => {
+          setPosts(cliclisAdapter(it.posts))
+        })
     } else {
       store
         .keys()
