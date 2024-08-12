@@ -62,18 +62,18 @@ axios.interceptors.request.use((config) => {
   }
 })
 
-if (document.location.search.includes('cors')) {
-  localStorage.setItem('cors', '1')
+if (document.location.search.includes('noproxy')) {
+  localStorage.setItem('noproxy', '1')
 }
 
-if (document.location.search.includes('nocors')) {
-  localStorage.removeItem('cors')
+if (document.location.search.includes('proxy')) {
+  localStorage.removeItem('noproxy')
 }
 
 const corsAxios = http.create<R.Response<any>>(
   // https://cors-flame.vercel.app/api/cors
   // https://cors.jinlilili.top/api/cors?url=
-  localStorage.getItem('cors') == null ? 'https://cli.airmole.net' : ''
+  localStorage.getItem('noproxy') ? '' : 'https://cli.airmole.net'
 )
 
 export { axios, corsAxios }
