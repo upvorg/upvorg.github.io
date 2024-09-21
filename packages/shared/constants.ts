@@ -73,7 +73,7 @@ if (document.location.search.includes('noproxy=0')) {
 const corsAxios = http.create<R.Response<any>>(
   // https://cors-flame.vercel.app/api/cors
   // https://cors.jinlilili.top/api/cors?url=
-  localStorage.getItem('noproxy') ? '' : 'https://cli.airmole.net'
+  localStorage.getItem('noproxy') ? 'https://www.clicli.cc' : 'https://cli.airmole.net'
 )
 
 export { axios, corsAxios }
