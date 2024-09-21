@@ -1,5 +1,6 @@
 # 🌸 Free anime without ads
 
+- http://anime.jinlilili.top/
 - https://onime.netlify.app
 - https://upvorg.github.io
 
