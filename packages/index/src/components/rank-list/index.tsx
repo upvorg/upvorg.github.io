@@ -6,12 +6,12 @@ import classNames from 'classnames'
 import { cliclisAdapter } from '../../enime.adp'
 
 export default function RankList() {
-  const [day, setDay] = useState(3)
+  const [day, setDay] = useState(90)
   const [list, setList] = useState<R.Post[]>()
 
   useEffect(() => {
     corsAxios.get(`/rank?day=${day}`).then((rsp) => {
-      setList(cliclisAdapter(rsp.posts))
+      setList(cliclisAdapter(rsp.posts) || [])
     })
   }, [day])
 
@@ -21,7 +21,7 @@ export default function RankList() {
         {[3, 7, 30, 90, 365].map((n) => (
           <a
             className={classNames('tag is-hoverable', {
-              'is-primary': day == n,
+              'is-primary': day == n
             })}
             key={n}
             onClick={() => {
