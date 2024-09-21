@@ -20,14 +20,14 @@ export const enimeAdapter = (item: any) => {
       Episodes: 13,
       IsEnd: 2,
       PublishDate: '2015-01-01T08:00:00+08:00',
-      UpdatedDate: null,
+      UpdatedDate: null
     },
     Creator: {
       ID: 1,
       Name: 'enime.moe',
       Nickname: 'enime',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
-      Bio: '这个人很酷，什么都没有留下',
+      Bio: '这个人很酷，什么都没有留下'
     },
     episodes: item.anime?.episodes?.map((ep: any) => ({
       ID: ep.id,
@@ -41,8 +41,8 @@ export const enimeAdapter = (item: any) => {
       Uid: 1,
       Pid: item.anime?.slug,
       CreatedAt: ep.airedAt || ep.createdAt,
-      UpdatedAt: ep.updatedAt,
-    })),
+      UpdatedAt: ep.updatedAt
+    }))
   }
 }
 
@@ -68,15 +68,15 @@ export const enimeSearchAdapter = (data: any[] = []) => {
       Episodes: 13,
       IsEnd: 2,
       PublishDate: '2015-01-01T08:00:00+08:00',
-      UpdatedDate: null,
+      UpdatedDate: null
     },
     Creator: {
       ID: 1,
       Name: 'enime.moe',
       Nickname: 'enime',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
-      Bio: '这个人很酷，什么都没有留下',
-    },
+      Bio: '这个人很酷，什么都没有留下'
+    }
   }))
 }
 
@@ -108,14 +108,14 @@ export const clicliAdapter = (item: any) => {
       Episodes: item.content.split('\n').length,
       IsEnd: 2,
       PublishDate: item.time,
-      UpdatedDate: null,
+      UpdatedDate: null
     },
     Creator: {
       ID: 1,
       Name: 'YUESE',
       Nickname: 'YUESE',
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
-      Bio: '这个人很酷，什么都没有留下',
+      Bio: '这个人很酷，什么都没有留下'
     },
     episodes: item.content.split('\n').map((ep: any) => ({
       ID: ep.split('$')[0],
@@ -129,11 +129,12 @@ export const clicliAdapter = (item: any) => {
       Uid: 1,
       Pid: item.id,
       CreatedAt: item.time,
-      UpdatedAt: item.time,
-    })),
+      UpdatedAt: item.time
+    }))
   }
 }
 
 const blackList = [3421, 31, 786, 3880, 2617, 4087, 4086, 620]
 
-export const cliclisAdapter = (data: any[] = []) => data.filter((it) => !blackList.includes(it.id)).map(clicliAdapter)
+export const cliclisAdapter = (data: any[] | null) =>
+  data?.filter((it) => !blackList.includes(it.id)).map(clicliAdapter) || []

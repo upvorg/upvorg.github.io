@@ -27,7 +27,7 @@ export default function SearchPage() {
     if (tag) {
       setPosts(null)
       corsAxios
-        .get(`/posts?status=public&sort=&tag=${tag == 'all' ? '' : tag}&uid=&page=${page}&pageSize=24`)
+        .get(`/posts?status=&sort=&tag=${tag == 'all' ? '' : tag}&uid=&page=${page}&pageSize=24`)
         .then((it) => {
           setPosts(cliclisAdapter(it.posts))
         })

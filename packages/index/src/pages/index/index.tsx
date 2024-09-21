@@ -17,22 +17,24 @@ const indexConfig = [
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
-    remote: recommends,
+    remote: recommends
   },
   {
     title: `❤️‍🔥MISS U`,
-    remote: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
-    query: `tag=恋爱&title=❤️‍🔥`,
+    remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
+    query: `tag=恋爱&title=❤️‍🔥`
   },
   {
     title: '✨Latest Releases',
     remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
-    query: 'tag=all&title=Latest Releases',
-  },
+    query: 'tag=all&title=Latest Releases'
+  }
 ]
 
 export default function IndexPage() {
-  const [state, setState] = useState<R.Post[][] | null[]>(Array.from({ length: indexConfig.length }, () => null))
+  const [state, setState] = useState<R.Post[][] | null[]>(
+    Array.from({ length: indexConfig.length }, () => null)
+  )
 
   // https://cors.moopa.my.id/?url=
   // https://techz-cors-bypass.herokuapp.com/${res.url}
