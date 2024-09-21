@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-// import RankList from '../../components/rank-list'
+import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
 
 import recommends from '../../mock/recommends.json'
@@ -17,24 +17,22 @@ const indexConfig = [
     title: 'Recommends',
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
-    remote: recommends
-  }
-  // {
-  //   title: `❤️‍🔥MISS U`,
-  //   remote: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
-  //   query: `tag=恋爱&title=❤️‍🔥`,
-  // },
-  // {
-  //   title: '✨Latest Releases',
-  //   remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
-  //   query: 'tag=all&title=Latest Releases',
-  // },
+    remote: recommends,
+  },
+  {
+    title: `❤️‍🔥MISS U`,
+    remote: `/posts?status=public&sort=&tag=恋爱&page=1&pageSize=24`,
+    query: `tag=恋爱&title=❤️‍🔥`,
+  },
+  {
+    title: '✨Latest Releases',
+    remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+    query: 'tag=all&title=Latest Releases',
+  },
 ]
 
 export default function IndexPage() {
-  const [state, setState] = useState<R.Post[][] | null[]>(
-    Array.from({ length: indexConfig.length }, () => null)
-  )
+  const [state, setState] = useState<R.Post[][] | null[]>(Array.from({ length: indexConfig.length }, () => null))
 
   // https://cors.moopa.my.id/?url=
   // https://techz-cors-bypass.herokuapp.com/${res.url}
@@ -68,8 +66,8 @@ export default function IndexPage() {
             icon={config.icon}
             title={config.title}
             moreUrl={`/pv/tag?${config.query}`}
-            // aside={index == 0 && <RankList />}
-            // asideTitle={(index == 0 && 'Ranks') as any}
+            aside={index == 0 && <RankList />}
+            asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
       })}
