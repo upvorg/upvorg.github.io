@@ -54,7 +54,7 @@ const OPlayer = React.forwardRef(({ playerIsPlaying, duration, onEvent, autoplay
               if (value == 'Twitter') {
                 window.open(url)
               } else if (value == 'copy') {
-                copyToClipboard(url)
+                copyToClipboard(document.title +' - ' + window.location.href )
               }
             },
             children: [
