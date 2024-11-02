@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_web_index=self.webpackChunk_web_index||[]).push([[84],{1084:(e,n,s)=>{s.r(n),s.d(n,{default:()=>r});var d=s(1326),i=s(2233);const r=()=>(0,d.jsxs)(d.Fragment,{children:[(0,d.jsx)(i.m,{children:(0,d.jsx)("title",{children:"404 - UPV - free animes no ads"})}),(0,d.jsx)("h1",{children:"404"}),(0,d.jsx)("p",{children:"Page not found"})]})}}]);
