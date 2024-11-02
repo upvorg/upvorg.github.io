@@ -62,6 +62,7 @@ export default function IndexPage() {
       {indexConfig.map((config, index) => {
         return (
           <ListSection
+            isFeed={true}
             key={index}
             videos={state[index]}
             isLive={index == -1}

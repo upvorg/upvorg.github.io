@@ -116,20 +116,20 @@ export const clicliAdapter = (item: any) => {
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
       Bio: '这个人很酷，什么都没有留下'
     },
-    episodes: item.content.split('\n').map((ep: any) => ({
-      ID: ep.split('$')[0],
-      Episode: ep.split('$')[0],
-      Cover: getSuo(item.content),
-      Title: ep.split('$')[0],
-      TitleJapanese: '',
-      TitleRomanji: '',
-      VideoUrl: '',
-      Synopsis: '',
-      Uid: 1,
-      Pid: item.id,
-      CreatedAt: item.time,
-      UpdatedAt: item.time
-    }))
+    Episodes: item.videos
+      .split('\n')
+      .filter(Boolean)
+      .map((v, i) => {
+        const [chunkString, src] = v.split('$')
+        const [Episode, Title] = chunkString.split(' ')
+        return {
+          Episode: Title ? Episode : i,
+          Title: Title || Episode,
+          VideoUrl: src,
+          title: Title || Episode,
+          src
+        }
+      })
   }
 }
 

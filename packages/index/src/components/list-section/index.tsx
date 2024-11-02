@@ -10,9 +10,19 @@ interface ListSectionProps {
   moreUrl?: string
   icon?: string
   isLive?: boolean
+  isFeed?: boolean
 }
 
-export default function ListSection({ title, icon, videos, asideTitle, aside, moreUrl, isLive }: ListSectionProps) {
+export default function ListSection({
+  title,
+  icon,
+  videos,
+  asideTitle,
+  aside,
+  moreUrl,
+  isLive,
+  isFeed
+}: ListSectionProps) {
   return (
     <div className={cls('upv-grid', { 'col-2': asideTitle, 'is-live': isLive })}>
       <div className={'upv-card-list'}>
@@ -50,7 +60,7 @@ export default function ListSection({ title, icon, videos, asideTitle, aside, mo
           {videos && videos?.length > 0 ? (
             videos.map((item, index) => {
               if (isLive) return <LiveCard key={index} {...(item as any)} />
-              return <VideoCard key={index} info={item} />
+              return <VideoCard key={index} info={item} isFeed={isFeed} />
             })
           ) : videos === undefined ? (
             <div className="empty">No Data</div>

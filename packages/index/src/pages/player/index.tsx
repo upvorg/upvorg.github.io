@@ -44,7 +44,7 @@ export default function PlayerPage({ id }: any) {
       .then((_) => {
         if (!_.data || _.data.Type !== 'video') {
           toast.error('视频不见了', {
-            duration: 90000,
+            duration: 90000
           })
           return
         }
@@ -70,7 +70,7 @@ export default function PlayerPage({ id }: any) {
                 return {
                   ...it,
                   title: it.Title,
-                  src: it.VideoUrl,
+                  src: it.VideoUrl
                 }
               })
             )
@@ -102,8 +102,8 @@ export default function PlayerPage({ id }: any) {
         {
           Episode: 1,
           Title: 'live',
-          VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108`,
-        } as any,
+          VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108`
+        } as any
       ])
       return
     }
@@ -114,22 +114,8 @@ export default function PlayerPage({ id }: any) {
       .then((it) => clicliAdapter(it.result))
       .then((it) => {
         setState(it)
-        const videos = it.videos
-          .split('\n')
-          .filter(Boolean)
-          .map((v, i) => {
-            const [chunkString, src] = v.split('$')
-            const [Episode, Title] = chunkString.split(' ')
-            return {
-              Episode: Title ? Episode : i,
-              Title: Title || Episode,
-              VideoUrl: src,
-              title: Title || Episode,
-              src,
-            }
-          })
-        setVideo(videos)
-        player.current?.context.playlist.changeSourceList(videos)
+        setVideo(it.Episodes)
+        player.current?.context.playlist.changeSourceList(it.Episodes)
       })
   }, [isAdp])
 
@@ -148,7 +134,7 @@ export default function PlayerPage({ id }: any) {
           }
           return !it
         })
-      },
+      }
     })
   }, [])
 
@@ -236,7 +222,7 @@ export default function PlayerPage({ id }: any) {
     CollectionCount,
     Content,
     Meta,
-    Cover,
+    Cover
   } = state
 
   return (
@@ -279,7 +265,7 @@ export default function PlayerPage({ id }: any) {
                     <a key={i}>
                       <li
                         className={classNames('list-item has-tooltip-bottom', {
-                          cursor: i === lastEpisode,
+                          cursor: i === lastEpisode
                         })}
                         onClick={() => update(id, i, 0)}
                         title={item.Title}
@@ -367,10 +353,12 @@ export default function PlayerPage({ id }: any) {
                     .split(' ')
                     .map((tag) => ({
                       title: tag,
-                      href: `/pv/tag?type=video&title=${tag}&tag=${tag}`,
+                      href: `/pv/tag?type=video&title=${tag}&tag=${tag}`
                     }))
                     .concat(
-                      IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : []
+                      IsOriginal == 2
+                        ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
+                        : []
                     )
                 : []
             }

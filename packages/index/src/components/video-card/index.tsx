@@ -3,7 +3,7 @@ import './index.scss'
 import { useEffect, useRef } from 'react'
 
 import AspectRatio from '@web/shared/components/AspectRatio'
-import { getTimeDistance } from '@web/shared/utils/date'
+// import { getTimeDistance } from '@web/shared/utils/date'
 import classNames from 'classnames'
 import { Link } from 'wouter'
 
@@ -23,7 +23,9 @@ if (!nativeLazySupported) {
           const img = container.querySelector('img')!
           img.src = img.dataset.src!
           img.onload = () => {
-            container.querySelector('.upv-video-card__loading')!.classList.add('upv-video-card__loading--hidden')
+            container
+              .querySelector('.upv-video-card__loading')!
+              .classList.add('upv-video-card__loading--hidden')
           }
           img.onerror = () => {
             container.querySelector('.upv-video-card__error')!.classList.add('upv-video-card__error--show')
@@ -35,9 +37,10 @@ if (!nativeLazySupported) {
   )
 }
 
-export default function VideoCard({ info }: { info: R.Post }) {
+export default function VideoCard({ info, isFeed }: { info: R.Post; isFeed?: boolean }) {
   const target = info.Type === 'video' ? `/v/${info.ID}` : `/p/${info.ID}`
   const $el = useRef<HTMLDivElement | null>(null)
+  const feedName = ((info as any)?.Episodes as unknown as R.Video[])?.at(-1)?.Title
 
   useEffect(() => {
     if (_IntersectionObserver && $el.current?.dataset.cover) {
@@ -45,7 +48,9 @@ export default function VideoCard({ info }: { info: R.Post }) {
       return () => {
         if ($el.current) {
           _IntersectionObserver.unobserve($el.current)
-          $el.current.querySelector('.upv-video-card__loading')!.classList.remove('upv-video-card__loading--hidden')
+          $el.current
+            .querySelector('.upv-video-card__loading')!
+            .classList.remove('upv-video-card__loading--hidden')
           $el.current.querySelector('.upv-video-card__error')!.classList.remove('upv-video-card__error--show')
         }
       }
@@ -69,14 +74,14 @@ export default function VideoCard({ info }: { info: R.Post }) {
                 />
                 {!nativeLazySupported && [
                   <div className="upv-video-card__loading">LOADING</div>,
-                  <div className="upv-video-card__error">ERROR</div>,
+                  <div className="upv-video-card__error">ERROR</div>
                 ]}
               </>
             )}
 
             <div
               className={classNames('upv-video-card__nocover', {
-                'upv-video-card__nocover--show': !info.Cover,
+                'upv-video-card__nocover--show': !info.Cover
               })}
             >
               <span className={classNames({ large: info.Title.length <= 4 })}>
@@ -87,11 +92,12 @@ export default function VideoCard({ info }: { info: R.Post }) {
         </div>
       </Link>
       <div className="upv-video-card__content">
-        <div className="upv-video-card__content__title">{info.Title}</div>
+        <div className="upv-video-card__content__title">{isFeed ? feedName || info.Title : info.Title}</div>
         <div className="upv-video-card__content__author">
-          <span>{info.Creator?.Nickname || '-'}</span>
+          {isFeed && feedName && info.Title}
+          {/* <span>{info.Creator?.Nickname || '-'}</span>
           {' · '}
-          <span>{getTimeDistance(info.CreatedAt)}</span>
+          <span>{getTimeDistance(info.CreatedAt)}</span> */}
         </div>
       </div>
     </div>

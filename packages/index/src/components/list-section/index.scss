@@ -1,7 +1,7 @@
 $min-height: 350px;
 
 .upv-grid {
-  margin: 28px auto;
+  margin: 38px auto;
   display: grid;
   width: 100%;
   grid-gap: 20px 12px;
@@ -31,8 +31,8 @@ $min-height: 350px;
       }
     }
 
-    &.is-live .upv-card-list .list-body{
-      grid-template-columns: repeat(2, 1fr)!important;
+    &.is-live .upv-card-list .list-body {
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
@@ -48,7 +48,7 @@ $min-height: 350px;
     }
   }
 
-  &.is-live .upv-card-list .list-body{
+  &.is-live .upv-card-list .list-body {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -69,7 +69,7 @@ $min-height: 350px;
       align-items: center;
       z-index: 1;
       // height: 28px;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
 
       > div {
         display: flex;
@@ -117,7 +117,7 @@ $min-height: 350px;
     .list-body {
       width: 100%;
       display: grid;
-      grid-gap: 20px 12px;
+      grid-gap: 38px 25px;
       grid-column: span 5;
       grid-template-columns: repeat(6, 1fr);
 
