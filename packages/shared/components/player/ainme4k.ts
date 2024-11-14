@@ -13,39 +13,60 @@ export default class Anime4kPlugin implements PlayerPlugin {
     if (isMobile) return
 
     const { context, $video, $root } = (this.player = player)
-    const on = Boolean(+(localStorage.getItem('anime4k') || 0))
+    let on: string | null = localStorage.getItem('anime4k')
 
-    const onChange = (value: boolean) => {
-      if (!this.anime4kUpscaler && value) {
-        const canvas = document.createElement('canvas')
-        canvas.style.cssText = `width:100%;height:100%;position:absolute;left:0;top:0;`
-        $root.insertBefore(canvas, context.ui.$root)
-        this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k.ANIME4KJS_SIMPLE_M_2X)
-        this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
+    const onChange = (key: any, value: boolean) => {
+      if (this.anime4kUpscaler) {
+        //@ts-ignore
+        this.anime4kUpscaler.canvas?.remove()
+        this.anime4kUpscaler.detachVideo()
       }
-      localStorage.setItem('anime4k', Number(value).toString())
 
       if (value) {
-        this.anime4kUpscaler!.start()
+        const { width } = $root.getBoundingClientRect()
+        const { videoHeight, videoWidth } = $video
+        const ratio = videoWidth / videoHeight
+        const pixHeight = width / ratio
+        const canvas = document.createElement('canvas')
+        canvas.style.cssText = `width:100%;height:${pixHeight};position:absolute;inset:0;margin:auto;`
+        $root.insertBefore(canvas, context.ui.$root)
+
+        //@ts-ignore
+        this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k[key])
+        this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
+        this.anime4kUpscaler.start()
+        localStorage.setItem('anime4k', key)
       } else {
-        this.anime4kUpscaler?.stop()
+        localStorage.removeItem('anime4k')
       }
     }
 
     context.ui.setting.register({
       name: 'Anime4k',
-      type: 'switcher',
       key: 'anime4k',
+      type: 'selector',
       icon: '<span style="margin: 0 .7em 0 .2em;">4K</span>',
-      default: on,
-      onChange,
+      children: [
+        ['NONE', null],
+        ['LOWEREND_MODE_C', 'ANIME4K_LOWEREND_MODE_C'],
+        ['SIMPLE_S_2X', 'ANIME4KJS_SIMPLE_S_2X'],
+        ['SIMPLE_UL_2X', 'ANIME4KJS_SIMPLE_UL_2X'],
+        ['HIGHEREND_MODE_C', 'ANIME4K_HIGHEREND_MODE_C']
+      ].map(([name, value]) => ({
+        name: name,
+        value: value,
+        default: value == on
+      })),
+      onChange: ({ value }: any) => {
+        onChange(value, Boolean(value))
+      }
     })
 
     if (on) {
       $video.addEventListener(
         'loadeddata',
         () => {
-          onChange(true)
+          onChange(on, Boolean(on))
         },
         { once: true }
       )
