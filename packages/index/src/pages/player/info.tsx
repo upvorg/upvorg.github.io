@@ -7,7 +7,7 @@ import './info.scss'
 export default function PlayerInfo({
   post,
   show,
-  onChange,
+  onChange
 }: {
   show: boolean
   onChange: (f: boolean) => void
@@ -43,7 +43,9 @@ export default function PlayerInfo({
               <div className="post-info-item is-h">
                 <div className="post-info-item">
                   <label className="name">年份</label>
-                  <div className="body">{(PublishDate && new Date(PublishDate).getFullYear() + ' 年') || '-'}</div>
+                  <div className="body">
+                    {(PublishDate && new Date(PublishDate).getFullYear() + ' 年') || '-'}
+                  </div>
                 </div>
                 <div className="post-info-item">
                   <label className="name">完结</label>
@@ -54,15 +56,17 @@ export default function PlayerInfo({
                 <label className="name">更新</label>
                 <div className="body">
                   {(UpdatedDate &&
-                    `每${DAY_NAME[new Date(UpdatedDate).getDay()]} ${new Date(UpdatedDate).getHours()} 点更新`) ||
+                    `每${DAY_NAME[new Date(UpdatedDate).getDay()]} ${new Date(
+                      UpdatedDate
+                    ).getHours()} 点更新`) ||
                     '-'}
                 </div>
               </div>
               <div className="post-info-item tags">
                 {IsOriginal == 2 && <div className="body tag is-primary is-light">原创</div>}
                 {Tags &&
-                  Tags.split(' ').map((tag) => (
-                    <div className="body tag is-primary is-light" key={tag}>
+                  Tags.split(' ').map((tag, i) => (
+                    <div className="body tag is-primary is-light" key={i}>
                       {tag}
                     </div>
                   ))}

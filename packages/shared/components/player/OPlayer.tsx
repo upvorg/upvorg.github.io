@@ -6,7 +6,7 @@ import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useMemo, useRef } from 'react'
 import { Playlist, Chromecast } from '@oplayer/plugins'
 import { copyToClipboard } from '../../utils/copy'
-// import Anime4kPlugin from './ainme4k'
+import Anime4kPlugin from './ainme4k'
 
 interface OPlayerProps extends PlayerOptions {
   playerIsPlaying?: boolean
@@ -133,8 +133,8 @@ const OPlayer = React.forwardRef(
               localStorage.setItem('volume', player.volume + '')
             })
           }
-        } as PlayerPlugin
-        // new Anime4kPlugin(),
+        } as PlayerPlugin,
+        new Anime4kPlugin()
       ],
       []
     )
@@ -143,6 +143,7 @@ const OPlayer = React.forwardRef(
       <ReactPlayer
         ref={_ref}
         {...rest}
+        videoAttr={{ crossOrigin: 'anonymous' }}
         plugins={plugins}
         onEvent={onEvent}
         autoplay={autoplay}
