@@ -15,7 +15,7 @@ interface DarkModeConfig {
 
 const darkModeKey = 'darkMode'
 export const useDarkModeInternal = (
-  initialState: boolean = Boolean(localStorage.getItem(darkModeKey)),
+  initialState: boolean = localStorage.getItem(darkModeKey) == 'true',
   options: DarkModeConfig = {} as any
 ): IMediaStore => {
   const {
@@ -119,12 +119,12 @@ export const useDarkModeInternal = (
         const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`]
         $el.animate(
           {
-            clipPath: !darkMode ? clipPath : [...clipPath].reverse(),
+            clipPath: !darkMode ? clipPath : [...clipPath].reverse()
           },
           {
             duration: 400,
             easing: 'ease-in-out',
-            pseudoElement: darkMode ? '::view-transition-old(root)' : '::view-transition-new(root)',
+            pseudoElement: darkMode ? '::view-transition-old(root)' : '::view-transition-new(root)'
           }
         )
       })
@@ -143,6 +143,6 @@ export const useDarkModeInternal = (
         }
         return !d
       })
-    },
+    }
   }
 }
