@@ -20,10 +20,15 @@ const indexConfig = [
     remote: recommends
   },
   {
-    title: `❤️‍🔥MISS U`,
-    remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
+    title: `🔥`,
+    remote: `/posts?status=&sort=&tag=推荐&page=1&pageSize=24`,
     query: `tag=恋爱&title=❤️‍🔥`
   },
+  // {
+  //   title: `❤️‍🔥 Love`,
+  //   remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
+  //   query: `tag=恋爱&title=❤️‍🔥`
+  // },
   {
     title: '✨Latest Releases',
     remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
