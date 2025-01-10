@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getTimeDistance } from '@web/shared/utils/date'
 import ReactPlayer, { PlayerEvent, Player, isMobile } from '@web/shared/components/player/OPlayer'
-import { axios, corsAxios } from '@web/shared/constants'
+import { corsAxios, oaii } from '@web/shared/constants'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { Helmet } from 'react-helmet'
@@ -12,18 +12,14 @@ import { Tags } from '../../components/tag/Tag'
 import PlayerInfo from './info'
 import { clicliAdapter } from '../../enime.adp'
 
-import { ReactComponent as FaEye } from '../../assets/icon/fa-eye.svg'
 import { ReactComponent as FaHeart } from '../../assets/icon/fa-heart.svg'
 import { ReactComponent as FaInfo } from '../../assets/icon/fa-info-circle.svg'
 import { ReactComponent as FaMessage } from '../../assets/icon/fa-message.svg'
-import { ReactComponent as FaStar } from '../../assets/icon/fa-star.svg'
 
 import './index.scss'
 
 export default function PlayerPage({ id }: any) {
   const [modal, setModal] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
-  const [isCollected, setIsCollected] = useState(false)
   const [lastEpisode, lastDuration, update] = useLastPlayed(id)
 
   const [state, setState] = useState<R.Post | any>({} as R.Post)
@@ -33,6 +29,8 @@ export default function PlayerPage({ id }: any) {
   const [isAdp, setIsAdp] = useState(false)
   const [source, _] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
   const [displayEpBar, setDisplayEpBar] = useState(false)
+
+  const [metaInfo, setMetaInfo] = useState({ like: 0, comment: [] })
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
@@ -52,7 +50,6 @@ export default function PlayerPage({ id }: any) {
         if (!_.err) {
           _.data && setState(_.data)
           _.data.IsLiked == 2 && setIsLiked(true)
-          _.data.IsCollected == 2 && setIsCollected(true)
 
           // axios.get(`/post/${id}/videos`)
 
@@ -97,16 +94,6 @@ export default function PlayerPage({ id }: any) {
   }, [lastEpisode, video])
 
   useEffect(() => {
-    if (document.location.search.includes('live')) {
-      setVideo([
-        {
-          Episode: 1,
-          Title: 'live',
-          VideoUrl: `https://www.tm0.net/live/uu${id}.m3u8?hls_ctx=85097108`
-        } as any
-      ])
-      return
-    }
     if (!isAdp) return
     player.current?.context.ui?.menu.unregister('Source')
     corsAxios
@@ -117,6 +104,10 @@ export default function PlayerPage({ id }: any) {
         setVideo(it.Episodes)
         player.current?.context.playlist.changeSourceList(it.Episodes)
       })
+
+    Promise.all([oaii.get('/biu?post_id=' + id), oaii.get('/like?post_id=' + id)]).then(([comment, like]) => {
+      setMetaInfo({ comment, like })
+    })
   }, [isAdp])
 
   useEffect(() => {
@@ -139,56 +130,11 @@ export default function PlayerPage({ id }: any) {
   }, [])
 
   const likeHandler = useCallback(() => {
-    const c = isLiked ? -1 : 1
-    const LikesCount = state.LikesCount || 0
-
-    setIsLiked((isLiked) => !isLiked)
-    setState((state) => ({ ...state, LikesCount: LikesCount + c }))
-    ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
-        } else {
-          if (isLiked) {
-            toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
-          } else {
-            toast.success('nice!')
-          }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: state.LikesCount - c }))
-        }, 300)
-      })
-  }, [state, isLiked])
-
-  const collectHandler = useCallback(() => {
-    const c = isCollected ? -1 : 1
-
-    setIsCollected((isCollected) => !isCollected)
-    setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
-    ;(isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
-        } else {
-          if (isCollected) {
-          } else {
-            toast.success('nice!')
-          }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
-        }, 300)
-      })
-  }, [state, isCollected])
+    oaii.post(`/like`, { data: { post_id: id } }).then((_) => {
+      toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
+      setMetaInfo((prev) => ({ comment: prev.comment, like: prev.like + 1 }))
+    })
+  }, [])
 
   const onEvent = ({ type, payload }: PlayerEvent) => {
     const time = payload?.target?.currentTime
@@ -211,19 +157,7 @@ export default function PlayerPage({ id }: any) {
     }
   }
 
-  const {
-    Title,
-    Creator,
-    Tags: tags,
-    IsOriginal,
-    Hits,
-    CommentCount,
-    LikesCount,
-    CollectionCount,
-    Content,
-    Meta,
-    Cover
-  } = state
+  const { Title, Creator, Tags: tags, IsOriginal, Content, Meta, Cover } = state
 
   return (
     <div className={classNames('player', { 'no-side': !displayEpBar })}>
@@ -284,29 +218,23 @@ export default function PlayerPage({ id }: any) {
         </div>
       </div>
       <div className="video-actions">
-        <div className="icon-text">
+        {/* <div className="icon-text">
           <span className="icon">
             <FaEye />
           </span>
           <span className="text">{Hits || '-'}</span>
-        </div>
+        </div> */}
         <div className="icon-text">
           <span className="icon">
             <FaMessage />
           </span>
-          <span className="text">{CommentCount || '-'}</span>
+          <span className="text">{metaInfo.comment.length || '-'}</span>
         </div>
-        <div className={classNames('icon-text', { '--active': isLiked })} onClick={likeHandler}>
+        <div className={classNames('icon-text')} onClick={likeHandler}>
           <span className="icon">
             <FaHeart />
           </span>
-          <span className="text">{LikesCount || '-'}</span>
-        </div>
-        <div className={classNames('icon-text', { '--active': isCollected })} onClick={collectHandler}>
-          <span className="icon">
-            <FaStar />
-          </span>
-          <span className="text">{CollectionCount || '-'}</span>
+          <span className="text">{metaInfo.like || '-'}</span>
         </div>
       </div>
       {state.ID ? (
@@ -368,7 +296,7 @@ export default function PlayerPage({ id }: any) {
         <VideoMetaSkeleton className="video-info__skeleton" height={'200px'} />
       )}
 
-      <Comment id={id} />
+      <Comment postId={id} comments={metaInfo.comment} setMetaInfo={setMetaInfo} player={player as any} />
       <PlayerInfo post={state} show={modal} onChange={setModal} />
     </div>
   )

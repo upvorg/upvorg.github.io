@@ -164,6 +164,12 @@ $pr: 340px;
     margin-right: 1em;
     cursor: pointer;
     justify-content: center;
+    fill: #757575;
+
+    &:nth-last-child(1) {
+      fill: hsl(348, 86%, 61%);
+      color: hsl(348, 86%, 61%);
+    }
 
     .icon {
       margin-right: 6px;
@@ -171,7 +177,6 @@ $pr: 340px;
       svg {
         width: 22px;
         height: 22px;
-        fill: #757575;
       }
     }
 

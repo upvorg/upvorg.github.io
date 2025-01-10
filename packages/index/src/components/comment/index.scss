@@ -19,11 +19,11 @@
     padding-left: 50px;
     position: relative;
 
-    &:hover {
-      .video-comment-edit__input:not(:disabled) {
-        height: 100px;
-      }
-    }
+    // &:hover {
+    //   .video-comment-edit__input:not(:disabled) {
+    //     height: 100px;
+    //   }
+    // }
 
     &__avatar {
       position: absolute;
@@ -45,7 +45,7 @@
       border-radius: 6px;
       color: var(--text1);
       width: 100%;
-      height: 42px;
+      height: 142px;
       transition: 0.2s;
       padding: 10px 10px;
       outline: none;
@@ -58,13 +58,11 @@
       }
 
       &:not(:empty) {
-        height: 100px;
         border-color: var(--primary-color);
       }
 
       &:focus {
         border-color: var(--primary-color);
-        height: 100px;
         box-shadow: 0 0 0 0.125em rgb(102 104 171 / 25%);
       }
 

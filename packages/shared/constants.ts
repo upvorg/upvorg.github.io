@@ -76,4 +76,8 @@ const corsAxios = http.create<R.Response<any>>(
   localStorage.getItem('noproxy') ? 'https://www.clicli.cc' : 'https://cli.airmole.net'
 )
 
-export { axios, corsAxios }
+const oaii = http.create<R.Response<any>>(
+  localStorage.getItem('noproxy') ? 'https://oaii.vercel.app/api' : 'https://api.jinlilili.top/api'
+)
+
+export { axios, corsAxios, oaii }
