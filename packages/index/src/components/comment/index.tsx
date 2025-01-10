@@ -1,4 +1,4 @@
-import { FocusEventHandler, useEffect, useState } from 'react'
+import { FocusEventHandler, useState } from 'react'
 import toast from 'react-hot-toast'
 import classNames from 'classnames'
 import { getTimeDistance } from '@web/shared/utils/date'
