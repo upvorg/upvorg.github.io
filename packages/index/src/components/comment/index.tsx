@@ -11,7 +11,7 @@ interface CommentProps {
   postId: string
   onFocus?: FocusEventHandler<HTMLTextAreaElement>
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
-  comments: any[]
+  comments?: any[]
   player: { current: Player }
   setMetaInfo: any
 }
@@ -75,7 +75,7 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
                   <div className="comment-item__head">
                     <img className="comment-item__avatar" src={'/ic_launcher_round.png'} alt="" />
                     <div>
-                      <span className="comment-item__name"># {i}</span>
+                      <span className="comment-item__name"># {comments.length - i}</span>
                       <p className="comment-item__time">{getTimeDistance(item.createdAt)}</p>
                     </div>
                   </div>

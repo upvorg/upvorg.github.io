@@ -30,7 +30,7 @@ export default function PlayerPage({ id }: any) {
   const [source, _] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
   const [displayEpBar, setDisplayEpBar] = useState(false)
 
-  const [metaInfo, setMetaInfo] = useState({ like: 0, comment: [] })
+  const [metaInfo, setMetaInfo] = useState<{ like: number; comment?: any[] }>({ like: 0 })
 
   useEffect(() => {
     // axios.get(`/post/${id}`)
@@ -130,7 +130,7 @@ export default function PlayerPage({ id }: any) {
 
   const likeHandler = useCallback(() => {
     oaii.post(`/like`, { data: { post_id: id } }).then((_) => {
-      toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
+      toast.error('你所热爱的，就是你的生活。\r\n 				--------?', { id })
       setMetaInfo((prev) => ({ comment: prev.comment, like: prev.like + 1 }))
     })
   }, [])
@@ -227,7 +227,7 @@ export default function PlayerPage({ id }: any) {
           <span className="icon">
             <FaMessage />
           </span>
-          <span className="text">{metaInfo.comment.length || '-'}</span>
+          <span className="text">{metaInfo.comment?.length || '-'}</span>
         </div>
         <div className={classNames('icon-text')} onClick={likeHandler}>
           <span className="icon">
