@@ -49,7 +49,6 @@ export default function PlayerPage({ id }: any) {
 
         if (!_.err) {
           _.data && setState(_.data)
-          _.data.IsLiked == 2 && setIsLiked(true)
 
           // axios.get(`/post/${id}/videos`)
 

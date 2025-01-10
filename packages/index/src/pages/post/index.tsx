@@ -6,7 +6,6 @@ import copyTextToClipboard from 'copy-text-to-clipboard'
 import { getTimeDistance } from '@web/shared/utils/date'
 import { Markdown } from '@web/shared/components/markdown'
 import { axios } from '@web/shared/constants'
-import Comment from '../../components/comment'
 import { Postkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
 
@@ -16,7 +15,7 @@ const PostPage: React.FC = ({ id }: any) => {
   const [state, setState] = useState<R.Post>({} as R.Post)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [isCollected, setIsCollected] = useState<boolean>(false)
-  const [isFocus, setIsFocus] = useState<boolean>(false)
+  const [isFocus] = useState<boolean>(false)
 
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
@@ -163,7 +162,11 @@ const PostPage: React.FC = ({ id }: any) => {
             '--o': isMobile && isFocus
           })}
         >
-          <div className={classNames('post-side-action', { '--l': isLiked })} role="button" onClick={likeHandler}>
+          <div
+            className={classNames('post-side-action', { '--l': isLiked })}
+            role="button"
+            onClick={likeHandler}
+          >
             <div className="side-action-icon">
               <svg
                 className="side-action__icon"
@@ -222,7 +225,9 @@ const PostPage: React.FC = ({ id }: any) => {
                 ></path>
               </svg>
             </div>
-            <div className="side-action__text">{isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}</div>
+            <div className="side-action__text">
+              {isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}
+            </div>
           </div>
           <div
             className={classNames('post-side-action', { '--l': isCollected })}
@@ -288,7 +293,13 @@ const PostPage: React.FC = ({ id }: any) => {
                     ></path>
                   </svg>
                   <span>{CreatedAt ? getTimeDistance(CreatedAt) : '-'}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -297,7 +308,13 @@ const PostPage: React.FC = ({ id }: any) => {
                     ></path>
                   </svg>
                   <span>{Hits || '-'}</span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       fillRule="evenodd"
                       clipRule="evenodd"
@@ -324,11 +341,15 @@ const PostPage: React.FC = ({ id }: any) => {
                     title: tag,
                     href: `/pv/tag?type=video&title=${tag}`
                   }))
-                  .concat(IsOriginal == 2 ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` } : [])
+                  .concat(
+                    IsOriginal == 2
+                      ? { title: '原创', href: `/pv/tag?type=video&is_original=2&title=原创` }
+                      : []
+                  )
               : []
           }
         />
-        <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} />
+        {/* <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} /> */}
       </div>
     </>
   )
