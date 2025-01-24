@@ -47,9 +47,9 @@ export default function IndexPage() {
     Promise.allSettled(
       indexConfig.map(({ remote: remote }) => (typeof remote == 'string' ? corsAxios.get(remote) : remote))
     ).then((_resp) => {
-      const resp = _resp.map(({ value }: any) => {
-        if (value.posts) {
-          return cliclisAdapter(value.posts)
+      const resp = _resp.map(({ value }: any, i) => {
+        if (i != 0) {
+          return cliclisAdapter(value.data)
         }
 
         return value.data

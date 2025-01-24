@@ -97,7 +97,7 @@ export default function PlayerPage({ id }: any) {
     player.current?.context.ui?.menu.unregister('Source')
     corsAxios
       .get(`/post/${id}`)
-      .then((it) => clicliAdapter(it.result))
+      .then((it) => clicliAdapter(it.data))
       .then((it) => {
         setState(it)
         setVideo(it.Episodes)

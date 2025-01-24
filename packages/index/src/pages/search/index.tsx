@@ -30,7 +30,7 @@ export default function SearchPage() {
       // })
       corsAxios
         .get(`/search/posts?key=${encodeURIComponent(k)}`)
-        .then((it) => setPosts(cliclisAdapter(it.posts || null) as any))
+        .then((it) => setPosts(cliclisAdapter(it.data || null) as any))
         .catch((err) => {
           setPosts([])
           console.log(err)
@@ -51,7 +51,7 @@ export default function SearchPage() {
               e.preventDefault()
               const qs = Object.assign({}, queryString.parse(window.location.search), {
                 k: inputKeyword.current,
-                page: 1,
+                page: 1
               })
               setLocation(`/search?${queryString.stringify(qs)}`)
               // setQuery({ k: inputKeyword.current, v: Date.now() } as any)
