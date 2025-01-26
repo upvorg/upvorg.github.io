@@ -33,6 +33,9 @@ export default function PlayerPage({ id }: any) {
   const [metaInfo, setMetaInfo] = useState<{ like: number; comment?: any[] }>({ like: 0 })
 
   useEffect(() => {
+    Promise.all([oaii.get('/biu?post_id=' + id), oaii.get('/like?post_id=' + id)]).then(([comment, like]) => {
+      setMetaInfo({ comment, like })
+    })
     // axios.get(`/post/${id}`)
     import(`../../mock/post/${id}.json`)
       .catch(() => {
@@ -61,6 +64,8 @@ export default function PlayerPage({ id }: any) {
             if (!res.data) return
             ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
             setVideo(res.data)
+            console.log(res.data)
+
             player.current?.context.playlist.changeSourceList(
               res.data.map((it) => {
                 return {
@@ -103,10 +108,6 @@ export default function PlayerPage({ id }: any) {
         setVideo(it.Episodes)
         player.current?.context.playlist.changeSourceList(it.Episodes)
       })
-
-    Promise.all([oaii.get('/biu?post_id=' + id), oaii.get('/like?post_id=' + id)]).then(([comment, like]) => {
-      setMetaInfo({ comment, like })
-    })
   }, [isAdp])
 
   useEffect(() => {

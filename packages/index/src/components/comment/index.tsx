@@ -48,7 +48,7 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
         <h4>评论</h4>
       </div>
       <div className="video-comment-edit">
-        <img className="video-comment-edit__avatar" src={'/ic_launcher_round.png'} alt="" />
+        {/* <img className="video-comment-edit__avatar" src={'/ic_launcher_round.png'} alt="" /> */}
         <textarea
           className="video-comment-edit__input"
           placeholder="留下评论..."
@@ -58,14 +58,14 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
           onFocus={(e) => onFocus?.(e)}
           onBlur={(e) => onBlur?.(e)}
         ></textarea>
-        <button
-          disabled={!comment || isLoading}
-          className="button is-primary video-comment-edit__button"
-          onClick={doComment}
-        >
-          评论
-        </button>
       </div>
+      <button
+        disabled={!comment || isLoading}
+        className="comment-biu button is-primary video-comment-edit__button"
+        onClick={doComment}
+      >
+        评论
+      </button>
       <div className="comment-list">
         {comments ? (
           comments.length > 0 ? (
