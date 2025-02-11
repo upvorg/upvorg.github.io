@@ -77,11 +77,12 @@ export default function PlayerInfo({
             type="render"
             value={
               Content?.replace(/\!\[suo\](.+)/, '')
-                .replace(/播放出错.+\n/, '')
-                .replace(/播放失效.+\n/, '')
-                .replace(/有问题.+\n/, '')
-                .replace(/clicli.*\n/, '')
-                .replace(/CliCli.*\d+/, '') || '#### 暂无详情'
+                .replace(/播放出错.+(\n)?/, '')
+                .replace(/播放失效.+(\n)?/, '')
+                .replace(/有问题.+(\n)?/, '')
+                .replace(/clicli.*(\n)?/, '')
+                .replace(/CliCli.*\d+/, '')
+                .replace(/https:\/\/get\.tucao\..*(\n)?/, '') || '#### 暂无详情'
             }
           />
         </section>
