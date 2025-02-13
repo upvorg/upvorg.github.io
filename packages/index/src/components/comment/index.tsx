@@ -12,7 +12,7 @@ interface CommentProps {
   onFocus?: FocusEventHandler<HTMLTextAreaElement>
   onBlur?: FocusEventHandler<HTMLTextAreaElement>
   comments?: any[]
-  player: { current: Player }
+  player?: { current: Player }
   setMetaInfo: any
 }
 
@@ -27,7 +27,7 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
     setLoading(true)
     oaii
       .post(`/biu`, {
-        data: { content: comment, post_id: `${postId}`, video_time: player.current.currentTime }
+        data: { content: comment, post_id: `${postId}`, video_time: player?.current.currentTime || 0 }
       })
       .then((_) => {
         setLoading(false)
@@ -75,7 +75,7 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
                   <div className="comment-item__head">
                     <img className="comment-item__avatar" src={'/ic_launcher_round.png'} alt="" />
                     <div>
-                      <span className="comment-item__name"># {comments.length - i}</span>
+                      <span className="comment-item__name">#{comments.length - i}</span>
                       <p className="comment-item__time">{getTimeDistance(item.createdAt)}</p>
                     </div>
                   </div>

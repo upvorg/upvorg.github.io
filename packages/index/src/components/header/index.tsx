@@ -56,9 +56,9 @@ export default function Header() {
           <Link href="/" className="navbar-item">
             Home
           </Link>
-          <a className="navbar-item" href="/anime/index" target="_blank">
+          {/* <a className="navbar-item" href="/anime/index" target="_blank">
             Schedule
-          </a>
+          </a> */}
           <a
             className="navbar-item"
             href="https://cdn.jsdelivr.net/gh/upvorg/cdn@master/apk/app-arm64-v8a-release.apk"

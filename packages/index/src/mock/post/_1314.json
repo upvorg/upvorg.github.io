@@ -1,8 +1,8 @@
 {
   "data": {
-    "ID": "0",
-    "Cover": "https://image.maimn.com/cover/aca8d4b0dd45052f72fc42d3e5a5deff.jpg",
-    "Title": "铃芽之旅",
+    "ID": "_1314",
+    "Cover": "https://static.iyf.tv/upload/video/201609071605010586376.gif?w=216&h=309&format=jpg&mode=stretch",
+    "Title": "花束般的恋爱",
     "Content": "",
     "Tags": "其他",
     "Status": 4,
@@ -10,15 +10,15 @@
     "IsPined": 1,
     "IsRecommend": 2,
     "IsOriginal": 1,
-    "CreatedAt": "2022-05-12T15:44:00+08:00",
-    "UpdatedAt": "2022-05-12T16:40:13+08:00",
+    "CreatedAt": "2022-05-24T21:00:39+08:00",
+    "UpdatedAt": "2022-05-24T21:02:47+08:00",
     "Meta": {
       "TitleJapanese": "",
       "TitleRomanji": "",
-      "Genre": "番剧",
-      "Region": "日本",
-      "Episodes": 12,
-      "IsEnd": 2,
+      "Genre": "电影",
+      "Region": "其他",
+      "Episodes": 1,
+      "IsEnd": 1,
       "PublishDate": null,
       "UpdatedDate": null
     },
@@ -29,7 +29,7 @@
       "Avatar": "https://q1.qlogo.cn/g?b=qq\u0026nk=7619376472\u0026s=640",
       "Bio": "这个人很酷，什么都没有留下"
     },
-    "Hits": 33,
+    "Hits": 26,
     "IsLiked": 1,
     "LikesCount": 1,
     "IsCollected": 1,

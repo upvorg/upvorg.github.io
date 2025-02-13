@@ -131,7 +131,7 @@ export default function PlayerPage({ id }: any) {
 
   const likeHandler = useCallback(() => {
     oaii.post(`/like`, { data: { post_id: id } }).then((_) => {
-      toast.error('QwQ', { id })
+      toast.success('QwQ', { id })
       setMetaInfo((prev) => ({ comment: prev.comment, like: prev.like + 1 }))
     })
   }, [])

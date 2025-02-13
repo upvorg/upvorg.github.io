@@ -5,21 +5,24 @@ import { Helmet } from 'react-helmet'
 import copyTextToClipboard from 'copy-text-to-clipboard'
 import { getTimeDistance } from '@web/shared/utils/date'
 import { Markdown } from '@web/shared/components/markdown'
-import { axios } from '@web/shared/constants'
+import { oaii } from '@web/shared/constants'
 import { Postkeleton } from '../../skeleton/CommentSkeleton'
 import { Tags } from '../../components/tag/Tag'
+import Comment from '../../components/comment'
 
 import './index.scss'
 
 const PostPage: React.FC = ({ id }: any) => {
   const [state, setState] = useState<R.Post>({} as R.Post)
-  const [isLiked, setIsLiked] = useState<boolean>(false)
-  const [isCollected, setIsCollected] = useState<boolean>(false)
   const [isFocus] = useState<boolean>(false)
+  const [metaInfo, setMetaInfo] = useState<{ like: number; comment?: any[] }>({ like: 0 })
 
   const isMobile = useMemo(() => window.innerWidth < 991, [])
 
   useEffect(() => {
+    Promise.all([oaii.get('/biu?post_id=' + id), oaii.get('/like?post_id=' + id)]).then(([comment, like]) => {
+      setMetaInfo({ comment, like })
+    })
     // axios.get<R.Response<R.Post>>(`/post/${id}`)
     //@ts-ignore
     import(`../../mock/posts.json`).then((resp) => {
@@ -66,70 +69,19 @@ const PostPage: React.FC = ({ id }: any) => {
   }
 
   const likeHandler = useCallback(() => {
-    const c = isLiked ? -1 : 1
-    const LikesCount = state.LikesCount || 0
-
-    setIsLiked((isLiked) => !isLiked)
-    setState((state) => ({ ...state, LikesCount: LikesCount + c }))
-    ;(isLiked ? axios.delete(`/like/post/${id}`) : axios.post(`/like/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: LikesCount - c }))
-        } else {
-          if (isLiked) {
-            toast.error('你所热爱的，就是你的生活。\r\n 				--------?')
-          } else {
-            toast.success('nice!')
-          }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsLiked((isLiked) => !isLiked)
-          setState((state) => ({ ...state, LikesCount: LikesCount - 1 }))
-        }, 300)
-      })
-  }, [state, isLiked])
+    oaii.post(`/like`, { data: { post_id: id } }).then((_) => {
+      toast.success('QvQ', { id })
+      setMetaInfo((prev) => ({ comment: prev.comment, like: prev.like + 1 }))
+    })
+  }, [])
 
   const collectHandler = useCallback(() => {
-    const c = isCollected ? -1 : 1
+    toast.error('Q^Q!')
+  }, [])
 
-    setIsCollected((isCollected) => !isCollected)
-    setState((state) => ({ ...state, CollectionCount: state.CollectionCount + c }))
-    ;(isCollected ? axios.delete(`/collect/post/${id}`) : axios.post(`/collect/post/${id}`))
-      .then((_) => {
-        if (_.err) {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - c }))
-        } else {
-          if (isCollected) {
-          } else {
-            toast.success('nice!')
-          }
-        }
-      })
-      .catch(() => {
-        setTimeout(() => {
-          setIsCollected((isCollected) => !isCollected)
-          setState((state) => ({ ...state, CollectionCount: state.CollectionCount - 1 }))
-        }, 300)
-      })
-  }, [state, isCollected])
+  const isLiked = metaInfo.like > 0
 
-  const {
-    Title,
-    Creator,
-    CreatedAt,
-    Hits,
-    CommentCount,
-    Tags: tags,
-    IsOriginal,
-    LikesCount,
-    CollectionCount,
-    Content,
-    Cover
-  } = state
+  const { Title, Creator, CreatedAt, Hits, Tags: tags, IsOriginal, Content, Cover } = state
   const { Nickname, Avatar } = Creator || {}
 
   return (
@@ -225,12 +177,10 @@ const PostPage: React.FC = ({ id }: any) => {
                 ></path>
               </svg>
             </div>
-            <div className="side-action__text">
-              {isLiked ? `获赞 ${LikesCount}` : `点赞 ${LikesCount || ''}`}
-            </div>
+            <div className="side-action__text">{isLiked ? `获赞 ${metaInfo.like}` : `点赞`}</div>
           </div>
           <div
-            className={classNames('post-side-action', { '--l': isCollected })}
+            className={classNames('post-side-action', { '--l': false })}
             role="button"
             onClick={collectHandler}
           >
@@ -238,12 +188,12 @@ const PostPage: React.FC = ({ id }: any) => {
               className="side-action-icon"
               style={{
                 fontWeight: 'bold',
-                color: isCollected ? '#fff' : '#6668ab'
+                color: false ? '#fff' : '#6668ab'
               }}
             >
               藏
             </div>
-            <div className="side-action__text">{`收藏 ${CollectionCount || ''}`}</div>
+            <div className="side-action__text">{`收藏`}</div>
           </div>
           <div className="post-side-action share" role="button" onClick={shareHandler}>
             <div className="side-action-icon">
@@ -322,7 +272,7 @@ const PostPage: React.FC = ({ id }: any) => {
                       fill="var(--text3)"
                     ></path>
                   </svg>
-                  <span>{CommentCount || '-'}</span>
+                  <span>{metaInfo.comment?.length || '-'}</span>
                 </div>
               </div>
             </div>
@@ -349,7 +299,7 @@ const PostPage: React.FC = ({ id }: any) => {
               : []
           }
         />
-        {/* <Comment id={id} onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} /> */}
+        <Comment postId={id} comments={metaInfo.comment} setMetaInfo={setMetaInfo} />
       </div>
     </>
   )
