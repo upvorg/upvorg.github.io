@@ -140,7 +140,7 @@ module.exports = {
                 options: {
                   getCustomTransformers: () => ({
                     // @ts-ignore
-                    before: [isEnvDevelopment && ReactRefreshTypeScript()].filter(Boolean)
+                    before: [isEnvDevelopment && ReactRefreshTypeScript.default()].filter(Boolean)
                   }),
                   transpileOnly: isEnvDevelopment
                 }

@@ -64,8 +64,6 @@ export default function PlayerPage({ id }: any) {
             if (!res.data) return
             ;(res.data as R.Video[]).sort((a, b) => a.Episode - b.Episode)
             setVideo(res.data)
-            console.log(res.data)
-
             player.current?.context.playlist.changeSourceList(
               res.data.map((it) => {
                 return {
