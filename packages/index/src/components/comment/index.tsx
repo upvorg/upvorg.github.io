@@ -73,7 +73,7 @@ const Comment = ({ comments, onFocus, onBlur, postId, player, setMetaInfo }: Com
               {comments.map((item, i) => (
                 <li key={item.ID} className={classNames('comment-item')}>
                   <div className="comment-item__head">
-                    <img className="comment-item__avatar" src={'/ic_launcher_round.png'} alt="" />
+                    <img className="comment-item__avatar" src={'https://www.loliapi.com/acg/pp/'} alt="" />
                     <div>
                       <span className="comment-item__name">#{comments.length - i}</span>
                       <p className="comment-item__time">{getTimeDistance(item.createdAt)}</p>

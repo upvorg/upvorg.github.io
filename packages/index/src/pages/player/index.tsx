@@ -27,7 +27,7 @@ export default function PlayerPage({ id }: any) {
 
   const player = useRef<Player>(null)
   const [isAdp, setIsAdp] = useState(false)
-  const [source, _] = useState<any>({ poster: 'https://api.imlazy.ink/img', title: 'LOADING ...' })
+  const [source, _] = useState<any>({ poster: 'https://www.loliapi.com/acg/pc/', title: 'LOADING ...' })
   const [displayEpBar, setDisplayEpBar] = useState(false)
 
   const [metaInfo, setMetaInfo] = useState<{ like: number; comment?: any[] }>({ like: 0 })
@@ -106,6 +106,8 @@ export default function PlayerPage({ id }: any) {
       .then((it) => {
         setState(it)
         setVideo(it.Episodes)
+        // const groupIndex = localStorage.getItem('video_group') || 1
+
         player.current?.context.playlist.changeSourceList(it.Episodes)
       })
   }, [isAdp])
