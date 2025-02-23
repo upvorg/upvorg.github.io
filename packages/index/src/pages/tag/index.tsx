@@ -29,7 +29,7 @@ export default function SearchPage() {
       corsAxios
         .get(`/posts?status=&sort=&tag=${tag == 'all' ? '' : tag}&uid=&page=${page}&pageSize=24`)
         .then((it) => {
-          setPosts(cliclisAdapter(it.posts))
+          setPosts(cliclisAdapter(it.data))
         })
     } else {
       store
