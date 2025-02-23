@@ -1,5 +1,3 @@
-import groupBy from 'lodash.groupby'
-
 export function getSuo(content) {
   if (!content) return 'https://ae01.alicdn.com/kf/U6751d35799cc4d06965aa7b1879e0fc6i.jpg'
   let m = content.match(/suo(.+?)\)/i)
@@ -56,8 +54,7 @@ export const clicliAdapter = (item: any) => {
       Avatar: 'https://q1.qlogo.cn/g?b=qq&nk=7619376472&s=640',
       Bio: '这个人很酷，什么都没有留下'
     },
-    Episodes,
-    EpisodesGroup: groupBy(Episodes, (v) => v.Title)
+    Episodes
   }
 }
 

@@ -14,3 +14,7 @@ declare var __HOST__: string
 declare var __API_HOST__: string
 declare var __STORAGE_HOST__: string
 declare var __ADMIN_HOST__: string
+declare module 'react-helmet' {
+  const Helmet: any
+  export { Helmet }
+}

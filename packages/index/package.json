@@ -16,8 +16,5 @@
     "react-content-loader": "^7.0.2",
     "react-helmet": "^6.1.0",
     "use-query-params": "^2.2.1"
-  },
-  "devDependencies": {
-    "@types/react-helmet": "^6.1.11"
   }
 }
