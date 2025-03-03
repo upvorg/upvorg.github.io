@@ -58,7 +58,7 @@ export const clicliAdapter = (item: any) => {
   }
 }
 
-const blackList = [3421, 31, 786, 3880, 2617, 4087, 4086, 620, 3062]
+const blackList = [3421, 31, 786, 3880, 4087, 4086, 620, 3062, 4917]
 
 export const cliclisAdapter = (data: any[] | null) =>
   data?.filter((it) => !blackList.includes(it.id) && it.videos).map(clicliAdapter) || []

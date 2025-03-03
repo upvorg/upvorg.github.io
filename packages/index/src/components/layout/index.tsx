@@ -18,7 +18,7 @@ const IndexLayout: React.FC<PropsWithChildren<any>> = (props) => {
       } else {
         header.classList.remove('fixed-header')
       }
-    }, 200)
+    }, 100)
 
     $root.addEventListener('scroll', scrollHandler)
     return () => {
@@ -68,7 +68,13 @@ const LayoutRoute = ({ component: Component, layout: Layout, children, ...rest }
         return (
           <Layout>
             <Suspense fallback={<Loading />}>
-              {Component ? <Component {...params} /> : typeof children === 'function' ? children(params) : children}
+              {Component ? (
+                <Component {...params} />
+              ) : typeof children === 'function' ? (
+                children(params)
+              ) : (
+                children
+              )}
             </Suspense>
           </Layout>
         )
@@ -77,9 +83,13 @@ const LayoutRoute = ({ component: Component, layout: Layout, children, ...rest }
   )
 }
 
-const IndexRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRoute {...rest} layout={IndexLayout} />
+const IndexRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => (
+  <LayoutRoute {...rest} layout={IndexLayout} />
+)
 
-const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => <LayoutRoute {...rest} layout={DefaultLayout} />
+const DefaultRoute = ({ ...rest }: Omit<LayoutRouteProps, 'layout'>) => (
+  <LayoutRoute {...rest} layout={DefaultLayout} />
+)
 
 function Loading() {
   return (
