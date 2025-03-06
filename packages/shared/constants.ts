@@ -62,22 +62,16 @@ axios.interceptors.request.use((config) => {
   }
 })
 
-if (document.location.search.includes('noproxy=1')) {
-  localStorage.setItem('noproxy', '1')
-}
-
-if (document.location.search.includes('noproxy=0')) {
-  localStorage.removeItem('noproxy')
-}
-
 const corsAxios = http.create<R.Response<any>>(
   // https://cors-flame.vercel.app/api/cors
   // https://cors.jinlilili.top/api/cors?url=
-  localStorage.getItem('noproxy') ? 'https://www.clicli.cc' : 'https://cli.airmole.net'
+  // https://cli.airmole.net
+  'https://www.clicli.cc'
 )
 
 const oaii = http.create<R.Response<any>>(
-  localStorage.getItem('noproxy') ? 'https://oaii.vercel.app/api' : 'https://api.jinlilili.top/api'
+  //https://oaii.vercel.app/api
+  'https://api.jinlilili.top/api'
 )
 
 export { axios, corsAxios, oaii }
