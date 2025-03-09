@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import RankList from '../../components/rank-list'
 import ListSection from '../../components/list-section'
 
 import recommends from '../../mock/recommends.json'
@@ -74,7 +73,7 @@ export default function IndexPage() {
             icon={config.icon}
             title={config.title}
             moreUrl={`/pv/tag?${config.query}`}
-            aside={index == 0 && <RankList />}
+            // aside={index == 0 && <RankList />}
             asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
