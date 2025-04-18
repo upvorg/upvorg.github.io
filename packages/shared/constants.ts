@@ -65,8 +65,8 @@ axios.interceptors.request.use((config) => {
 const corsAxios = http.create<R.Response<any>>(
   // https://cors-flame.vercel.app/api/cors
   // https://cors.jinlilili.top/api/cors?url=
-  // https://cli.airmole.net
-  'https://www.clicli.cc'
+  'https://cli.airmole.net'
+  // 'https://www.clicli.cc'
 )
 
 const oaii = http.create<R.Response<any>>(

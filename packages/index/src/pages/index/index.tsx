@@ -5,6 +5,7 @@ import ListSection from '../../components/list-section'
 import recommends from '../../mock/recommends.json'
 import { cliclisAdapter } from '../../enime.adp'
 import { corsAxios } from '@web/shared/constants'
+import RankList from '../../components/rank-list'
 
 const indexConfig = [
   // {
@@ -17,22 +18,22 @@ const indexConfig = [
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
     remote: recommends
+  },
+  {
+    title: `🔥`,
+    remote: `/posts?status=&sort=&tag=推荐&page=1&pageSize=24`,
+    query: `tag=恋爱&title=❤️‍🔥`
+  },
+  {
+    title: `❤️‍🔥 Love`,
+    remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
+    query: `tag=恋爱&title=❤️‍🔥`
+  },
+  {
+    title: '✨Latest Releases',
+    remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+    query: 'tag=all&title=Latest Releases'
   }
-  // {
-  //   title: `🔥`,
-  //   remote: `/posts?status=&sort=&tag=推荐&page=1&pageSize=24`,
-  //   query: `tag=恋爱&title=❤️‍🔥`
-  // },
-  // {
-  //   title: `❤️‍🔥 Love`,
-  //   remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
-  //   query: `tag=恋爱&title=❤️‍🔥`
-  // },
-  // {
-  //   title: '✨Latest Releases',
-  //   remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
-  //   query: 'tag=all&title=Latest Releases'
-  // }
 ]
 
 export default function IndexPage() {
@@ -73,7 +74,7 @@ export default function IndexPage() {
             icon={config.icon}
             title={config.title}
             moreUrl={`/pv/tag?${config.query}`}
-            // aside={index == 0 && <RankList />}
+            aside={index == 0 && <RankList />}
             asideTitle={(index == 0 && 'Ranks') as any}
           />
         )
