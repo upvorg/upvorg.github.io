@@ -91,7 +91,7 @@ const OPlayer = React.forwardRef(
             })
           }
         }),
-        hls({ forceHLS: true }),
+        hls({ forceHLS: true, library: 'https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.min.js' }),
         new Playlist({ sources: [] }),
         new Chromecast(),
         new Anime4kPlugin(),

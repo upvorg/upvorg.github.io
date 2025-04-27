@@ -6,6 +6,7 @@ import recommends from '../../mock/recommends.json'
 import { cliclisAdapter } from '../../enime.adp'
 import { corsAxios } from '@web/shared/constants'
 import RankList from '../../components/rank-list'
+import classNames from 'classnames'
 
 const indexConfig = [
   // {
@@ -18,22 +19,22 @@ const indexConfig = [
     query: 'type=recommends&title=recommends',
     icon: require('../../assets/recommend.svg').default,
     remote: recommends
-  },
-  {
-    title: `🔥`,
-    remote: `/posts?status=&sort=&tag=推荐&page=1&pageSize=24`,
-    query: `tag=恋爱&title=❤️‍🔥`
-  },
-  {
-    title: `❤️‍🔥 Love`,
-    remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
-    query: `tag=恋爱&title=❤️‍🔥`
-  },
-  {
-    title: '✨Latest Releases',
-    remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
-    query: 'tag=all&title=Latest Releases'
   }
+  // {
+  //   title: `🔥`,
+  //   remote: `/posts?status=&sort=&tag=推荐&page=1&pageSize=24`,
+  //   query: `tag=推荐&title=❤️‍🔥`
+  // },
+  // {
+  //   title: `❤️‍🔥 Love`,
+  //   remote: `/posts?status=&sort=&tag=恋爱&page=1&pageSize=24`,
+  //   query: `tag=恋爱&title=❤️‍🔥`
+  // }
+  // {
+  //   title: '✨Latest Releases',
+  //   remote: `/posts?status=&sort=&tag=&uid=&page=1&pageSize=24`,
+  //   query: 'tag=all&title=Latest Releases'
+  // }
 ]
 
 export default function IndexPage() {
@@ -79,6 +80,57 @@ export default function IndexPage() {
           />
         )
       })}
+      <TagAnime />
     </>
+  )
+}
+
+const TagAnime = () => {
+  const [tag, setTag] = useState('tag=推荐&sort=新番')
+  const [state, setState] = useState<R.Post[]>([])
+
+  useEffect(() => {
+    corsAxios.get(`/posts?status=&page=${1}&pageSize=24&${tag}`).then((it) => {
+      setState(cliclisAdapter(it.data))
+    })
+  }, [state])
+
+  return (
+    <div>
+      <ListSection
+        isFeed={true}
+        videos={state}
+        moreUrl={!(tag == 'tag=推荐&sort=新番' || tag == 'tag=') && `/pv/tag?${tag}`}
+        title={
+          <div className="tags are-medium" style={{ marginBottom: '6px' }}>
+            {[
+              ['🔥 Hot', 'tag=推荐&sort=新番'],
+              ['✨ Latest', 'tag='],
+              ['2025/04', 'tag=2025年4月'],
+              ['❤️‍🔥 Love', 'tag=恋爱'],
+              ['🤣 Funny', 'tag=搞笑'],
+              ['🔞', 'tag=r15']
+            ].map(([title, type]) => (
+              <a
+                className={classNames('tag is-hoverable is-medium', {
+                  'is-primary': tag == type
+                })}
+                key={type}
+                onClick={() => {
+                  if (type == 'tag=r15') return
+                  setTag(type)
+                }}
+                onDoubleClick={() => {
+                  if (type != 'tag=r15') return
+                  setTag(type)
+                }}
+              >
+                {title}
+              </a>
+            ))}
+          </div>
+        }
+      />
+    </div>
   )
 }

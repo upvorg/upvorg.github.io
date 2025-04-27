@@ -1,13 +1,14 @@
 import VideoCard, { LiveCard } from '../video-card'
 import cls from 'classnames'
+import React from 'react'
 import './index.scss'
 
 interface ListSectionProps {
-  title: string
+  title: string | React.ReactNode
   videos?: R.Post[] | null
   asideTitle?: string
   aside?: React.ReactNode
-  moreUrl?: string
+  moreUrl?: string | false
   icon?: string
   isLive?: boolean
   isFeed?: boolean
@@ -27,10 +28,14 @@ export default function ListSection({
     <div className={cls('upv-grid', { 'col-2': asideTitle, 'is-live': isLive })}>
       <div className={'upv-card-list'}>
         <div className="list-header">
-          <div>
-            {icon && <img src={icon} alt={title} />}
-            <h2>{title}</h2>
-          </div>
+          {typeof title == 'string' ? (
+            <div>
+              {icon && <img src={icon} alt={title} />}
+              <h2>{title}</h2>
+            </div>
+          ) : (
+            title
+          )}
           {moreUrl && videos && videos.length > 0 && (
             <a className="list-header__more" href={moreUrl} target="_blank">
               more
