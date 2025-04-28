@@ -93,7 +93,7 @@ const TagAnime = () => {
     corsAxios.get(`/posts?status=&page=${1}&pageSize=24&${tag}`).then((it) => {
       setState(cliclisAdapter(it.data))
     })
-  }, [state])
+  }, [tag])
 
   return (
     <div>
