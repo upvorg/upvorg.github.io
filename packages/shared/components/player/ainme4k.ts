@@ -1,5 +1,5 @@
 import { Player, PlayerPlugin, isMobile } from '@oplayer/core'
-import * as anime4k from 'anime4k.js'
+// import * as anime4k from 'anime4k.js'
 
 const fps = 30
 
@@ -7,7 +7,9 @@ export default class Anime4kPlugin implements PlayerPlugin {
   name = 'anime4k.js'
   player!: Player
 
-  anime4kUpscaler: anime4k.VideoUpscaler | undefined
+  anime4kUpscaler: any // anime4k.VideoUpscaler | undefined
+
+  anime4k?: any
 
   apply(player: Player) {
     if (isMobile) return
@@ -15,7 +17,11 @@ export default class Anime4kPlugin implements PlayerPlugin {
     const { context, $video, $root } = (this.player = player)
     let on: string | null = localStorage.getItem('anime4k')
 
-    const onChange = (key: any, value: boolean) => {
+    const onChange = async (key: any, value: boolean) => {
+      if (!this.anime4k) {
+        this.anime4k = await import('anime4k.js')
+      }
+
       if (this.anime4kUpscaler) {
         //@ts-ignore
         this.anime4kUpscaler.canvas?.remove()
@@ -32,7 +38,7 @@ export default class Anime4kPlugin implements PlayerPlugin {
         $root.insertBefore(canvas, context.ui.$root)
 
         //@ts-ignore
-        this.anime4kUpscaler = new anime4k.VideoUpscaler(fps, anime4k[key])
+        this.anime4kUpscaler = new this.anime4k.VideoUpscaler(fps, this.anime4k[key])
         this.anime4kUpscaler.attachVideo(this.player.$video, canvas)
         this.anime4kUpscaler.start()
         localStorage.setItem('anime4k', key)
