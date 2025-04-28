@@ -86,7 +86,7 @@ module.exports = {
               chunks: 'async',
               priority: 20,
               test: (module) => {
-                return /hls.+/.test(module.context)
+                return /\\hls\.js.+/.test(module.context)
               }
             },
             griffith: {
