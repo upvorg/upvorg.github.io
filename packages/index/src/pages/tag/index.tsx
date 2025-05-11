@@ -45,13 +45,13 @@ export default function SearchPage() {
   return (
     <>
       <Helmet>
-        <title>{`${title} - UPV - free animes no ads`}</title>
+        <title>{`${title || tag} - UPV - free animes no ads`}</title>
       </Helmet>
 
       <div className="search">
         <div className="search-header"></div>
         <div className="search-body">
-          <ListSection title={title} videos={posts} />
+          <ListSection title={title || tag} videos={posts} />
           {type != 'recommends' && (
             <div
               className="paginate-container field has-addons"
