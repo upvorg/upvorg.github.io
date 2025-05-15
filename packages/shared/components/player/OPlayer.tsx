@@ -1,6 +1,7 @@
 import type { Player, PlayerEvent, PlayerOptions, PlayerPlugin } from '@oplayer/core'
 import { isIOS, isMobile } from '@oplayer/core'
-import hls from '@oplayer/hls'
+// import hls from '@oplayer/hls'
+import shaka from '@oplayer/shaka'
 import ReactPlayer from '@oplayer/react'
 import ui from '@oplayer/ui'
 import React, { useImperativeHandle, useMemo, useRef } from 'react'
@@ -91,7 +92,10 @@ const OPlayer = React.forwardRef(
             })
           }
         }),
-        hls({ forceHLS: true, library: 'https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.min.js' }),
+        shaka({
+          library: 'https://cdn.jsdelivr.net/npm/shaka-player@4.14.1/dist/shaka-player.compiled.min.js'
+        }),
+        // hls({ forceHLS: true, library: 'https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.min.js' }),
         new Playlist({ sources: [] }),
         new Chromecast(),
         new Anime4kPlugin(),
