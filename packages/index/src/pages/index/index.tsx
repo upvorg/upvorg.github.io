@@ -100,7 +100,7 @@ const TagAnime = () => {
       <ListSection
         isFeed={true}
         videos={state}
-        moreUrl={!(tag == 'tag=推荐&sort=新番') && `/pv/tag?${tag}`}
+        moreUrl={!(tag == 'tag=推荐&sort=新番') && `/pv/tag?${tag || 'all'}`}
         title={
           <div className="tags are-medium" style={{ marginBottom: '6px' }}>
             {[
